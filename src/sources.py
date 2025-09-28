@@ -19,13 +19,18 @@ def save_cache(cache):
     json.dump(cache, open(CACHE_PATH,'w',encoding='utf-8'), indent=2)
 
 def robots_allowed(url, user_agent="*"):
+    # ROBOTS_DEBUG
+    import os
     try:
         parts = urllib.parse.urlsplit(url)
         robots_url = f"{parts.scheme}://{parts.netloc}/robots.txt"
         rp = RobotFileParser()
         rp.set_url(robots_url)
         rp.read()
-        return rp.can_fetch(user_agent, url)
+        allowed = rp.can_fetch(user_agent, url)
+        if os.getenv('FEEDS_DEBUG') and not allowed:
+            print(f"   robots.txt disallows: {url}")
+        return allowed
     except Exception:
         return True
 
