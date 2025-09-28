@@ -1,4 +1,4 @@
-import os, json, yaml
+import os, json, yaml, re
 from datetime import datetime, timedelta
 from dateutil import tz, parser
 from ics import Calendar, Event
