@@ -2,7 +2,7 @@ import os, json, yaml
 from datetime import datetime, timedelta
 from dateutil import tz, parser
 from ics import Calendar, Event
-from sources import fetch_rss, fetch_ics, fetch_html, fetch_eventbrite
+from sources import fetch_rss, fetch_ics, fetch_html, fetch_eventbrite, fetch_bandsintown
 from utils import hash_event, parse_when, categorize_text
 
 DATA_EVENTS = 'data/events.json'
@@ -102,6 +102,9 @@ def main():
             elif t == 'eventbrite' and cfg.get('enable_eventbrite', True):
                 token = os.getenv('EVENTBRITE_TOKEN') or cfg.get('eventbrite_token')
                 collected += fetch_eventbrite(src['url'], token_env=token)
+            elif t == 'bandsintown' and cfg.get('enable_bandsintown', True):
+                appid = os.getenv('BANDSINTOWN_APP_ID') or cfg.get('bandsintown_app_id')
+                collected += fetch_bandsintown(src['url'], app_id_env=appid)
         except Exception as e:
             print("WARN source failed:", src.get('name'), e)
 

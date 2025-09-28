@@ -223,3 +223,42 @@ def fetch_eventbrite(api_url, token_env=None):
             "source": "eventbrite"
         })
     return out
+
+def fetch_bandsintown(url, app_id_env=None):
+    app_id = app_id_env or os.getenv("BANDSINTOWN_APP_ID") or ""
+    u = url.replace("${BANDSINTOWN_APP_ID}", app_id)
+    if not app_id:
+        return []
+    status, body, _ = req_with_cache(u, headers={"User-Agent": "fxbg-event-bot/1.0"})
+    if status == 304:
+        return []
+    if status != 200:
+        return []
+    try:
+        data = json.loads(body)
+    except Exception:
+        return []
+    out = []
+    seq = data if isinstance(data, list) else data.get("events", [])
+    for ev in seq:
+        title = None
+        lineup = ev.get("lineup") or []
+        if isinstance(lineup, list) and lineup:
+            title = " / ".join(lineup) + " @ " + (ev.get("venue", {}).get("name") or "Unknown venue")
+        else:
+            title = (ev.get("title") or "Live music") + " @ " + (ev.get("venue", {}).get("name") or "Unknown venue")
+        start = ev.get("starts_at") or ev.get("datetime") or ev.get("start")
+        desc = ev.get("description") or ""
+        venue = ev.get("venue", {})
+        location = venue.get("name")
+        link = ev.get("url") or ev.get("offer_url")
+        out.append({
+            "title": title,
+            "description": desc,
+            "link": link,
+            "start": start,
+            "end": None,
+            "location": location,
+            "source": "bandsintown"
+        })
+    return out
