@@ -218,6 +218,8 @@ def fetch_html(url, css, user_agent="fxbg-event-bot/1.0", throttle=(2,5)):
     return [e for e in out if e.get('title')]
 
 def fetch_eventbrite(api_url, token_env=None):
+    # Eventbrite fallback token handling
+    import os, urllib.parse
     import os
     token = token_env or os.getenv("EVENTBRITE_TOKEN") or ""
     if not token:
