@@ -90,8 +90,10 @@ def main():
 
     collected = []
     debug = bool(os.getenv('FEEDS_DEBUG'))
+    debug = bool(os.getenv('FEEDS_DEBUG'))
 
     for src in cfg.get('sources', []):
+        if debug: print(f"→ Fetching: {src.get('name')} [{src.get('type')}] {src.get('url')}")
         if debug: print(f"→ Fetching: {src.get('name')} [{src.get('type')}] {src.get('url')}")
         t = src.get('type')
         try:
