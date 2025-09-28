@@ -3,13 +3,13 @@
     {
       "title": "Stafford\u2019s most colorful street festival",
       "description": "10:00 a.m. \u2013 5:00 p.m.",
-      "location": "10:00 a.m. \u2013 5:00 p.m.",
-      "start": "2025-09-28 10:00:24.611750-04:00",
-      "end": "2025-09-28 17:00:24.611750-04:00",
+      "location": "",
+      "start": "2025-09-28 10:00:00-04:00",
+      "end": "2025-09-28 17:00:00-04:00",
       "link": null,
       "source": "https://vcstafford.com/",
       "category": "family",
-      "id": "29f46f62405ab17a7d0cefde2ec15ac0f5a7d106"
+      "id": "59924841111f8e7d1d33ad14a9577c02f609a813"
     }
   ]
 }
