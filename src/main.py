@@ -19,7 +19,14 @@ WS_RE = re.compile(r"[ \t\f\v]+")
 DATE_PREFIX_RE = re.compile(r"^[A-Za-z]{3}\s+\d{1,2},\s+\d{4}:\s+")
 TRAILING_AT_RE = re.compile(r"\s+at\s+(.+)$", re.IGNORECASE)
 
+BOILERPLATE_LINE_PATTERNS = [
+    re.compile(r"^\s*view on site\s*$", re.I),
+    re.compile(r"^\s*\|\s*$"),
+    re.compile(r"^\s*email this event\s*$", re.I),
+]
+
 def strip_html_to_text(html: str) -> str:
+    """Turn HTML into plain text with REAL newlines (not literal \\n)."""
     if not html:
         return ""
     try:
@@ -29,8 +36,32 @@ def strip_html_to_text(html: str) -> str:
         txt = txt.replace("&nbsp;", " ").replace("&amp;", "&")
     lines = [WS_RE.sub(" ", ln).strip() for ln in txt.splitlines()]
     lines = [ln for ln in lines if ln]
-    # Use literal \n, which ics.py will fold as needed
-    return "\\n".join(lines)
+    # return real newline characters; ics.py will escape/fold correctly
+    return "\n".join(lines)
+
+def tidy_desc_text(text: str) -> str:
+    """Remove boilerplate lines and collapse whitespace; keep meaningful lines."""
+    if not text:
+        return ""
+    out = []
+    for ln in text.splitlines():
+        s = ln.strip()
+        if not s:
+            continue
+        # drop boilerplate markers like "View on site", a lone "|" etc.
+        if any(pat.match(s) for pat in BOILERPLATE_LINE_PATTERNS):
+            continue
+        out.append(s)
+    # collapse runs of duplicate lines while preserving order
+    dedup = []
+    seen = set()
+    for s in out:
+        key = s.lower()
+        if key in seen:
+            continue
+        seen.add(key)
+        dedup.append(s)
+    return "\n".join(dedup)
 
 def add_html_description(event_obj, html: str):
     if not html:
@@ -119,13 +150,20 @@ def to_ics_event(ev):
 
     # DESCRIPTION (plain text) + X-ALT-DESC (html if original looked like HTML)
     desc_html = ev.get('description') or ''
-    desc_text = strip_html_to_text(desc_html) if '<' in desc_html and '>' in desc_html else (desc_html or '')
+    if '<' in desc_html and '>' in desc_html:
+        desc_text = strip_html_to_text(desc_html)
+    else:
+        desc_text = desc_html
+    desc_text = tidy_desc_text(desc_text)
+
+    # add link as a final line if not already present
     link = ev.get('link')
-    if link:
-        desc_text = (desc_text + f"\\n{link}").strip() if desc_text else link
+    if link and (link not in desc_text.split()):
+        desc_text = (desc_text + ("\n" if desc_text else "") + link)
 
     if desc_text:
         e.description = desc_text
+
     # If it appears to be HTML, also include HTML alt description
     if desc_html and (('<' in desc_html and '>' in desc_html) or desc_html.strip().startswith('&lt;')):
         add_html_description(e, desc_html)
