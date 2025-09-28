@@ -7,8 +7,8 @@ keywords:
 
 # APIs you enabled
 enable_facebook: false
-enable_eventbrite: true
-enable_bandsintown: true
+enable_eventbrite: false
+enable_bandsintown: false
 
 # prefer GitHub Action secrets; these can be blank here
 eventbrite_token: ""
