@@ -1,0 +1,163 @@
+# FXBG event feed configuration
+timezone: "America/New_York"
+
+keywords:
+  family: ["kid", "kids", "family", "farm", "market", "festival", "pumpkin", "hayride",
+           "art in the park", "museum", "library", "block party", "chalk", "via colori",
+           "scarecrow", "parade", "santa", "easter", "egg hunt", "trunk-or-treat"]
+  adult:  ["tavern", "brewery", "happy hour", "trivia", "live music", "band",
+           "wine", "cider", "theatre", "burlesque", "comedy", "DJ", "pub"]
+  recurring: ["every ", "weekly", "wednesdays", "thursdays", "fridays", "saturdays", "sundays",
+              "mondays", "tuesdays", "first ", "second ", "third ", "last "]
+
+# Toggle sources conveniently
+enable_facebook: true   # requires FACEBOOK_TOKEN secret in GitHub or env var locally
+
+# Sources list. Types supported:
+#  - rss: RSS/Atom feeds
+#  - ics: direct .ics calendar feeds
+#  - html: HTML pages + CSS selectors describing listing structure
+#  - facebook_page: pulls public events from a Page via Graph API (token required)
+sources:
+  # --- Official/City/Regional ---
+  - name: "FXBG.com Events (Visit FXBG)"
+    type: "html"
+    url: "https://fxbg.com/events/"
+    html:
+      item: "article"
+      title: "h2, .entry-title"
+      date: "time, .tribe-event-date, .date"
+      time: "time"
+      location: ".tribe-events-venue, .venue, .location"
+      description: "p"
+
+  - name: "Fredericksburg Parks & Recreation — Farmers Market"
+    type: "html"
+    url: "https://www.fredericksburgva.gov/199/Farmers-Market"
+    html:
+      item: ".content, .row, .widget"
+      title: "h1, h2"
+      date: "p, .info, time"
+      time: "time"
+      location: ".location, p"
+      description: "p"
+
+  - name: "Fredericksburg Parks & Rec — Catalog of Activities"
+    type: "html"
+    url: "https://www.fredericksburgva.gov/370/Catalog-of-Activities"
+    html:
+      item: ".content, .row, .widget"
+      title: "h1, h2, .title"
+      date: "p, time"
+      time: "time"
+      location: ".location, p"
+      description: "p"
+
+  - name: "UMW Theatre — Klein Theatre Season"
+    type: "html"
+    url: "https://cas.umw.edu/theatre/klein-theatre/2025-26-season/"
+    html:
+      item: ".entry-content > *"
+      title: "h2, strong"
+      date: "p, li"
+      time: "p, li, time"
+      location: "p, li"
+      description: "p, li"
+
+  - name: "UMW University Events"
+    type: "html"
+    url: "https://www.umw.edu/events/"
+    html:
+      item: ".event, .event-item, li"
+      title: ".event-title, h3, a"
+      date: "time, .event-date"
+      time: "time"
+      location: ".event-location, .location"
+      description: ".event-description, p"
+
+  - name: "Fredericksburg Parent — Family/Kids Calendar"
+    type: "html"
+    url: "https://www.fredericksburgparent.net/calendar"
+    html:
+      item: "article, .event, li"
+      title: "h2, h3, a"
+      date: "time, .date, .event-date"
+      time: "time"
+      location: ".location, p"
+      description: "p"
+
+  - name: "Macaroni KID Fredericksburg Events"
+    type: "html"
+    url: "https://fredericksburg.macaronikid.com/events"
+    html:
+      item: ".event-listing, .event, li, article"
+      title: ".event-title, h3, a"
+      date: "time, .date"
+      time: "time"
+      location: ".event-location, .location, p"
+      description: ".event-description, p"
+
+  - name: "Fredericksburg Greek Festival"
+    type: "html"
+    url: "https://www.fredgreek.org/greek-festival-details"
+    html:
+      item: "body"
+      title: "h1, h2, .title"
+      date: "p, .date, time"
+      time: "time"
+      location: "p"
+      description: "p"
+
+  - name: "Via Colori Stafford — Official"
+    type: "html"
+    url: "https://vcstafford.com/"
+    html:
+      item: "body"
+      title: "h1, h2, .title"
+      date: "p, .date, time"
+      time: "time"
+      location: "p"
+      description: "p"
+
+  # --- Venues / Nightlife (public sites) ---
+  - name: "Adventure Brewing — Events"
+    type: "html"
+    url: "https://adventurebrewing.com/events/"
+    html:
+      item: ".mec-events .mec-event-article, .mec-calendar, .event"
+      title: ".mec-event-title, h3, a"
+      date: ".mec-event-date, time, .mec-start-date"
+      time: "time, .mec-time"
+      location: ".mec-venue, .location, p"
+      description: ".mec-event-description, p"
+
+  - name: "Colonial Tavern — Event Calendar"
+    type: "html"
+    url: "https://www.irishbrigadetavern.com/event-calendar"
+    html:
+      item: "body"
+      title: "h1, h2, .title"
+      date: "p, time"
+      time: "time"
+      location: "p"
+      description: "p"
+
+  # --- Optional: Facebook Pages (public) ---
+  - name: "Wild Hare Cider FXBG — Facebook Page"
+    type: "facebook_page"
+    page_id: "wildhareciderfxbg"
+
+  - name: "Highmark Brewery — Facebook Page"
+    type: "facebook_page"
+    page_id: "Highmarkbrewery"
+
+  - name: "Red Dragon Brewery — Facebook Page"
+    type: "facebook_page"
+    page_id: "reddragonbreweryllc"
+
+  - name: "Rebellion FXBG — Facebook Page"
+    type: "facebook_page"
+    page_id: "eatatrebellion.fxbg"
+
+# Manual seed events (optional)
+manual_events: []
