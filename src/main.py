@@ -89,22 +89,24 @@ def main():
     keep_days = int(cfg.get('max_future_days', 365))
 
     collected = []
+    debug = bool(os.getenv('FEEDS_DEBUG'))
 
     for src in cfg.get('sources', []):
+        if debug: print(f"→ Fetching: {src.get('name')} [{src.get('type')}] {src.get('url')}")
         t = src.get('type')
         try:
             if t == 'rss':
-                collected += fetch_rss(src['url'])
+                got = fetch_rss(src['url']); collected += got; print(f"   rss events: {len(got)}") if debug else None
             elif t == 'ics':
-                collected += fetch_ics(src['url'])
+                got = fetch_ics(src['url']); collected += got; print(f"   ics events: {len(got)}") if debug else None
             elif t == 'html':
-                collected += fetch_html(src['url'], src.get('html', {}))
+                got = fetch_html(src['url'], src.get('html', {})); collected += got; print(f"   html events: {len(got)}") if debug else None
             elif t == 'eventbrite' and cfg.get('enable_eventbrite', True):
                 token = os.getenv('EVENTBRITE_TOKEN') or cfg.get('eventbrite_token')
-                collected += fetch_eventbrite(src['url'], token_env=token)
+                got = fetch_eventbrite(src['url'], token_env=token); collected += got; print(f"   eventbrite events: {len(got)}") if debug else None
             elif t == 'bandsintown' and cfg.get('enable_bandsintown', True):
                 appid = os.getenv('BANDSINTOWN_APP_ID') or cfg.get('bandsintown_app_id')
-                collected += fetch_bandsintown(src['url'], app_id_env=appid)
+                got = fetch_bandsintown(src['url'], app_id_env=appid); collected += got; print(f"   bandsintown events: {len(got)}") if debug else None
         except Exception as e:
             print("WARN source failed:", src.get('name'), e)
 
