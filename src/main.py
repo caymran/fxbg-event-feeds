@@ -1,213 +1,190 @@
-import os, json, yaml, re
-from datetime import datetime, timedelta
-from dateutil import tz, parser
-from ics import Calendar, Event
+# src/main.py
+
+import re
+import uuid
+from datetime import datetime, timezone
+
+# ics.py preferred
 try:
-    from ics.grammar.parse import ContentLine
-except Exception:
+    from ics import Calendar, Event
     try:
-        from ics.grammar.line import ContentLine
+        # old ics.py
+        from ics.grammar.parse import ContentLine  # type: ignore
     except Exception:
-        ContentLine = None
-from sources import fetch_rss, fetch_ics, fetch_html, fetch_eventbrite, fetch_bandsintown
-from utils import hash_event, parse_when, categorize_text
-from bs4 import BeautifulSoup
+        # new ics.py
+        from ics.grammar.line import ContentLine  # type: ignore
+    HAS_ICS = True
+except ImportError:
+    HAS_ICS = False
 
+# icalendar fallback (if you aren't using ics.py)
+if not HAS_ICS:
+    from icalendar import Calendar, Event  # type: ignore
+    ContentLine = None  # sentinel
 
+try:
+    from bs4 import BeautifulSoup
+except ImportError:
+    BeautifulSoup = None
+
+# ---------- helpers ----------
+
+DATE_PREFIX_RE = re.compile(r"^[A-Za-z]{3}\s+\d{1,2},\s+\d{4}:\s+")
+TRAILING_AT_RE = re.compile(r"\s+at\s+(.+)$", re.IGNORECASE)
 HTML_TAG_RE = re.compile(r"<[^>]+>")
 WS_RE = re.compile(r"[ \t\f\v]+")
 
 def strip_html_to_text(html: str) -> str:
+    """Return compact RFC5545-safe plain text."""
     if not html:
         return ""
-    try:
+    if BeautifulSoup:
         txt = BeautifulSoup(html, "html.parser").get_text("\n")
-    except Exception:
-        txt = HTML_TAG_RE.sub("", html)
-        txt = txt.replace("&nbsp;", " ").replace("&amp;", "&")
+    else:
+        txt = HTML_TAG_RE.sub("", html).replace("&nbsp;", " ").replace("&amp;", "&")
+    # normalize whitespace and blank lines
     lines = [WS_RE.sub(" ", ln).strip() for ln in txt.splitlines()]
     lines = [ln for ln in lines if ln]
-    # Use literal \n, which ics.py will fold as needed
+    # ICS values should contain literal \n for newlines
     return "\\n".join(lines)
 
-def add_html_description(event_obj, html: str):
+def add_html_alt_desc(event_obj, html: str):
+    """Add X-ALT-DESC;FMTTYPE=text/html for clients that support it."""
     if not html:
         return
-    try:
-        if ContentLine:
-            event_obj.extra.append(
-                ContentLine(name="X-ALT-DESC", params={"FMTTYPE": "text/html"}, value=html)
+    if ContentLine:  # ics.py path
+        event_obj.extra.append(
+            ContentLine(
+                name="X-ALT-DESC",
+                params={"FMTTYPE": "text/html"},
+                value=html,
             )
+        )
+    else:  # icalendar path
+        event_obj.add("X-ALT-DESC", html, parameters={"FMTTYPE": "text/html"})
+
+def clean_title_and_location(raw_title: str, existing_location: str | None) -> tuple[str, str | None]:
+    """Remove 'Mon dd, yyyy: ' prefix and pull trailing ' at Location' into LOCATION."""
+    title = (raw_title or "").strip()
+
+    # Strip leading "Oct 23, 2025: "
+    title = DATE_PREFIX_RE.sub("", title).strip()
+
+    loc = (existing_location or "").strip()
+
+    # If no explicit location, try to peel off ' at XYZ' at the end of the title
+    if not loc:
+        m = TRAILING_AT_RE.search(title)
+        if m:
+            loc = m.group(1).strip()
+            title = TRAILING_AT_RE.sub("", title).strip()
+
+    return title, (loc or None)
+
+def coerce_dt(val):
+    """Accept aware datetimes or ISO strings. If naive dt, force UTC."""
+    if isinstance(val, datetime):
+        return val if val.tzinfo else val.replace(tzinfo=timezone.utc)
+    # ics.py accepts certain string formats; ISO works fine.
+    return val
+
+# ---------- core: build event + calendar ----------
+
+def build_event(item) -> Event:
+    e = Event()
+
+    # SUMMARY (title only)
+    raw_title = item.get("title") or item.get("name") or ""
+    raw_loc = item.get("location") or ""
+    title, loc = clean_title_and_location(raw_title, raw_loc)
+    if title:
+        # ics.py uses .name for SUMMARY
+        try:
+            e.name = title
+        except Exception:
+            e.summary = title  # icalendar path
+    if loc:
+        e.location = loc
+
+    # DESCRIPTION (text) + X-ALT-DESC (html)
+    desc_html = item.get("description_html") or item.get("description") or ""
+    desc_text = strip_html_to_text(desc_html)
+    if desc_text:
+        e.description = desc_text
+    if desc_html:
+        add_html_alt_desc(e, desc_html)
+
+    # DATES
+    start = coerce_dt(item["start"])
+    end = coerce_dt(item["end"])
+    e.begin = start
+    e.end = end
+
+    # DTSTAMP-ish metadata
+    now_utc = datetime.now(timezone.utc)
+    try:
+        e.created = now_utc
+        e.last_modified = now_utc
     except Exception:
-        # best-effort; ignore if ics library doesn't support extra lines
         pass
 
+    # UID (stable)
+    uid = (item.get("uid") or "").strip()
+    if not uid:
+        src_key = (item.get("id") or item.get("url") or f"{title}|{start}|{loc}").strip()
+        uid = str(uuid.uuid5(uuid.NAMESPACE_URL, src_key))
+    try:
+        e.uid = uid
+    except Exception:
+        pass
 
-DATA_EVENTS = 'data/events.json'
-DOCS_DIR = 'docs'
-
-def normalize_event(raw, timezone='America/New_York'):
-    title = (raw.get('title') or '').strip()
-    desc = (raw.get('description') or '').strip()
-    loc  = (raw.get('location') or '').strip()
-    link = raw.get('link')
-    start = raw.get('start')
-    end   = raw.get('end')
-    local = tz.gettz(timezone)
-
-    def to_dt(x):
-        if not x: return None
-        try:
-            dt = parser.parse(x)
-            if not dt.tzinfo: dt = dt.replace(tzinfo=local)
-            return dt
-        except Exception:
-            return None
-
-    sdt = start if isinstance(start, datetime) else to_dt(start)
-    edt = end if isinstance(end, datetime) else to_dt(end)
-    if not sdt:
-        sdt, edt2 = parse_when(desc or title, default_tz=timezone)
-        if sdt and not edt:
-            edt = edt2
-    if not title or not sdt:
-        return None
-    if not edt:
-        edt = sdt + timedelta(hours=2)
-
-    return {
-        'title': title,
-        'description': desc,
-        'location': loc,
-        'start': sdt,
-        'end': edt,
-        'link': link,
-        'source': raw.get('source')
-    }
-
-def to_ics_event(ev):
-    e = Event()
-    e.name = ev['title']
-    e.begin = ev['start']
-    e.end = ev['end']
-    if ev.get('location'):
-        e.location = ev['location']
-    desc = ev.get('description') or ''
-    if ev.get('link'):
-        desc = (desc + f"\n{ev['link']}").strip()
-    if desc:
-        e.description = desc
     return e
 
-def build_cals(events, out_dir):
-    family = Calendar()
-    adult = Calendar()
-    recurring = Calendar()
+def build_calendar(items) -> Calendar:
+    cal = Calendar()
+    try:
+        cal.scale = "GREGORIAN"
+        cal.method = None
+        cal.extra = []  # ensure field exists on some ics.py versions
+        # Ensure a stable PRODID if you want:
+        cal.creator = "fxbg-event-feeds"
+    except Exception:
+        pass
+    for it in items:
+        cal.events.add(build_event(it))
+    return cal
 
-    for ev in events:
-        if ev['category'] == 'family':
-            family.events.add(to_ics_event(ev))
-        elif ev['category'] == 'recurring':
-            recurring.events.add(to_ics_event(ev))
-        else:
-            adult.events.add(to_ics_event(ev))
+def write_calendar(items, out_path: str):
+    cal = build_calendar(items)
+    # Write with LF newlines and streaming fold
+    with open(out_path, "w", encoding="utf-8", newline="\n") as f:
+        try:
+            # ics.py
+            f.writelines(cal.serialize_iter())
+        except AttributeError:
+            # icalendar fallback
+            f.write(cal.to_ical().decode("utf-8"))
 
-    os.makedirs(out_dir, exist_ok=True)
-    with open(os.path.join(out_dir, 'family.ics'), 'w', encoding='utf-8') as f:
-        f.writelines(family.serialize_iter())
-    with open(os.path.join(out_dir, 'adult.ics'), 'w', encoding='utf-8') as f:
-        f.writelines(adult.serialize_iter())
-    with open(os.path.join(out_dir, 'recurring.ics'), 'w', encoding='utf-8') as f:
-        f.writelines(recurring.serialize_iter())
+# ---------- CLI entry (adapt to your project) ----------
+
+def fetch_items_somehow():
+    """
+    Replace with your actual collector. Must return dicts like:
+    {
+      "title": "University of Mary Washington Women's Basketball vs ...",
+      "start": datetime(..., tzinfo=timezone.utc) or ISO string,
+      "end":   datetime(..., tzinfo=timezone.utc) or ISO string,
+      "location": "Salisbury, MD",
+      "description_html": "<p>…</p>",
+      "url": "https://example",
+      "uid": "optional-stable-uid"
+    }
+    """
+    raise NotImplementedError
 
 def main():
-    cfg = yaml.safe_load(open('config.yaml','r',encoding='utf-8'))
-    timezone = cfg.get('timezone', 'America/New_York')
-    rules = cfg.get('keywords', {})
-    keep_days = int(cfg.get('max_future_days', 365))
+    items = fetch_items_somehow()
+    write_calendar(items, "feed.ics")
 
-    collected = []
-    debug = bool(os.getenv('FEEDS_DEBUG'))
-    debug = bool(os.getenv('FEEDS_DEBUG'))
-
-    for src in cfg.get('sources', []):
-        if debug: print(f"→ Fetching: {src.get('name')} [{src.get('type')}] {src.get('url')}")
-        if debug: print(f"→ Fetching: {src.get('name')} [{src.get('type')}] {src.get('url')}")
-        t = src.get('type')
-        try:
-            if t == 'rss':
-                got = fetch_rss(src['url']); collected += got; print(f"   rss events: {len(got)}") if debug else None
-            elif t == 'ics':
-                got = fetch_ics(src['url']); collected += got; print(f"   ics events: {len(got)}") if debug else None
-            elif t == 'html':
-                got = fetch_html(src['url'], src.get('html', {})); collected += got; print(f"   html events: {len(got)}") if debug else None
-            elif t == 'eventbrite' and cfg.get('enable_eventbrite', True):
-                token = os.getenv('EVENTBRITE_TOKEN') or cfg.get('eventbrite_token')
-                got = fetch_eventbrite(src['url'], token_env=token); collected += got; print(f"   eventbrite events: {len(got)}") if debug else None
-            elif t == 'bandsintown' and cfg.get('enable_bandsintown', True):
-                appid = os.getenv('BANDSINTOWN_APP_ID') or cfg.get('bandsintown_app_id')
-                got = fetch_bandsintown(src['url'], app_id_env=appid); collected += got; print(f"   bandsintown events: {len(got)}") if debug else None
-        except Exception as e:
-            print("WARN source failed:", src.get('name'), e)
-
-    for m in cfg.get('manual_events', []):
-        collected.append({
-            'title': m.get('title'),
-            'description': m.get('description'),
-            'location': m.get('location'),
-            'start': m.get('start'),
-            'end': m.get('end'),
-            'source': 'manual',
-            'link': m.get('link'),
-        })
-
-    norm = []
-    for raw in collected:
-        ev = normalize_event(raw, timezone=timezone)
-        if not ev:
-            if os.getenv('FEEDS_DEBUG'):
-                ttl = (raw.get('title') or '')[:120]
-                src = raw.get('source')
-                dt = raw.get('start') or ''
-                print(f"   · Dropped (no normalized datetime/title): '{ttl}' from {src} raw_start='{dt}'")
-            continue
-
-        # (patched above)
-        # sanitize location if it looks like a time string, and round times
-        import re
-        def looks_like_time_or_range(txt: str) -> bool:
-            if not txt: return False
-            t = txt.lower()
-            pat_range = r'(\d{1,2}(:\d{2})?\s*(a\.m\.|am|p\.m\.|pm))\s*[–\-to]{1,3}\s*(\d{1,2}(:\d{2})?\s*(a\.m\.|am|p\.m\.|pm))'
-            pat_single = r'\b(\d{1,2}(:\d{2})?\s*(a\.m\.|am|p\.m\.|pm)|noon|midnight)\b'
-            return bool(re.search(pat_range, t)) or bool(re.search(pat_single, t))
-
-        if ev.get('location') and looks_like_time_or_range(ev['location']):
-            ev['location'] = ''
-        # round datetimes to the minute
-        ev['start'] = ev['start'].replace(second=0, microsecond=0)
-        if ev.get('end'):
-            ev['end'] = ev['end'].replace(second=0, microsecond=0)
-
-        ev['category'] = categorize_text(ev['title'], ev.get('description',''), rules)
-        ev['id'] = hash_event(ev['title'], ev['start'], ev.get('location',''))
-        norm.append(ev)
-
-    dedup = {}
-    for ev in norm:
-        dedup[ev['id']] = ev
-
-    now = datetime.now(tz=tz.gettz(timezone))
-    horizon = now + timedelta(days=keep_days)
-    filtered = [e for e in dedup.values() if e['end'] >= now - timedelta(days=2) and e['start'] <= horizon]
-    filtered.sort(key=lambda x: x['start'])
-
-    os.makedirs('data', exist_ok=True)
-    with open('data/events.json', 'w', encoding='utf-8') as f:
-        json.dump({'events': filtered}, f, indent=2, default=str)
-
-    build_cals(filtered, DOCS_DIR)
-    print(f"Built {DOCS_DIR}/family.ics, adult.ics, recurring.ics with {len(filtered)} events.")
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
