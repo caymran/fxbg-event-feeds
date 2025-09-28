@@ -1,109 +1,170 @@
 BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:ics.py - http://git.io/lLljaA
+PRODID:fxbg-event-feeds
+CALSCALE:GREGORIAN
 BEGIN:VEVENT
-DESCRIPTION:<p>The film screening is co-sponsored by the James Farmer Multicultural Center and UMW Dept of Music.\n<br />Trailer:  <a href="https://youtu.be/y3K5ftE8UMk?si=qn-_c17CvtuV25BN">https://youtu.be/y3K5ftE8UMk?si=qn-_c17CvtuV25BN</a></p>\n\n<p><a href="https://at.umw.edu/event/film-screening-rumble-the-indians-who-rocked-the-world">View on site</a> | <a href="mailto:?subject=I+found+an+interesting+event%3A+Film+screening%3A+RUMBLE%3A+THE+INDIANS+WHO+ROCKED+THE+WORLD&amp\;body=I+found+an+interesting+event+you+may+like%3A%0A%0A%0ADate%3A+Nov+11%2C+2025%0A%0ADescription%3A%0AThe+film+screening+is+co-sponsored+by+the+James+Farmer+Multicultural+Center+and+UMW+Dept+of+Music.%0ATrailer%3A++https%3A%2F%2Fyoutu.be%2Fy3K5ftE8UMk%3Fsi%3Dqn-_c17CvtuV25BN%0A%0Ahttps%3A%2F%2Fat.umw.edu%2Fevent%2Ffilm-screening-rumble-the-indians-who-rocked-the-world%0A">Email this event</a></p>\nhttps://at.umw.edu/event/film-screening-rumble-the-indians-who-rocked-the-world
-DTEND:20251112T020000Z
-DTSTART:20251112T000000Z
-SUMMARY:Nov 11\, 2025: Film screening: RUMBLE: THE INDIANS WHO ROCKED THE WORLD at Pollard Hall 304
-UID:94ae8e4a-6274-4f92-b4f1-ccb1dac00b89@94ae.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:<p>Join us for a free open house featuring James and Elizabeth Monroe\, seasonal music played on the harp and the Monroe family’s Astor pianoforte\, and a reception with holiday beverages and treats. Enjoy museum store specials!</p>\n\n<p><a href="https://at.umw.edu/event/holiday-open-house-3294">View on site</a> | <a href="mailto:?subject=I+found+an+interesting+event%3A+Holiday+Open+House&amp\;body=I+found+an+interesting+event+you+may+like%3A%0A%0A%0ADate%3A+Dec+12%2C+2025%0A%0ADescription%3A%0AJoin+us+for+a+free+open+house+featuring+James+and+Elizabeth+Monroe%2C+seasonal+music+played+on+the+harp+and+the+Monroe+family%E2%80%99s+Astor+pianoforte%2C+and+a+reception+with+holiday+beverages+and+treats.+Enjoy+museum+store+specials%21%0A%0Ahttps%3A%2F%2Fat.umw.edu%2Fevent%2Fholiday-open-house-3294%0A">Email this event</a></p>\nhttps://at.umw.edu/event/holiday-open-house-3294
-DTEND:20251213T000000Z
-DTSTART:20251212T220000Z
-SUMMARY:Dec 12\, 2025: Holiday Open House at James Monroe Museum
-UID:3908f6a0-ce98-450c-bee9-ebf85887df12@3908.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:<p></p>\n\n<p><a href="https://at.umw.edu/event/family-weekend-6280">View on site</a> | <a href="mailto:?subject=I+found+an+interesting+event%3A+Family+Weekend&amp\;body=I+found+an+interesting+event+you+may+like%3A%0A%0A%0ADate%3A+Oct+4%2C+2025%0A%0ADescription%3A%0A%0A%0Ahttps%3A%2F%2Fat.umw.edu%2Fevent%2Ffamily-weekend-6280%0A">Email this event</a></p>\nhttps://at.umw.edu/event/family-weekend-6280
-DTEND:20251004T060000Z
-DTSTART:20251004T040000Z
-SUMMARY:Oct 4\, 2025: Family Weekend
-UID:9b11a9f7-1257-4efd-9d00-8bd18d098262@9b11.org
-END:VEVENT
-BEGIN:VEVENT
-DTEND:20251004T160000Z
-LOCATION:<p>King George Middle School Parking Lot</p> - 8246 Dahlgren Road
-DTSTART:20251004T120000Z
-SUMMARY:King George Farmers Market
-UID:78459831-8194-464d-abf4-28867296abb2@7845.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:<p></p>\n\n<p><a href="https://at.umw.edu/event/family-weekend-6280">View on site</a> | <a href="mailto:?subject=I+found+an+interesting+event%3A+Family+Weekend&amp\;body=I+found+an+interesting+event+you+may+like%3A%0A%0A%0ADate%3A+Oct+5%2C+2025%0A%0ADescription%3A%0A%0A%0Ahttps%3A%2F%2Fat.umw.edu%2Fevent%2Ffamily-weekend-6280%0A">Email this event</a></p>\nhttps://at.umw.edu/event/family-weekend-6280
-DTEND:20251005T060000Z
-DTSTART:20251005T040000Z
-SUMMARY:Oct 5\, 2025: Family Weekend
-UID:49162f6b-fe49-43c0-bdb2-07ea81801778@4916.org
-END:VEVENT
-BEGIN:VEVENT
-DTEND:20251011T160000Z
-LOCATION:<p>King George Middle School Parking Lot</p> - 8246 Dahlgren Road
-DTSTART:20251011T120000Z
-SUMMARY:King George Farmers Market
-UID:c299c498-b149-4ef0-8bb3-67126e5283ca@c299.org
-END:VEVENT
-BEGIN:VEVENT
-DTEND:20251005T010000Z
-LOCATION:Patriot Park - 5710 Smith Station Road  Fredericksburg VA 22407
-DTSTART:20251004T220000Z
-SUMMARY:Kids' Galaxy Glow Run
-UID:3f20e964-86d2-4833-ac3f-43752a519777@3f20.org
-END:VEVENT
-BEGIN:VEVENT
-DTEND:20251004T160000Z
-LOCATION:King George Citizens Center - 8076 Kings Highway P.O. Box 71 King
-DTSTART:20251004T110000Z
-SUMMARY:King George Flea Market
-UID:30c077cc-d386-4fbb-b5f0-4bc33ee4ad97@30c0.org
-END:VEVENT
-BEGIN:VEVENT
-DTEND:20251018T160000Z
-LOCATION:<p>King George Middle School Parking Lot</p> - 8246 Dahlgren Road
-DTSTART:20251018T120000Z
-SUMMARY:King George Farmers Market
-UID:86c7e001-5ae2-4d44-b0a2-c6acc6340aff@86c7.org
-END:VEVENT
-BEGIN:VEVENT
+DTSTAMP:20250928T231038Z
 DTEND:20251018T200000Z
+LAST-MODIFIED:20250928T231038Z
 LOCATION:<p>Graves Mountain Apple Harvest Festival</p> -   Syria VA 22743
 DTSTART:20251018T130000Z
 SUMMARY:KGP&R Regional Trip—Graves Mountain Apple Harvest Festival
-UID:a834cc89-6a17-4f66-b231-2c2c9c4f594f@a834.org
+UID:daa81da10399576dfb7c83dc3084f02a0360434e
 END:VEVENT
 BEGIN:VEVENT
-DESCRIPTION:<p></p>\n\n<p><a href="https://at.umw.edu/event/family-weekend-6280">View on site</a> | <a href="mailto:?subject=I+found+an+interesting+event%3A+Family+Weekend&amp\;body=I+found+an+interesting+event+you+may+like%3A%0A%0A%0ADate%3A+Oct+3%2C+2025%0A%0ADescription%3A%0A%0A%0Ahttps%3A%2F%2Fat.umw.edu%2Fevent%2Ffamily-weekend-6280%0A">Email this event</a></p>\nhttps://at.umw.edu/event/family-weekend-6280
-DTEND:20251003T060000Z
-DTSTART:20251003T040000Z
-SUMMARY:Oct 3\, 2025: Family Weekend
-UID:c462f3ec-b17b-4416-aca3-965a5bbcb66f@c462.org
+X-ALT-DESC;FMTTYPE=t,e,x,t,/,h,t,m,l:<p>Join us for a free open house featuring James and Elizabeth Monroe, seasonal music played on the harp and the Monroe family’s Astor pianoforte, and a reception with holiday beverages and treats. Enjoy museum store specials!</p>
+
+<p><a href="https://at.umw.edu/event/holiday-open-house-3294">View on site</a> | <a href="mailto:?subject=I+found+an+interesting+event%3A+Holiday+Open+House&amp;body=I+found+an+interesting+event+you+may+like%3A%0A%0A%0ADate%3A+Dec+12%2C+2025%0A%0ADescription%3A%0AJoin+us+for+a+free+open+house+featuring+James+and+Elizabeth+Monroe%2C+seasonal+music+played+on+the+harp+and+the+Monroe+family%E2%80%99s+Astor+pianoforte%2C+and+a+reception+with+holiday+beverages+and+treats.+Enjoy+museum+store+specials%21%0A%0Ahttps%3A%2F%2Fat.umw.edu%2Fevent%2Fholiday-open-house-3294%0A">Email this event</a></p>
+DTSTAMP:20250928T231038Z
+DESCRIPTION:Join us for a free open house featuring James and Elizabeth Monroe\, seasonal music played on the harp and the Monroe family’s Astor pianoforte\, and a reception with holiday beverages and treats. Enjoy museum store specials!\\nView on site\\n|\\nEmail this event\\nhttps://at.umw.edu/event/holiday-open-house-3294
+DTEND:20251213T000000Z
+LAST-MODIFIED:20250928T231038Z
+LOCATION:James Monroe Museum
+DTSTART:20251212T220000Z
+SUMMARY:Holiday Open House
+UID:82934bb586364ce348a7826336a8e6726eb5a6e4
 END:VEVENT
 BEGIN:VEVENT
-DTEND:20251025T160000Z
-LOCATION:<p>King George Middle School Parking Lot</p> - 8246 Dahlgren Road
-DTSTART:20251025T120000Z
-SUMMARY:King George Farmers Market
-UID:c5c45d4f-047d-478a-83f0-78432fe91e55@c5c4.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:<p>Music is absolutely central to the human experience\, and at the University of Mary Washington we believe that a vibrant musical community should be at the heart of a dynamic liberal arts institution. Music teaches us as it moves us\; more than this\, it’s just such great fun.</p>\n\n<p> </p>\n\n<p>Consonant with the institution’s student-centered focus\, the UMW Music Department aims to foster an environment in which any student can continue to use and develop their musical abilities and interests. Join us for a departmental showcase during Family Weekend int he Weatherly Wing of Seacobeck Hall.</p>\n\n<p><a href="https://at.umw.edu/event/family-weekend-showcase-concert">View on site</a> | <a href="mailto:?subject=I+found+an+interesting+event%3A+Family+Weekend+Showcase+Concert&amp\;body=I+found+an+interesting+event+you+may+like%3A%0A%0A%0ADate%3A+Oct+4%2C+2025%0A%0ADescription%3A%0AMusic+is+absolutely+central+to+the+human+experience%2C+and+at+the+University+of+Mary+Washington+we+believe+that+a+vibrant+musical+community+should+be+at+the+heart+of+a+dynamic+liberal+arts+institution.+Music+teaches+us+as+it+moves+us%3B+more+than+this%2C+it%E2%80%99s+just+such+great+fun.%0A%0A+%0A%0AConsonant+with+the+institution%E2%80%99s+student-centered+focus%2C+the+UMW+Music+Department+aims+to+foster+an+environment+in+which+any+student+can+continue+to+use+and+develop+their+musical+abilities+and+interests.+Join+us+for+a+departmental+showcase+during+Family+Weekend+int+he+Weatherly+Wing+of+Seacobeck+Hall.%0A%0Ahttps%3A%2F%2Fat.umw.edu%2Fevent%2Ffamily-weekend-showcase-concert%0A">Email this event</a></p>\nhttps://at.umw.edu/event/family-weekend-showcase-concert
-DTEND:20251004T220000Z
-DTSTART:20251004T200000Z
-SUMMARY:Oct 4\, 2025: Family Weekend Showcase Concert at Weatherly Wing of Seacobeck Hall
-UID:056cd83d-7319-4338-b7f0-8ef998362adb@056c.org
-END:VEVENT
-BEGIN:VEVENT
-DESCRIPTION:<p>The bicentennial commemoration of James Monroe's presidency concludes with an examination of its impact and enduring influence. UMW Museums Executive Director Scott Harris moderates a discussion with Lindsay M. Chervinsky\, Executive Director of The George Washington Presidential Library at Mount Vernon\, and Bob Karachuk\, Editor and Project Director\, The Papers of James Monroe.</p>\n\n<p><a href="https://at.umw.edu/event/38th-annual-james-monroe-lecture-the-presidential-legacy-of-james-monroe">View on site</a> | <a href="mailto:?subject=I+found+an+interesting+event%3A+38th+Annual+James+Monroe+Lecture%3A+The+Presidential+Legacy+of+James+Monroe&amp\;body=I+found+an+interesting+event+you+may+like%3A%0A%0A%0ADate%3A+Nov+20%2C+2025%0A%0ADescription%3A%0AThe+bicentennial+commemoration+of+James+Monroe%27s+presidency+concludes+with+an+examination+of+its+impact+and+enduring+influence.+UMW+Museums+Executive+Director+Scott+Harris+moderates+a+discussion+with+Lindsay+M.+Chervinsky%2C+Executive+Director+of+The+George+Washington+Presidential+Library+at+Mount+Vernon%2C+and+Bob+Karachuk%2C+Editor+and+Project+Director%2C+The+Papers+of+James+Monroe.%0A%0Ahttps%3A%2F%2Fat.umw.edu%2Fevent%2F38th-annual-james-monroe-lecture-the-presidential-legacy-of-james-monroe%0A">Email this event</a></p>\nhttps://at.umw.edu/event/38th-annual-james-monroe-lecture-the-presidential-legacy-of-james-monroe
+X-ALT-DESC;FMTTYPE=t,e,x,t,/,h,t,m,l:<p>The bicentennial commemoration of James Monroe's presidency concludes with an examination of its impact and enduring influence. UMW Museums Executive Director Scott Harris moderates a discussion with Lindsay M. Chervinsky, Executive Director of The George Washington Presidential Library at Mount Vernon, and Bob Karachuk, Editor and Project Director, The Papers of James Monroe.</p>
+
+<p><a href="https://at.umw.edu/event/38th-annual-james-monroe-lecture-the-presidential-legacy-of-james-monroe">View on site</a> | <a href="mailto:?subject=I+found+an+interesting+event%3A+38th+Annual+James+Monroe+Lecture%3A+The+Presidential+Legacy+of+James+Monroe&amp;body=I+found+an+interesting+event+you+may+like%3A%0A%0A%0ADate%3A+Nov+20%2C+2025%0A%0ADescription%3A%0AThe+bicentennial+commemoration+of+James+Monroe%27s+presidency+concludes+with+an+examination+of+its+impact+and+enduring+influence.+UMW+Museums+Executive+Director+Scott+Harris+moderates+a+discussion+with+Lindsay+M.+Chervinsky%2C+Executive+Director+of+The+George+Washington+Presidential+Library+at+Mount+Vernon%2C+and+Bob+Karachuk%2C+Editor+and+Project+Director%2C+The+Papers+of+James+Monroe.%0A%0Ahttps%3A%2F%2Fat.umw.edu%2Fevent%2F38th-annual-james-monroe-lecture-the-presidential-legacy-of-james-monroe%0A">Email this event</a></p>
+DTSTAMP:20250928T231038Z
+DESCRIPTION:The bicentennial commemoration of James Monroe's presidency concludes with an examination of its impact and enduring influence. UMW Museums Executive Director Scott Harris moderates a discussion with Lindsay M. Chervinsky\, Executive Director of The George Washington Presidential Library at Mount Vernon\, and Bob Karachuk\, Editor and Project Director\, The Papers of James Monroe.\\nView on site\\n|\\nEmail this event\\nhttps://at.umw.edu/event/38th-annual-james-monroe-lecture-the-presidential-legacy-of-james-monroe
 DTEND:20251121T020000Z
+LAST-MODIFIED:20250928T231038Z
+LOCATION:UMW Main Campus
 DTSTART:20251121T000000Z
-SUMMARY:Nov 20\, 2025: 38th Annual James Monroe Lecture: The Presidential Legacy of James Monroe at UMW Main Campus
-UID:7aa0fc5d-6a02-4232-ae55-fc831d06c704@7aa0.org
+SUMMARY:38th Annual James Monroe Lecture: The Presidential Legacy of James Monroe
+UID:3b87bae967aa02a544b23f594d10adc0ca95cf4f
 END:VEVENT
 BEGIN:VEVENT
+X-ALT-DESC;FMTTYPE=t,e,x,t,/,h,t,m,l:<p></p>
+
+<p><a href="https://at.umw.edu/event/family-weekend-6280">View on site</a> | <a href="mailto:?subject=I+found+an+interesting+event%3A+Family+Weekend&amp;body=I+found+an+interesting+event+you+may+like%3A%0A%0A%0ADate%3A+Oct+3%2C+2025%0A%0ADescription%3A%0A%0A%0Ahttps%3A%2F%2Fat.umw.edu%2Fevent%2Ffamily-weekend-6280%0A">Email this event</a></p>
+DTSTAMP:20250928T231038Z
+DESCRIPTION:View on site\\n|\\nEmail this event\\nhttps://at.umw.edu/event/family-weekend-6280
+DTEND:20251003T060000Z
+LAST-MODIFIED:20250928T231038Z
+DTSTART:20251003T040000Z
+SUMMARY:Family Weekend
+UID:dd37c4a781c0bfe7319ce6c508d341822bcbc6ad
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250928T231038Z
+DTEND:20251004T160000Z
+LAST-MODIFIED:20250928T231038Z
+LOCATION:<p>King George Middle School Parking Lot</p> - 8246 Dahlgren Road
+DTSTART:20251004T120000Z
+SUMMARY:King George Farmers Market
+UID:c3abd55074f03e41e7a9e1024a8c3cae331a8048
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250928T231038Z
+DTEND:20251004T160000Z
+LAST-MODIFIED:20250928T231038Z
+LOCATION:King George Citizens Center - 8076 Kings Highway P.O. Box 71 King
+DTSTART:20251004T110000Z
+SUMMARY:King George Flea Market
+UID:6229189eeebb92739a0ed39304fc7d82a7d40185
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250928T231038Z
+DTEND:20251005T010000Z
+LAST-MODIFIED:20250928T231038Z
+LOCATION:Patriot Park - 5710 Smith Station Road  Fredericksburg VA 22407
+DTSTART:20251004T220000Z
+SUMMARY:Kids' Galaxy Glow Run
+UID:e15a20c2172829594c4eea5a9e7eaeb776ac6b27
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250928T231038Z
 DTEND:20251011T190000Z
+LAST-MODIFIED:20250928T231038Z
 LOCATION:King George High School - 10100 Foxes Way  King George VA 22485
 DTSTART:20251011T140000Z
 SUMMARY:66th Annual Fall Festival
-UID:30724fb6-6ec7-4e72-8e74-c4bf3ff6c228@3072.org
+UID:2bd1b158f69cabe46bd5bed2c2710864a0690327
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250928T231038Z
+DTEND:20251025T160000Z
+LAST-MODIFIED:20250928T231038Z
+LOCATION:<p>King George Middle School Parking Lot</p> - 8246 Dahlgren Road
+DTSTART:20251025T120000Z
+SUMMARY:King George Farmers Market
+UID:b8873abc3df0929e5439cf1256191f17f7f0aed0
+END:VEVENT
+BEGIN:VEVENT
+X-ALT-DESC;FMTTYPE=t,e,x,t,/,h,t,m,l:<p></p>
+
+<p><a href="https://at.umw.edu/event/family-weekend-6280">View on site</a> | <a href="mailto:?subject=I+found+an+interesting+event%3A+Family+Weekend&amp;body=I+found+an+interesting+event+you+may+like%3A%0A%0A%0ADate%3A+Oct+5%2C+2025%0A%0ADescription%3A%0A%0A%0Ahttps%3A%2F%2Fat.umw.edu%2Fevent%2Ffamily-weekend-6280%0A">Email this event</a></p>
+DTSTAMP:20250928T231038Z
+DESCRIPTION:View on site\\n|\\nEmail this event\\nhttps://at.umw.edu/event/family-weekend-6280
+DTEND:20251005T060000Z
+LAST-MODIFIED:20250928T231038Z
+DTSTART:20251005T040000Z
+SUMMARY:Family Weekend
+UID:0978935962a0dea78af2b4c8eee4b73f2cc41e78
+END:VEVENT
+BEGIN:VEVENT
+X-ALT-DESC;FMTTYPE=t,e,x,t,/,h,t,m,l:<p></p>
+
+<p><a href="https://at.umw.edu/event/family-weekend-6280">View on site</a> | <a href="mailto:?subject=I+found+an+interesting+event%3A+Family+Weekend&amp;body=I+found+an+interesting+event+you+may+like%3A%0A%0A%0ADate%3A+Oct+4%2C+2025%0A%0ADescription%3A%0A%0A%0Ahttps%3A%2F%2Fat.umw.edu%2Fevent%2Ffamily-weekend-6280%0A">Email this event</a></p>
+DTSTAMP:20250928T231038Z
+DESCRIPTION:View on site\\n|\\nEmail this event\\nhttps://at.umw.edu/event/family-weekend-6280
+DTEND:20251004T060000Z
+LAST-MODIFIED:20250928T231038Z
+DTSTART:20251004T040000Z
+SUMMARY:Family Weekend
+UID:38042fa8af5f8beac5f079e917357262795bbe24
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250928T231038Z
+DTEND:20251018T160000Z
+LAST-MODIFIED:20250928T231038Z
+LOCATION:<p>King George Middle School Parking Lot</p> - 8246 Dahlgren Road
+DTSTART:20251018T120000Z
+SUMMARY:King George Farmers Market
+UID:f73871911188a1e32dcf025e0b283df6a62f2275
+END:VEVENT
+BEGIN:VEVENT
+X-ALT-DESC;FMTTYPE=t,e,x,t,/,h,t,m,l:<p>The film screening is co-sponsored by the James Farmer Multicultural Center and UMW Dept of Music.
+<br />Trailer:  <a href="https://youtu.be/y3K5ftE8UMk?si=qn-_c17CvtuV25BN">https://youtu.be/y3K5ftE8UMk?si=qn-_c17CvtuV25BN</a></p>
+
+<p><a href="https://at.umw.edu/event/film-screening-rumble-the-indians-who-rocked-the-world">View on site</a> | <a href="mailto:?subject=I+found+an+interesting+event%3A+Film+screening%3A+RUMBLE%3A+THE+INDIANS+WHO+ROCKED+THE+WORLD&amp;body=I+found+an+interesting+event+you+may+like%3A%0A%0A%0ADate%3A+Nov+11%2C+2025%0A%0ADescription%3A%0AThe+film+screening+is+co-sponsored+by+the+James+Farmer+Multicultural+Center+and+UMW+Dept+of+Music.%0ATrailer%3A++https%3A%2F%2Fyoutu.be%2Fy3K5ftE8UMk%3Fsi%3Dqn-_c17CvtuV25BN%0A%0Ahttps%3A%2F%2Fat.umw.edu%2Fevent%2Ffilm-screening-rumble-the-indians-who-rocked-the-world%0A">Email this event</a></p>
+DTSTAMP:20250928T231038Z
+DESCRIPTION:The film screening is co-sponsored by the James Farmer Multicultural Center and UMW Dept of Music.\\nTrailer:\\nhttps://youtu.be/y3K5ftE8UMk?si=qn-_c17CvtuV25BN\\nView on site\\n|\\nEmail this event\\nhttps://at.umw.edu/event/film-screening-rumble-the-indians-who-rocked-the-world
+DTEND:20251112T020000Z
+LAST-MODIFIED:20250928T231038Z
+LOCATION:Pollard Hall 304
+DTSTART:20251112T000000Z
+SUMMARY:Film screening: RUMBLE: THE INDIANS WHO ROCKED THE WORLD
+UID:f0d1c16a94272209bd9f0874dd3ea1084d30da2a
+END:VEVENT
+BEGIN:VEVENT
+X-ALT-DESC;FMTTYPE=t,e,x,t,/,h,t,m,l:<p>Music is absolutely central to the human experience, and at the University of Mary Washington we believe that a vibrant musical community should be at the heart of a dynamic liberal arts institution. Music teaches us as it moves us; more than this, it’s just such great fun.</p>
+
+<p> </p>
+
+<p>Consonant with the institution’s student-centered focus, the UMW Music Department aims to foster an environment in which any student can continue to use and develop their musical abilities and interests. Join us for a departmental showcase during Family Weekend int he Weatherly Wing of Seacobeck Hall.</p>
+
+<p><a href="https://at.umw.edu/event/family-weekend-showcase-concert">View on site</a> | <a href="mailto:?subject=I+found+an+interesting+event%3A+Family+Weekend+Showcase+Concert&amp;body=I+found+an+interesting+event+you+may+like%3A%0A%0A%0ADate%3A+Oct+4%2C+2025%0A%0ADescription%3A%0AMusic+is+absolutely+central+to+the+human+experience%2C+and+at+the+University+of+Mary+Washington+we+believe+that+a+vibrant+musical+community+should+be+at+the+heart+of+a+dynamic+liberal+arts+institution.+Music+teaches+us+as+it+moves+us%3B+more+than+this%2C+it%E2%80%99s+just+such+great+fun.%0A%0A+%0A%0AConsonant+with+the+institution%E2%80%99s+student-centered+focus%2C+the+UMW+Music+Department+aims+to+foster+an+environment+in+which+any+student+can+continue+to+use+and+develop+their+musical+abilities+and+interests.+Join+us+for+a+departmental+showcase+during+Family+Weekend+int+he+Weatherly+Wing+of+Seacobeck+Hall.%0A%0Ahttps%3A%2F%2Fat.umw.edu%2Fevent%2Ffamily-weekend-showcase-concert%0A">Email this event</a></p>
+DTSTAMP:20250928T231038Z
+DESCRIPTION:Music is absolutely central to the human experience\, and at the University of Mary Washington we believe that a vibrant musical community should be at the heart of a dynamic liberal arts institution. Music teaches us as it moves us\; more than this\, it’s just such great fun.\\nConsonant with the institution’s student-centered focus\, the UMW Music Department aims to foster an environment in which any student can continue to use and develop their musical abilities and interests. Join us for a departmental showcase during Family Weekend int he Weatherly Wing of Seacobeck Hall.\\nView on site\\n|\\nEmail this event\\nhttps://at.umw.edu/event/family-weekend-showcase-concert
+DTEND:20251004T220000Z
+LAST-MODIFIED:20250928T231038Z
+LOCATION:Weatherly Wing of Seacobeck Hall
+DTSTART:20251004T200000Z
+SUMMARY:Family Weekend Showcase Concert
+UID:7bff06f05a5e6c0bd707e1743b41d2a71beabe67
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250928T231038Z
+DTEND:20251011T160000Z
+LAST-MODIFIED:20250928T231038Z
+LOCATION:<p>King George Middle School Parking Lot</p> - 8246 Dahlgren Road
+DTSTART:20251011T120000Z
+SUMMARY:King George Farmers Market
+UID:8d61f1a5a3e711f9510df15e4ebc80c0f92094ff
 END:VEVENT
 END:VCALENDAR
