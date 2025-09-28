@@ -3,9 +3,9 @@
 This repo scrapes **Fredericksburg-area** event sources (official calendars, venue pages, kid calendars, breweries)
 and builds **three live .ics feeds** you can subscribe to on your iPhone:
 
-- Family/Kids: `https://<your-username>.github.io/fxbg-event-feeds/family.ics`
-- Adults/Nightlife: `https://<your-username>.github.io/fxbg-event-feeds/adult.ics`
-- Recurring Deals & Events: `https://<your-username>.github.io/fxbg-event-feeds/recurring.ics`
+- Family/Kids: `https://caymran.github.io/fxbg-event-feeds/family.ics`
+- Adults/Nightlife: `https://caymran.github.io/fxbg-event-feeds/adult.ics`
+- Recurring Deals & Events: `https://caymran.github.io/fxbg-event-feeds/recurring.ics`
 
 ## Install & Deploy (one time)
 
