@@ -188,6 +188,7 @@ def fetch_html(url, css, user_agent="fxbg-event-bot/1.0", throttle=(2,5)):
     return [e for e in out if e.get('title')]
 
 def fetch_eventbrite(api_url, token_env=None):
+    import os
     token = token_env or os.getenv("EVENTBRITE_TOKEN") or ""
     if not token:
         return []
@@ -196,9 +197,16 @@ def fetch_eventbrite(api_url, token_env=None):
     if status == 304:
         return []
     if status != 200:
+        if os.getenv('FEEDS_DEBUG'):
+            print(f"   Eventbrite HTTP {status}")
+            print((body or '')[:200])
         return []
     try:
         data = json.loads(body)
+        if os.getenv('FEEDS_DEBUG'):
+            print(f"   Bandsintown ok: type={'list' if isinstance(data, list) else type(data).__name__}, count={len(data) if isinstance(data, list) else len(data.get('events', []))}")
+        if os.getenv('FEEDS_DEBUG'):
+            print(f"   Eventbrite ok: total keys={list(data.keys())}")
     except Exception:
         return []
     out = []
@@ -225,17 +233,29 @@ def fetch_eventbrite(api_url, token_env=None):
     return out
 
 def fetch_bandsintown(url, app_id_env=None):
+    import os
+    if os.getenv('FEEDS_DEBUG'):
+        print(f"   Bandsintown app_id present? {'YES' if (app_id_env or os.getenv('BANDSINTOWN_APP_ID')) else 'NO'}")
     app_id = app_id_env or os.getenv("BANDSINTOWN_APP_ID") or ""
     u = url.replace("${BANDSINTOWN_APP_ID}", app_id)
     if not app_id:
+        if os.getenv('FEEDS_DEBUG'):
+            print('   Bandsintown missing app_id (empty)')
         return []
     status, body, _ = req_with_cache(u, headers={"User-Agent": "fxbg-event-bot/1.0"})
     if status == 304:
         return []
     if status != 200:
+        if os.getenv('FEEDS_DEBUG'):
+            print(f"   Eventbrite HTTP {status}")
+            print((body or '')[:200])
         return []
     try:
         data = json.loads(body)
+        if os.getenv('FEEDS_DEBUG'):
+            print(f"   Bandsintown ok: type={'list' if isinstance(data, list) else type(data).__name__}, count={len(data) if isinstance(data, list) else len(data.get('events', []))}")
+        if os.getenv('FEEDS_DEBUG'):
+            print(f"   Eventbrite ok: total keys={list(data.keys())}")
     except Exception:
         return []
     out = []

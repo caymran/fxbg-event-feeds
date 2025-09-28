@@ -126,8 +126,15 @@ def main():
     norm = []
     for raw in collected:
         ev = normalize_event(raw, timezone=timezone)
-        if not ev: 
+        if not ev:
+            if os.getenv('FEEDS_DEBUG'):
+                ttl = (raw.get('title') or '')[:120]
+                src = raw.get('source')
+                dt = raw.get('start') or ''
+                print(f"   · Dropped (no normalized datetime/title): '{ttl}' from {src} raw_start='{dt}'")
             continue
+
+        # (patched above)
         # sanitize location if it looks like a time string, and round times
         import re
         def looks_like_time_or_range(txt: str) -> bool:
