@@ -161,6 +161,13 @@ def fetch_html(url, css, user_agent="fxbg-event-bot/1.0", throttle=(2,5)):
     items = soup.select(css.get('item')) if css.get('item') else []
     out = []
     for el in items:
+        # MACKID_ONLY_TIME: discard cards without a datetime/time
+        time_node = el.select_one("time[datetime]") or el.find("time", attrs={"datetime": True})
+        maybe_text = (el.get_text(" ", strip=True) or '').lower()
+        looks_time = bool(re.search(r'\b\d{1,2}(:\d{2})?\s*(a\.m\.|am|p\.m\.|pm)\b', maybe_text))
+        if (not time_node) and (not looks_time):
+            continue
+
         def pick(sel):
             if not sel: return None
             node = el.select_one(sel)
