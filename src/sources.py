@@ -1,10 +1,81 @@
-import requests, feedparser
+import os, time, json, requests, feedparser, urllib.parse
 from bs4 import BeautifulSoup
 from dateutil import parser
-from utils import parse_when
+from urllib.robotparser import RobotFileParser
+from utils import parse_when, jitter_sleep
 
-def fetch_rss(url):
-    feed = feedparser.parse(url)
+CACHE_PATH = "data/cache.json"
+
+def load_cache():
+    if os.path.exists(CACHE_PATH):
+        try:
+            return json.load(open(CACHE_PATH,'r',encoding='utf-8'))
+        except Exception:
+            return {"http_cache": {}}
+    return {"http_cache": {}}
+
+def save_cache(cache):
+    os.makedirs(os.path.dirname(CACHE_PATH), exist_ok=True)
+    json.dump(cache, open(CACHE_PATH,'w',encoding='utf-8'), indent=2)
+
+def robots_allowed(url, user_agent="*"):
+    try:
+        parts = urllib.parse.urlsplit(url)
+        robots_url = f"{parts.scheme}://{parts.netloc}/robots.txt"
+        rp = RobotFileParser()
+        rp.set_url(robots_url)
+        rp.read()
+        return rp.can_fetch(user_agent, url)
+    except Exception:
+        return True
+
+def req_with_cache(url, headers=None, throttle=(2,5), max_retries=3):
+    headers = headers or {}
+    cache = load_cache()
+    entry = cache["http_cache"].get(url, {})
+    if "etag" in entry:
+        headers["If-None-Match"] = entry["etag"]
+    if "last_modified" in entry:
+        headers["If-Modified-Since"] = entry["last_modified"]
+
+    session = requests.Session()
+    backoff = 1
+    for attempt in range(max_retries):
+        try:
+            resp = session.get(url, headers=headers, timeout=30)
+            if resp.status_code == 304:
+                body = entry.get("body", "")
+                return 304, body, {}
+            if resp.status_code in (200, 201):
+                etag = resp.headers.get("ETag")
+                lastmod = resp.headers.get("Last-Modified")
+                body = resp.text
+                cache["http_cache"][url] = {
+                    "etag": etag,
+                    "last_modified": lastmod,
+                    "fetched_at": int(time.time()),
+                    "body": body[:500000]
+                }
+                save_cache(cache)
+                jitter_sleep(throttle[0], throttle[1])
+                return resp.status_code, body, {"etag": etag, "last_modified": lastmod}
+            if resp.status_code in (429, 500, 502, 503, 504):
+                time.sleep(backoff)
+                backoff = min(backoff * 2, 30)
+                continue
+            return resp.status_code, "", {}
+        except requests.RequestException:
+            time.sleep(backoff)
+            backoff = min(backoff * 2, 30)
+    return 599, "", {}
+
+def fetch_rss(url, user_agent="fxbg-event-bot/1.0"):
+    if not robots_allowed(url, user_agent):
+        return []
+    status, body, _ = req_with_cache(url, headers={"User-Agent": user_agent})
+    if status == 304:
+        return []
+    feed = feedparser.parse(body)
     events = []
     for e in feed.entries:
         title = getattr(e, 'title', '').strip()
@@ -29,10 +100,14 @@ def fetch_rss(url):
         })
     return events
 
-def fetch_ics(url):
-    text = requests.get(url, timeout=30).text
+def fetch_ics(url, user_agent="fxbg-event-bot/1.0"):
+    if not robots_allowed(url, user_agent):
+        return []
+    status, body, _ = req_with_cache(url, headers={"User-Agent": user_agent})
+    if status == 304:
+        return []
     events = []
-    chunks = text.split("BEGIN:VEVENT")
+    chunks = body.split("BEGIN:VEVENT")
     for chunk in chunks[1:]:
         block = chunk.split("END:VEVENT")[0]
         lines = [l.strip() for l in block.splitlines() if l.strip()]
@@ -68,75 +143,83 @@ def fetch_ics(url):
         })
     return events
 
-def text(el):
-    return el.get_text(" ", strip=True) if el else None
-
-def select_text(el, selector):
-    if not selector: return None
-    node = el.select_one(selector)
-    return text(node) if node else None
-
-def fetch_html(url, css):
-    html = requests.get(url, timeout=30).text
-    soup = BeautifulSoup(html, 'lxml')
+def fetch_html(url, css, user_agent="fxbg-event-bot/1.0", throttle=(2,5)):
+    if not robots_allowed(url, user_agent):
+        return []
+    status, body, _ = req_with_cache(url, headers={"User-Agent": user_agent}, throttle=throttle)
+    if status == 304:
+        return []
+    soup = BeautifulSoup(body, 'lxml')
     items = soup.select(css.get('item')) if css.get('item') else []
     out = []
     for el in items:
-        title = select_text(el, css.get('title'))
-        date_text = select_text(el, css.get('date')) or select_text(el, css.get('time'))
-        loc = select_text(el, css.get('location'))
-        desc = select_text(el, css.get('description'))
-        start, end = parse_when(date_text)
+        def pick(sel):
+            if not sel: return None
+            node = el.select_one(sel)
+            return node.get_text(" ", strip=True) if node else None
+        title = pick(css.get('title'))
+        date_text = pick(css.get('date')) or pick(css.get('time'))
+        loc = pick(css.get('location'))
+        desc = pick(css.get('description'))
+        s, e = parse_when(date_text)
         out.append({
             'title': title,
             'description': desc,
             'link': None,
-            'start': start.isoformat() if start else None,
-            'end': end.isoformat() if end else None,
+            'start': s.isoformat() if s else None,
+            'end': e.isoformat() if e else None,
             'location': loc,
             'source': url,
         })
-    # fall back to page-level parse if nothing found
     if not out:
         t = soup.select_one('h1, h2, .title')
         d = soup.select_one('time, .date, p')
-        start, end = parse_when(text(d))
         if t:
+            s, e = parse_when(d.get_text(" ", strip=True) if d else None)
             out.append({
-                'title': text(t),
-                'description': text(soup.select_one('body'))[:500] if soup.select_one('body') else None,
+                'title': t.get_text(" ", strip=True),
+                'description': (soup.select_one("body").get_text(" ", strip=True)[:500] if soup.select_one("body") else ""),
                 'link': url,
-                'start': start.isoformat() if start else None,
-                'end': end.isoformat() if end else None,
+                'start': s.isoformat() if s else None,
+                'end': e.isoformat() if e else None,
                 'location': None,
                 'source': url,
             })
     return [e for e in out if e.get('title')]
 
-def fetch_facebook_page(page_id, token):
+def fetch_eventbrite(api_url, token_env=None):
+    token = token_env or os.getenv("EVENTBRITE_TOKEN") or ""
     if not token:
         return []
-    fields = "name,place,start_time,end_time,description"
-    url = f"https://graph.facebook.com/v18.0/{page_id}/events?time_filter=upcoming&fields={fields}&access_token={token}"
+    headers = {"Authorization": f"Bearer {token}"}
+    status, body, _ = req_with_cache(api_url, headers=headers, throttle=(2,5))
+    if status == 304:
+        return []
+    if status != 200:
+        return []
     try:
-        r = requests.get(url, timeout=30)
-        if r.status_code != 200:
-            return []
-        data = r.json()
-        out = []
-        for ev in data.get('data', []):
-            start = ev.get('start_time')
-            end = ev.get('end_time')
-            place = (ev.get('place') or {}).get('name')
-            out.append({
-                'title': ev.get('name'),
-                'description': ev.get('description'),
-                'link': None,
-                'start': start,
-                'end': end,
-                'location': place,
-                'source': f"facebook:{page_id}",
-            })
-        return out
+        data = json.loads(body)
     except Exception:
         return []
+    out = []
+    events = data.get("events") or data.get("data") or []
+    for ev in events:
+        title = (ev.get("name", {}) or {}).get("text") or ev.get("name")
+        desc = (ev.get("description", {}) or {}).get("text") or ev.get("description")
+        start = (ev.get("start") or {}).get("local") or ev.get("start")
+        end = (ev.get("end") or {}).get("local") or ev.get("end")
+        venue_name = None
+        if ev.get("venue"):
+            venue_name = ev["venue"].get("name")
+        elif ev.get("venue_id"):
+            venue_name = f"Venue ID {ev['venue_id']}"
+        out.append({
+            "title": title,
+            "description": desc,
+            "link": ev.get("url"),
+            "start": start,
+            "end": end,
+            "location": venue_name,
+            "source": "eventbrite"
+        })
+    return out

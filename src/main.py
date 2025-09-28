@@ -2,22 +2,11 @@ import os, json, yaml
 from datetime import datetime, timedelta
 from dateutil import tz, parser
 from ics import Calendar, Event
-from sources import fetch_rss, fetch_ics, fetch_html, fetch_facebook_page
+from sources import fetch_rss, fetch_ics, fetch_html, fetch_eventbrite
 from utils import hash_event, parse_when, categorize_text
 
 DATA_EVENTS = 'data/events.json'
 DOCS_DIR = 'docs'
-
-def load_json(path, default):
-    if os.path.exists(path):
-        with open(path, 'r', encoding='utf-8') as f:
-            return json.load(f)
-    return default
-
-def save_json(path, data):
-    os.makedirs(os.path.dirname(path), exist_ok=True)
-    with open(path, 'w', encoding='utf-8') as f:
-        json.dump(data, f, indent=2, default=str)
 
 def normalize_event(raw, timezone='America/New_York'):
     title = (raw.get('title') or '').strip()
@@ -39,14 +28,12 @@ def normalize_event(raw, timezone='America/New_York'):
 
     sdt = start if isinstance(start, datetime) else to_dt(start)
     edt = end if isinstance(end, datetime) else to_dt(end)
-
     if not sdt:
-        # attempt parse from desc/title
-        sdt, edt = parse_when(desc or title, default_tz=timezone)
-
+        sdt, edt2 = parse_when(desc or title, default_tz=timezone)
+        if sdt and not edt:
+            edt = edt2
     if not title or not sdt:
         return None
-
     if not edt:
         edt = sdt + timedelta(hours=2)
 
@@ -69,7 +56,7 @@ def to_ics_event(ev):
         e.location = ev['location']
     desc = ev.get('description') or ''
     if ev.get('link'):
-        desc = (desc + f"\\n{ev['link']}").strip()
+        desc = (desc + f"\n{ev['link']}").strip()
     if desc:
         e.description = desc
     return e
@@ -99,8 +86,7 @@ def main():
     cfg = yaml.safe_load(open('config.yaml','r',encoding='utf-8'))
     timezone = cfg.get('timezone', 'America/New_York')
     rules = cfg.get('keywords', {})
-    enable_fb = cfg.get('enable_facebook', False)
-    fb_token = os.getenv('FACEBOOK_TOKEN')
+    keep_days = int(cfg.get('max_future_days', 365))
 
     collected = []
 
@@ -113,8 +99,9 @@ def main():
                 collected += fetch_ics(src['url'])
             elif t == 'html':
                 collected += fetch_html(src['url'], src.get('html', {}))
-            elif t == 'facebook_page' and enable_fb:
-                collected += fetch_facebook_page(src['page_id'], fb_token)
+            elif t == 'eventbrite' and cfg.get('enable_eventbrite', True):
+                token = os.getenv('EVENTBRITE_TOKEN') or cfg.get('eventbrite_token')
+                collected += fetch_eventbrite(src['url'], token_env=token)
         except Exception as e:
             print("WARN source failed:", src.get('name'), e)
 
@@ -138,17 +125,16 @@ def main():
         ev['id'] = hash_event(ev['title'], ev['start'], ev.get('location',''))
         norm.append(ev)
 
-    # dedupe: latest wins
     dedup = {}
     for ev in norm:
         dedup[ev['id']] = ev
 
-    # keep if ends >= 2 days ago
     now = datetime.now(tz=tz.gettz(timezone))
-    filtered = [e for e in dedup.values() if e['end'] >= now - timedelta(days=2)]
+    horizon = now + timedelta(days=keep_days)
+    filtered = [e for e in dedup.values() if e['end'] >= now - timedelta(days=2) and e['start'] <= horizon]
     filtered.sort(key=lambda x: x['start'])
 
-    # persist
+    os.makedirs('data', exist_ok=True)
     with open('data/events.json', 'w', encoding='utf-8') as f:
         json.dump({'events': filtered}, f, indent=2, default=str)
 
