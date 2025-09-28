@@ -37,6 +37,15 @@ sources:
     type: "ics"
     url: "https://www.fredericksburgva.gov/common/modules/iCalendar/iCalendar.aspx?catID=47&feed=calendar"
 
+  - name: "Spotsylvania County — Parks & Recreation (ICS)"
+    type: "ics"
+    url: "https://www.spotsylvania.va.us/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar"
+
+  - name: "Spotsylvania County — Tourism (ICS)"
+    type: "ics"
+    url: "https://www.spotsylvania.va.us/common/modules/iCalendar/iCalendar.aspx?catID=29&feed=calendar"
+
+
   # You can add more City calendars later by copying their ICS link from the iCalendar page.
 
   # ------------------------------
