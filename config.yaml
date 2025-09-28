@@ -3,27 +3,33 @@ keywords:
   family: ["kid","kids","family","farm","farmers","market","festival","pumpkin","hayride","art in the park","library","storytime","parade","scarecrow","macaroni kid"]
   adult:  ["tavern","brewery","happy hour","trivia","live music","band","wine","cider","theatre","comedy","dj","open mic","karaoke","restaurant"]
   recurring: ["every ","weekly","wednesdays","thursdays","fridays","saturdays","sundays","mondays","tuesdays","first ","second ","third ","last "]
+
 enable_facebook: false
 enable_eventbrite: true
-enable_bandsintown: false
-eventbrite_token: ""
-bandsintown_app_id: ""
+enable_bandsintown: true
+
+eventbrite_token: ""       # prefer GitHub secret EVENTBRITE_TOKEN
+bandsintown_app_id: ""     # prefer GitHub secret BANDSINTOWN_APP_ID
+
 user_agent: "fxbg-event-bot/1.0 (+https://example.com)"
 throttle_seconds_min: 2
 throttle_seconds_max: 5
 headless_js_timeout: 0
 max_future_days: 365
+
 sources:
+  # City/Tourism (broadened selectors for The Events Calendar)
   - name: "Visit Fredericksburg — Events"
     type: "html"
     url: "https://fxbg.com/events/"
     html:
-      item: "article, .type-tribe_events, .tribe-events-calendar-list__event"
-      title: "h2, .entry-title, .tribe-events-list-event-title"
-      date: "time, .tribe-event-date, .date"
-      time: "time"
-      location: ".tribe-venue, .venue, .tribe-events-venue-details"
-      description: ".entry-summary, .tribe-events-list-event-description"
+      item: "article, .tribe-events-calendar-list__event, .tribe-common-g-row, .tribe-events-pro-photo__event"
+      title: "h2, .tribe-events-calendar-list__event-title, .tribe-events-pro-photo__event-title"
+      date: "time[datetime], .tribe-event-date, .tribe-common-b2"
+      time: "time[datetime]"
+      location: ".tribe-events-venue-details, .tribe-events-calendar-list__event-venue, .tribe-common-b2"
+      description: ".entry-summary, .tribe-events-calendar-list__event-description, .tribe-common-b2"
+
   - name: "Fredericksburg Parks & Rec — Farmers Market"
     type: "html"
     url: "https://www.fredericksburgva.gov/199/Farmers-Market"
@@ -34,9 +40,12 @@ sources:
       time: "time"
       location: ".location, p"
       description: "p"
+
   - name: "VisitFred — Events RSS"
     type: "rss"
     url: "https://www.visitfred.com/events/rss"
+
+  # Kids/Family
   - name: "Fredericksburg Parent — Calendar"
     type: "html"
     url: "https://www.fredericksburgparent.net/calendar"
@@ -47,6 +56,7 @@ sources:
       time: "time"
       location: ".location"
       description: "p"
+
   - name: "Macaroni KID Fredericksburg — Events"
     type: "html"
     url: "https://fredericksburg.macaronikid.com/events"
@@ -57,16 +67,19 @@ sources:
       time: "time"
       location: ".event-location, .location"
       description: ".event-description, p"
+
+  # UMW / Theatre (broadened selectors)
   - name: "UMW — Events"
     type: "html"
     url: "https://www.umw.edu/events/"
     html:
-      item: ".event, .tribe-event, li"
-      title: ".event-title, h3, a"
-      date: "time, .event-date"
-      time: "time"
-      location: ".event-location"
-      description: ".event-description, p"
+      item: ".tribe-events-calendar-list__event, .event, li, article"
+      title: ".tribe-events-calendar-list__event-title, .event-title, h3, a"
+      date: "time[datetime], .tribe-event-date, .event-date"
+      time: "time[datetime]"
+      location: ".tribe-events-venue-details, .event-location, .location"
+      description: ".tribe-events-calendar-list__event-description, .event-description, p"
+
   - name: "UMW — Klein Theatre Season"
     type: "html"
     url: "https://cas.umw.edu/theatre/klein-theatre/"
@@ -77,6 +90,8 @@ sources:
       time: "time"
       location: ".location, p"
       description: "p, li"
+
+  # Festivals / Special
   - name: "Via Colori Stafford — Official"
     type: "html"
     url: "https://vcstafford.com/"
@@ -87,6 +102,7 @@ sources:
       time: "time"
       location: "p"
       description: "p"
+
   - name: "Fredericksburg Greek Festival — Details"
     type: "html"
     url: "https://www.fredgreek.org/greek-festival-details"
@@ -97,6 +113,7 @@ sources:
       time: "p"
       location: "p"
       description: "p"
+
   - name: "Braehead Farm — Events"
     type: "html"
     url: "https://braehead-farm.com/events"
@@ -107,6 +124,8 @@ sources:
       time: "time"
       location: "p"
       description: "p"
+
+  # Venues / Nightlife
   - name: "Adventure Brewing — Events"
     type: "html"
     url: "https://adventurebrewing.com/events/"
@@ -117,6 +136,7 @@ sources:
       time: "time"
       location: ".mec-venue, .location"
       description: ".mec-event-description, p"
+
   - name: "Colonial Tavern — Event Calendar"
     type: "html"
     url: "https://www.irishbrigadetavern.com/event-calendar"
@@ -127,6 +147,7 @@ sources:
       time: "time"
       location: "p"
       description: "p"
+
   - name: "Highmark Brewing — Events"
     type: "html"
     url: "https://www.highmarkbrewingco.com/events"
@@ -137,6 +158,7 @@ sources:
       time: "time"
       location: ".location, p"
       description: "p"
+
   - name: "Wild Hare Cider — Events"
     type: "html"
     url: "https://www.wildharecider.com/events"
@@ -147,6 +169,7 @@ sources:
       time: "time"
       location: ".location"
       description: "p"
+
   - name: "Rebellion — Events"
     type: "html"
     url: "https://eatatrebellion.com/events"
@@ -157,6 +180,12 @@ sources:
       time: "time"
       location: "p"
       description: "p"
+
+  # APIs
   - name: "Eventbrite — Fredericksburg, VA"
     type: "eventbrite"
-    url: "https://www.eventbriteapi.com/v3/events/search/?location.address=Fredericksburg%2C+VA&expand=venue,organizer"
+    url: "https://www.eventbriteapi.com/v3/events/search/?location.address=Fredericksburg%2C+VA&location.within=40mi&expand=venue,organizer&sort_by=date"
+
+  - name: "Bandsintown — Events near Fredericksburg"
+    type: "bandsintown"
+    url: "https://rest.bandsintown.com/events?location=Fredericksburg,VA&radius=50&date=upcoming&app_id=${BANDSINTOWN_APP_ID}"
