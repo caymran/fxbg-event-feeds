@@ -2,8 +2,46 @@ import os, json, yaml
 from datetime import datetime, timedelta
 from dateutil import tz, parser
 from ics import Calendar, Event
+try:
+    from ics.grammar.parse import ContentLine
+except Exception:
+    try:
+        from ics.grammar.line import ContentLine
+    except Exception:
+        ContentLine = None
 from sources import fetch_rss, fetch_ics, fetch_html, fetch_eventbrite, fetch_bandsintown
 from utils import hash_event, parse_when, categorize_text
+from bs4 import BeautifulSoup
+
+
+HTML_TAG_RE = re.compile(r"<[^>]+>")
+WS_RE = re.compile(r"[ \t\f\v]+")
+
+def strip_html_to_text(html: str) -> str:
+    if not html:
+        return ""
+    try:
+        txt = BeautifulSoup(html, "html.parser").get_text("\n")
+    except Exception:
+        txt = HTML_TAG_RE.sub("", html)
+        txt = txt.replace("&nbsp;", " ").replace("&amp;", "&")
+    lines = [WS_RE.sub(" ", ln).strip() for ln in txt.splitlines()]
+    lines = [ln for ln in lines if ln]
+    # Use literal \n, which ics.py will fold as needed
+    return "\\n".join(lines)
+
+def add_html_description(event_obj, html: str):
+    if not html:
+        return
+    try:
+        if ContentLine:
+            event_obj.extra.append(
+                ContentLine(name="X-ALT-DESC", params={"FMTTYPE": "text/html"}, value=html)
+            )
+    except Exception:
+        # best-effort; ignore if ics library doesn't support extra lines
+        pass
+
 
 DATA_EVENTS = 'data/events.json'
 DOCS_DIR = 'docs'
