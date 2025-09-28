@@ -28,6 +28,7 @@ jobs:
         env:
           EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
           BANDSINTOWN_APP_ID: ${{ secrets.BANDSINTOWN_APP_ID }}
+          FEEDS_DEBUG: "1"
         run: |
           python src/main.py
       - name: Commit and push changes
