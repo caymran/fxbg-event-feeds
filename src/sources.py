@@ -29,10 +29,18 @@ def robots_allowed(url, user_agent="*"):
     except Exception:
         return True
 
+def _cache_key(url, headers):
+    # include Authorization + User-Agent so cached bodies don't leak across creds
+    h = headers or {}
+    auth = h.get('Authorization','')
+    ua = h.get('User-Agent','')
+    return url + '||' + hashlib.sha1((auth+'|'+ua).encode('utf-8')).hexdigest()
+
 def req_with_cache(url, headers=None, throttle=(2,5), max_retries=3):
     headers = headers or {}
     cache = load_cache()
-    entry = cache["http_cache"].get(url, {})
+    key = _cache_key(url, headers)
+    entry = cache["http_cache"].get(key, {})
     if "etag" in entry:
         headers["If-None-Match"] = entry["etag"]
     if "last_modified" in entry:
@@ -50,7 +58,7 @@ def req_with_cache(url, headers=None, throttle=(2,5), max_retries=3):
                 etag = resp.headers.get("ETag")
                 lastmod = resp.headers.get("Last-Modified")
                 body = resp.text
-                cache["http_cache"][url] = {
+                cache["http_cache"][key] = {
                     "etag": etag,
                     "last_modified": lastmod,
                     "fetched_at": int(time.time()),
