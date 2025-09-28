@@ -1,15 +1,18 @@
 timezone: "America/New_York"
+
 keywords:
   family: ["kid","kids","family","farm","farmers","market","festival","pumpkin","hayride","art in the park","library","storytime","parade","scarecrow","macaroni kid"]
   adult:  ["tavern","brewery","happy hour","trivia","live music","band","wine","cider","theatre","comedy","dj","open mic","karaoke","restaurant"]
   recurring: ["every ","weekly","wednesdays","thursdays","fridays","saturdays","sundays","mondays","tuesdays","first ","second ","third ","last "]
 
+# APIs you enabled
 enable_facebook: false
 enable_eventbrite: true
 enable_bandsintown: true
 
-eventbrite_token: ""        # prefer repo secret EVENTBRITE_TOKEN
-bandsintown_app_id: "fxbg-feeds"      # prefer repo secret BANDSINTOWN_APP_ID
+# prefer GitHub Action secrets; these can be blank here
+eventbrite_token: ""
+bandsintown_app_id: ""
 
 user_agent: "fxbg-event-bot/1.0 (+https://example.com)"
 throttle_seconds_min: 2
@@ -18,173 +21,52 @@ headless_js_timeout: 0
 max_future_days: 365
 
 sources:
-  # Visit FXBG (The Events Calendar – broadened selectors; prefer time[datetime])
-  - name: "Visit Fredericksburg — Events"
-    type: "html"
-    url: "https://fxbg.com/events/"
-    html:
-      item: "article, .tribe-events-calendar-list__event, .tribe-common-g-row, .tribe-events-pro-photo__event"
-      title: "h2, .tribe-events-calendar-list__event-title, .tribe-events-pro-photo__event-title"
-      date: "time[datetime], .tribe-event-date, .tribe-common-b2"
-      time: "time[datetime]"
-      location: ".tribe-events-venue-details, .tribe-events-calendar-list__event-venue, .tribe-common-b2"
-      description: ".entry-summary, .tribe-events-calendar-list__event-description, .tribe-common-b2"
+  # ------------------------------
+  # City of Fredericksburg (CivicEngage) — official ICS feeds
+  # iCalendar index (reference): https://www.fredericksburgva.gov/iCalendar.aspx
+  # ------------------------------
+  - name: "City of Fredericksburg — Main (ICS)"
+    type: "ics"
+    url: "https://www.fredericksburgva.gov/common/modules/iCalendar/iCalendar.aspx?catID=35&feed=calendar"
 
-  - name: "Fredericksburg Parks & Rec — Farmers Market"
-    type: "html"
-    url: "https://www.fredericksburgva.gov/199/Farmers-Market"
-    html:
-      item: "main, .content, article"
-      title: "h1, h2"
-      date: "time[datetime], .dates, p, time"
-      time: "time[datetime], time"
-      location: ".location, p"
-      description: "p"
+  - name: "City of Fredericksburg — Parks & Rec Programs (ICS)"
+    type: "ics"
+    url: "https://www.fredericksburgva.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar"
 
-  - name: "VisitFred — Events RSS"
+  - name: "City of Fredericksburg — Special Events (ICS)"
+    type: "ics"
+    url: "https://www.fredericksburgva.gov/common/modules/iCalendar/iCalendar.aspx?catID=47&feed=calendar"
+
+  # You can add more City calendars later by copying their ICS link from the iCalendar page.
+
+  # ------------------------------
+  # University of Mary Washington (Concept3D/Localist)
+  # “Save to RSS” master feed from the All-Events page
+  # ------------------------------
+  - name: "UMW — All Events (RSS)"
     type: "rss"
-    url: "https://www.visitfred.com/events/rss"
+    url: "https://at.umw.edu/calendar/1.xml"
 
-  # Kids/Family (Macaroni KID selectors tightened to always grab <time datetime>)
-  - name: "Fredericksburg Parent — Calendar"
+  # ------------------------------
+  # Local media calendar (scrape-friendly HTML)
+  # ------------------------------
+  - name: "Fredericksburg Free Press — Local Events"
     type: "html"
-    url: "https://www.fredericksburgparent.net/calendar"
+    url: "https://www.fredericksburgfreepress.com/calendar/"
     html:
-      item: ".event, article, li"
-      title: "h2, h3, a"
-      date: "time[datetime], .date"
-      time: "time[datetime]"
-      location: ".location, .event-location, p"
-      description: "p"
+      item: "article, .tribe-events-calendar-list__event, .event, .hentry, li"
+      title: "h2, h3, .entry-title, a"
+      date: "time[datetime], time, .date, .tribe-event-date-start"
+      time: "time[datetime], time, .tribe-event-time"
+      location: ".tribe-venue, .location, .venue, .place, .em-location, p"
+      description: "p, .entry-summary, .tribe-events-list-event-description"
 
-  - name: "Macaroni KID Fredericksburg — Events"
-    type: "html"
-    url: "https://fredericksburg.macaronikid.com/events"
-    html:
-      item: ".event, .event-listing, li, article"
-      title: ".event-title, h3, a"
-      date: "time[datetime], .date"
-      time: "time[datetime]"
-      location: ".event-location, .location, p"
-      description: ".event-description, p"
-
-  # UMW / Theatre (The Events Calendar – broaden)
-  - name: "UMW — Events"
-    type: "html"
-    url: "https://www.umw.edu/events/"
-    html:
-      item: ".tribe-events-calendar-list__event, .event, li, article"
-      title: ".tribe-events-calendar-list__event-title, .event-title, h3, a"
-      date: "time[datetime], .tribe-event-date, .event-date"
-      time: "time[datetime]"
-      location: ".tribe-events-venue-details, .event-location, .location"
-      description: ".tribe-events-calendar-list__event-description, .event-description, p"
-
-  - name: "UMW — Klein Theatre Season"
-    type: "html"
-    url: "https://cas.umw.edu/theatre/klein-theatre/"
-    html:
-      item: ".entry-content, .post, .event, article"
-      title: "h1, h2, .title"
-      date: "time[datetime], time, p, li"
-      time: "time[datetime], time"
-      location: ".location, p, li"
-      description: "p, li"
-
-  # Festivals / Special
-  - name: "Via Colori Stafford — Official"
-    type: "html"
-    url: "https://vcstafford.com/"
-    html:
-      item: "body"
-      title: "h1, h2"
-      date: "time[datetime], p, .date"
-      time: "time[datetime]"
-      location: "p"
-      description: "p"
-
-  - name: "Fredericksburg Greek Festival — Details"
-    type: "html"
-    url: "https://www.fredgreek.org/greek-festival-details"
-    html:
-      item: "body"
-      title: "h1, h2"
-      date: "time[datetime], p"
-      time: "time[datetime]"
-      location: "p"
-      description: "p"
-
-  - name: "Braehead Farm — Events"
-    type: "html"
-    url: "https://braehead-farm.com/events"
-    html:
-      item: ".events, article, li"
-      title: "h2, h3, a"
-      date: "time[datetime], .date, time"
-      time: "time[datetime], time"
-      location: "p, .location"
-      description: "p"
-
-  # Venues / Nightlife
-  - name: "Adventure Brewing — Events"
-    type: "html"
-    url: "https://adventurebrewing.com/events/"
-    html:
-      item: ".mec-events, .mec-event-article, .event, article, li"
-      title: ".mec-event-title, h3, a, .entry-title"
-      date: "time[datetime], .mec-event-date, time"
-      time: "time[datetime], time"
-      location: ".mec-venue, .location, p"
-      description: ".mec-event-description, p"
-
-  - name: "Colonial Tavern — Event Calendar"
-    type: "html"
-    url: "https://www.irishbrigadetavern.com/event-calendar"
-    html:
-      item: "article, .entry, .event, body"
-      title: "h1, h2, h3, .title"
-      date: "time[datetime], time, p"
-      time: "time[datetime], time"
-      location: "p, .location"
-      description: "p"
-
-  - name: "Highmark Brewing — Events"
-    type: "html"
-    url: "https://www.highmarkbrewingco.com/events"
-    html:
-      item: ".tribe-events, .event, li, article"
-      title: ".event-title, h3, a"
-      date: "time[datetime], .date, time"
-      time: "time[datetime], time"
-      location: ".location, p"
-      description: "p"
-
-  - name: "Wild Hare Cider — Events"
-    type: "html"
-    url: "https://www.wildharecider.com/events"
-    html:
-      item: ".event, article, li"
-      title: "h2, h3, a"
-      date: "time[datetime], .date, time"
-      time: "time[datetime], time"
-      location: ".location, p"
-      description: "p"
-
-  - name: "Rebellion — Events"
-    type: "html"
-    url: "https://eatatrebellion.com/events"
-    html:
-      item: ".event, .post, article, li"
-      title: "h2, h3, a"
-      date: "time[datetime], time, p"
-      time: "time[datetime], time"
-      location: "p, .location"
-      description: "p"
-
-  # APIs
+  # ------------------------------
+  # Event platforms (APIs)
+  # ------------------------------
   - name: "Eventbrite — Fredericksburg, VA"
     type: "eventbrite"
-    url: "https://www.eventbriteapi.com/v3/events/search/?location.address=Fredericksburg%2C+VA&location.within=40mi&expand=venue,organizer&sort_by=date"
+    url: "https://www.eventbriteapi.com/v3/events/search/?location.address=Fredericksburg%2C+VA&location.within=40mi&expand=venue,organizer,format,category&sort_by=date&include_all_series_instances=true"
 
   - name: "Bandsintown — Events near Fredericksburg"
     type: "bandsintown"
