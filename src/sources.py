@@ -1,4 +1,4 @@
-import os, time, json, requests, feedparser, urllib.parse, hashlib
+import os, time, json, requests, feedparser, urllib.parse, re, hashlib, hashlib
 from bs4 import BeautifulSoup
 from dateutil import parser
 from urllib.robotparser import RobotFileParser
@@ -19,6 +19,16 @@ def save_cache(cache):
     json.dump(cache, open(CACHE_PATH,'w',encoding='utf-8'), indent=2)
 
 def robots_allowed(url, user_agent="*"):
+    # Allow-list explicit subscription feeds
+    ALLOWLIST_SUBSTR = [
+        '/common/modules/iCalendar/iCalendar.aspx',  # CivicEngage ICS
+        '/calendar/1.xml',                           # UMW RSS
+        '/events/?ical=1', '/events/feed'           # The Events Calendar common exports
+    ]
+    for sub in ALLOWLIST_SUBSTR:
+        if sub in url:
+            return True
+    
     # ROBOTS_DEBUG
     import os
     try:
