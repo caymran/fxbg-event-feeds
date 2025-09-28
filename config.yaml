@@ -9,7 +9,7 @@ enable_eventbrite: true
 enable_bandsintown: true
 
 eventbrite_token: ""        # prefer repo secret EVENTBRITE_TOKEN
-bandsintown_app_id: ""      # prefer repo secret BANDSINTOWN_APP_ID
+bandsintown_app_id: "fxbg-feeds"      # prefer repo secret BANDSINTOWN_APP_ID
 
 user_agent: "fxbg-event-bot/1.0 (+https://example.com)"
 throttle_seconds_min: 2
