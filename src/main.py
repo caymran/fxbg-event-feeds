@@ -128,6 +128,22 @@ def main():
         ev = normalize_event(raw, timezone=timezone)
         if not ev: 
             continue
+        # sanitize location if it looks like a time string, and round times
+        import re
+        def looks_like_time_or_range(txt: str) -> bool:
+            if not txt: return False
+            t = txt.lower()
+            pat_range = r'(\d{1,2}(:\d{2})?\s*(a\.m\.|am|p\.m\.|pm))\s*[–\-to]{1,3}\s*(\d{1,2}(:\d{2})?\s*(a\.m\.|am|p\.m\.|pm))'
+            pat_single = r'\b(\d{1,2}(:\d{2})?\s*(a\.m\.|am|p\.m\.|pm)|noon|midnight)\b'
+            return bool(re.search(pat_range, t)) or bool(re.search(pat_single, t))
+
+        if ev.get('location') and looks_like_time_or_range(ev['location']):
+            ev['location'] = ''
+        # round datetimes to the minute
+        ev['start'] = ev['start'].replace(second=0, microsecond=0)
+        if ev.get('end'):
+            ev['end'] = ev['end'].replace(second=0, microsecond=0)
+
         ev['category'] = categorize_text(ev['title'], ev.get('description',''), rules)
         ev['id'] = hash_event(ev['title'], ev['start'], ev.get('location',''))
         norm.append(ev)
