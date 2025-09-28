@@ -12,6 +12,28 @@
       "id": "06a01be28fa0980cb04439269f3d9c5f32882ed9"
     },
     {
+      "title": "Kids' Galaxy Glow Run",
+      "description": "",
+      "location": "Patriot Park - 5710 Smith Station Road  Fredericksburg VA 22407",
+      "start": "2025-10-04 18:00:00-04:00",
+      "end": "2025-10-04 21:00:00-04:00",
+      "link": null,
+      "source": "https://www.spotsylvania.va.us/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+      "category": "family",
+      "id": "e15a20c2172829594c4eea5a9e7eaeb776ac6b27"
+    },
+    {
+      "title": "Basketball Registration",
+      "description": "",
+      "location": "<p>Registration for the Spotsylvania Parks and Recreation Departm",
+      "start": "2025-10-06 08:00:00-04:00",
+      "end": "2025-10-29 16:30:00-04:00",
+      "link": null,
+      "source": "https://www.spotsylvania.va.us/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+      "category": "adult",
+      "id": "175717b5cb9694acd0be4b02faba44cf88aec611"
+    },
+    {
       "title": "Campout in the Park",
       "description": "",
       "location": "<p>Motts Run Reservoir&nbsp\\;</p> - 6600 River rd  Fredericksburg",
@@ -43,6 +65,17 @@
       "source": "https://www.fredericksburgva.gov/common/modules/iCalendar/iCalendar.aspx?catID=22&feed=calendar",
       "category": "adult",
       "id": "6de5e672ff5c8c85dd5823b42a6c9eeb85c0f709"
+    },
+    {
+      "title": "Fall Community Clean Up Day",
+      "description": "",
+      "location": "Marshall Center - 8800 Courthouse Road  Spotsylvania VA 22553",
+      "start": "2025-11-01 08:00:00-04:00",
+      "end": "2025-11-01 13:00:00-04:00",
+      "link": null,
+      "source": "https://www.spotsylvania.va.us/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar",
+      "category": "adult",
+      "id": "186dcc0af5cd15e49f565a5a840f02b471e9102f"
     },
     {
       "title": "Veterans Day - City Offices Closed",
