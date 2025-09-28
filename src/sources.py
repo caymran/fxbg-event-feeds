@@ -1,4 +1,4 @@
-import os, time, json, requests, feedparser, urllib.parse
+import os, time, json, requests, feedparser, urllib.parse, hashlib
 from bs4 import BeautifulSoup
 from dateutil import parser
 from urllib.robotparser import RobotFileParser
