@@ -242,7 +242,7 @@ def _parse_eventbrite_detail(detail_url, user_agent="fxbg-event-bot/1.0"):
     if not (ev_name and start):
         return None
 
-    return {
+    evt = {
         "title": ev_name,
         "description": desc or "",
         "link": detail_url,
@@ -251,6 +251,12 @@ def _parse_eventbrite_detail(detail_url, user_agent="fxbg-event-bot/1.0"):
         "location": location_str or None,
         "source": "eventbrite",
     }
+    if os.getenv('FEEDS_DEBUG'):
+        t = (ev_name or "")[:60]
+        loc_snip = (location_str or "")[:60]
+        print(f"     · EB parsed: {t} | start:{start} end:{end} loc:{loc_snip}")
+    return evt
+
 
 def fetch_eventbrite_discovery(list_url, pages=10, user_agent="fxbg-event-bot/1.0"):
     """
@@ -272,7 +278,9 @@ def fetch_eventbrite_discovery(list_url, pages=10, user_agent="fxbg-event-bot/1.
         return urllib.parse.urlunsplit(parts)
 
     headers = {"User-Agent": user_agent, "Accept-Language": "en-US,en;q=0.9"}
-
+    
+    pages_seen = 0
+    
     # starting page number
     try:
         qs = urllib.parse.parse_qs(urllib.parse.urlsplit(list_url).query)
@@ -288,6 +296,7 @@ def fetch_eventbrite_discovery(list_url, pages=10, user_agent="fxbg-event-bot/1.
         st, body, _ = req_with_cache(u, headers=headers, throttle=(1,3))
         if st != 200 or not body:
             continue
+        pages_seen += 1
         soup = BeautifulSoup(body, "html.parser")
 
         # Event cards are anchors to /e/… tickets pages
@@ -311,7 +320,9 @@ def fetch_eventbrite_discovery(list_url, pages=10, user_agent="fxbg-event-bot/1.
 
         if os.getenv('FEEDS_DEBUG'):
             print(f"   Eventbrite page {i}: found {len(detail_urls)} links (cumulative)")
-
+        if os.getenv('FEEDS_DEBUG'):
+            print(f"   Eventbrite (HTML): pages_visited={pages_seen} detail_urls={len(detail_urls)}")
+    
     # 2) Visit each detail page and parse
     out = []
     for ev_url in sorted(detail_urls):
@@ -723,6 +734,8 @@ def fetch_eventbrite(api_url, token_env=None):
     """
     if re.search(r"//[^/]*eventbrite\.com/(d/|e/)", api_url):
         # HTML crawler path (no token required)
+        if os.getenv('FEEDS_DEBUG'):
+            print(f"→ Eventbrite discovery crawl: {api_url}")
         return fetch_eventbrite_discovery(api_url, pages=10)
 
     token = token_env or os.getenv("EVENTBRITE_TOKEN") or ""
