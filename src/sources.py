@@ -829,6 +829,74 @@ def fetch_bandsintown(url, app_id_env=None):
         })
     return out
 
+def _mackid_sitemap_discover_detail_urls(base_url, user_agent="Mozilla/5.0"):
+    """
+    Fallback for Macaroni KID: read robots.txt → find Sitemap: lines → fetch sitemaps
+    → extract /events/... links (works even when list pages are JS-only).
+    """
+    from urllib.parse import urlsplit
+    headers = {"User-Agent": user_agent, "Accept-Language": "en-US,en;q=0.9"}
+    urls = set()
+
+    # 1) robots.txt
+    try:
+        parts = urllib.parse.urlsplit(base_url)
+        robots_url = f"{parts.scheme}://{parts.netloc}/robots.txt"
+        st, body, _ = req_with_cache(robots_url, headers=headers, throttle=(1,3))
+    except Exception:
+        st, body = 0, ""
+
+    sitemaps = []
+    if st == 200 and body:
+        for line in body.splitlines():
+            line = line.strip()
+            if line.lower().startswith("sitemap:"):
+                sitemaps.append(line.split(":", 1)[1].strip())
+
+    # Common sitemap locations (in case robots doesn’t list them)
+    root = f"{parts.scheme}://{parts.netloc}"
+    sitemaps += [f"{root}/sitemap.xml", f"{root}/sitemap_index.xml", f"{root}/sitemap-events.xml"]
+
+    seen = set()
+    detail_pat = re.compile(r"^/events/[A-Za-z0-9\-]{6,}(?:/[\w\-]*)?$", re.I)
+
+    for sm in sitemaps:
+        if sm in seen:
+            continue
+        seen.add(sm)
+        st2, xml, _ = req_with_cache(sm, headers=headers, throttle=(1,3))
+        if st2 != 200 or not xml:
+            continue
+
+        # Extract <loc>…</loc> values (loose XML parse)
+        for m in re.finditer(r"<loc>\s*([^<]+)\s*</loc>", xml):
+            u = m.group(1).strip()
+            try:
+                path = urlsplit(u).path
+            except Exception:
+                path = u
+            if detail_pat.match(path):
+                urls.add(u)
+
+        # If this is a sitemap index, it may point to other sitemaps; follow shallowly
+        for sm2 in re.finditer(r"<sitemap>\s*<loc>\s*([^<]+)\s*</loc>\s*</sitemap>", xml):
+            u2 = sm2.group(1).strip()
+            if u2 and u2 not in seen:
+                seen.add(u2)
+                st3, xml2, _ = req_with_cache(u2, headers=headers, throttle=(1,3))
+                if st3 == 200 and xml2:
+                    for m in re.finditer(r"<loc>\s*([^<]+)\s*</loc>", xml2):
+                        u = m.group(1).strip()
+                        try:
+                            path = urlsplit(u).path
+                        except Exception:
+                            path = u
+                        if detail_pat.match(path):
+                            urls.add(u)
+
+    return urls
+
+
 def fetch_macaronikid_fxbg(days=60, user_agent=None):
     """
     Crawl Macaroni KID Fredericksburg:
@@ -880,7 +948,7 @@ def fetch_macaronikid_fxbg(days=60, user_agent=None):
         # Reject:
         #   /events
         #   /events/calendar
-        detail_pat = re.compile(r"^/events/[0-9a-f]{8,}(?:/[\w\-]*)?$", re.I)
+        detail_pat = re.compile(r"^/events/[A-Za-z0-9\-]{6,}(?:/[\w\-]*)?$", re.I)
 
         for a in soup.select("a[href*='/events/']"):
             href = (a.get("href") or "").split("?")[0].strip()
@@ -927,6 +995,13 @@ def fetch_macaronikid_fxbg(days=60, user_agent=None):
         print(f"   MacKID: pages_visited={pages_visited} detail_urls={len(detail_urls)}")
         for u in list(sorted(detail_urls))[:5]:
             print("     · detail:", u)
+
+    # If no links from list pages (JS-only?), fall back to sitemaps
+    if not detail_urls:
+        sitemap_links = _mackid_sitemap_discover_detail_urls(base, user_agent=user_agent)
+        if os.getenv("FEEDS_DEBUG"):
+            print(f"   MacKID (SITEMAP): detail_urls={len(sitemap_links)}")
+        detail_urls |= sitemap_links
 
 
     collected = []
