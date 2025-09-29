@@ -263,7 +263,9 @@ def _parse_eventbrite_detail(detail_url, user_agent="fxbg-event-bot/1.0"):
         t = (ev_name or "")[:60]
         loc_snip = (location_str or "")[:60]
         print(f"     · EB parsed: {t} | start:{start} end:{end} loc:{loc_snip}")
-    return evtdef _parse_eventbrite_detail(detail_url: str, html: str, default_tz="America/New_York"):
+    return evt
+
+def _parse_eventbrite_detail(detail_url: str, html: str, default_tz="America/New_York"):
     """
     Robust Eventbrite detail parser:
       1) Prefer JSON-LD @type=Event (object, list, or @graph)
