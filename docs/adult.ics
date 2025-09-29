@@ -2,320 +2,589 @@ BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:ics.py - http://git.io/lLljaA
 BEGIN:VEVENT
-DTSTAMP:20250929T185055Z
+DTSTAMP:20250929T190923Z
+DESCRIPTION:***FREE SHOWING***\nhttps://www.eventbrite.com/e/quantico-movie-elio-pg-free-encore-showing-tickets-1721628289559
+DTEND:20251004T193900Z
+LAST-MODIFIED:20250929T190923Z
+LOCATION:Little Hall Theater - 2034 Barnett Ave. Main Floor\, Quantico\, VA 22134 Quantico VA 22134
+DTSTART:20251004T180000Z
+SUMMARY:QUANTICO - Movie: Elio - PG *FREE ENCORE SHOWING*
+UID:cd542837e11eb1a2f070367b6b5d2fba67c0b1e9
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250929T190923Z
+DESCRIPTION:Join us for a night of live music with Anthony G\, where you can groove to some awesome tunes!\nhttps://www.eventbrite.com/e/live-music-w-anthony-g-courtyard-marriott-tickets-1596037784979
+DTEND:20251011T010000Z
+LAST-MODIFIED:20250929T190923Z
+LOCATION:Courtyard Fredericksburg Historic District - 620 Caroline Street\, Fredericksburg\, VA 22401 Fredericksburg VA 22401
+DTSTART:20251010T220000Z
+SUMMARY:Live Music w/ Anthony G @ Courtyard Marriott
+UID:434cd11a180a527c08ead9e207753ddf02cc002e
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250929T190923Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3907\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20251101T200000Z
-LAST-MODIFIED:20250929T185055Z
+LAST-MODIFIED:20250929T190923Z
 LOCATION:Commissioner of the Revenue's - 10459 Courthouse Drive Suite 101 King George VA 22485
 DTSTART:20251101T120000Z
 SUMMARY:Land Use Tax Application Deadline
 UID:6b55f741f4e52a9ef3d1aa0dcf1639a7137df387
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T185055Z
+DTSTAMP:20250929T190923Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3804\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20251205T210000Z
-LAST-MODIFIED:20250929T185055Z
+LAST-MODIFIED:20250929T190923Z
 LOCATION:Treasurer's Office - 10459 Courthouse Drive Suite 100 King George VA 22485
 DTSTART:20251205T130000Z
 SUMMARY:Real Estate & Personal Property Taxes Due
 UID:fe71a97cc717b9f09ac0d87a63dda4041d8a0aea
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T185055Z
-DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3444\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
-DTEND:20260301T210000Z
-LAST-MODIFIED:20250929T185055Z
-LOCATION:Commissioner of the Revenue's Office - 10459 Courthouse Drive Suite 101 King George VA 22485
-DTSTART:20260301T130000Z
-SUMMARY:Exemption Application Deadline for the Elderly and Disabled
-UID:34822f1daf6dde059c20421f2b2f820907096bc3
+DTSTAMP:20250929T190923Z
+DESCRIPTION:SMP Fall Bash\nhttps://www.eventbrite.com/e/quantico-single-marine-program-smp-fall-bash-tickets-1607418304419
+DTEND:20251009T220000Z
+LAST-MODIFIED:20250929T190923Z
+LOCATION:206 Nicholas Rd - 206 Nicholas Road\, Quantico\, VA 22134 Quantico VA 22134
+DTSTART:20251009T190000Z
+SUMMARY:Quantico Single Marine Program (SMP) Fall Bash
+UID:cd51d741e234ba0a3e2d33cf782b835ee9da96c9
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T185055Z
+DTSTAMP:20250929T190923Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3392\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20260301T210000Z
-LAST-MODIFIED:20250929T185055Z
+LAST-MODIFIED:20250929T190923Z
 LOCATION:Commissioner of the Revenue's Office - 10459 Courthouse Drive Suite 101 King George VA 22485
 DTSTART:20260301T130000Z
 SUMMARY:Business License Renewal Application & Payment Deadline
 UID:cc7ffbd6d41aee174eccab872700e6d8763d02b8
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T185055Z
+DTSTAMP:20250929T190923Z
+DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3444\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
+DTEND:20260301T210000Z
+LAST-MODIFIED:20250929T190923Z
+LOCATION:Commissioner of the Revenue's Office - 10459 Courthouse Drive Suite 101 King George VA 22485
+DTSTART:20260301T130000Z
+SUMMARY:Exemption Application Deadline for the Elderly and Disabled
+UID:34822f1daf6dde059c20421f2b2f820907096bc3
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250929T190923Z
+DESCRIPTION:This is a set up day for the seed swap community event\nhttps://www.eventbrite.com/e/seed-swap-community-event-preparation-day-tickets-1392775050669
+DTEND:20260131T045900Z
+LAST-MODIFIED:20250929T190923Z
+LOCATION:The Church of Jesus Christ of Latter-day Saints - 20 Boscobel Road\, Fredericksburg\, VA 22405 Fredericksburg VA 22405
+DTSTART:20260130T050000Z
+SUMMARY:Seed Swap Community Event (Preparation Day)
+UID:662f929b80d2ec6d3a2dac03bb3c738592ea36ed
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250929T190923Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3855\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20251101T200000Z
-LAST-MODIFIED:20250929T185055Z
+LAST-MODIFIED:20250929T190923Z
 LOCATION:Treasurer's Office - 10459 Courthouse Drive Suite 100 King George VA 22485
 DTSTART:20251101T120000Z
 SUMMARY:Dog Tags Available for Purchase
 UID:0f6408707f4915600573fffacc8e90554ba6dac6
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T185055Z
+DTSTAMP:20250929T190923Z
+DESCRIPTION:Come join us for a free screening of "Open: A Journey Through Love" - a beautiful film about love\, relationships\, and self-discovery!\nhttps://www.eventbrite.com/e/free-screening-of-open-a-journey-through-love-tickets-1597812914439
+DTEND:20250930T233000Z
+LAST-MODIFIED:20250929T190923Z
+LOCATION:Pride Center FXBG - 4343 Plank Road #Suite 100 & 110\, Fredericksburg\, VA 22407 Fredericksburg VA 22407
+DTSTART:20250930T210000Z
+SUMMARY:Free Screening of "Open: A Journey Through Love"
+UID:b3db42c1d0495a0a4f7fb4c4f5fe939c3e8a1085
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250929T190923Z
+DESCRIPTION:***NOT A FREE SHOWING*** ***ADMISSION TO BE PAID AT THE DOOR***\nhttps://www.eventbrite.com/e/quantico-movie-demon-slayer-infinity-castle-r-300-thursday-tickets-1721584719239
+DTEND:20251003T003500Z
+LAST-MODIFIED:20250929T190923Z
+LOCATION:Little Hall Theater - 2034 Barnett Ave. Main Floor\, Quantico\, VA 22134 Quantico VA 22134
+DTSTART:20251002T220000Z
+SUMMARY:QUANTICO - Movie: Demon Slayer: Infinity Castle - R *$3.00 THURSDAY*
+UID:d28f544d5f5506bbe5e417572648ba503c3f4489
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250929T190923Z
 DESCRIPTION:https://www.fredericksburgva.gov/calendar.aspx?EID=3504\nhttps://www.fredericksburgva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=35
 DTEND:20251126T213000Z
-LAST-MODIFIED:20250929T185055Z
+LAST-MODIFIED:20250929T190923Z
 LOCATION:City Hall - 715 Princess Anne Street Fredericksburg VA 22401
 DTSTART:20251126T170000Z
 SUMMARY:Thanksgiving - City Offices Closed Half Day
 UID:aabaf1989419ef5919274ea2145990d7f9e2df97
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T185055Z
+DTSTAMP:20250929T190923Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3340\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20260215T210000Z
-LAST-MODIFIED:20250929T185055Z
+LAST-MODIFIED:20250929T190923Z
 LOCATION:Commissioner of the Revenue's Office - 10459 Courthouse Drive Suite 101 King George VA 22485
 DTSTART:20260215T130000Z
 SUMMARY:High Mileage Discount Deadline
 UID:a2729e42768c61ffe19fb154cc14af7a667b4342
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T185055Z
+DTSTAMP:20250929T190923Z
+DESCRIPTION:Christmas party in the gym and kitchen. Party will start at 6 till 8. Reserving gym and kitchen the whole day for set up.\nhttps://www.eventbrite.com/e/amber-stice-tickets-1721738007729
+DTEND:20251207T020000Z
+LAST-MODIFIED:20250929T190923Z
+LOCATION:The Church of Jesus Christ of Latter-day Saints - 3718 Old Bridge Road\, Woodbridge\, VA 22192 Woodbridge VA 22192
+DTSTART:20251206T140000Z
+SUMMARY:Amber Stice
+UID:f6f23bc4def77909ac948f7b0f7205579d72a36e
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250929T190923Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4336\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20251026T000000Z
-LAST-MODIFIED:20250929T185055Z
+LAST-MODIFIED:20250929T190923Z
 LOCATION:Cedell Brooks\, Jr. Park - 11259 Henry Griffin Road King George VA 22485
 DTSTART:20251025T220000Z
 SUMMARY:KGP&R Trunk or Treat & Halloween Movie in the Park
 UID:4bed72270f0596ac0752674c356e9e4810d441bb
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T185055Z
+DTSTAMP:20250929T190923Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3702\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20260115T210000Z
-LAST-MODIFIED:20250929T185055Z
+LAST-MODIFIED:20250929T190923Z
 LOCATION:Treasurer's Office - 10459 Courthouse Drive Suite 100 King George VA 22485
 DTSTART:20260115T130000Z
 SUMMARY:Estimated Quarterly State Income Tax Payment Due
 UID:db213134531f2235ba7509719e418e006fc4ddce
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T185055Z
-DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3548\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
-DTEND:20260501T200000Z
-LAST-MODIFIED:20250929T185055Z
-LOCATION:Commissioner of the Revenue's Office - 10459 Courthouse Drive Suite 101 King George VA 22485
-DTSTART:20260501T120000Z
-SUMMARY:Estimated Quarterly State Income Tax Payment Due
-UID:c2b4da72ce9d9becb2d05db6e1bce38202fa340e
+DTSTAMP:20250929T190923Z
+DESCRIPTION:Join us for a fun evening with Amena as she showcases her artistic talent live through painting on the streets of Fredericksburg!\nhttps://www.eventbrite.com/e/amena-art-meet-amena-live-painting-tickets-1715890527759
+DTEND:20251004T200000Z
+LAST-MODIFIED:20250929T190923Z
+LOCATION:Caroline Street - Caroline Street\, Fredericksburg\, VA 22401 Fredericksburg VA 22401
+DTSTART:20251004T150000Z
+SUMMARY:Amena Art - Meet Amena Live Painting!
+UID:bda26932d6e70b774725542f93d22f3551d9d05b
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T185055Z
+DTSTAMP:20250929T190923Z
+DESCRIPTION:Learn VA homebuying tips from Patrick Holland & Chasity Porter—buy vs. rent\, sell or hold\, and more. Drinks included!\nhttps://www.eventbrite.com/e/va-home-loan-seminar-tickets-1748347527519
+DTEND:20251113T233000Z
+LAST-MODIFIED:20250929T190923Z
+LOCATION:Full Distance Brewing - 650 Corporate Drive #101\, Stafford\, VA 22554 Stafford VA 22554
+DTSTART:20251113T220000Z
+SUMMARY:VA Home Loan Seminar
+UID:bafb78afd3b47ad93d99668a18f4176c0c80f001
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250929T190923Z
 DESCRIPTION:https://www.fredericksburgva.gov/calendar.aspx?EID=3505\nhttps://www.fredericksburgva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=35
 DTEND:20251128T050000Z
-LAST-MODIFIED:20250929T185055Z
+LAST-MODIFIED:20250929T190923Z
 LOCATION:City Hall - 715 Princess Anne Street Fredericksburg VA 22401
 DTSTART:20251127T050000Z
 SUMMARY:Thanksgiving - City Offices Closed
 UID:6d94d72f5581002c93c3c7a999122af970cfeb8d
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T185055Z
+DTSTAMP:20250929T190923Z
+DESCRIPTION:Join us at The Harbour Grille for a special charity event with Goodbye Vienna\, performing live to raise awareness for the 22 A Day project\nhttps://www.eventbrite.com/e/goodbye-vienna-performing-the-22-a-day-charity-event-the-harbour-grille-tickets-1546537668799
+DTEND:20251110T045900Z
+LAST-MODIFIED:20250929T190923Z
+LOCATION:The Harbour Grille - 13188 Marina Way\, Woodbridge\, VA 22191 Woodbridge VA 22191
+DTSTART:20251110T010000Z
+SUMMARY:Goodbye Vienna performing The 22 A Day Charity Event @ The Harbour Grille
+UID:d11be209daa02f940e9c472bd1bb3bea88ae91a8
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250929T190923Z
+DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3548\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
+DTEND:20260501T200000Z
+LAST-MODIFIED:20250929T190923Z
+LOCATION:Commissioner of the Revenue's Office - 10459 Courthouse Drive Suite 101 King George VA 22485
+DTSTART:20260501T120000Z
+SUMMARY:Estimated Quarterly State Income Tax Payment Due
+UID:c2b4da72ce9d9becb2d05db6e1bce38202fa340e
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250929T190923Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4335\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20251026T000000Z
-LAST-MODIFIED:20250929T185055Z
+LAST-MODIFIED:20250929T190923Z
 LOCATION:Caledon State Park - 11617 Caledon Road King George VA 22485
 DTSTART:20251025T220000Z
 SUMMARY:Caledon Trunk or Treat
 UID:8f55f57bf3379a87b8b6a6724baddd3b00a6fdc5
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T185055Z
-DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3754\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
-DTEND:20260605T200000Z
-LAST-MODIFIED:20250929T185055Z
-LOCATION:Treasurer's Office - 10459 Courthouse Drive Suite 100 King George VA 22485
-DTSTART:20260605T120000Z
-SUMMARY:Real Estate & Personal Property Taxes Due
-UID:5a9e35570ac4ac4d544cdc0dc2a6b56fa343714f
+DTSTAMP:20250929T190923Z
+DESCRIPTION:Come hang out and enjoy some awesome live music with Brian Hill!\nhttps://www.eventbrite.com/e/live-music-w-brian-hill-courtyard-marriott-tickets-1595906923569
+DTEND:20251009T010000Z
+LAST-MODIFIED:20250929T190923Z
+LOCATION:Courtyard Fredericksburg Historic District - 620 Caroline Street\, Fredericksburg\, VA 22401 Fredericksburg VA 22401
+DTSTART:20251008T220000Z
+SUMMARY:Live Music w/ Brian Hill @ Courtyard Marriott
+UID:1abde31244a91d575fa88e8fab8e7877dfee6e64
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T185055Z
+DTSTAMP:20250929T190923Z
 DESCRIPTION:https://www.fredericksburgva.gov/calendar.aspx?EID=3645\nhttps://www.fredericksburgva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=22
 DTEND:20251012T200000Z
-LAST-MODIFIED:20250929T185055Z
+LAST-MODIFIED:20250929T190923Z
 LOCATION:Fire Station #1 - 601 Princess Anne Street Fredericksburg VA 22401
 DTSTART:20251012T170000Z
 SUMMARY:Fredericksburg Fire Department's Open House
 UID:09af4f679ed4c2e3c65afd7b61c920e3679dac80
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T185055Z
+DTSTAMP:20250929T190923Z
+DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3754\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
+DTEND:20260605T200000Z
+LAST-MODIFIED:20250929T190923Z
+LOCATION:Treasurer's Office - 10459 Courthouse Drive Suite 100 King George VA 22485
+DTSTART:20260605T120000Z
+SUMMARY:Real Estate & Personal Property Taxes Due
+UID:5a9e35570ac4ac4d544cdc0dc2a6b56fa343714f
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250929T190923Z
+DESCRIPTION:Faith In Action! Hope Alive Foundation Presents the Annual Breast Cancer Awareness Walk\nhttps://www.eventbrite.com/e/hope-alive-foundation-annual-breast-cancer-awareness-sponsored-by-sentara-tickets-1742163099729
+DTEND:20251004T150000Z
+LAST-MODIFIED:20250929T190923Z
+LOCATION:17877 Old Triangle Rd - 17877 Old Triangle Road\, Triangle\, VA 22172 Triangle VA 22172
+DTSTART:20251004T123000Z
+SUMMARY:Hope Alive Foundation Annual Breast Cancer Awareness (Sponsored by Sentara)
+UID:d02d2fbf00a861a09eb64e21de04f434ff9507ec
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250929T190923Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3044\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20260215T210000Z
-LAST-MODIFIED:20250929T185055Z
+LAST-MODIFIED:20250929T190923Z
 LOCATION:Commissioner of the Revenue's Office - 10459 Courthouse Drive Suite 101 King George VA 22485
 DTSTART:20260215T130000Z
 SUMMARY:Deadline to File Business Personal Property Returns
 UID:288b9cb0d780cf0ca739edc90604316a05a15a9f
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T185055Z
+DTSTAMP:20250929T190923Z
 DESCRIPTION:https://www.fredericksburgva.gov/calendar.aspx?EID=3634\nhttps://www.fredericksburgva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=22
 DTEND:20251001T000000Z
-LAST-MODIFIED:20250929T185055Z
+LAST-MODIFIED:20250929T190923Z
 LOCATION:Riverfront Park - 600 Sophia st Fredericksburg VA 22401
 DTSTART:20250930T220000Z
 SUMMARY:Kick Back Tuesday Concert Series
 UID:91098b32c119269fbf893b45a70da30751e44d7c
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T185055Z
+DTSTAMP:20250929T190923Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3288\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20260201T210000Z
-LAST-MODIFIED:20250929T185055Z
+LAST-MODIFIED:20250929T190923Z
 LOCATION:Treasurer's Office - 10459 Courthouse Drive Suite 100 King George VA 22485
 DTSTART:20260201T130000Z
 SUMMARY:Deadline to Purchase Dog Tags
 UID:e5282e87f4e14b00171400e8eedc905d1621d802
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T185055Z
+DTSTAMP:20250929T190923Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3496\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20260501T200000Z
-LAST-MODIFIED:20250929T185055Z
+LAST-MODIFIED:20250929T190923Z
 LOCATION:Commissioner of the Revenue's Office - 10459 Courthouse Drive Suite 101 King George VA 22485
 DTSTART:20260501T120000Z
 SUMMARY:State Income Taxes Due
 UID:cdbf4ae4a0688e22a37a61bb01c4522f1ccbaf9d
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T185055Z
+DTSTAMP:20250929T190923Z
+DESCRIPTION:Explore Chatham Manor’s historic gardens for free before Fredericksburg Fashion Week’s Secret Garden Runway Show. Sign up now!\nhttps://www.eventbrite.com/e/step-into-history-before-the-ffwi-runway-main-event-2025-tickets-1661258190969
+DTEND:20251004T210000Z
+LAST-MODIFIED:20250929T190923Z
+LOCATION:Chatham Manor - 120 Chatham Lane\, Fredericksburg\, VA 22405 Fredericksburg VA 22405
+DTSTART:20251004T130000Z
+SUMMARY:Step Into History Before the F.F.W.I Runway Main Event 2025
+UID:609456a91feb6e5e7b243d72df5b5696ad2defb2
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250929T190923Z
+DESCRIPTION:An atmostphere of encountering Christ with special guest and worldwide artist Joe Mettle!\nhttps://www.eventbrite.com/e/liberation-praise-banquet-tickets-1714149289669
+DTEND:20251013T000000Z
+LAST-MODIFIED:20250929T190923Z
+LOCATION:17877 Old Triangle Rd - 17877 Old Triangle Road\, Triangle\, VA 22172 Triangle VA 22172
+DTSTART:20251012T190000Z
+SUMMARY:Liberation Praise Banquet
+UID:16d8279e8e4a45511e7165e24a60f7248eda32ff
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250929T190923Z
+DESCRIPTION:Come jam out with Scott at our live music event!\nhttps://www.eventbrite.com/e/live-music-w-scott-stallard-courtyard-marriott-tickets-1596225045079
+DTEND:20251018T010000Z
+LAST-MODIFIED:20250929T190923Z
+LOCATION:Courtyard Fredericksburg Historic District - 620 Caroline Street\, Fredericksburg\, VA 22401 Fredericksburg VA 22401
+DTSTART:20251017T220000Z
+SUMMARY:Live Music w/ Scott Stallard @ Courtyard Marriott
+UID:afba88be574b3813525c2fd3e838aeb4599d7eb7
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250929T190923Z
+DESCRIPTION:***FREE SHOWING***\nhttps://www.eventbrite.com/e/quantico-movie-lilo-stitch-2025-pg-free-encore-showing-tickets-1721634718789
+DTEND:20251005T194800Z
+LAST-MODIFIED:20250929T190923Z
+LOCATION:Little Hall Theater - 2034 Barnett Ave. Main Floor\, Quantico\, VA 22134 Quantico VA 22134
+DTSTART:20251005T180000Z
+SUMMARY:QUANTICO - Movie: Lilo & Stitch (2025) - PG *FREE ENCORE SHOWING*
+UID:54b9ed486173cca252f15d538f74b3281e0dd3f2
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250929T190923Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3651\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20260915T200000Z
-LAST-MODIFIED:20250929T185055Z
+LAST-MODIFIED:20250929T190923Z
 LOCATION:Treasurer's Office - 10459 Courthouse Drive Suite 100 King George VA 22485
 DTSTART:20260915T120000Z
 SUMMARY:Estimated Quarterly State Income Tax Payment Due
 UID:ffb5c426d56db96d82bd7bd1c193c6d1950c077d
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T185055Z
+DTSTAMP:20250929T190923Z
+DESCRIPTION:***NOT A FREE SHOWING*** ***ADMISSION TO BE PAID AT THE DOOR***\nhttps://www.eventbrite.com/e/quantico-movie-the-roses-r-300-thursday-tickets-1721646142959
+DTEND:20251009T234500Z
+LAST-MODIFIED:20250929T190923Z
+LOCATION:Little Hall Theater - 2034 Barnett Ave. Main Floor\, Quantico\, VA 22134 Quantico VA 22134
+DTSTART:20251009T220000Z
+SUMMARY:QUANTICO - Movie: The Roses - R *$3.00 THURSDAY*
+UID:57183a72d513aa6a08a93fe448f1ae43b8306d9b
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250929T190923Z
 DESCRIPTION:https://www.spotsylvania.va.us/calendar.aspx?EID=3276\nhttps://www.spotsylvania.va.us/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
 DTEND:20251029T203000Z
-LAST-MODIFIED:20250929T185055Z
+LAST-MODIFIED:20250929T190923Z
 LOCATION:Registration for the Spotsylvania Parks and Recreation Department Youth Basketball program will begin on Monday\, October 6.  Our program is for boys ages 6 – 17 and girls ages 6 – 14 who are Spotsylvania County Residents. The registration deadline is 4:30 p.m. on Wednesday\, October 29\, 2025. The age determination date for basketball is July 31\, 2025.   For more detailed information or questions\, call our office at (540)507-7529 or visit our web site at https://www.spotsylvania.va.us/469/Basketball - 10910 Leavells Road Spotsylvania VA 22553
 DTSTART:20251006T120000Z
 SUMMARY:Basketball Registration
 UID:8cad952ac47ba789774345faaa182dc92737a8be
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T185055Z
+DTSTAMP:20250929T190923Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4332\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20251005T150000Z
-LAST-MODIFIED:20250929T185055Z
+LAST-MODIFIED:20250929T190923Z
 LOCATION:Caledon State Park - 11617 Caledon Road King George VA 22485
 DTSTART:20251005T130000Z
 SUMMARY:Bark Ranger Hike
 UID:cc0107007c9d172c97cac4f3de12f60ae4210691
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T185055Z
+DTSTAMP:20250929T190923Z
 DESCRIPTION:https://www.fredericksburgva.gov/calendar.aspx?EID=3640\nhttps://www.fredericksburgva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=22
 DTEND:20251025T000000Z
-LAST-MODIFIED:20250929T185055Z
+LAST-MODIFIED:20250929T190923Z
 LOCATION:Memorial Park - 1401 Kenmore ave Fredericksburg VA 22401
 DTSTART:20251024T223000Z
 SUMMARY:Park After Dark
 UID:2c032c6083cef1846e5bc5329d41a3b719f4743c
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T185055Z
+DTSTAMP:20250929T190923Z
+DESCRIPTION:Get ready to witness the most hilarious and spooky roast battle you've ever seen - Bargoyles Live Halloween Roast Battle!\nhttps://www.eventbrite.com/e/bargoyles-live-halloween-roast-battle-tickets-1712305244079
+DTEND:20251027T000000Z
+LAST-MODIFIED:20250929T190923Z
+LOCATION:Electric Palm Restaurant - 12745 Sea Ray Lane\, Woodbridge\, VA 22192 Woodbridge VA 22192
+DTSTART:20251026T220000Z
+SUMMARY:Bargoyles Live Halloween Roast Battle
+UID:a26f7b9d7eba507d1662932a6899c58dce5a790b
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250929T190923Z
+DESCRIPTION:Come jam out with Dave Nichols at our live music event!\nhttps://www.eventbrite.com/e/live-music-w-dave-nichols-courtyard-marriott-tickets-1596075828769
+DTEND:20251016T010000Z
+LAST-MODIFIED:20250929T190923Z
+LOCATION:Courtyard Fredericksburg Historic District - 620 Caroline Street\, Fredericksburg\, VA 22401 Fredericksburg VA 22401
+DTSTART:20251015T220000Z
+SUMMARY:Live Music w/ Dave Nichols @ Courtyard Marriott
+UID:fcfdfe88a0f34e5f76c774055e82309ae984fb8e
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250929T190923Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4315\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20251123T045900Z
-LAST-MODIFIED:20250929T185055Z
+LAST-MODIFIED:20250929T190923Z
 LOCATION:Caledon State Park - 11617 Caledon Road King George VA 22485
 DTSTART:20251122T130000Z
 SUMMARY:Turkey Chase Trail Race
 UID:22898b19e92e78a8ff63ab733d4eeaa8ff8d7d00
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T185055Z
+DTSTAMP:20250929T190923Z
+DESCRIPTION:Holding this date as a back up for the community seed swap event should weather conditions prevent the event from occuring on Jan 30-31.\nhttps://www.eventbrite.com/e/tentative-seed-swap-community-event-preparation-day-tickets-1392790506899
+DTEND:20260207T010000Z
+LAST-MODIFIED:20250929T190923Z
+LOCATION:The Church of Jesus Christ of Latter-day Saints - 20 Boscobel Road\, Fredericksburg\, VA 22405 Fredericksburg VA 22405
+DTSTART:20260206T170000Z
+SUMMARY:[Tentative] Seed Swap Community Event (Preparation Day)
+UID:71413e3bb118d542ea102f1d5ab3042fbf4bebdb
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250929T190923Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4334\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20251019T003000Z
-LAST-MODIFIED:20250929T185055Z
+LAST-MODIFIED:20250929T190923Z
 LOCATION:King George Family YMCA - 10545 Kings Highway King George VA 22485
 DTSTART:20251018T223000Z
 SUMMARY:Creepy Crawly Carnival
 UID:2bf7fdff8bfca27aa5f9fdae0896336a96b4066f
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T185055Z
+DTSTAMP:20250929T190923Z
+DESCRIPTION:This class will be an overview of providing supportive care and creating appropriate temporary habitats until a help can be provided.\nhttps://www.eventbrite.com/e/keeping-wildlife-alive-tickets-1644532203089
+DTEND:20251119T233000Z
+LAST-MODIFIED:20250929T190923Z
+LOCATION:Prince William County Animal Services Center - 14807 Bristow Road\, Manassas\, VA 20112 Manassas VA 20112
+DTSTART:20251119T220000Z
+SUMMARY:Keeping Wildlife Alive
+UID:08814b24d1796838d127b12b646efcb84f83d5c8
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250929T190923Z
 DESCRIPTION:https://www.fredericksburgva.gov/calendar.aspx?EID=3506\nhttps://www.fredericksburgva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=35
 DTEND:20251225T050000Z
-LAST-MODIFIED:20250929T185055Z
+LAST-MODIFIED:20250929T190923Z
 LOCATION:City Hall - 715 Princess Anne Street Fredericksburg VA 22401
 DTSTART:20251224T050000Z
 SUMMARY:Christmas - City Offices Closed
 UID:b60ecf74ae81d4d5ef529172cc4fbfac91e80098
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T185055Z
+DTSTAMP:20250929T190923Z
+DESCRIPTION:Saturday\, February 7 [TENTATIVE] Seed Swap Community Event Date and time Saturday\, February 7\, 2026 · 12am - 11:59pm EST Location The Church of Jesus Christ of Latter-day Saints 20 Boscobel Road Fredericksburg\, VA 22405 Get directions Good to know Highlights 23 hours 59 minutes In person Highlights 23 hours 59 minutes In person About this event Music • Spiritual & Religious This is a placeholder for the seedswap community event in case there are weather issues that force a reschedule from the January 30-31 dates. https://local.churchofjesuschrist.org/en/units/us/va/stafford-virginia-stake/events/[tentative]-seed-swap-community-event-2015606118 Organized by Contact organizer Report this event Free Feb 7 · 12:00 AM EST Get tickets\nhttps://www.eventbrite.com/e/tentative-seed-swap-community-event-tickets-1392791479809
+DTEND:20260208T045900Z
+LAST-MODIFIED:20250929T190923Z
+LOCATION:The Church of Jesus Christ of Latter-day Saints - 20 Boscobel Road\, Fredericksburg\, VA 22405 Fredericksburg VA 22405
+DTSTART:20260207T050000Z
+SUMMARY:[TENTATIVE] Seed Swap Community Event
+UID:f6034c4951c20d53caee827d09cb5c8595a30b13
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250929T190923Z
+DESCRIPTION:Let us help YOU lighten your load! Bring your Junk and Donations to Southlake Recreation Parking Lot.\nhttps://www.eventbrite.com/e/hsr-dumpster-day-tickets-1559657430359
+DTEND:20251005T190000Z
+LAST-MODIFIED:20250929T190923Z
+LOCATION:Montclair Country Club Parking Lot - 16500 Edgewood Drive\, Montclair\, VA 22025 Montclair VA 22025
+DTSTART:20251005T160000Z
+SUMMARY:HSR Dumpster Day
+UID:3b804107943d65097405ce7c9569e3d64bc8db4d
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250929T190923Z
+DESCRIPTION:Join us for a FREE Candle Making class! Ladies of all ages are welcome (children must have adult). Take home the candle you make\nhttps://www.eventbrite.com/e/ladies-candle-making-class-tickets-1698090377029
+DTEND:20251025T170000Z
+LAST-MODIFIED:20250929T190923Z
+LOCATION:Stevensburg Baptist Church - 19393 York Road\, Stevensburg\, VA 22741 Stevensburg VA 22741
+DTSTART:20251025T140000Z
+SUMMARY:Ladies Candle Making Class
+UID:1cdba5224ce0e6ffa745a6f62322ea0d4c5842f9
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250929T190923Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4331\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20251004T140000Z
-LAST-MODIFIED:20250929T185055Z
+LAST-MODIFIED:20250929T190923Z
 LOCATION:Caledon State Park - 11617 Caledon Road King George VA 22485
 DTSTART:20251004T120000Z
 SUMMARY:Howlin' Coyote Trail Race
 UID:236e3f5e5a1d28a6b61a998a75c00146fb4586a2
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T185055Z
+DTSTAMP:20250929T190923Z
 DESCRIPTION:https://www.fredericksburgva.gov/calendar.aspx?EID=3639\nhttps://www.fredericksburgva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=22
 DTEND:20251011T140000Z
-LAST-MODIFIED:20250929T185055Z
+LAST-MODIFIED:20250929T190923Z
 LOCATION:Motts Run Reservoir  - 6600 River rd Fredericksburg VA 22401
 DTSTART:20251010T210000Z
 SUMMARY:Campout in the Park
 UID:71d1fec31be4e6392b92ad436064a3eaab147898
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T185055Z
+DTSTAMP:20250929T190923Z
 DESCRIPTION:To honor the contributions of our United States Veterans. Procession Route: Along Washington Ave. From Mary Ball St. to George St. Public is invited to come cheer on our Veterans! https://www.fredericksburgva.gov/calendar.aspx?EID=3641\nhttps://www.fredericksburgva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=22
 DTEND:20251111T154500Z
-LAST-MODIFIED:20250929T185055Z
+LAST-MODIFIED:20250929T190923Z
 LOCATION:Memorial Park  - 1401 Kenmore ave Fredericksburg VA 22401
 DTSTART:20251111T140000Z
 SUMMARY:Veteran's Day Procession
 UID:6c08b337f4d2b6eaa2f0f0d4f051c7c4d51abb5e
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T185055Z
+DTSTAMP:20250929T190923Z
+DESCRIPTION:Multiple dates 2025 Boots to Business (Entrepreneurship) Class By MCCS Quantico: Personal and Professional Follow Interested in starting a business or owning a franchise? Presented by the SBA. Topics include business plans and funding options. View all event details Sold Out Explore similar events\nhttps://www.eventbrite.com/e/2025-boots-to-business-entrepreneurship-class-tickets-1107404630059
+DTEND:20250930T005800Z
+LAST-MODIFIED:20250929T190923Z
+DTSTART:20250929T225800Z
+SUMMARY:2025 Boots to Business (Entrepreneurship) Class
+UID:5ddd52961495333220c2a9c6c829d016677f6516
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250929T190923Z
+DESCRIPTION:Join us for Live Music with Cylas Ibanez!\nhttps://www.eventbrite.com/e/live-music-w-cylas-ibanez-courtyard-marriott-tickets-1596082629109
+DTEND:20251023T010000Z
+LAST-MODIFIED:20250929T190923Z
+LOCATION:Courtyard Fredericksburg Historic District - 620 Caroline Street\, Fredericksburg\, VA 22401 Fredericksburg VA 22401
+DTSTART:20251022T220000Z
+SUMMARY:Live Music w/ Cylas Ibanez @ Courtyard Marriott
+UID:ab35b3175cf467405cbab4c437e3761bd785f692
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250929T190923Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3600\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20260615T200000Z
-LAST-MODIFIED:20250929T185055Z
+LAST-MODIFIED:20250929T190923Z
 LOCATION:Treasurer's Office - 10459 Courthouse Drive Suite 100 King George VA 22485
 DTSTART:20260615T120000Z
 SUMMARY:Estimated Quarterly State Income Tax Payment Due
 UID:ed0afc1895ed0e3aeed07d63877ccb4d8d5efce0
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T185055Z
+DTSTAMP:20250929T190923Z
+DESCRIPTION:GriefShare is a caring support group where you don’t have to grieve alone. Find hope\, healing\, and community after loss.\nhttps://www.eventbrite.com/e/griefshare-support-group-tickets-1625875881529
+DTEND:20251214T210000Z
+LAST-MODIFIED:20250929T190923Z
+LOCATION:Sentara Northern Virginia Medical Center - 2300 Opitz Boulevard\, Woodbridge\, VA 22191 Woodbridge VA 22191
+DTSTART:20250824T183000Z
+SUMMARY:GriefShare – Support Group
+UID:6dcc0982f2c14aa84d7f08b001c2b77e95ae7426
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250929T190923Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4311\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20251005T200000Z
-LAST-MODIFIED:20250929T185055Z
+LAST-MODIFIED:20250929T190923Z
 LOCATION:King George Citizens Center - 8076 Kings Highway King George VA 22485
 DTSTART:20251004T160000Z
 SUMMARY:1st Annual King George VCE 4-H County Fair
 UID:ed6b7680d6ff20dcff7fc2dfbf8e0f9cb22eb811
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T185055Z
+DTSTAMP:20250929T190923Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4268\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20251018T180000Z
-LAST-MODIFIED:20250929T185055Z
+LAST-MODIFIED:20250929T190923Z
 LOCATION:Revercomb Administration Building Parking Lot - 10459 Courthouse Drive King George VA 22485
 DTSTART:20251018T140000Z
 SUMMARY:Household Shred Event
 UID:e5b152eaeae0fd3154caa5dbc2af5fb23a21e3e5
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T185055Z
+DTSTAMP:20250929T190923Z
 DESCRIPTION:https://www.fredericksburgva.gov/calendar.aspx?EID=3503\nhttps://www.fredericksburgva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=35
 DTEND:20251112T050000Z
-LAST-MODIFIED:20250929T185055Z
+LAST-MODIFIED:20250929T190923Z
 LOCATION:City Hall - 715 Princess Anne Street Fredericksburg VA 22401
 DTSTART:20251111T050000Z
 SUMMARY:Veterans Day - City Offices Closed

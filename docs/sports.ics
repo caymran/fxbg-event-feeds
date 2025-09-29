@@ -1,4 +1,74 @@
 BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:ics.py - http://git.io/lLljaA
+BEGIN:VEVENT
+DTSTAMP:20250929T190923Z
+DESCRIPTION:Join us at Hardwood Artisans for our biggest event of the year! your once-a-year chance to save up to 40% on heirloom-quality furniture.\nhttps://www.eventbrite.com/e/hardwood-artisans-annual-fall-open-house-furniture-clearance-event-tickets-1559550560709
+DTEND:20251004T200000Z
+LAST-MODIFIED:20250929T190923Z
+LOCATION:21405 Business Ct - 21405 Business Court\, Elkwood\, VA 22718 Elkwood VA 22718
+DTSTART:20251004T130000Z
+SUMMARY:Hardwood Artisans Annual Fall Open House & Furniture Clearance Event
+UID:abf14112b572c3ce01aef100aa7ac8438f54fb7f
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250929T190923Z
+DESCRIPTION:Quantico Single Marine Program (SMP) Volunteer PE with Marines at Spotswood Elementary School\nhttps://www.eventbrite.com/e/quantico-single-marine-program-smp-pe-at-spotswood-elementary-registration-1628354314589
+DTEND:20251003T190000Z
+LAST-MODIFIED:20250929T190923Z
+LOCATION:Spotswood Elementary School - 400 Lorraine Ave.\, Fredericksburg\, VA 22408 Fredericksburg VA 22408
+DTSTART:20251003T130000Z
+SUMMARY:Quantico Single Marine Program (SMP) PE at Spotswood Elementary
+UID:92d2bec9371ad620260f518573cf8cb8b2fbcc68
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250929T190923Z
+DESCRIPTION:Original Grinds is a coffee shop and sober venue in Fredericksburg VA. Our open mics host a variety of genres from acoustic to hip hop.\nhttps://www.eventbrite.com/e/open-mic-wednesdays-at-original-grinds-tickets-1244069969769
+DTEND:20260101T030000Z
+LAST-MODIFIED:20250929T190923Z
+LOCATION:Original Grinds - 615 Caroline Street\, Fredericksburg\, VA 22401 Fredericksburg VA 22401
+DTSTART:20250213T000000Z
+SUMMARY:Open Mic Wednesdays at Original Grinds
+UID:32ab9490478555f67ce1d795c2159ac5bc99f1cc
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250929T190923Z
+DESCRIPTION:Kick off your weekend on select Friday evenings with live music\, dancing\, and fun for the whole family!\nhttps://www.eventbrite.com/e/fridays-at-5-whiskey-acolyte-tickets-1400079628859
+DTEND:20251004T010000Z
+LAST-MODIFIED:20250929T190923Z
+LOCATION:Sean T. Connaughton Plaza - 1 County Complex Court\, Woodbridge\, VA 22192 Woodbridge VA 22192
+DTSTART:20251003T210000Z
+SUMMARY:Fridays at 5: Whiskey Acolyte
+UID:d9d15eb2c27d280cd2c6924994d5df8a7cb637c0
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250929T190923Z
+DESCRIPTION:Quantico Single Marine Program (SMP) Volunteer to man gaming stations for Trunk-or-Treat at Spotswood Elementary School\nhttps://www.eventbrite.com/e/quantico-single-marine-program-smp-trunk-or-treat-at-spotswood-elementary-registration-1689447887109
+DTEND:20251023T233000Z
+LAST-MODIFIED:20250929T190923Z
+LOCATION:Spotswood Elementary School - 400 Lorraine Ave.\, Fredericksburg\, VA 22408 Fredericksburg VA 22408
+DTSTART:20251023T193000Z
+SUMMARY:Quantico Single Marine Program (SMP) Trunk-or-Treat at Spotswood Elementary
+UID:6a4a058eb4a4c509b1b090f7778676bb14d3655b
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250929T190923Z
+DESCRIPTION:Join us for some laughter every single Wednesday as we open the comedy mic to our comedy community at Hog Shack Bar-B-Q in Manassas! ️\nhttps://www.eventbrite.com/e/weekly-wednesday-standup-comedy-open-mic-nights-at-hog-shack-bar-b-q-tickets-1572010548869
+DTEND:20251127T030000Z
+LAST-MODIFIED:20250929T190923Z
+LOCATION:Hog Shack Bar-B-Q - 10470 Dumfries Road\, Manassas\, VA 20110 Manassas VA 20110
+DTSTART:20250820T230000Z
+SUMMARY:Weekly Wednesday Standup Comedy Open Mic Nights! At Hog Shack Bar-B-Q!
+UID:31e219f12b67614b51a57ec1daafc672b52d2c7c
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250929T190923Z
+DESCRIPTION:Live Trivia Nights at Buffalo Wild Wings - Central Park\nhttps://www.eventbrite.com/e/live-trivia-nights-at-buffalo-wild-wings-central-park-tickets-1505228060649
+DTEND:20261007T010000Z
+LAST-MODIFIED:20250929T190923Z
+LOCATION:Buffalo Wild Wings - 1638 Carl D Silver Parkway\, Fredericksburg\, VA 22401 Fredericksburg VA 22401
+DTSTART:20250805T230000Z
+SUMMARY:Live Trivia Nights at Buffalo Wild Wings - Central Park
+UID:6d5f1bce5a2973b586ec12c0d16d1bccc5275766
+END:VEVENT
 END:VCALENDAR
