@@ -668,23 +668,55 @@ def fetch_macaronikid_fxbg(days=60, user_agent="fxbg-event-bot/1.0"):
             loc = l.get_text(" ", strip=True)
 
         # date/time: try structured elements, then any <time>, then strong/p elements with time-ish text
-        nodes = soup.select("[data-element='event-date'], time, .event-date, .event-time")
+
+
+        # 1) Try structured elements that often hold the text version
+        nodes = soup.select("[data-element='event-date'], .event-date, .event-time")
         if nodes:
             date_text = " ".join(n.get_text(" ", strip=True) for n in nodes if n.get_text(strip=True))
 
-        # LAST CHANCE: look for a JSON-LD script with dates
+        # 2) Pull ISO datetimes from <time datetime="..."> if present
+        iso_start, iso_end = None, None
+        for t in soup.select("time[datetime]"):
+            dtv = (t.get("datetime") or "").strip()
+            if dtv:
+                if not iso_start:
+                    iso_start = dtv
+                elif not iso_end:
+                    iso_end = dtv
+        if not date_text and (iso_start or iso_end):
+            date_text = f"{iso_start or ''} {iso_end or ''}".strip()
+
+        # 3) Meta itemprops (some pages use these)
+        if not date_text:
+            start_meta = soup.select_one("meta[itemprop='startDate'], meta[itemprop='startdate']")
+            end_meta   = soup.select_one("meta[itemprop='endDate'], meta[itemprop='enddate']")
+            sm = start_meta.get("content").strip() if start_meta and start_meta.get("content") else ""
+            em = end_meta.get("content").strip()   if end_meta and end_meta.get("content") else ""
+            if sm or em:
+                date_text = f"{sm} {em}".strip()
+
+        # 4) JSON-LD (Event schema)
         if not date_text:
             for s in soup.find_all("script", type="application/ld+json"):
                 try:
                     import json
                     dct = json.loads(s.string)
-                    if isinstance(dct, dict) and dct.get("@type") in ("Event", "Festival"):
-                        start = dct.get("startDate") or dct.get("start_date")
-                        end = dct.get("endDate") or dct.get("end_date")
-                        date_text = f"{start} {end}".strip()
-                        break
+                    # Some pages embed a list; handle both dict and list
+                    cand = [dct] if isinstance(dct, dict) else (dct if isinstance(dct, list) else [])
+                    for obj in cand:
+                        if isinstance(obj, dict) and obj.get("@type") in ("Event", "Festival"):
+                            sm = obj.get("startDate") or obj.get("start_date") or ""
+                            em = obj.get("endDate") or obj.get("end_date") or ""
+                            if sm or em:
+                                date_text = f"{sm} {em}".strip()
+                                raise StopIteration
+                except StopIteration:
+                    break
                 except Exception:
                     pass
+        
+        print("   · MacKID detail:", ev_url, "| title:", (title or "")[:60], "| date_text:", (date_text or "")[:80])
 
         sdt, edt = parse_when(date_text or "", default_tz="America/New_York")
         collected.append({
