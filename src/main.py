@@ -152,6 +152,10 @@ BOILERPLATE_LINE_PATTERNS = [
     re.compile(r"^\s*view on site\s*$", re.I),
     re.compile(r"^\s*\|\s*$"),
     re.compile(r"^\s*email this event\s*$", re.I),
+    re.compile(r"^\s*google map\s*$", re.I),
+    re.compile(r"^\s*\+?\s*add to google calendar.*$", re.I),
+    re.compile(r"^\s*\+?\s*add to apple calendar.*$", re.I),
+    re.compile(r"^\s*get your free ticket here\s*$", re.I),
 ]
 
 def strip_html_to_text(html: str) -> str:
