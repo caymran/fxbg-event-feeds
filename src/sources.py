@@ -445,57 +445,103 @@ def _parse_eventbrite_detail(detail_url: str, html: str, default_tz="America/New
 
 
 
-def fetch_eventbrite_discovery(list_url, pages=10, user_agent="fxbg-event-bot/1.0"):
+def fetch_eventbrite_discovery(list_url, pages=10, user_agent=None):
     """
-    Crawl Eventbrite discovery pages (?page=1..N), collect /e/<event> detail links,
-    visit each detail, and parse via _parse_eventbrite_detail (JSON-LD first).
+    Crawl Eventbrite discovery pages (?page=1..N) with a persistent Session,
+    collect /e/<event> links, then visit each detail and parse via
+    _parse_eventbrite_detail (JSON-LD first). Pure HTML; no API.
     """
     from urllib.parse import urlsplit, urljoin
     from bs4 import BeautifulSoup
-    import re
+    import re, requests
 
-    headers = {"User-Agent": user_agent, "Accept-Language": "en-US,en;q=0.9"}
+    # Use a realistic desktop Chrome UA on Linux (GitHub runner)
+    UA1 = user_agent or (
+        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
+        "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+    )
+    # Backup UA (Windows) if we see a 405 on a page
+    UA2 = (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+        "(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+    )
 
-    if os.getenv('FEEDS_DEBUG'):
-        print(f"   EB(discovery): start {list_url}")
+    base_headers = {
+        "User-Agent": UA1,
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Cache-Control": "no-cache",
+        "Pragma": "no-cache",
+        "Upgrade-Insecure-Requests": "1",
+    }
 
-    # Start page number (respect existing page= in URL)
-    start_page = 1
-    m = re.search(r"[?&]page=(\d+)", list_url)
-    if m:
-        try:
-            start_page = max(1, int(m.group(1)))
-        except Exception:
-            start_page = 1
+    def _is_detail(path: str) -> bool:
+        # Event detail pages look like /e/<slug>-<id>  or  /e/<id>
+        if not path.startswith("/e/"):
+            return False
+        bad = ("/e/organizer/", "/e/create/", "/e/search/")
+        return not any(path.startswith(b) for b in bad)
 
-    # Helper: build URL for a given page number
+    # Respect existing ?page=, otherwise append
     def page_url(i: int) -> str:
         if "page=" in list_url:
             return re.sub(r"(?:[?&])page=\d+", f"?page={i}", list_url) if "?" not in list_url.split("page=",1)[0] else re.sub(r"(page=)\d+", rf"\g<1>{i}", list_url)
         sep = "&" if "?" in list_url else "?"
         return f"{list_url}{sep}page={i}"
 
-    def _is_detail(path: str) -> bool:
-        # Event detail pages look like /e/<slug>-<id> or /e/<id>
-        # Safest: must start with /e/ and not be obviously a utility path
-        if not path.startswith("/e/"):
-            return False
-        bad = {"/e/organizer/", "/e/create/", "/e/search/"}
-        return not any(path.startswith(b) for b in bad)
+    sess = requests.Session()
+    sess.headers.update(base_headers)
+
+    # Prime cookies on homepage
+    try:
+        sess.get("https://www.eventbrite.com/", timeout=30, allow_redirects=True)
+    except Exception:
+        pass
+
+    if os.getenv('FEEDS_DEBUG'):
+        print(f"   EB(discovery): start {list_url}")
 
     pages_seen = 0
     detail_urls = set()
 
     # 1) Collect detail links
-    for i in range(start_page, start_page + pages):
+    prev_url = "https://www.eventbrite.com/"
+    for i in range(1, pages + 1):
         u = page_url(i)
-        st, body, _ = req_with_cache(u, headers=headers, throttle=(1,3))
+
+        # First try with base headers
+        try:
+            r = sess.get(u, timeout=30, allow_redirects=True, headers={"Referer": prev_url})
+            st = r.status_code
+        except Exception:
+            st = 599
+            r = None
+
         if os.getenv('FEEDS_DEBUG'):
             print(f"   Eventbrite page {i}: HTTP {st}")
-        if st != 200 or not body:
+
+        # If 405, retry once with alternate UA + referer
+        if st == 405:
+            try:
+                r2 = sess.get(
+                    u, timeout=30, allow_redirects=True,
+                    headers={"User-Agent": UA2, "Referer": prev_url, **{k:v for k,v in base_headers.items() if k != "User-Agent"}}
+                )
+                st = r2.status_code
+                r = r2
+                if os.getenv('FEEDS_DEBUG'):
+                    print(f"   Eventbrite page {i}: retry with UA2 -> HTTP {st}")
+            except Exception:
+                st = 599
+                r = None
+
+        if st != 200 or not r or not r.text:
+            prev_url = u
             continue
+
         pages_seen += 1
-        soup = BeautifulSoup(body, "html.parser")
+        soup = BeautifulSoup(r.text, "html.parser")
+
         for a in soup.select("a[href*='/e/']"):
             href = (a.get("href") or "").split("?", 1)[0].strip()
             if not href:
@@ -507,8 +553,12 @@ def fetch_eventbrite_discovery(list_url, pages=10, user_agent="fxbg-event-bot/1.
                 path = href
             if _is_detail(path):
                 detail_urls.add(absu)
+
         if os.getenv('FEEDS_DEBUG'):
             print(f"   Eventbrite page {i}: found {len(detail_urls)} links (cumulative)")
+
+        prev_url = u
+        jitter_sleep(1, 3)
 
     if os.getenv('FEEDS_DEBUG'):
         print(f"   Eventbrite (HTML): pages_visited={pages_seen} detail_urls={len(detail_urls)}")
@@ -516,16 +566,39 @@ def fetch_eventbrite_discovery(list_url, pages=10, user_agent="fxbg-event-bot/1.
     # 2) Visit details and parse
     out = []
     for ev_url in sorted(detail_urls):
-        st, body, _ = req_with_cache(ev_url, headers=headers, throttle=(1,3))
-        if st != 200 or not body:
+        try:
+            rd = sess.get(ev_url, timeout=30, allow_redirects=True, headers={"Referer": prev_url})
+            st = rd.status_code
+        except Exception:
+            st = 599
+            rd = None
+
+        if st == 405:
+            try:
+                rd2 = sess.get(
+                    ev_url, timeout=30, allow_redirects=True,
+                    headers={"User-Agent": UA2, "Referer": prev_url, **{k:v for k,v in base_headers.items() if k != "User-Agent"}}
+                )
+                st = rd2.status_code
+                rd = rd2
+            except Exception:
+                st = 599
+                rd = None
+
+        if st != 200 or not rd or not rd.text:
             if os.getenv('FEEDS_DEBUG'):
                 print("   · Eventbrite skipped (http):", ev_url, "status", st)
+            prev_url = ev_url
             continue
-        ev = _parse_eventbrite_detail(ev_url, body)
+
+        ev = _parse_eventbrite_detail(ev_url, rd.text)
         if ev:
             out.append(ev)
         elif os.getenv('FEEDS_DEBUG'):
             print("   · Eventbrite skipped (parse failed):", ev_url)
+
+        prev_url = ev_url
+        jitter_sleep(1, 3)
 
     if os.getenv('FEEDS_DEBUG'):
         print(f"   Eventbrite (HTML): events={len(out)}")
@@ -924,62 +997,34 @@ def fetch_html(url, hints=None, user_agent="fxbg-event-bot/1.0", throttle=(2,5))
 
     return [e for e in out if e.get('title')]
 
-
 def fetch_eventbrite(api_url, token_env=None):
     """
-    Unified Eventbrite fetcher:
-      - If `api_url` looks like an Eventbrite discovery or event HTML URL, use the HTML crawler.
-      - Otherwise, treat as API endpoint and use token (existing behavior).
+    Eventbrite HTML discovery/detail only (no API).
     """
+    import re
     if re.search(r"//[^/]*eventbrite\.com/(d/|e/)", api_url):
-        # HTML crawler path (no token required)
         if os.getenv('FEEDS_DEBUG'):
             print(f"→ Eventbrite discovery crawl: {api_url}")
-        return fetch_eventbrite_discovery(api_url, pages=3)
+        return fetch_eventbrite_discovery(api_url, pages=10)
 
-    token = token_env or os.getenv("EVENTBRITE_TOKEN") or ""
-    if not token:
-        # No token and not a discovery URL -> nothing to do
-        if os.getenv('FEEDS_DEBUG'):
-            print("   Eventbrite API: missing token")
-        return []
-    headers = {"Authorization": f"Bearer {token}"}
-    status, body, _ = req_with_cache(api_url, headers=headers, throttle=(2,5))
-    if status == 304:
-        return []
-    if status != 200:
-        if os.getenv('FEEDS_DEBUG'):
-            print(f"   Eventbrite HTTP {status}")
-            print((body or '')[:200])
-        return []
+    # If someone passes a non-discovery URL, just try it as a single detail page:
+    if os.getenv('FEEDS_DEBUG'):
+        print(f"→ Eventbrite single detail attempt: {api_url}")
     try:
-        data = json.loads(body)
-        if os.getenv('FEEDS_DEBUG'):
-            print(f"   Eventbrite ok: top-level keys={list(data.keys())}")
+        st, body, _ = req_with_cache(api_url, headers={
+            "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+            "Accept-Language": "en-US,en;q=0.9",
+            "Cache-Control": "no-cache", "Pragma": "no-cache",
+            "Upgrade-Insecure-Requests": "1",
+            "Referer": "https://www.eventbrite.com/",
+        }, throttle=(1,3))
+        if st == 200 and body:
+            ev = _parse_eventbrite_detail(api_url, body)
+            return [ev] if ev else []
     except Exception:
-        return []
-    out = []
-    events = data.get("events") or data.get("data") or []
-    for ev in events:
-        title = (ev.get("name", {}) or {}).get("text") or ev.get("name")
-        desc = (ev.get("description", {}) or {}).get("text") or ev.get("description")
-        start = (ev.get("start") or {}).get("local") or ev.get("start")
-        end = (ev.get("end") or {}).get("local") or ev.get("end")
-        venue_name = None
-        if ev.get("venue"):
-            venue_name = ev["venue"].get("name")
-        elif ev.get("venue_id"):
-            venue_name = f"Venue ID {ev['venue_id']}"
-        out.append({
-            "title": title,
-            "description": desc,
-            "link": ev.get("url"),
-            "start": start,
-            "end": end,
-            "location": venue_name,
-            "source": "eventbrite"
-        })
-    return out
+        pass
+    return []
 
 def fetch_bandsintown(url, app_id_env=None):
     if os.getenv('FEEDS_DEBUG'):
