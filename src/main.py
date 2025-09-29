@@ -9,7 +9,7 @@ except Exception:
         from ics.grammar.line import ContentLine
     except Exception:
         ContentLine = None
-from sources import fetch_rss, fetch_ics, fetch_html, fetch_eventbrite, fetch_bandsintown, fetch_macaronikid_fxbg, fetch_freepress_calendar
+from sources import fetch_rss, fetch_ics, fetch_html, fetch_eventbrite, fetch_bandsintown, fetch_macaronikid_fxbg, fetch_freepress_calendar, fetch_thrillshare_ical
 from utils import hash_event, parse_when, categorize_text
 from bs4 import BeautifulSoup
 from urllib.parse import urlsplit
@@ -352,6 +352,9 @@ def main():
                 got = fetch_rss(src['url']); collected += got; print(f"   rss events: {len(got)}") if debug else None
             elif t == 'ics':
                 got = fetch_ics(src['url']); collected += got; print(f"   ics events: {len(got)}") if debug else None
+            elif t == 'thrillshare_ical':
+                got = fetch_thrillshare_ical(src['url']); collected += got
+                if debug: print(f"   thrillshare ICS events: {len(got)}")
             elif t == 'html':
                 got = fetch_html(src['url'], src.get('html', {})); collected += got; print(f"   html events: {len(got)}") if debug else None
             elif t == 'eventbrite' and cfg.get('enable_eventbrite', True):

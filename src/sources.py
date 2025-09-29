@@ -90,6 +90,34 @@ def req_with_cache(url, headers=None, throttle=(2,5), max_retries=3):
             backoff = min(backoff * 2, 30)
     return 599, "", {}
 
+def fetch_thrillshare_ical(events_page_url, user_agent="fxbg-event-bot/1.0"):
+    """
+    Load a Thrillshare events page (e.g., https://gwes.fxbgschools.us/o/gwes/events),
+    find the 'Click to Download Calendar' link to the generate_ical endpoint,
+    then fetch & parse that ICS for all events.
+    """
+    if not robots_allowed(events_page_url, user_agent):
+        return []
+    status, body, _ = req_with_cache(events_page_url, headers={"User-Agent": user_agent}, throttle=(1,3))
+    if status != 200 or not body:
+        return []
+
+    soup = BeautifulSoup(body, "html.parser")
+    # Anchor points to .../api/v4/o/<org_id>/cms/events/generate_ical?... (provided by the page)
+    a = soup.find("a", href=True, string=lambda s: s and "Download Calendar" in s)
+    if not a:
+        a = soup.select_one("a[href*='generate_ical']")
+    if not a:
+        return []
+
+    ics_url = urllib.parse.urljoin(events_page_url, a["href"])
+    events = fetch_ics(ics_url, user_agent=user_agent) or []
+    # mark source/link
+    for e in events:
+        e["source"] = "thrillshare"
+        e.setdefault("link", events_page_url)
+    return events
+
 def fetch_rss(url, user_agent="fxbg-event-bot/1.0"):
     if not robots_allowed(url, user_agent):
         return []

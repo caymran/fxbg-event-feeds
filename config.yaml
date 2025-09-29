@@ -54,7 +54,7 @@ sources:
 
   # Gladys West Elementary events page
   - name: "Gladys West Elementary Events"
-    type: html
+    type: thrillshare_ical
     url: "https://gwes.fxbgschools.us/o/gwes/events"
     html:
       item: "ul.lm-events li, .events-list li, article, li.event"
