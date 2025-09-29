@@ -33,6 +33,14 @@ def robots_allowed(url, user_agent="*"):
     except Exception:
         pass
 
+    # Allow-list Eventbrite discovery and event detail pages
+    try:
+        parts = urllib.parse.urlsplit(url)
+        if parts.netloc.endswith("eventbrite.com") and ("/d/" in parts.path or "/e/" in parts.path):
+            return True
+    except Exception:
+        pass
+    
     for sub in ALLOWLIST_SUBSTR:
         if sub in url:
             return True
