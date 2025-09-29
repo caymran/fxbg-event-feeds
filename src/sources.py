@@ -147,7 +147,7 @@ def fetch_macaronikid_fxbg_playwright(pages=12):
         for u in starts:
             try:
                 page.goto(u, wait_until="domcontentloaded", timeout=30000)
-                page.wait_for_timeout(800)  # let client-side render finish
+                page.wait_for_timeout(800)  # allow client render
                 hrefs = page.eval_on_selector_all(
                     "a[href*='/events/']",
                     "els => els.map(e => e.getAttribute('href'))"
@@ -200,13 +200,11 @@ def fetch_macaronikid_fxbg_playwright(pages=12):
                     desc = page.inner_text(desc_sel).strip()
 
                 # date text from multiple hints
-                date_text = ""
-                sel = "[data-element='event-date'], .event-date, .event-time"
                 vals = []
+                sel = "[data-element='event-date'], .event-date, .event-time"
                 if page.locator(sel).count():
                     for i in range(page.locator(sel).count()):
                         vals.append(page.locator(sel).nth(i).inner_text().strip())
-                # ISO from <time datetime=...>
                 tsel = "time[datetime]"
                 if page.locator(tsel).count():
                     for i in range(page.locator(tsel).count()):
