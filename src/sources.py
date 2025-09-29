@@ -121,57 +121,109 @@ def fetch_thrillshare_ical(events_page_url, user_agent="fxbg-event-bot/1.0"):
 def fetch_macaronikid_fxbg_playwright(pages=12):
     """
     Browser-based crawler for Macaroni KID Fredericksburg using Playwright.
-    Loads /events?page=N like a real browser, collects detail URLs, then
-    prefers per-event .ics; falls back to HTML dates when needed.
-    Returns raw events (normalize later in main.py).
+    Tries JS list pages; if none found, falls back to sitemap discovery.
+    Returns raw events; main.py will normalize.
     """
     from playwright.sync_api import sync_playwright
-    import re, urllib.parse, json
+    import os, re, urllib.parse, json
+    from urllib.parse import urlsplit
 
     base = "https://fredericksburg.macaronikid.com"
     detail_pat = re.compile(r"^/events/[0-9a-f]{8,}(?:/[\w\-]*)?$", re.I)
 
+    def _sitemap_discover_detail_urls():
+        """Fallback: read robots.txt for Sitemap: lines, parse sitemaps, pick /events/<id> URLs."""
+        urls = set()
+        # robots.txt
+        st, body, _ = req_with_cache(base + "/robots.txt", headers={"User-Agent": "Mozilla/5.0"})
+        if st == 200 and body:
+            maps = []
+            for line in body.splitlines():
+                line = line.strip()
+                if line.lower().startswith("sitemap:"):
+                    maps.append(line.split(":", 1)[1].strip())
+            # Always try the common names too
+            maps += [base + "/sitemap.xml", base + "/sitemap_index.xml", base + "/sitemap-events.xml"]
+            seen = set()
+            for sm in maps:
+                if sm in seen:
+                    continue
+                seen.add(sm)
+                st2, xml, _ = req_with_cache(sm, headers={"User-Agent": "Mozilla/5.0"}, throttle=(1,3))
+                if st2 != 200 or not xml:
+                    continue
+                # very light xml parsing
+                for m in re.finditer(r"<loc>\s*([^<]+)\s*</loc>", xml):
+                    u = m.group(1).strip()
+                    try:
+                        path = urlsplit(u).path
+                    except Exception:
+                        path = u
+                    if detail_pat.match(path):
+                        urls.add(u)
+        return urls
+
     out = []
+    detail_urls = set()
+
     with sync_playwright() as pw:
         browser = pw.chromium.launch(headless=True)
-        ctx = browser.new_context(user_agent=(
-            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-            "AppleWebKit/537.36 (KHTML, like Gecko) "
-            "Chrome/125.0.0.0 Safari/537.36"
-        ))
+        ctx = browser.new_context(
+            user_agent=(
+                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                "AppleWebKit/537.36 (KHTML, like Gecko) "
+                "Chrome/125.0.0.0 Safari/537.36"
+            ),
+            locale="en-US",
+            timezone_id="America/New_York",
+            viewport={"width": 1366, "height": 900},
+            extra_http_headers={"Accept-Language": "en-US,en;q=0.9"},
+        )
         page = ctx.new_page()
 
-        # 1) collect event detail urls from list pages
-        detail_urls = set()
-        starts = [f"{base}/events"] + [f"{base}/events?page={i}" for i in range(1, pages+1)]
+        # 1) Try list pages with JS
+        starts = [f"{base}/events"] + [f"{base}/events?page={i}" for i in range(1, pages + 1)]
         for u in starts:
             try:
-                page.goto(u, wait_until="domcontentloaded", timeout=30000)
-                page.wait_for_timeout(800)  # allow client render
+                page.goto(u, wait_until="networkidle", timeout=45000)
+                # scroll to trigger lazy content
+                for _ in range(3):
+                    page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+                    page.wait_for_timeout(400)
+                # wait a bit for anchors to render
+                try:
+                    page.wait_for_selector("a[href*='/events/']", timeout=3000)
+                except Exception:
+                    pass
                 hrefs = page.eval_on_selector_all(
                     "a[href*='/events/']",
                     "els => els.map(e => e.getAttribute('href'))"
-                )
-                for h in hrefs or []:
+                ) or []
+                for h in hrefs:
                     if not h:
                         continue
-                    absu = urllib.parse.urljoin(u, h.split("?",1)[0])
-                    path = urllib.parse.urlsplit(absu).path
+                    absu = urllib.parse.urljoin(u, h.split("?", 1)[0])
+                    path = urlsplit(absu).path
                     if detail_pat.match(path):
                         detail_urls.add(absu)
             except Exception:
                 continue
 
         if os.getenv("FEEDS_DEBUG"):
-            print(f"   MacKID (PW): detail_urls={len(detail_urls)}")
-            for u in list(sorted(detail_urls))[:5]:
-                print("     · detail:", u)
+            print(f"   MacKID (PW): detail_urls={len(detail_urls)} from JS pages")
 
-        # 2) visit each detail; prefer per-event .ics
+        # 2) If JS didn’t yield anything, fall back to sitemaps
+        if not detail_urls:
+            sitemap_urls = _sitemap_discover_detail_urls()
+            if os.getenv("FEEDS_DEBUG"):
+                print(f"   MacKID (SITEMAP): detail_urls={len(sitemap_urls)}")
+            detail_urls |= sitemap_urls
+
+        # 3) Visit each detail and prefer the per-event .ics
         for ev_url in sorted(detail_urls):
             try:
-                page.goto(ev_url, wait_until="domcontentloaded", timeout=30000)
-                page.wait_for_timeout(600)
+                page.goto(ev_url, wait_until="networkidle", timeout=45000)
+                page.wait_for_timeout(500)
 
                 # per-event ICS link ("Add to Apple Calendar")
                 ics = None
@@ -192,7 +244,7 @@ def fetch_macaronikid_fxbg_playwright(pages=12):
                         out.append(e)
                     continue
 
-                # HTML fallback (title/desc/date)
+                # HTML/JSON-LD fallback
                 title = page.inner_text("h1").strip() if page.locator("h1").count() else ""
                 desc = ""
                 desc_sel = "[data-element='event-description'], .article-content, .event-description"
@@ -201,18 +253,39 @@ def fetch_macaronikid_fxbg_playwright(pages=12):
 
                 # date text from multiple hints
                 vals = []
-                sel = "[data-element='event-date'], .event-date, .event-time"
-                if page.locator(sel).count():
-                    for i in range(page.locator(sel).count()):
-                        vals.append(page.locator(sel).nth(i).inner_text().strip())
+                for sel in ("[data-element='event-date']", ".event-date", ".event-time"):
+                    if page.locator(sel).count():
+                        for i in range(page.locator(sel).count()):
+                            vals.append(page.locator(sel).nth(i).inner_text().strip())
+                # ISO from <time datetime=...>
                 tsel = "time[datetime]"
                 if page.locator(tsel).count():
                     for i in range(page.locator(tsel).count()):
                         v = page.locator(tsel).nth(i).get_attribute("datetime") or ""
                         if v: vals.append(v.strip())
-                date_text = " ".join([v for v in vals if v])
 
+                # JSON-LD (Event)
+                if not vals and page.locator("script[type='application/ld+json']").count():
+                    texts = page.eval_on_selector_all(
+                        "script[type='application/ld+json']",
+                        "els => els.map(e => e.textContent)"
+                    ) or []
+                    for txt in texts:
+                        try:
+                            dct = json.loads(txt)
+                            cands = [dct] if isinstance(dct, dict) else (dct if isinstance(dct, list) else [])
+                            for obj in cands:
+                                if isinstance(obj, dict) and obj.get("@type") in ("Event", "Festival"):
+                                    sm = obj.get("startDate") or obj.get("start_date") or ""
+                                    em = obj.get("endDate") or obj.get("end_date") or ""
+                                    if sm or em:
+                                        vals.append(f"{sm} {em}".strip())
+                        except Exception:
+                            pass
+
+                date_text = " ".join([v for v in vals if v])
                 sdt, edt = parse_when(date_text or "", default_tz="America/New_York")
+
                 out.append({
                     "title": title or "(untitled)",
                     "description": desc or "",
@@ -229,6 +302,7 @@ def fetch_macaronikid_fxbg_playwright(pages=12):
         browser.close()
 
     return out
+
 
 def fetch_rss(url, user_agent="fxbg-event-bot/1.0"):
     if not robots_allowed(url, user_agent):
