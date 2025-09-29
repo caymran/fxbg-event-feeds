@@ -32,7 +32,7 @@ def robots_allowed(url, user_agent="*"):
             return True
     except Exception:
         pass
-   
+
     for sub in ALLOWLIST_SUBSTR:
         if sub in url:
             return True
@@ -125,7 +125,7 @@ def fetch_thrillshare_ical(events_page_url, user_agent="fxbg-event-bot/1.0"):
         e["source"] = "thrillshare"
         e.setdefault("link", events_page_url)
     return events
-    
+
 def fetch_macaronikid_fxbg_playwright(pages=12):
     """
     Browser-based crawler for Macaroni KID Fredericksburg using Playwright.
@@ -134,7 +134,7 @@ def fetch_macaronikid_fxbg_playwright(pages=12):
     """
     from playwright.sync_api import sync_playwright
     import os, re, urllib.parse, json
-    from urllib.parse import urlsplit
+    from urllib.parse import urlsplit, urljoin, parse_qs
 
     base = "https://fredericksburg.macaronikid.com"
     detail_pat = re.compile(r"^/events/[0-9a-f]{8,}(?:/[\w\-]*)?$", re.I)
@@ -227,38 +227,70 @@ def fetch_macaronikid_fxbg_playwright(pages=12):
                 print(f"   MacKID (SITEMAP): detail_urls={len(sitemap_urls)}")
             detail_urls |= sitemap_urls
 
-        # 3) Visit each detail; prefer the per-event .ics and stop there
+        # 3) Visit each detail; ICS-first (candidate URLs + DOM) then HTML fallback
         for ev_url in sorted(detail_urls):
             try:
                 page.goto(ev_url, wait_until="networkidle", timeout=45000)
                 page.wait_for_timeout(500)
 
-                # Look for "Add to Apple Calendar" (.ics)
-                ics = None
-                pairs = page.eval_on_selector_all(
-                    "a[href]",
-                    "els => els.map(e => [e.innerText, e.getAttribute('href')])"
-                ) or []
-                for text, href in pairs:
-                    if not href:
-                        continue
-                    txt = (text or "").lower()
-                    if href.lower().endswith(".ics") or "apple calendar" in txt:
-                        ics = urllib.parse.urljoin(ev_url, href)
-                        break
-
-                if ics:
-                    # Use the ICS *as-is* (cleaner SUMMARY/DESCRIPTION/LOCATION/URL)
+                # --- ICS FIRST: try obvious URL variants derived from the detail URL ---
+                used_ics = False
+                base_no_q = ev_url.split("?", 1)[0].rstrip("/")
+                ics_candidates = (base_no_q + ".ics", base_no_q + "/ics")
+                for cand in ics_candidates:
                     try:
-                        ics_events = fetch_ics(ics) or []
+                        ics_events = fetch_ics(cand) or []
                         if ics_events:
                             e = ics_events[0]
                             e["source"] = "macaronikid"
-                            e.setdefault("link", ev_url)  # keep the detail page as link
+                            e.setdefault("link", ev_url)
                             out.append(e)
-                            continue  # don't scrape HTML for this event
+                            used_ics = True
+                            if os.getenv("FEEDS_DEBUG"):
+                                print("     · ICS via candidate:", cand)
+                            break
                     except Exception:
-                        pass  # fall through to HTML fallback if ICS fetch fails
+                        pass
+                if used_ics:
+                    continue  # use ICS; skip HTML
+
+                # --- ICS SECOND: scan DOM for any .ics-ish link/button (href or data-href) ---
+                pairs = page.eval_on_selector_all(
+                    "a, button",
+                    "els => els.map(e => [e.innerText, e.getAttribute('href'), e.getAttribute('data-href'), e.getAttribute('download'), e.getAttribute('type')])"
+                ) or []
+
+                ics_url = None
+                for text, href, dhref, dl, typ in pairs:
+                    for h in (href, dhref):
+                        if not h:
+                            continue
+                        low = (h or "").lower()
+                        txt = (text or "").lower()
+                        if (
+                            low.endswith(".ics")
+                            or low.rstrip("/").endswith("/ics")
+                            or (typ and "calendar" in (typ or "").lower())
+                            or ("apple calendar" in txt)
+                        ):
+                            ics_url = urljoin(ev_url, h)
+                            break
+                    if ics_url:
+                        break
+
+                if ics_url:
+                    try:
+                        ics_events = fetch_ics(ics_url) or []
+                        if ics_events:
+                            e = ics_events[0]
+                            e["source"] = "macaronikid"
+                            e.setdefault("link", ev_url)
+                            out.append(e)
+                            if os.getenv("FEEDS_DEBUG"):
+                                print("     · ICS via DOM link:", ics_url)
+                            continue  # use ICS; skip HTML
+                    except Exception:
+                        pass  # fall through to HTML fallback if the ICS fetch fails
 
                 # ---- HTML fallback (only if no ICS) ----
                 title = page.inner_text("h1").strip() if page.locator("h1").count() else ""
@@ -267,10 +299,26 @@ def fetch_macaronikid_fxbg_playwright(pages=12):
                 if page.locator(desc_sel).count():
                     desc = (page.inner_text(desc_sel) or "").strip()
 
+                # Try to capture location text when no ICS
+                loc = ""
+                loc_sel = "[data-element='event-location'], .event-location, .location, [itemprop='location']"
+                if page.locator(loc_sel).count():
+                    # prefer the first non-empty snippet
+                    for i in range(page.locator(loc_sel).count()):
+                        val = (page.locator(loc_sel).nth(i).inner_text() or "").strip()
+                        if val:
+                            loc = val
+                            break
+
                 # Pull structured times first
-                sdt_str = None; edt_str = None
+                sdt_str = None
+                edt_str = None
+
                 # JSON-LD
-                texts = page.eval_on_selector_all("script[type='application/ld+json']", "els => els.map(e => e.textContent)") or []
+                texts = page.eval_on_selector_all(
+                    "script[type='application/ld+json']",
+                    "els => els.map(e => e.textContent)"
+                ) or []
                 for txt in texts:
                     try:
                         obj = json.loads(txt)
@@ -283,12 +331,14 @@ def fetch_macaronikid_fxbg_playwright(pages=12):
                                     title = (d.get("name") or "").strip() or title
                     except Exception:
                         pass
+
                 # <time datetime>
                 if page.locator("time[datetime]").count():
                     v0 = page.locator("time[datetime]").nth(0).get_attribute("datetime") or ""
                     v1 = page.locator("time[datetime]").nth(1).get_attribute("datetime") if page.locator("time[datetime]").count() > 1 else ""
                     sdt_str = sdt_str or v0.strip() or None
                     edt_str = edt_str or (v1.strip() if v1 else None)
+
                 # meta itemprop
                 if not sdt_str and page.locator("meta[itemprop='startDate'], meta[itemprop='startdate']").count():
                     sdt_str = (page.locator("meta[itemprop='startDate'], meta[itemprop='startdate']").first.get_attribute("content") or "").strip() or None
@@ -299,22 +349,27 @@ def fetch_macaronikid_fxbg_playwright(pages=12):
                 if not sdt_str:
                     hrefs = page.eval_on_selector_all("a[href]", "els => els.map(e => e.getAttribute('href'))") or []
                     for href in hrefs:
-                        if not href: continue
+                        if not href:
+                            continue
                         low = href.lower()
                         if "calendar.google.com/calendar" in low or "google.com/calendar" in low:
-                            from urllib.parse import urlsplit, parse_qs
-                            qs = parse_qs(urlsplit(href).query)
-                            rng = (qs.get("dates") or [""])[0]
-                            if "/" in rng:
-                                a,b = rng.split("/",1)
-                                def _g2iso(s):
-                                    s=s.strip()
-                                    if len(s)==8: return f"{s[0:4]}-{s[4:6]}-{s[6:8]}"
-                                    if "T" in s:
-                                        return f"{s[0:4]}-{s[4:6]}-{s[6:8]}T{s[9:11]}:{s[11:13]}:{s[13:15]}{'Z' if s.endswith('Z') else ''}"
-                                    return s
-                                sdt_str = _g2iso(a); edt_str = _g2iso(b)
-                                break
+                            try:
+                                from urllib.parse import urlsplit
+                                qs = parse_qs(urlsplit(href).query)
+                                rng = (qs.get("dates") or [""])[0]
+                                if "/" in rng:
+                                    a, b = rng.split("/", 1)
+                                    def _g2iso(s):
+                                        s = s.strip()
+                                        if len(s) == 8:  # YYYYMMDD (all-day)
+                                            return f"{s[0:4]}-{s[4:6]}-{s[6:8]}"
+                                        if "T" in s:
+                                            return f"{s[0:4]}-{s[4:6]}-{s[6:8]}T{s[9:11]}:{s[11:13]}:{s[13:15]}{'Z' if s.endswith('Z') else ''}"
+                                        return s
+                                    sdt_str = _g2iso(a); edt_str = _g2iso(b)
+                                    break
+                            except Exception:
+                                pass
 
                 # Emit only if we have a title and some datetime
                 if title and (sdt_str or edt_str):
@@ -324,7 +379,7 @@ def fetch_macaronikid_fxbg_playwright(pages=12):
                         "link": ev_url,
                         "start": sdt_str,
                         "end":   edt_str,
-                        "location": None,
+                        "location": loc or None,
                         "source": "macaronikid",
                     })
                 elif os.getenv("FEEDS_DEBUG"):
@@ -859,7 +914,6 @@ def fetch_macaronikid_fxbg(days=60, user_agent=None):
         status, body, headers_out = req_with_cache(url, headers=headers, throttle=(1,3))
         return status, (body or ""), headers_out
 
-
     def _find_event_links(html, page_url):
         soup = BeautifulSoup(html, "html.parser")
         links = set()
@@ -887,7 +941,6 @@ def fetch_macaronikid_fxbg(days=60, user_agent=None):
             if detail_pat.match(path):
                 links.add(abs_url)
         return links
-
 
     def _find_next_page(html, page_url):
         soup = BeautifulSoup(html, "html.parser")
@@ -918,7 +971,6 @@ def fetch_macaronikid_fxbg(days=60, user_agent=None):
         print(f"   MacKID: pages_visited={pages_visited} detail_urls={len(detail_urls)}")
         for u in list(sorted(detail_urls))[:5]:
             print("     · detail:", u)
-
 
     collected = []
 
@@ -1019,7 +1071,6 @@ def fetch_macaronikid_fxbg(days=60, user_agent=None):
                     pass
 
         print("     · parsed:", (title or "")[:60], "| date_text:", (date_text or "")[:80])
-
 
         sdt, edt = parse_when(date_text or "", default_tz="America/New_York")
         collected.append({
