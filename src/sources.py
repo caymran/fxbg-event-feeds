@@ -558,36 +558,51 @@ def fetch_bandsintown(url, app_id_env=None):
         })
     return out
 
-def fetch_macaronikid_fxbg(days=60, user_agent="fxbg-event-bot/1.0"):
+def fetch_macaronikid_fxbg(days=60, user_agent=None):
     """
-    Macaroni KID Fredericksburg scraper:
-      - crawl /events (list view) with pagination
-      - visit each event detail page
-      - prefer per-event .ics ("Add to Apple Calendar")
-      - fallback: parse HTML for title/date/location
-    Returns raw events for normalize_event().
+    Crawl Macaroni KID Fredericksburg:
+      - list view (/events?page=1..)
+      - backup: /events and /events/calendar
+      - visit real event detail pages only
+      - prefer per-event .ics; fallback to HTML dates
+    Returns raw events to be normalized by normalize_event().
     """
-    import urllib.parse, re
+    import os, urllib.parse, re, json
     from bs4 import BeautifulSoup
     from datetime import datetime, timedelta
 
+    # Use a realistic browser UA; can be overridden with env MAC_KID_UA
+    user_agent = user_agent or os.getenv("MAC_KID_UA") or (
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/125.0.0.0 Safari/537.36"
+    )
+
     base = "https://fredericksburg.macaronikid.com"
     start_urls = [
-        f"{base}/events",              # list view
-        f"{base}/events/calendar",     # month view (backup)
+        f"{base}/events",
+        f"{base}/events/calendar",
     ]
+    # Add explicit pagination on list view (page numbers often work)
+    for i in range(1, 9):  # crawl up to 8 pages
+        start_urls.append(f"{base}/events?page={i}")
 
     def _get(url):
-        # Some MacKID pages can be overly restrictive in robots.txt.
-        # We intentionally skip robots check here because this is a public events listing.
-        status, body, headers = req_with_cache(url, headers={"User-Agent": user_agent}, throttle=(1,3))
-        return status, (body or ""), headers
+        # Intentionally skip robots for this public listing; some pages are over-restrictive.
+        headers = {
+            "User-Agent": user_agent,
+            "Referer": base + "/",
+            "Accept-Language": "en-US,en;q=0.9",
+        }
+        status, body, headers_out = req_with_cache(url, headers=headers, throttle=(1,3))
+        return status, (body or ""), headers_out
+
 
     def _find_event_links(html, page_url):
         soup = BeautifulSoup(html, "html.parser")
         links = set()
 
-        # Accept only true detail URLs, not the listing/month pages.
+        # Accept only true detail URLs, not listing/month pages.
         # Examples we accept:
         #   /events/681814d3ede0d566abf77b86
         #   /events/681814d3ede0d566abf77b86/some-slug
@@ -601,13 +616,12 @@ def fetch_macaronikid_fxbg(days=60, user_agent="fxbg-event-bot/1.0"):
             if not href:
                 continue
             abs_url = urllib.parse.urljoin(page_url, href)
-            # Normalize to path to test
+            # Normalize to path for regex
             try:
                 from urllib.parse import urlsplit
                 path = urlsplit(abs_url).path
             except Exception:
                 path = href
-            # Filter only real detail pages
             if detail_pat.match(path):
                 links.add(abs_url)
         return links
@@ -624,20 +638,25 @@ def fetch_macaronikid_fxbg(days=60, user_agent="fxbg-event-bot/1.0"):
             return urllib.parse.urljoin(page_url, nxt["href"])
         return None
 
-    # Collect event detail URLs
+    # Crawl all start URLs; list pages may paginate via ?page=
     detail_urls = set()
     pages_visited = 0
-    max_pages = 8
+    max_pages = 20  # overall safety cap across all starts
+
     for start in start_urls:
-        page = start
-        while page and pages_visited < max_pages:
-            st, body, _ = _get(page)
-            if st != 200 or not body:
-                break
-            detail_urls |= _find_event_links(body, page)
-            nxt = _find_next_page(body, page)
-            page = nxt
+        if pages_visited >= max_pages:
+            break
+        st, body, _ = _get(start)
+        if st == 200 and body:
+            new_links = _find_event_links(body, start)
+            detail_urls |= new_links
             pages_visited += 1
+
+    if os.getenv("FEEDS_DEBUG"):
+        print(f"   MacKID: pages_visited={pages_visited} detail_urls={len(detail_urls)}")
+        for u in list(sorted(detail_urls))[:5]:
+            print("     · detail:", u)
+
 
     collected = []
 
@@ -693,13 +712,12 @@ def fetch_macaronikid_fxbg(days=60, user_agent="fxbg-event-bot/1.0"):
 
         # date/time: try structured elements, then any <time>, then strong/p elements with time-ish text
 
-
-        # 1) Try structured elements that often hold the text version
+        # 1) Structured text blocks
         nodes = soup.select("[data-element='event-date'], .event-date, .event-time")
         if nodes:
             date_text = " ".join(n.get_text(" ", strip=True) for n in nodes if n.get_text(strip=True))
 
-        # 2) Pull ISO datetimes from <time datetime="..."> if present
+        # 2) ISO datetimes from <time datetime="...">
         iso_start, iso_end = None, None
         for t in soup.select("time[datetime]"):
             dtv = (t.get("datetime") or "").strip()
@@ -711,22 +729,20 @@ def fetch_macaronikid_fxbg(days=60, user_agent="fxbg-event-bot/1.0"):
         if not date_text and (iso_start or iso_end):
             date_text = f"{iso_start or ''} {iso_end or ''}".strip()
 
-        # 3) Meta itemprops (some pages use these)
+        # 3) itemprop meta
         if not date_text:
-            start_meta = soup.select_one("meta[itemprop='startDate'], meta[itemprop='startdate']")
-            end_meta   = soup.select_one("meta[itemprop='endDate'], meta[itemprop='enddate']")
-            sm = start_meta.get("content").strip() if start_meta and start_meta.get("content") else ""
-            em = end_meta.get("content").strip()   if end_meta and end_meta.get("content") else ""
+            sm_tag = soup.select_one("meta[itemprop='startDate'], meta[itemprop='startdate']")
+            em_tag = soup.select_one("meta[itemprop='endDate'], meta[itemprop='enddate']")
+            sm = sm_tag.get("content").strip() if sm_tag and sm_tag.get("content") else ""
+            em = em_tag.get("content").strip() if em_tag and em_tag.get("content") else ""
             if sm or em:
                 date_text = f"{sm} {em}".strip()
 
-        # 4) JSON-LD (Event schema)
+        # 4) JSON-LD Event (object OR list)
         if not date_text:
             for s in soup.find_all("script", type="application/ld+json"):
                 try:
-                    import json
                     dct = json.loads(s.string)
-                    # Some pages embed a list; handle both dict and list
                     cand = [dct] if isinstance(dct, dict) else (dct if isinstance(dct, list) else [])
                     for obj in cand:
                         if isinstance(obj, dict) and obj.get("@type") in ("Event", "Festival"):
@@ -739,8 +755,9 @@ def fetch_macaronikid_fxbg(days=60, user_agent="fxbg-event-bot/1.0"):
                     break
                 except Exception:
                     pass
-        
-        print("   · MacKID detail:", ev_url, "| title:", (title or "")[:60], "| date_text:", (date_text or "")[:80])
+
+        print("     · parsed:", (title or "")[:60], "| date_text:", (date_text or "")[:80])
+
 
         sdt, edt = parse_when(date_text or "", default_tz="America/New_York")
         collected.append({
