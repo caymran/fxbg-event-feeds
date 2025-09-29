@@ -227,13 +227,13 @@ def fetch_macaronikid_fxbg_playwright(pages=12):
                 print(f"   MacKID (SITEMAP): detail_urls={len(sitemap_urls)}")
             detail_urls |= sitemap_urls
 
-        # 3) Visit each detail; capture metadata first, ICS optional
+        # 3) Visit each detail; capture title/desc, then extract start/end from several sources
         for ev_url in sorted(detail_urls):
             try:
                 page.goto(ev_url, wait_until="networkidle", timeout=45000)
                 page.wait_for_timeout(500)
 
-                # Title & description
+                # ---- Basic fields ----
                 title = ""
                 if page.locator("h1").count():
                     title = (page.inner_text("h1") or "").strip()
@@ -243,11 +243,9 @@ def fetch_macaronikid_fxbg_playwright(pages=12):
                 if page.locator(desc_sel).count():
                     desc = (page.inner_text(desc_sel) or "").strip()
 
-                # ==== Collect start/end without relying on parse_when ====
-                # Prefer JSON-LD, then <time datetime>, then meta[itemprop]
-                sdt_str, edt_str = None, None
+                sdt_str, edt_str = None, None  # ISO-ish strings; main.py normalize_event will parse
 
-                # JSON-LD Event objects (object OR list)
+                # ---- (A) JSON-LD: Event objects (object OR list) ----
                 texts = page.eval_on_selector_all(
                     "script[type='application/ld+json']",
                     "els => els.map(e => e.textContent)"
@@ -265,59 +263,110 @@ def fetch_macaronikid_fxbg_playwright(pages=12):
                     except Exception:
                         pass
 
-                # <time datetime="...">
-                if not sdt_str and page.locator("time[datetime]").count():
-                    sdt_str = (page.locator("time[datetime]").nth(0).get_attribute("datetime") or "").strip()
-                    if page.locator("time[datetime]").count() > 1:
-                        edt_str = (page.locator("time[datetime]").nth(1).get_attribute("datetime") or "").strip() or edt_str
+                # ---- (B) <time datetime="..."> ----
+                if page.locator("time[datetime]").count():
+                    vals = []
+                    for i in range(page.locator("time[datetime]").count()):
+                        v = page.locator("time[datetime]").nth(i).get_attribute("datetime") or ""
+                        if v: vals.append(v.strip())
+                    if vals:
+                        sdt_str = sdt_str or (vals[0] if vals else None)
+                        edt_str = edt_str or (vals[1] if len(vals) > 1 else None)
 
-                # meta itemprop
+                # ---- (C) meta itemprop start/end ----
                 if not sdt_str:
                     sm = page.locator("meta[itemprop='startDate'], meta[itemprop='startdate']")
                     if sm.count():
                         v = sm.first.get_attribute("content") or ""
                         if v: sdt_str = v.strip()
+                if not edt_str:
                     em = page.locator("meta[itemprop='endDate'], meta[itemprop='enddate']")
                     if em.count():
                         v = em.first.get_attribute("content") or ""
-                        if v and not edt_str:
-                            edt_str = v.strip()
+                        if v: edt_str = v.strip()
 
-                # ==== Optional: per-event ICS ("Add to Apple Calendar") ====
-                # Now that robots allows macaronikid .ics, this should work when present.
-                ics = None
-                links = page.eval_on_selector_all(
-                    "a[href]",
-                    "els => els.map(e => [e.innerText, e.getAttribute('href')])"
-                ) or []
-                for text, href in links:
-                    txt = (text or "").lower()
-                    if href and (href.lower().endswith(".ics") or "apple calendar" in txt):
-                        ics = urllib.parse.urljoin(ev_url, href)
-                        break
-                if ics:
-                    try:
-                        for e in fetch_ics(ics) or []:
-                            e["source"] = "macaronikid"
-                            e.setdefault("link", ev_url)
-                            # If ICS provides times, prefer them; otherwise keep sdt_str/edt_str
-                            if not sdt_str:
-                                sdt_str = e.get("start")
-                            if not edt_str:
-                                edt_str = e.get("end")
-                            # Use ICS title if ours is empty
-                            if not title:
-                                title = (e.get("title") or "").strip() or title
-                    except Exception:
-                        pass  # keep HTML/JSON-LD dates
+                # ---- (D) Google Calendar link (?dates=YYYYMMDDTHHMMSSZ/YYYYMMDDTHHMMSSZ) ----
+                if not sdt_str:
+                    links = page.eval_on_selector_all(
+                        "a[href]",
+                        "els => els.map(e => e.getAttribute('href'))"
+                    ) or []
+                    for href in links:
+                        if not href:
+                            continue
+                        lower = href.lower()
+                        if ("calendar.google.com/calendar" in lower) or ("google.com/calendar" in lower):
+                            try:
+                                from urllib.parse import urlsplit, parse_qs
+                                qs = parse_qs(urlsplit(href).query)
+                                if "dates" in qs and qs["dates"]:
+                                    rng = qs["dates"][0]
+                                    if "/" in rng:
+                                        a, b = rng.split("/", 1)
+                                        # Convert compact Google format to ISO-ish strings
+                                        def _gcal_to_iso(s):
+                                            s = s.strip()
+                                            # e.g., 20251005T140000Z or 20251005
+                                            if len(s) == 8:  # YYYYMMDD (all-day)
+                                                return f"{s[0:4]}-{s[4:6]}-{s[6:8]}"
+                                            if "T" in s:
+                                                y, mo, d = s[0:4], s[4:6], s[6:8]
+                                                hh, mm, ss = s[9:11], s[11:13], s[13:15] if len(s) >= 15 else ("00","00","00")
+                                                return f"{y}-{mo}-{d}T{hh}:{mm}:{ss}Z" if s.endswith("Z") else f"{y}-{mo}-{d}T{hh}:{mm}:{ss}"
+                                            return s
+                                        sdt_str = sdt_str or _gcal_to_iso(a)
+                                        edt_str = edt_str or _gcal_to_iso(b)
+                                        break
+                            except Exception:
+                                pass
 
-                # Only emit when we have at least a title AND some datetime
+                # ---- (E) Apple Calendar (.ics) per-event ----
+                # Now that robots allows macaronikid .ics, use it when present to enrich times/title.
+                if True:
+                    pairs = page.eval_on_selector_all(
+                        "a[href]",
+                        "els => els.map(e => [e.innerText, e.getAttribute('href')])"
+                    ) or []
+                    ics = None
+                    for text, href in pairs:
+                        if not href: 
+                            continue
+                        txt = (text or "").lower()
+                        if href.lower().endswith(".ics") or "apple calendar" in txt:
+                            ics = urllib.parse.urljoin(ev_url, href)
+                            break
+                    if ics:
+                        try:
+                            for e in fetch_ics(ics) or []:
+                                if not title:
+                                    title = (e.get("title") or "").strip() or title
+                                sdt_str = sdt_str or e.get("start")
+                                edt_str = edt_str or e.get("end")
+                        except Exception:
+                            pass
+
+                # ---- (F) Visible date text fallback (lets parse_when help) ----
+                if not (sdt_str or edt_str):
+                    # Try common wrappers for date/time text
+                    vals = []
+                    for sel in ("[data-element='event-date']", ".event-date", ".event-time", ".date", ".time"):
+                        if page.locator(sel).count():
+                            for i in range(page.locator(sel).count()):
+                                t = page.locator(sel).nth(i).inner_text().strip()
+                                if t: vals.append(t)
+                    date_text = " ".join(vals)
+                    if date_text:
+                        sdt, edt = parse_when(date_text, default_tz="America/New_York")
+                        if sdt: sdt_str = sdt.isoformat()
+                        if edt: edt_str = edt.isoformat()
+
+                # Emit only if we have at least a title and some datetime
                 if title and (sdt_str or edt_str):
                     out.append({
                         "title": title,
                         "description": desc,
                         "link": ev_url,
-                        "start": sdt_str,  # ISO-like strings are fine; normalize_event will parse
+                        "start": sdt_str,
                         "end":   edt_str,
                         "location": None,
                         "source": "macaronikid",
