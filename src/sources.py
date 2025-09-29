@@ -117,6 +117,120 @@ def fetch_thrillshare_ical(events_page_url, user_agent="fxbg-event-bot/1.0"):
         e["source"] = "thrillshare"
         e.setdefault("link", events_page_url)
     return events
+    
+def fetch_macaronikid_fxbg_playwright(pages=12):
+    """
+    Browser-based crawler for Macaroni KID Fredericksburg using Playwright.
+    Loads /events?page=N like a real browser, collects detail URLs, then
+    prefers per-event .ics; falls back to HTML dates when needed.
+    Returns raw events (normalize later in main.py).
+    """
+    from playwright.sync_api import sync_playwright
+    import re, urllib.parse, json
+
+    base = "https://fredericksburg.macaronikid.com"
+    detail_pat = re.compile(r"^/events/[0-9a-f]{8,}(?:/[\w\-]*)?$", re.I)
+
+    out = []
+    with sync_playwright() as pw:
+        browser = pw.chromium.launch(headless=True)
+        ctx = browser.new_context(user_agent=(
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/125.0.0.0 Safari/537.36"
+        ))
+        page = ctx.new_page()
+
+        # 1) collect event detail urls from list pages
+        detail_urls = set()
+        starts = [f"{base}/events"] + [f"{base}/events?page={i}" for i in range(1, pages+1)]
+        for u in starts:
+            try:
+                page.goto(u, wait_until="domcontentloaded", timeout=30000)
+                page.wait_for_timeout(800)  # let client-side render finish
+                hrefs = page.eval_on_selector_all(
+                    "a[href*='/events/']",
+                    "els => els.map(e => e.getAttribute('href'))"
+                )
+                for h in hrefs or []:
+                    if not h:
+                        continue
+                    absu = urllib.parse.urljoin(u, h.split("?",1)[0])
+                    path = urllib.parse.urlsplit(absu).path
+                    if detail_pat.match(path):
+                        detail_urls.add(absu)
+            except Exception:
+                continue
+
+        if os.getenv("FEEDS_DEBUG"):
+            print(f"   MacKID (PW): detail_urls={len(detail_urls)}")
+            for u in list(sorted(detail_urls))[:5]:
+                print("     · detail:", u)
+
+        # 2) visit each detail; prefer per-event .ics
+        for ev_url in sorted(detail_urls):
+            try:
+                page.goto(ev_url, wait_until="domcontentloaded", timeout=30000)
+                page.wait_for_timeout(600)
+
+                # per-event ICS link ("Add to Apple Calendar")
+                ics = None
+                links = page.eval_on_selector_all(
+                    "a[href]",
+                    "els => els.map(e => [e.innerText, e.getAttribute('href')])"
+                ) or []
+                for text, href in links:
+                    txt = (text or "").lower()
+                    if href and (href.lower().endswith(".ics") or "apple calendar" in txt):
+                        ics = urllib.parse.urljoin(ev_url, href)
+                        break
+
+                if ics:
+                    for e in fetch_ics(ics) or []:
+                        e["source"] = "macaronikid"
+                        e.setdefault("link", ev_url)
+                        out.append(e)
+                    continue
+
+                # HTML fallback (title/desc/date)
+                title = page.inner_text("h1").strip() if page.locator("h1").count() else ""
+                desc = ""
+                desc_sel = "[data-element='event-description'], .article-content, .event-description"
+                if page.locator(desc_sel).count():
+                    desc = page.inner_text(desc_sel).strip()
+
+                # date text from multiple hints
+                date_text = ""
+                sel = "[data-element='event-date'], .event-date, .event-time"
+                vals = []
+                if page.locator(sel).count():
+                    for i in range(page.locator(sel).count()):
+                        vals.append(page.locator(sel).nth(i).inner_text().strip())
+                # ISO from <time datetime=...>
+                tsel = "time[datetime]"
+                if page.locator(tsel).count():
+                    for i in range(page.locator(tsel).count()):
+                        v = page.locator(tsel).nth(i).get_attribute("datetime") or ""
+                        if v: vals.append(v.strip())
+                date_text = " ".join([v for v in vals if v])
+
+                sdt, edt = parse_when(date_text or "", default_tz="America/New_York")
+                out.append({
+                    "title": title or "(untitled)",
+                    "description": desc or "",
+                    "link": ev_url,
+                    "start": sdt.isoformat() if sdt else None,
+                    "end":   edt.isoformat() if edt else None,
+                    "location": None,
+                    "source": "macaronikid",
+                })
+            except Exception:
+                continue
+
+        ctx.close()
+        browser.close()
+
+    return out
 
 def fetch_rss(url, user_agent="fxbg-event-bot/1.0"):
     if not robots_allowed(url, user_agent):
