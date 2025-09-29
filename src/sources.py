@@ -586,13 +586,32 @@ def fetch_macaronikid_fxbg(days=60, user_agent="fxbg-event-bot/1.0"):
     def _find_event_links(html, page_url):
         soup = BeautifulSoup(html, "html.parser")
         links = set()
-        # very permissive selectors for event cards
+
+        # Accept only true detail URLs, not the listing/month pages.
+        # Examples we accept:
+        #   /events/681814d3ede0d566abf77b86
+        #   /events/681814d3ede0d566abf77b86/some-slug
+        # Reject:
+        #   /events
+        #   /events/calendar
+        detail_pat = re.compile(r"^/events/[0-9a-f]{8,}(?:/[\w\-]*)?$", re.I)
+
         for a in soup.select("a[href*='/events/']"):
-            href = (a.get("href") or "").split("?")[0]
-            if re.search(r"/events/[0-9a-f]+", href):
-                links.add(urllib.parse.urljoin(page_url, href))
-        # MacKID sometimes nests the link on images or headings—catch both.
+            href = (a.get("href") or "").split("?")[0].strip()
+            if not href:
+                continue
+            abs_url = urllib.parse.urljoin(page_url, href)
+            # Normalize to path to test
+            try:
+                from urllib.parse import urlsplit
+                path = urlsplit(abs_url).path
+            except Exception:
+                path = href
+            # Filter only real detail pages
+            if detail_pat.match(path):
+                links.add(abs_url)
         return links
+
 
     def _find_next_page(html, page_url):
         soup = BeautifulSoup(html, "html.parser")
@@ -624,6 +643,11 @@ def fetch_macaronikid_fxbg(days=60, user_agent="fxbg-event-bot/1.0"):
 
     for ev_url in sorted(detail_urls):
         st, body, _ = _get(ev_url)
+
+        # Skip any list/calendar page that slipped through
+        if ev_url.rstrip("/").endswith("/events") or ev_url.rstrip("/").endswith("/events/calendar"):
+            continue
+
         if st != 200 or not body:
             continue
         soup = BeautifulSoup(body, "html.parser")
