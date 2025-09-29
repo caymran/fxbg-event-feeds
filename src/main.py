@@ -168,6 +168,20 @@ def strip_html_to_text(html: str) -> str:
     # return real newline characters; ics.py will escape/fold correctly
     return "\n".join(lines)
 
+def clean_location_field(raw_loc: str) -> str:
+    if not raw_loc:
+        return ""
+    s = raw_loc.strip()
+    # If it looks like HTML, strip tags safely; fallback to regex
+    if "<" in s and ">" in s:
+        try:
+            s = BeautifulSoup(s, "html.parser").get_text(" ")
+        except Exception:
+            s = HTML_TAG_RE.sub("", s)
+    # collapse whitespace and trim common junk separators
+    s = WS_RE.sub(" ", s).strip(" -–—|")
+    return s
+
 def tidy_desc_text(text: str) -> str:
     """Remove boilerplate lines and collapse whitespace; keep meaningful lines."""
     if not text:
@@ -229,10 +243,12 @@ def normalize_event(raw, timezone='America/New_York'):
     end   = raw.get('end')
     local = tz.gettz(timezone)
 
-    # clean up title and location (strip date prefix and trailing " at …")
     title, loc2 = _clean_title_and_location(title, loc)
     if loc2 is not None:
         loc = loc2
+    # strip any HTML and tidy whitespace in LOCATION
+    loc = clean_location_field(loc)
+
 
     def to_dt(x):
         if not x: return None
