@@ -364,8 +364,9 @@ def main():
                 appid = os.getenv('BANDSINTOWN_APP_ID') or cfg.get('bandsintown_app_id')
                 got = fetch_bandsintown(src['url'], app_id_env=appid); collected += got; print(f"   bandsintown events: {len(got)}") if debug else None
             elif t == 'macaronikid_fxbg':
-                got = fetch_macaronikid_fxbg(); collected += got; 
-                print(f"   macaroni events: {len(got)}") if debug else None
+                got = fetch_macaronikid_fxbg_playwright()
+                collected += got
+                if debug: print(f"   macaroni events (PW): {len(got)}")
             elif t == 'freepress':
                 got = fetch_freepress_calendar(src['url']);collected += got
                 print(f"   freepress events: {len(got)}")
