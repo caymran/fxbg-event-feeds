@@ -420,44 +420,83 @@ def fetch_ics(url, user_agent="fxbg-event-bot/1.0"):
     if not robots_allowed(url, user_agent):
         return []
     status, body, _ = req_with_cache(url, headers={"User-Agent": user_agent})
-    if status == 304:
+    if status == 304 or status != 200 or not body:
         return []
+
+    def ics_unescape(s: str) -> str:
+        # RFC5545 escaping
+        return (s.replace("\\n", "\n").replace("\\N", "\n")
+                 .replace("\\,", ",").replace("\\;", ";")
+                 .replace("\\\\", "\\"))
+
+    def parse_ics_dt(s):
+        if not s:
+            return None
+        s = s.replace('Z', '')
+        try:
+            return parser.parse(s)
+        except Exception:
+            return None
+
     events = []
     chunks = body.split("BEGIN:VEVENT")
     for chunk in chunks[1:]:
         block = chunk.split("END:VEVENT")[0]
-        lines = [l.strip() for l in block.splitlines() if l.strip()]
-        def get(prefixes):
-            if isinstance(prefixes, str):
-                prefixes = [prefixes]
-            for p in prefixes:
-                for l in lines:
-                    if l.startswith(p):
-                        return l.split(':',1)[1]
+
+        # Unfold lines: continuation lines start with space or tab
+        raw_lines = block.splitlines()
+        unfolded = []
+        for ln in raw_lines:
+            if ln.startswith((" ", "\t")) and unfolded:
+                unfolded[-1] += ln[1:]
+            else:
+                unfolded.append(ln.rstrip("\r"))
+        lines = [ln for ln in unfolded if ln.strip()]
+
+        def get_prop(name: str):
+            name_u = name.upper()
+            for ln in lines:
+                L = ln.upper()
+                # Match NAME:... or NAME;PARAM=...:...
+                if L.startswith(name_u + ":") or L.startswith(name_u + ";"):
+                    return ln.split(":", 1)[1]
             return None
-        title = get(['SUMMARY'])
-        loc = get(['LOCATION'])
-        dtstart = get(['DTSTART;TZID=America/New_York','DTSTART'])
-        dtend = get(['DTEND;TZID=America/New_York','DTEND'])
-        def parse_ics_dt(s):
-            if not s: return None
-            s = s.replace('Z','')
-            try:
-                return parser.parse(s)
-            except Exception:
-                return None
+
+        title = get_prop("SUMMARY")
+        loc   = get_prop("LOCATION")
+        dtstart = get_prop("DTSTART")
+        dtend   = get_prop("DTEND")
+        desc    = get_prop("DESCRIPTION")
+        url_prop = get_prop("URL")
+
+        # Unescape textual fields
+        if title: title = ics_unescape(title.strip())
+        if loc:   loc   = ics_unescape(loc.strip())
+        if desc:  desc  = ics_unescape(desc.strip())
+
         sdt = parse_ics_dt(dtstart)
         edt = parse_ics_dt(dtend)
+
+        # Make URL absolute if feed used relative URL (CivicEngage often does)
+        link = None
+        if url_prop:
+            try:
+                link = urllib.parse.urljoin(url, url_prop.strip())
+            except Exception:
+                link = url_prop.strip()
+
         events.append({
-            'title': title,
-            'description': None,
-            'link': None,
-            'start': sdt.isoformat() if sdt else None,
-            'end': edt.isoformat() if edt else None,
-            'location': loc,
-            'source': url,
+            "title": title,
+            "description": desc,
+            "link": link,
+            "start": sdt.isoformat() if sdt else None,
+            "end":   edt.isoformat() if edt else None,
+            "location": loc,
+            "source": url,
         })
+
     return events
+
 
 # ---------- Fredericksburg Free Press scraper ----------
 from dateutil import parser as dtparse, tz
