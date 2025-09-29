@@ -558,114 +558,133 @@ def fetch_bandsintown(url, app_id_env=None):
         })
     return out
 
-
-def fetch_macaronikid_fxbg(days=30, user_agent="fxbg-event-bot/1.0"):
+def fetch_macaronikid_fxbg(days=60, user_agent="fxbg-event-bot/1.0"):
     """
-    Scrapes Macaroni KID Fredericksburg:
-      - crawls the calendar list pages
-      - visits each event detail page
-      - pulls the per-event "Add to Apple Calendar" .ics (preferred)
-      - falls back to parsing the HTML when ICS isn't present
-    Returns a list of normalized raw events (to be run through normalize_event).
+    Macaroni KID Fredericksburg scraper:
+      - crawl /events (list view) with pagination
+      - visit each event detail page
+      - prefer per-event .ics ("Add to Apple Calendar")
+      - fallback: parse HTML for title/date/location
+    Returns raw events for normalize_event().
     """
     import urllib.parse, re
     from bs4 import BeautifulSoup
     from datetime import datetime, timedelta
-    from dateutil import tz
 
     base = "https://fredericksburg.macaronikid.com"
-    start_url = f"{base}/events/calendar"
-    collected = []
-    seen_event_urls = set()
+    start_urls = [
+        f"{base}/events",              # list view
+        f"{base}/events/calendar",     # month view (backup)
+    ]
 
     def _get(url):
-        if not robots_allowed(url, user_agent):
-            return (403, "", {})
+        # Some MacKID pages can be overly restrictive in robots.txt.
+        # We intentionally skip robots check here because this is a public events listing.
         status, body, headers = req_with_cache(url, headers={"User-Agent": user_agent}, throttle=(1,3))
-        return status, body or "", headers
+        return status, (body or ""), headers
 
-    # crawl up to ~days worth by following "next" pagination links (usually few pages)
-    page_url = start_url
-    pages_visited = 0
-    max_pages = 8  # safety cap
-    while page_url and pages_visited < max_pages:
-        status, body, _ = _get(page_url)
-        if status != 200 or not body:
-            break
-        soup = BeautifulSoup(body, "html.parser")
-
-        # find event cards -> detail links (/events/{id}/...)
+    def _find_event_links(html, page_url):
+        soup = BeautifulSoup(html, "html.parser")
+        links = set()
+        # very permissive selectors for event cards
         for a in soup.select("a[href*='/events/']"):
-            href = a.get("href") or ""
-            if not re.search(r"/events/[0-9a-f]+", href):
-                continue
-            url = urllib.parse.urljoin(base, href.split("?")[0])
-            seen_event_urls.add(url)
+            href = (a.get("href") or "").split("?")[0]
+            if re.search(r"/events/[0-9a-f]+", href):
+                links.add(urllib.parse.urljoin(page_url, href))
+        # MacKID sometimes nests the link on images or headings—catch both.
+        return links
 
-        # follow "next" pagination if present
-        next_a = soup.select_one("a[rel='next'], a.pagination__link--next, a[aria-label='Next']")
-        if next_a and next_a.get("href"):
-            page_url = urllib.parse.urljoin(base, next_a["href"])
+    def _find_next_page(html, page_url):
+        soup = BeautifulSoup(html, "html.parser")
+        nxt = (
+            soup.select_one("a[rel='next']") or
+            soup.select_one("a.pagination__link--next") or
+            soup.select_one("a[aria-label='Next']")
+        )
+        if nxt and nxt.get("href"):
+            return urllib.parse.urljoin(page_url, nxt["href"])
+        return None
+
+    # Collect event detail URLs
+    detail_urls = set()
+    pages_visited = 0
+    max_pages = 8
+    for start in start_urls:
+        page = start
+        while page and pages_visited < max_pages:
+            st, body, _ = _get(page)
+            if st != 200 or not body:
+                break
+            detail_urls |= _find_event_links(body, page)
+            nxt = _find_next_page(body, page)
+            page = nxt
             pages_visited += 1
-            jitter_sleep(0.3, 0.6)
-        else:
-            break
 
-    # visit each event detail page, prefer the ICS link
-    for ev_url in sorted(seen_event_urls):
-        status, body, _ = _get(ev_url)
-        if status != 200 or not body:
+    collected = []
+
+    for ev_url in sorted(detail_urls):
+        st, body, _ = _get(ev_url)
+        if st != 200 or not body:
             continue
         soup = BeautifulSoup(body, "html.parser")
 
-        # Try to find an "Add to Apple Calendar" / .ics link
+        # 1) Try per-event ICS link first (preferred)
         ics_href = None
         for a in soup.select("a[href]"):
-            href = a.get("href") or ""
-            text = (a.get_text(" ", strip=True) or "").lower()
-            if href.lower().endswith(".ics") or "apple calendar" in text:
-                ics_href = urllib.parse.urljoin(base, href)
+            href = (a.get("href") or "").strip()
+            txt = (a.get_text(" ", strip=True) or "").lower()
+            if href.lower().endswith(".ics") or "apple calendar" in txt:
+                ics_href = urllib.parse.urljoin(ev_url, href)
                 break
-
-        # If we found an ICS, parse via existing fetch_ics()
         if ics_href:
             try:
-                ics_events = fetch_ics(ics_href, user_agent=user_agent) or []
-                for e in ics_events:
-                    # normalize shape similar to other sources; prefer detail page URL as the "link"
-                    e["link"] = ev_url
+                for e in fetch_ics(ics_href, user_agent=user_agent) or []:
                     e["source"] = "macaronikid"
+                    e.setdefault("link", ev_url)
                     collected.append(e)
-                jitter_sleep(0.25, 0.5)
                 continue
             except Exception:
-                pass  # fall back to HTML
+                pass  # fall through to HTML fallback
 
-        # Fallback: parse title / date / description from HTML
+        # 2) HTML fallback
         title = None
         desc = None
-        date_text = None
         loc = None
+        date_text = None
 
-        # Common selectors on MacaroniKID
-        h1 = soup.select_one("h1") or soup.select_one("[data-element='event-title']")
-        if h1:
-            title = h1.get_text(" ", strip=True)
-
-        # date & time blob often near the title or in meta
-        dt_nodes = soup.select("[data-element='event-date'], time, .event-date, .event-time")
-        if dt_nodes:
-            date_text = " ".join([n.get_text(" ", strip=True) for n in dt_nodes])
+        # titles can be in various wrappers
+        h = soup.select_one("h1") or soup.select_one("[data-element='event-title']")
+        if h:
+            title = h.get_text(" ", strip=True)
 
         # description
-        dnode = soup.select_one("[data-element='event-description'], .article-content, .event-description")
-        if dnode:
-            desc = dnode.get_text(" ", strip=True)
+        d = soup.select_one("[data-element='event-description'], .article-content, .event-description")
+        if d:
+            desc = d.get_text(" ", strip=True)
 
         # location
-        lnode = soup.select_one("[data-element='event-location'], .event-location, .location")
-        if lnode:
-            loc = lnode.get_text(" ", strip=True)
+        l = soup.select_one("[data-element='event-location'], .event-location, .location, [itemprop='location']")
+        if l:
+            loc = l.get_text(" ", strip=True)
+
+        # date/time: try structured elements, then any <time>, then strong/p elements with time-ish text
+        nodes = soup.select("[data-element='event-date'], time, .event-date, .event-time")
+        if nodes:
+            date_text = " ".join(n.get_text(" ", strip=True) for n in nodes if n.get_text(strip=True))
+
+        # LAST CHANCE: look for a JSON-LD script with dates
+        if not date_text:
+            for s in soup.find_all("script", type="application/ld+json"):
+                try:
+                    import json
+                    dct = json.loads(s.string)
+                    if isinstance(dct, dict) and dct.get("@type") in ("Event", "Festival"):
+                        start = dct.get("startDate") or dct.get("start_date")
+                        end = dct.get("endDate") or dct.get("end_date")
+                        date_text = f"{start} {end}".strip()
+                        break
+                except Exception:
+                    pass
 
         sdt, edt = parse_when(date_text or "", default_tz="America/New_York")
         collected.append({
@@ -677,6 +696,5 @@ def fetch_macaronikid_fxbg(days=30, user_agent="fxbg-event-bot/1.0"):
             "location": loc,
             "source": "macaronikid",
         })
-        jitter_sleep(0.25, 0.5)
 
     return collected
