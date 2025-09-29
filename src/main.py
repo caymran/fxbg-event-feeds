@@ -11,11 +11,13 @@ except Exception:
         ContentLine = None
 from sources import fetch_rss, fetch_ics, fetch_html, fetch_eventbrite, fetch_bandsintown, fetch_freepress_calendar, fetch_thrillshare_ical
 
-# Prefer the Playwright crawler; fall back to the requests crawler if it's not present
+# ---- Macaroni KID import & fallback ----
 try:
-    from sources import fetch_macaronikid_fxbg_playwright as fetch_mackid
+    from sources import fetch_macaronikid_fxbg_playwright
 except Exception:
-    from sources import fetch_macaronikid_fxbg as fetch_mackid
+    fetch_macaronikid_fxbg_playwright = None
+
+from sources import fetch_macaronikid_fxbg  # requests fallback
 
 from utils import hash_event, parse_when, categorize_text
 from bs4 import BeautifulSoup
@@ -391,7 +393,16 @@ def main():
                 appid = os.getenv('BANDSINTOWN_APP_ID') or cfg.get('bandsintown_app_id')
                 got = fetch_bandsintown(src['url'], app_id_env=appid); collected += got; print(f"   bandsintown events: {len(got)}") if debug else None
             elif t == 'macaronikid_fxbg':
-                got = fetch_mackid()
+                got = []
+                if fetch_macaronikid_fxbg_playwright:
+                    try:
+                        got = fetch_macaronikid_fxbg_playwright()
+                    except Exception as e:
+                        if debug:
+                            print("   MacKID (PW) failed, falling back to requests:", e)
+                        got = []
+                if not got:
+                    got = fetch_macaronikid_fxbg()
                 collected += got
                 if debug: print(f"   macaroni events: {len(got)}")
             elif t == 'freepress':
