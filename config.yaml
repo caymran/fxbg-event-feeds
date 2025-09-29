@@ -133,7 +133,7 @@ sources:
   # ------------------------------
   - name: "Eventbrite — Fredericksburg, VA"
     type: "eventbrite"
-    url: "https://www.eventbriteapi.com/v3/events/search/?location.address=Fredericksburg%2C+VA&location.within=40mi&expand=venue,organizer,format,category&sort_by=date&include_all_series_instances=true"
+    url: "https://www.eventbrite.com/d/va--fredericksburg/free--events/?page=1"
 
   - name: "Bandsintown — Events near Fredericksburg"
     type: "bandsintown"
