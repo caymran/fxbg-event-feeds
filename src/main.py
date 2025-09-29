@@ -9,7 +9,14 @@ except Exception:
         from ics.grammar.line import ContentLine
     except Exception:
         ContentLine = None
-from sources import fetch_rss, fetch_ics, fetch_html, fetch_eventbrite, fetch_bandsintown, fetch_macaronikid_fxbg, fetch_freepress_calendar, fetch_thrillshare_ical
+from sources import fetch_rss, fetch_ics, fetch_html, fetch_eventbrite, fetch_bandsintown, fetch_freepress_calendar, fetch_thrillshare_ical
+
+# Prefer the Playwright crawler; fall back to the requests crawler if it's not present
+try:
+    from sources import fetch_macaronikid_fxbg_playwright as fetch_mackid
+except Exception:
+    from sources import fetch_macaronikid_fxbg as fetch_mackid
+
 from utils import hash_event, parse_when, categorize_text
 from bs4 import BeautifulSoup
 from urllib.parse import urlsplit
@@ -364,9 +371,9 @@ def main():
                 appid = os.getenv('BANDSINTOWN_APP_ID') or cfg.get('bandsintown_app_id')
                 got = fetch_bandsintown(src['url'], app_id_env=appid); collected += got; print(f"   bandsintown events: {len(got)}") if debug else None
             elif t == 'macaronikid_fxbg':
-                got = fetch_macaronikid_fxbg_playwright()
+                got = fetch_mackid()
                 collected += got
-                if debug: print(f"   macaroni events (PW): {len(got)}")
+                if debug: print(f"   macaroni events: {len(got)}")
             elif t == 'freepress':
                 got = fetch_freepress_calendar(src['url']);collected += got
                 print(f"   freepress events: {len(got)}")
