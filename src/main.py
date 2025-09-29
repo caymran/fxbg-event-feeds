@@ -411,6 +411,14 @@ def main():
             ev['end'] = ev['end'].replace(second=0, microsecond=0)
 
         ev['category'] = categorize_text(ev['title'], ev.get('description',''), rules)
+
+        # FORCE FAMILY FOR GWES + Macaroni KID
+        host = _host_from(ev)
+        if (ev.get('source') in ('macaronikid', 'thrillshare')
+            or host.endswith('fxbgschools.us')
+            or 'macaronikid.com' in host):
+            ev['category'] = 'family'
+
         ev['id'] = hash_event(ev['title'], ev['start'], ev.get('location',''))
 
         # Route to sports bucket if configured to do so
