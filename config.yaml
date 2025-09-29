@@ -60,6 +60,10 @@ sources:
   - name: "King George — Cooper. Extension / Farmers Market (RSS)"
     type: "rss"
     url: "https://www.king-george.va.us/calendar.aspx?CID=64"
+
+  - name: Macaroni KID Fredericksburg
+    type: "macaronikid_fxbg"
+
   # You can add more City calendars later by copying their ICS link from the iCalendar page.
 
   # ------------------------------
@@ -74,7 +78,7 @@ sources:
   # Local media calendar (scrape-friendly HTML)
   # ------------------------------
   - name: "Fredericksburg Free Press — Local Events"
-    type: "html"
+    type: "freepress"
     url: "https://www.fredericksburgfreepress.com/calendar/"
     html:
       item: "article, .tribe-events-calendar-list__event, .event, .hentry, li"
