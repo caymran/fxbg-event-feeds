@@ -363,7 +363,7 @@ def main():
             elif t == 'macaronikid_fxbg':
                 got = fetch_macaronikid_fxbg(); collected += got; 
                 print(f"   macaroni events: {len(got)}") if debug else None
-    	    elif t == 'freepress':
+            elif t == 'freepress':
                 got = fetch_freepress_calendar(src['url']);collected += got
                 print(f"   freepress events: {len(got)}")
 
