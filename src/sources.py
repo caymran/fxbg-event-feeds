@@ -445,79 +445,90 @@ def _parse_eventbrite_detail(detail_url: str, html: str, default_tz="America/New
 
 
 
-def fetch_eventbrite_discovery(list_url, pages=3, user_agent="fxbg-event-bot/1.0"):
+def fetch_eventbrite_discovery(list_url, pages=10, user_agent="fxbg-event-bot/1.0"):
     """
-    Crawl Eventbrite discovery pages like:
-      https://www.eventbrite.com/d/va--fredericksburg/free--events/?page=1
-    Collect event links and parse each detail page.
-
-    'pages' is how many sequential pages to fetch starting from the 'page=' in list_url
-    (default start = 1 if missing).
+    Crawl Eventbrite discovery pages (?page=1..N), collect /e/<event> detail links,
+    visit each detail, and parse via _parse_eventbrite_detail (JSON-LD first).
     """
-    if not robots_allowed(list_url, user_agent):
-        return []
-
-    def _with_page(u: str, page_num: int) -> str:
-        parts = list(urllib.parse.urlsplit(u))
-        q = urllib.parse.parse_qs(parts[3])
-        q["page"] = [str(page_num)]
-        parts[3] = urllib.parse.urlencode({k: v[0] for k, v in q.items()})
-        return urllib.parse.urlunsplit(parts)
+    from urllib.parse import urlsplit, urljoin
+    from bs4 import BeautifulSoup
+    import re
 
     headers = {"User-Agent": user_agent, "Accept-Language": "en-US,en;q=0.9"}
-    
-    pages_seen = 0
-    
-    # starting page number
-    try:
-        qs = urllib.parse.parse_qs(urllib.parse.urlsplit(list_url).query)
-        start_page = int((qs.get("page") or ["1"])[0])
-    except Exception:
-        start_page = 1
 
+    if os.getenv('FEEDS_DEBUG'):
+        print(f"   EB(discovery): start {list_url}")
+
+    # Start page number (respect existing page= in URL)
+    start_page = 1
+    m = re.search(r"[?&]page=(\d+)", list_url)
+    if m:
+        try:
+            start_page = max(1, int(m.group(1)))
+        except Exception:
+            start_page = 1
+
+    # Helper: build URL for a given page number
+    def page_url(i: int) -> str:
+        if "page=" in list_url:
+            return re.sub(r"(?:[?&])page=\d+", f"?page={i}", list_url) if "?" not in list_url.split("page=",1)[0] else re.sub(r"(page=)\d+", rf"\g<1>{i}", list_url)
+        sep = "&" if "?" in list_url else "?"
+        return f"{list_url}{sep}page={i}"
+
+    def _is_detail(path: str) -> bool:
+        # Event detail pages look like /e/<slug>-<id> or /e/<id>
+        # Safest: must start with /e/ and not be obviously a utility path
+        if not path.startswith("/e/"):
+            return False
+        bad = {"/e/organizer/", "/e/create/", "/e/search/"}
+        return not any(path.startswith(b) for b in bad)
+
+    pages_seen = 0
     detail_urls = set()
 
-    # 1) Collect event detail links from discovery pages
-    for i in range(start_page, start_page + int(pages)):
-        u = _with_page(list_url, i)
+    # 1) Collect detail links
+    for i in range(start_page, start_page + pages):
+        u = page_url(i)
         st, body, _ = req_with_cache(u, headers=headers, throttle=(1,3))
+        if os.getenv('FEEDS_DEBUG'):
+            print(f"   Eventbrite page {i}: HTTP {st}")
         if st != 200 or not body:
             continue
         pages_seen += 1
         soup = BeautifulSoup(body, "html.parser")
-
-        # Event cards are anchors to /e/… tickets pages
         for a in soup.select("a[href*='/e/']"):
-            href = (a.get("href") or "").split("?", 1)[0]
+            href = (a.get("href") or "").split("?", 1)[0].strip()
             if not href:
                 continue
+            absu = urljoin(u, href)
             try:
-                absu = urllib.parse.urljoin(u, href)
-                path = urllib.parse.urlsplit(absu).path
+                path = urlsplit(absu).path
             except Exception:
-                absu = href
                 path = href
-            # Filter to /e/… (exclude organizer/collection/etc.)
-            if not path.startswith("/e/"):
-                continue
-            # Skip promo anchors
-            if any(seg in path for seg in ("/organizer/", "/o/", "/collections/")):
-                continue
-            detail_urls.add(absu)
-
+            if _is_detail(path):
+                detail_urls.add(absu)
         if os.getenv('FEEDS_DEBUG'):
             print(f"   Eventbrite page {i}: found {len(detail_urls)} links (cumulative)")
-        if os.getenv('FEEDS_DEBUG'):
-            print(f"   Eventbrite (HTML): pages_visited={pages_seen} detail_urls={len(detail_urls)}")
-    
-    # 2) Visit each detail page and parse
+
+    if os.getenv('FEEDS_DEBUG'):
+        print(f"   Eventbrite (HTML): pages_visited={pages_seen} detail_urls={len(detail_urls)}")
+
+    # 2) Visit details and parse
     out = []
     for ev_url in sorted(detail_urls):
-        ev = _parse_eventbrite_detail(ev_url, user_agent=user_agent)
+        st, body, _ = req_with_cache(ev_url, headers=headers, throttle=(1,3))
+        if st != 200 or not body:
+            if os.getenv('FEEDS_DEBUG'):
+                print("   · Eventbrite skipped (http):", ev_url, "status", st)
+            continue
+        ev = _parse_eventbrite_detail(ev_url, body)
         if ev:
             out.append(ev)
         elif os.getenv('FEEDS_DEBUG'):
             print("   · Eventbrite skipped (parse failed):", ev_url)
+
+    if os.getenv('FEEDS_DEBUG'):
+        print(f"   Eventbrite (HTML): events={len(out)}")
 
     return out
 
@@ -913,6 +924,7 @@ def fetch_html(url, hints=None, user_agent="fxbg-event-bot/1.0", throttle=(2,5))
 
     return [e for e in out if e.get('title')]
 
+
 def fetch_eventbrite(api_url, token_env=None):
     """
     Unified Eventbrite fetcher:
@@ -1083,6 +1095,19 @@ def _mackid_sitemap_discover_detail_urls(base_url, user_agent="Mozilla/5.0"):
 
     return urls
 
+def _is_mackid_detail_path(path: str) -> bool:
+    """
+    True for /events/<hex-id>[/optional-slug], false for calendar/submit/etc.
+    """
+    import re
+    segs = path.strip("/").split("/")
+    if len(segs) < 2 or segs[0] != "events":
+        return False
+    slug = segs[1].lower()
+    if slug in {"calendar", "submit", "search", "subscribe", "contact", "about"}:
+        return False
+    # MacKID event IDs are hex-ish of length >= 8
+    return bool(re.match(r"^[0-9a-f]{8,}$", slug))
 
 def fetch_macaronikid_fxbg(days=60, user_agent=None):
     """
@@ -1127,30 +1152,20 @@ def fetch_macaronikid_fxbg(days=60, user_agent=None):
     def _find_event_links(html, page_url):
         soup = BeautifulSoup(html, "html.parser")
         links = set()
-
-        # Accept only true detail URLs, not listing/month pages.
-        # Examples we accept:
-        #   /events/681814d3ede0d566abf77b86
-        #   /events/681814d3ede0d566abf77b86/some-slug
-        # Reject:
-        #   /events
-        #   /events/calendar
-        detail_pat = re.compile(r"^/events/[A-Za-z0-9\-]{6,}(?:/[\w\-]*)?$", re.I)
-
-        for a in soup.select("a[href*='/events/']"):
-            href = (a.get("href") or "").split("?")[0].strip()
+        for a in soup.select("a[href^='/events/'], a[href*='/events/']"):
+            href = (a.get("href") or "").split("?", 1)[0].strip()
             if not href:
                 continue
             abs_url = urllib.parse.urljoin(page_url, href)
-            # Normalize to path for regex
             try:
                 from urllib.parse import urlsplit
                 path = urlsplit(abs_url).path
             except Exception:
                 path = href
-            if detail_pat.match(path):
+            if _is_mackid_detail_path(path):
                 links.add(abs_url)
         return links
+
 
 
     def _find_next_page(html, page_url):
@@ -1182,6 +1197,13 @@ def fetch_macaronikid_fxbg(days=60, user_agent=None):
         print(f"   MacKID: pages_visited={pages_visited} detail_urls={len(detail_urls)}")
         for u in list(sorted(detail_urls))[:5]:
             print("     · detail:", u)
+
+    # If thin results (JS-only lists), supplement with sitemap fallback
+    if len(detail_urls) < 5:
+        sitemap_links = _mackid_sitemap_discover_detail_urls(base, user_agent=user_agent)
+        if os.getenv("FEEDS_DEBUG"):
+            print(f"   MacKID (SITEMAP): detail_urls={len(sitemap_links)}")
+        detail_urls |= sitemap_links
 
     # If no links from list pages (JS-only?), fall back to sitemaps
     if not detail_urls:
