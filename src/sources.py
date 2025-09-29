@@ -263,10 +263,187 @@ def _parse_eventbrite_detail(detail_url, user_agent="fxbg-event-bot/1.0"):
         t = (ev_name or "")[:60]
         loc_snip = (location_str or "")[:60]
         print(f"     · EB parsed: {t} | start:{start} end:{end} loc:{loc_snip}")
-    return evt
+    return evtdef _parse_eventbrite_detail(detail_url: str, html: str, default_tz="America/New_York"):
+    """
+    Robust Eventbrite detail parser:
+      1) Prefer JSON-LD @type=Event (object, list, or @graph)
+      2) Fallback to meta/time tags
+      3) Never fabricate datetimes; if no start, return None
+    """
+    from bs4 import BeautifulSoup
+    import json, re
+    from dateutil import parser as dtparse, tz
+
+    def _tzfix(dt):
+        if not dt:
+            return None
+        if not dt.tzinfo:
+            return dt.replace(tzinfo=tz.gettz(default_tz))
+        return dt
+
+    def _clean(s):
+        if not s: return ""
+        return re.sub(r"\s+", " ", s).strip()
+
+    soup = BeautifulSoup(html, "html.parser")
+
+    # ---------- 1) JSON-LD ----------
+    def _emit_from_jsonld(obj):
+        """Return event dict from a JSON-LD Event node (or None)."""
+        if not isinstance(obj, dict):
+            return None
+        if obj.get("@type") not in ("Event", "Festival"):
+            return None
+
+        name = _clean(obj.get("name"))
+        desc = _clean(obj.get("description"))
+        s_raw = obj.get("startDate") or obj.get("start_date")
+        e_raw = obj.get("endDate") or obj.get("end_date")
+
+        sdt = _tzfix(dtparse.parse(s_raw)) if s_raw else None
+        edt = _tzfix(dtparse.parse(e_raw)) if e_raw else None
+
+        # Build location string from Place/PostalAddress if present
+        loc_txt = ""
+        loc = obj.get("location")
+        if isinstance(loc, dict):
+            loc_name = _clean(loc.get("name") or "")
+            addr = loc.get("address")
+            if isinstance(addr, dict):
+                addr_txt = " ".join(filter(None, [
+                    _clean(addr.get("streetAddress")),
+                    _clean(addr.get("addressLocality")),
+                    _clean(addr.get("addressRegion")),
+                    _clean(addr.get("postalCode")),
+                ]))
+            else:
+                addr_txt = _clean(addr) if isinstance(addr, str) else ""
+            loc_parts = [p for p in [loc_name, addr_txt] if p]
+            loc_txt = " - ".join(loc_parts)
+
+        if name and sdt:
+            return {
+                "title": name,
+                "description": desc or "",
+                "link": obj.get("url") or detail_url,
+                "start": sdt.isoformat(),
+                "end":   edt.isoformat() if edt else None,
+                "location": loc_txt or None,
+                "source": "eventbrite",
+            }
+        return None
+
+    for tag in soup.select('script[type="application/ld+json"]'):
+        txt = (tag.string or "").strip()
+        if not txt:
+            continue
+        try:
+            data = json.loads(txt)
+        except Exception:
+            # Some pages wrap JSON in <!-- --> or include trailing commas; try a quick clean
+            txt2 = re.sub(r"<!--.*?-->", "", txt, flags=re.S)
+            txt2 = re.sub(r",\s*([}\]])", r"\1", txt2)
+            try:
+                data = json.loads(txt2)
+            except Exception:
+                continue
+
+        # single object
+        if isinstance(data, dict):
+            # direct event
+            ev = _emit_from_jsonld(data)
+            if ev:
+                if os.getenv('FEEDS_DEBUG'):
+                    print(f"     · EB parsed(JSON-LD obj): {ev['title'][:60]} | start:{ev['start']} loc:{(ev.get('location') or '')[:60]}")
+                return ev
+            # within @graph
+            for node in data.get("@graph") or []:
+                ev = _emit_from_jsonld(node)
+                if ev:
+                    if os.getenv('FEEDS_DEBUG'):
+                        print(f"     · EB parsed(JSON-LD graph): {ev['title'][:60]} | start:{ev['start']} loc:{(ev.get('location') or '')[:60]}")
+                    return ev
+
+        # list of objects
+        if isinstance(data, list):
+            for node in data:
+                ev = _emit_from_jsonld(node)
+                if ev:
+                    if os.getenv('FEEDS_DEBUG'):
+                        print(f"     · EB parsed(JSON-LD list): {ev['title'][:60]} | start:{ev['start']} loc:{(ev.get('location') or '')[:60]}")
+                    return ev
+
+    # ---------- 2) Fallback: meta/time ----------
+    # Description
+    desc = None
+    for sel in ['meta[property="og:description"]', 'meta[name="description"]']:
+        m = soup.select_one(sel)
+        if m and m.get("content"):
+            desc = _clean(m["content"]); break
+
+    # Title
+    title = None
+    for sel in ['meta[property="og:title"]', 'h1', 'title']:
+        n = soup.select_one(sel)
+        if n:
+            title = _clean(n.get("content") if n.has_attr("content") else n.get_text(" ", strip=True))
+            if title: break
+
+    # Times
+    sdt = None; edt = None
+    # Try <time datetime="">
+    times = soup.select("time[datetime]")
+    if times:
+        try:
+            sdt = _tzfix(dtparse.parse(times[0]["datetime"]))
+        except Exception:
+            pass
+        if len(times) > 1:
+            try:
+                edt = _tzfix(dtparse.parse(times[1]["datetime"]))
+            except Exception:
+                pass
+
+    # Location (avoid grabbing nav chrome)
+    loc_txt = None
+    # Typical blocks: data-spec or aria-label hints
+    loc_candidates = [
+        '[data-testid="event-details"] [data-testid="location"]',
+        '[data-spec="event-details"] [data-spec*="location"]',
+        'section[aria-label*="Location"]',
+        '[data-testid="venue-info"]',
+    ]
+    for sel in loc_candidates:
+        el = soup.select_one(sel)
+        if el:
+            txt = _clean(el.get_text(" ", strip=True))
+            # Avoid obvious chrome text
+            if txt and "Find my tickets" not in txt and "Eventbrite" not in txt:
+                loc_txt = txt
+                break
+
+    if title and sdt:
+        evt = {
+            "title": title,
+            "description": desc or "",
+            "link": detail_url,
+            "start": sdt.isoformat(),
+            "end":   edt.isoformat() if edt else None,
+            "location": loc_txt,
+            "source": "eventbrite",
+        }
+        if os.getenv('FEEDS_DEBUG'):
+            print(f"     · EB parsed(FB): {evt['title'][:60]} | start:{evt['start']} loc:{(evt.get('location') or '')[:60]}")
+        return evt
+
+    # ---------- No reliable start time: skip ----------
+    if os.getenv('FEEDS_DEBUG'):
+        print("   · Eventbrite skipped (parse failed):", detail_url)
+    return None
 
 
-def fetch_eventbrite_discovery(list_url, pages=10, user_agent="fxbg-event-bot/1.0"):
+
+def fetch_eventbrite_discovery(list_url, pages=3, user_agent="fxbg-event-bot/1.0"):
     """
     Crawl Eventbrite discovery pages like:
       https://www.eventbrite.com/d/va--fredericksburg/free--events/?page=1
@@ -744,7 +921,7 @@ def fetch_eventbrite(api_url, token_env=None):
         # HTML crawler path (no token required)
         if os.getenv('FEEDS_DEBUG'):
             print(f"→ Eventbrite discovery crawl: {api_url}")
-        return fetch_eventbrite_discovery(api_url, pages=10)
+        return fetch_eventbrite_discovery(api_url, pages=3)
 
     token = token_env or os.getenv("EVENTBRITE_TOKEN") or ""
     if not token:
