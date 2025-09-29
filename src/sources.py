@@ -252,7 +252,7 @@ def _parse_eventbrite_detail(detail_url, user_agent="fxbg-event-bot/1.0"):
         "source": "eventbrite",
     }
 
-def fetch_eventbrite_discovery(list_url, pages=3, user_agent="fxbg-event-bot/1.0"):
+def fetch_eventbrite_discovery(list_url, pages=10, user_agent="fxbg-event-bot/1.0"):
     """
     Crawl Eventbrite discovery pages like:
       https://www.eventbrite.com/d/va--fredericksburg/free--events/?page=1
@@ -723,7 +723,7 @@ def fetch_eventbrite(api_url, token_env=None):
     """
     if re.search(r"//[^/]*eventbrite\.com/(d/|e/)", api_url):
         # HTML crawler path (no token required)
-        return fetch_eventbrite_discovery(api_url, pages=3)
+        return fetch_eventbrite_discovery(api_url, pages=10)
 
     token = token_env or os.getenv("EVENTBRITE_TOKEN") or ""
     if not token:
