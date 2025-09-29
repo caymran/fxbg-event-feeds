@@ -20,7 +20,47 @@ throttle_seconds_max: 5
 headless_js_timeout: 0
 max_future_days: 365
 
+# Route sports to a separate sports.ics
+route_to_sports:
+  # UMW Athletics hosts + their calendar mirror
+  domains:
+    - umweagles.com
+    - at.umw.edu
+  # Titles that look like sports
+  title_regex:
+    - '(?i)\b(University of Mary Washington|UMW)\b.*\b(Soccer|Basketball|Baseball|Softball|Lacrosse|Tennis|Volleyball|Swimming|Track|Field Hockey|Rugby|XC|Cross[- ]Country)\b'
+    - '(?i)\b(Coast[- ]to[- ]Coast|C2C|NCAA)\b.*\b(Tournament|Championship)\b'
+  # Optional globs (simpler matching)
+  title_glob:
+    - '* vs *'
+    - '* at *'
+  # If a venue name implies a sports facility
+  location_regex:
+    - '(?i)\b(Stadium|Field|Court|Gym|Arena|Track|Pool)\b'
+
+
+# --- new sources: FCPS District + Gladys West Elementary ---
 sources:
+  # Fredericksburg City Public Schools (district) events page
+  - name: "FCPS District Events"
+    type: html
+    url: "https://www.fxbgschools.us/events"
+    html:
+      item: "ul.lm-events li, .events-list li, article, li.event"
+      title: "a"
+      date: "time[datetime]"
+      # description/location selectors are optional; parse_when() will handle dates
+      # location: ".event-venue, .event-location"
+
+  # Gladys West Elementary events page
+  - name: "Gladys West Elementary Events"
+    type: html
+    url: "https://ges.fxbgschools.us/events"
+    html:
+      item: "ul.lm-events li, .events-list li, article, li.event"
+      title: "a"
+      date: "time[datetime]"
+
   # ------------------------------
   # City of Fredericksburg (CivicEngage) — official ICS feeds
   # iCalendar index (reference): https://www.fredericksburgva.gov/iCalendar.aspx

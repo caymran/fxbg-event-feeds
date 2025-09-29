@@ -12,6 +12,128 @@ except Exception:
 from sources import fetch_rss, fetch_ics, fetch_html, fetch_eventbrite, fetch_bandsintown, fetch_macaronikid_fxbg, fetch_freepress_calendar
 from utils import hash_event, parse_when, categorize_text
 from bs4 import BeautifulSoup
+from urllib.parse import urlsplit
+import fnmatch
+import re
+from urllib.parse import urlsplit
+import fnmatch
+
+def _host_from(ev: dict) -> str:
+    src = (ev.get("source") or "").strip()
+    link = (ev.get("link") or "").strip()
+    try:
+        return (urlsplit(link or src).netloc or "").lower()
+    except Exception:
+        return ""
+
+def is_dropped(ev: dict, cfg: dict) -> bool:
+    """Keep this if you still want general drop rules (non-sports)."""
+    drops = cfg.get("drop", {})
+    title = (ev.get("title") or "").strip()
+    location = (ev.get("location") or "").strip()
+    host = _host_from(ev)
+
+    for dom in drops.get("domains", []):
+        dom = dom.lower().strip()
+        if dom and host.endswith(dom):
+            return True
+
+    for pat in drops.get("title_regex", []):
+        try:
+            if re.search(pat, title, re.IGNORECASE):
+                return True
+        except re.error:
+            pass
+
+    for pat in drops.get("title_glob", []):
+        if fnmatch.fnmatch(title.lower(), pat.lower()):
+            return True
+
+    for pat in drops.get("location_regex", []):
+        try:
+            if re.search(pat, location, re.IGNORECASE):
+                return True
+        except re.error:
+            pass
+
+    return False
+
+def route_to_sports(ev: dict, cfg: dict) -> bool:
+    """Return True if event should be routed into the sports calendar."""
+    rt = cfg.get("route_to_sports", {})
+    title = (ev.get("title") or "").strip()
+    location = (ev.get("location") or "").strip()
+    host = _host_from(ev)
+
+    # Host/domain routing
+    for dom in rt.get("domains", []):
+        dom = dom.lower().strip()
+        if dom and host.endswith(dom):
+            return True
+
+    # Title patterns (regex + glob)
+    for pat in rt.get("title_regex", []):
+        try:
+            if re.search(pat, title, re.IGNORECASE):
+                return True
+        except re.error:
+            pass
+
+    for pat in rt.get("title_glob", []):
+        if fnmatch.fnmatch(title.lower(), pat.lower()):
+            return True
+
+    # Location patterns
+    for pat in rt.get("location_regex", []):
+        try:
+            if re.search(pat, location, re.IGNORECASE):
+                return True
+        except re.error:
+            pass
+
+    return False
+
+def is_dropped(ev: dict, cfg: dict) -> bool:
+    """Return True if event should be dropped per config.drop_* filters."""
+    drops = cfg.get("drop", {})
+    title = (ev.get("title") or "").strip()
+    location = (ev.get("location") or "").strip()
+    source = (ev.get("source") or "").strip()
+    link = (ev.get("link") or "").strip()
+    host = ""
+    try:
+        host = urlsplit(link or source).netloc.lower()
+    except Exception:
+        pass
+
+    # domain/host filters
+    for dom in drops.get("domains", []):
+        dom = dom.lower().strip()
+        if dom and host.endswith(dom):
+            return True
+
+    # title regex filters
+    for pat in drops.get("title_regex", []):
+        try:
+            if re.search(pat, title, re.IGNORECASE):
+                return True
+        except re.error:
+            pass
+
+    # title glob filters (simple wildcards)
+    for pat in drops.get("title_glob", []):
+        if fnmatch.fnmatch(title.lower(), pat.lower()):
+            return True
+
+    # location regex filters
+    for pat in drops.get("location_regex", []):
+        try:
+            if re.search(pat, location, re.IGNORECASE):
+                return True
+        except re.error:
+            pass
+
+    return False
 
 
 HTML_TAG_RE = re.compile(r"<[^>]+>")
@@ -189,24 +311,15 @@ def build_cals(events, out_dir):
     family = Calendar()
     adult = Calendar()
     recurring = Calendar()
-
-    # Optional calendar metadata
-    try:
-        for cal in (family, adult, recurring):
-            cal.scale = "GREGORIAN"
-            cal.method = None
-            cal.creator = "fxbg-event-feeds"
-    except Exception:
-        pass
+    sports = Calendar()
 
     for ev in events:
-        # ensure UID exists for stability
-        if 'id' not in ev:
-            ev['id'] = hash_event(ev['title'], ev['start'], ev.get('location',''))
         if ev['category'] == 'family':
             family.events.add(to_ics_event(ev))
         elif ev['category'] == 'recurring':
             recurring.events.add(to_ics_event(ev))
+        elif ev['category'] == 'sports':
+            sports.events.add(to_ics_event(ev))
         else:
             adult.events.add(to_ics_event(ev))
 
@@ -217,6 +330,8 @@ def build_cals(events, out_dir):
         f.writelines(adult.serialize_iter())
     with open(os.path.join(out_dir, 'recurring.ics'), 'w', encoding='utf-8', newline='\n') as f:
         f.writelines(recurring.serialize_iter())
+    with open(os.path.join(out_dir, 'sports.ics'), 'w', encoding='utf-8', newline='\n') as f:
+        f.writelines(sports.serialize_iter())
 
 def main():
     cfg = yaml.safe_load(open('config.yaml','r',encoding='utf-8'))
@@ -248,9 +363,10 @@ def main():
             elif t == 'macaronikid_fxbg':
                 got = fetch_macaronikid_fxbg(); collected += got; 
                 print(f"   macaroni events: {len(got)}") if debug else None
-            elif t == 'freepress':
-                got = fetch_freepress_calendar(); collected += got; 
-                print(f"   freepress events: {len(got)}") if debug else None
+    	    elif t == 'freepress':
+                got = fetch_freepress_calendar(src['url']);collected += got
+                print(f"   freepress events: {len(got)}")
+
         except Exception as e:
             print("WARN source failed:", src.get('name'), e)
 
@@ -293,6 +409,23 @@ def main():
 
         ev['category'] = categorize_text(ev['title'], ev.get('description',''), rules)
         ev['id'] = hash_event(ev['title'], ev['start'], ev.get('location',''))
+
+        # Route to sports bucket if configured to do so
+        if route_to_sports(ev, cfg):
+            ev['category'] = 'sports'
+
+        # Optional: keep generic drop rules for other noisy items
+        if is_dropped(ev, cfg):
+            if os.getenv('FEEDS_DEBUG'):
+                print(f"   · Dropped by rule: '{ev['title']}' ({ev.get('source')})")
+            continue
+
+        # drop via config rules (e.g., UMW sports)
+        if is_dropped(ev, cfg):
+            if os.getenv('FEEDS_DEBUG'):
+                print(f"   · Dropped by rule: '{ev['title']}' ({ev.get('source')})")
+            continue
+
         norm.append(ev)
 
     dedup = {}
