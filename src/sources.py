@@ -30,17 +30,14 @@ def robots_allowed(url, user_agent="*"):
         host = urllib.parse.urlsplit(url).netloc.lower()
         if host.endswith("macaronikid.com") and url.lower().endswith(".ics"):
             return True
+        # Allow-list Eventbrite discovery + event detail HTML
+        if host.endswith("eventbrite.com"):
+            path = urllib.parse.urlsplit(url).path
+            if path.startswith("/d/") or path.startswith("/e/"):
+                return True
     except Exception:
         pass
-
-    # Allow-list Eventbrite discovery and event detail pages
-    try:
-        parts = urllib.parse.urlsplit(url)
-        if parts.netloc.endswith("eventbrite.com") and ("/d/" in parts.path or "/e/" in parts.path):
-            return True
-    except Exception:
-        pass
-    
+   
     for sub in ALLOWLIST_SUBSTR:
         if sub in url:
             return True
@@ -134,6 +131,7 @@ def fetch_thrillshare_ical(events_page_url, user_agent="fxbg-event-bot/1.0"):
         e.setdefault("link", events_page_url)
     return events
 
+
 # ---------------- Eventbrite HTML crawler (discovery/list → detail) ----------------
 
 def _eb_clean_text(s: str) -> str:
@@ -169,19 +167,42 @@ def _eb_location_str(place):
         return f"{name} - {addr_txt}"
     return name or addr_txt
 
-def _parse_eventbrite_detail(detail_url, user_agent="fxbg-event-bot/1.0"):
-    """Parse a single Eventbrite event page; prefer JSON-LD."""
+def _parse_eventbrite_detail(detail_url, user_agent=None, default_tz="America/New_York"):
+    """
+    Parse a single Eventbrite event page; prefer JSON-LD @type=Event, with
+    solid fallbacks for title/date/location from visible HTML/meta.
+    """
+    from dateutil import parser as dtp, tz as dttz
+
+    user_agent = user_agent or os.getenv("EB_UA") or (
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/125.0.0.0 Safari/537.36"
+    )
     headers = {"User-Agent": user_agent, "Accept-Language": "en-US,en;q=0.9"}
+
     st, body, _ = req_with_cache(detail_url, headers=headers, throttle=(1,3))
+    if os.getenv("FEEDS_DEBUG"):
+        print(f"     · EB detail GET {st}: {detail_url}")
     if st != 200 or not body:
         return None
 
     soup = BeautifulSoup(body, "html.parser")
 
-    # 1) JSON-LD @type=Event
+    def _to_iso(val):
+        if not val: return None
+        try:
+            dt = dtp.parse(val)
+            if not dt.tzinfo:
+                dt = dt.replace(tzinfo=dttz.gettz(default_tz))
+            return dt.isoformat()
+        except Exception:
+            return None
+
     ev_name = desc = start = end = None
     location_str = ""
 
+    # ---- 1) JSON-LD @type=Event (often the cleanest) ----
     for tag in soup.select('script[type="application/ld+json"]'):
         try:
             data = json.loads(tag.string or "")
@@ -195,57 +216,77 @@ def _parse_eventbrite_detail(detail_url, user_agent="fxbg-event-bot/1.0"):
             edt = evt.get("endDate")   or evt.get("end_date")
             dsc = _eb_clean_text(evt.get("description") or "")
             loc = _eb_location_str(evt.get("location"))
-            # Only take if it looks like a bona-fide event
-            if nm and sdt:
-                ev_name = ev_name or nm
-                start   = start or sdt
-                end     = end or edt
-                desc    = desc or dsc
-                location_str = location_str or loc
+            if nm and not ev_name:
+                ev_name = nm
+            if sdt and not start:
+                start = _to_iso(sdt) or sdt
+            if edt and not end:
+                end = _to_iso(edt) or edt
+            if dsc and not desc:
+                desc = dsc
+            if loc and not location_str:
+                location_str = loc
 
         if isinstance(data, dict):
-            if data.get("@type") == "Event":
+            if data.get("@type") in ("Event", "Festival"):
                 handle_evt(data)
-            # @graph can embed the Event
             for node in (data.get("@graph") or []):
-                if isinstance(node, dict) and node.get("@type") == "Event":
+                if isinstance(node, dict) and node.get("@type") in ("Event", "Festival"):
                     handle_evt(node)
         elif isinstance(data, list):
             for node in data:
-                if isinstance(node, dict) and node.get("@type") == "Event":
+                if isinstance(node, dict) and node.get("@type") in ("Event", "Festival"):
                     handle_evt(node)
 
-    # 2) Fallbacks from visible HTML if JSON-LD was partial/missing
+    # ---- 2) Fallbacks from visible HTML ----
     if not ev_name:
-        h = soup.select_one("h1, [data-testid='event-title']")
+        h = soup.select_one("h1, [data-testid='event-title'], [data-automation='listing-title']")
         if h:
             ev_name = _eb_clean_text(h.get_text(" ", strip=True))
-    if not desc:
-        about = soup.select_one("[data-testid='event-details'], section[data-spec='event-details']")
-        if about:
-            desc = _eb_clean_text(about.get_text(" ", strip=True))
-    if not (start or end):
-        # Pull the text near "Date and time"
-        dt_blk = soup.find(lambda t: t.name in ("section","div") and "Date and time" in t.get_text(" ", strip=True))
-        dt_txt = _eb_clean_text(dt_blk.get_text(" ", strip=True)) if dt_blk else ""
-        # Try parse_when to split a range like "Sunday, Oct 19 · 11am - 4pm EDT"
-        sdt, edt = parse_when(dt_txt or ev_name or "")
-        if sdt:
-            start = sdt.isoformat()
-        if edt:
-            end = edt.isoformat()
 
+    # Try meta/itemprop times
+    if not (start or end):
+        m_start = soup.select_one("meta[itemprop='startDate'], meta[itemprop='startdate'], meta[property='event:start_time']")
+        m_end   = soup.select_one("meta[itemprop='endDate'], meta[itemprop='enddate'], meta[property='event:end_time']")
+        if m_start and m_start.get("content"):
+            start = _to_iso(m_start["content"]) or start
+        if m_end and m_end.get("content"):
+            end = _to_iso(m_end["content"]) or end
+
+    # <time datetime="...">
+    if not (start or end):
+        ts = [t.get("datetime") for t in soup.select("time[datetime]") if t.get("datetime")]
+        if ts:
+            start = start or _to_iso(ts[0]) or ts[0]
+            if len(ts) > 1:
+                end = end or _to_iso(ts[1]) or ts[1]
+
+    # 'Date and time' block text -> parse_when
+    if not (start or end):
+        dt_blk = soup.find(lambda t: t.name in ("section","div") and "Date and time" in t.get_text(" ", strip=True))
+        if dt_blk:
+            sdt, edt = parse_when(_eb_clean_text(dt_blk.get_text(" ", strip=True)), default_tz=default_tz)
+            if sdt: start = sdt.isoformat()
+            if edt: end   = edt.isoformat()
+
+    # Location from visible blocks if JSON-LD didn’t give it
     if not location_str:
-        loc_blk = soup.find(lambda t: t.name in ("section","div") and "Location" in t.get_text(" ", strip=True))
-        if loc_blk:
-            # Venue name often first strong/heading, address lines follow
-            txt = [ln.strip() for ln in loc_blk.get_text("\n", strip=True).splitlines() if ln.strip()]
+        # specific containers first
+        loc_cont = soup.select_one("[data-spec='event-details-location'], [data-testid='event-details-location']")
+        if loc_cont:
+            txt = _eb_clean_text(loc_cont.get_text(" ", strip=True))
             if txt:
-                # Heuristic: join first two lines with ' - ', include zip line if present
-                if len(txt) >= 2:
-                    location_str = _eb_clean_text(f"{txt[0]} - {' '.join(txt[1:])}")
-                else:
-                    location_str = _eb_clean_text(txt[0])
+                location_str = txt
+        if not location_str:
+            # generic 'Location' section
+            loc_blk = soup.find(lambda t: t.name in ("section","div") and re.search(r"\bLocation\b", t.get_text(" ", strip=True), re.I))
+            if loc_blk:
+                lines = [ln.strip() for ln in loc_blk.get_text("\n", strip=True).splitlines() if ln.strip()]
+                if lines:
+                    if len(lines) >= 2:
+                        location_str = _eb_clean_text(f"{lines[0]} - {' '.join(lines[1:])}")
+                    else:
+                        location_str = _eb_clean_text(lines[0])
 
     if not (ev_name and start):
         return None
@@ -265,345 +306,100 @@ def _parse_eventbrite_detail(detail_url, user_agent="fxbg-event-bot/1.0"):
         print(f"     · EB parsed: {t} | start:{start} end:{end} loc:{loc_snip}")
     return evt
 
-def _parse_eventbrite_detail(detail_url: str, html: str, default_tz="America/New_York"):
-    """
-    Robust Eventbrite detail parser:
-      1) Prefer JSON-LD @type=Event (object, list, or @graph)
-      2) Fallback to meta/time tags
-      3) Never fabricate datetimes; if no start, return None
-    """
-    from bs4 import BeautifulSoup
-    import json, re
-    from dateutil import parser as dtparse, tz
-
-    def _tzfix(dt):
-        if not dt:
-            return None
-        if not dt.tzinfo:
-            return dt.replace(tzinfo=tz.gettz(default_tz))
-        return dt
-
-    def _clean(s):
-        if not s: return ""
-        return re.sub(r"\s+", " ", s).strip()
-
-    soup = BeautifulSoup(html, "html.parser")
-
-    # ---------- 1) JSON-LD ----------
-    def _emit_from_jsonld(obj):
-        """Return event dict from a JSON-LD Event node (or None)."""
-        if not isinstance(obj, dict):
-            return None
-        if obj.get("@type") not in ("Event", "Festival"):
-            return None
-
-        name = _clean(obj.get("name"))
-        desc = _clean(obj.get("description"))
-        s_raw = obj.get("startDate") or obj.get("start_date")
-        e_raw = obj.get("endDate") or obj.get("end_date")
-
-        sdt = _tzfix(dtparse.parse(s_raw)) if s_raw else None
-        edt = _tzfix(dtparse.parse(e_raw)) if e_raw else None
-
-        # Build location string from Place/PostalAddress if present
-        loc_txt = ""
-        loc = obj.get("location")
-        if isinstance(loc, dict):
-            loc_name = _clean(loc.get("name") or "")
-            addr = loc.get("address")
-            if isinstance(addr, dict):
-                addr_txt = " ".join(filter(None, [
-                    _clean(addr.get("streetAddress")),
-                    _clean(addr.get("addressLocality")),
-                    _clean(addr.get("addressRegion")),
-                    _clean(addr.get("postalCode")),
-                ]))
-            else:
-                addr_txt = _clean(addr) if isinstance(addr, str) else ""
-            loc_parts = [p for p in [loc_name, addr_txt] if p]
-            loc_txt = " - ".join(loc_parts)
-
-        if name and sdt:
-            return {
-                "title": name,
-                "description": desc or "",
-                "link": obj.get("url") or detail_url,
-                "start": sdt.isoformat(),
-                "end":   edt.isoformat() if edt else None,
-                "location": loc_txt or None,
-                "source": "eventbrite",
-            }
-        return None
-
-    for tag in soup.select('script[type="application/ld+json"]'):
-        txt = (tag.string or "").strip()
-        if not txt:
-            continue
-        try:
-            data = json.loads(txt)
-        except Exception:
-            # Some pages wrap JSON in <!-- --> or include trailing commas; try a quick clean
-            txt2 = re.sub(r"<!--.*?-->", "", txt, flags=re.S)
-            txt2 = re.sub(r",\s*([}\]])", r"\1", txt2)
-            try:
-                data = json.loads(txt2)
-            except Exception:
-                continue
-
-        # single object
-        if isinstance(data, dict):
-            # direct event
-            ev = _emit_from_jsonld(data)
-            if ev:
-                if os.getenv('FEEDS_DEBUG'):
-                    print(f"     · EB parsed(JSON-LD obj): {ev['title'][:60]} | start:{ev['start']} loc:{(ev.get('location') or '')[:60]}")
-                return ev
-            # within @graph
-            for node in data.get("@graph") or []:
-                ev = _emit_from_jsonld(node)
-                if ev:
-                    if os.getenv('FEEDS_DEBUG'):
-                        print(f"     · EB parsed(JSON-LD graph): {ev['title'][:60]} | start:{ev['start']} loc:{(ev.get('location') or '')[:60]}")
-                    return ev
-
-        # list of objects
-        if isinstance(data, list):
-            for node in data:
-                ev = _emit_from_jsonld(node)
-                if ev:
-                    if os.getenv('FEEDS_DEBUG'):
-                        print(f"     · EB parsed(JSON-LD list): {ev['title'][:60]} | start:{ev['start']} loc:{(ev.get('location') or '')[:60]}")
-                    return ev
-
-    # ---------- 2) Fallback: meta/time ----------
-    # Description
-    desc = None
-    for sel in ['meta[property="og:description"]', 'meta[name="description"]']:
-        m = soup.select_one(sel)
-        if m and m.get("content"):
-            desc = _clean(m["content"]); break
-
-    # Title
-    title = None
-    for sel in ['meta[property="og:title"]', 'h1', 'title']:
-        n = soup.select_one(sel)
-        if n:
-            title = _clean(n.get("content") if n.has_attr("content") else n.get_text(" ", strip=True))
-            if title: break
-
-    # Times
-    sdt = None; edt = None
-    # Try <time datetime="">
-    times = soup.select("time[datetime]")
-    if times:
-        try:
-            sdt = _tzfix(dtparse.parse(times[0]["datetime"]))
-        except Exception:
-            pass
-        if len(times) > 1:
-            try:
-                edt = _tzfix(dtparse.parse(times[1]["datetime"]))
-            except Exception:
-                pass
-
-    # Location (avoid grabbing nav chrome)
-    loc_txt = None
-    # Typical blocks: data-spec or aria-label hints
-    loc_candidates = [
-        '[data-testid="event-details"] [data-testid="location"]',
-        '[data-spec="event-details"] [data-spec*="location"]',
-        'section[aria-label*="Location"]',
-        '[data-testid="venue-info"]',
-    ]
-    for sel in loc_candidates:
-        el = soup.select_one(sel)
-        if el:
-            txt = _clean(el.get_text(" ", strip=True))
-            # Avoid obvious chrome text
-            if txt and "Find my tickets" not in txt and "Eventbrite" not in txt:
-                loc_txt = txt
-                break
-
-    if title and sdt:
-        evt = {
-            "title": title,
-            "description": desc or "",
-            "link": detail_url,
-            "start": sdt.isoformat(),
-            "end":   edt.isoformat() if edt else None,
-            "location": loc_txt,
-            "source": "eventbrite",
-        }
-        if os.getenv('FEEDS_DEBUG'):
-            print(f"     · EB parsed(FB): {evt['title'][:60]} | start:{evt['start']} loc:{(evt.get('location') or '')[:60]}")
-        return evt
-
-    # ---------- No reliable start time: skip ----------
-    if os.getenv('FEEDS_DEBUG'):
-        print("   · Eventbrite skipped (parse failed):", detail_url)
-    return None
-
-
-
 def fetch_eventbrite_discovery(list_url, pages=10, user_agent=None):
     """
-    Crawl Eventbrite discovery pages (?page=1..N) with a persistent Session,
-    collect /e/<event> links, then visit each detail and parse via
-    _parse_eventbrite_detail (JSON-LD first). Pure HTML; no API.
+    Crawl Eventbrite discovery pages like:
+      https://www.eventbrite.com/d/va--fredericksburg/free--events/?page=1
+    Collect /e/... detail links and parse each detail page.
     """
-    from urllib.parse import urlsplit, urljoin
-    from bs4 import BeautifulSoup
-    import re, requests
+    if not robots_allowed(list_url, user_agent or ""):
+        return []
 
-    # Use a realistic desktop Chrome UA on Linux (GitHub runner)
-    UA1 = user_agent or (
-        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
-        "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
-    )
-    # Backup UA (Windows) if we see a 405 on a page
-    UA2 = (
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-        "(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+    user_agent = user_agent or os.getenv("EB_UA") or (
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/125.0.0.0 Safari/537.36"
     )
 
-    base_headers = {
-        "User-Agent": UA1,
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    def _with_page(u: str, page_num: int) -> str:
+        parts = list(urllib.parse.urlsplit(u))
+        q = urllib.parse.parse_qs(parts[3])
+        q["page"] = [str(page_num)]
+        parts[3] = urllib.parse.urlencode({k: v[0] for k, v in q.items()})
+        return urllib.parse.urlunsplit(parts)
+
+    headers = {
+        "User-Agent": user_agent,
         "Accept-Language": "en-US,en;q=0.9",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Upgrade-Insecure-Requests": "1",
         "Cache-Control": "no-cache",
         "Pragma": "no-cache",
-        "Upgrade-Insecure-Requests": "1",
+        "Referer": "https://www.eventbrite.com/",
     }
 
-    def _is_detail(path: str) -> bool:
-        # Event detail pages look like /e/<slug>-<id>  or  /e/<id>
-        if not path.startswith("/e/"):
-            return False
-        bad = ("/e/organizer/", "/e/create/", "/e/search/")
-        return not any(path.startswith(b) for b in bad)
-
-    # Respect existing ?page=, otherwise append
-    def page_url(i: int) -> str:
-        if "page=" in list_url:
-            return re.sub(r"(?:[?&])page=\d+", f"?page={i}", list_url) if "?" not in list_url.split("page=",1)[0] else re.sub(r"(page=)\d+", rf"\g<1>{i}", list_url)
-        sep = "&" if "?" in list_url else "?"
-        return f"{list_url}{sep}page={i}"
-
-    sess = requests.Session()
-    sess.headers.update(base_headers)
-
-    # Prime cookies on homepage
+    # starting page number
     try:
-        sess.get("https://www.eventbrite.com/", timeout=30, allow_redirects=True)
+        qs = urllib.parse.parse_qs(urllib.parse.urlsplit(list_url).query)
+        start_page = int((qs.get("page") or ["1"])[0])
     except Exception:
-        pass
+        start_page = 1
 
     if os.getenv('FEEDS_DEBUG'):
-        print(f"   EB(discovery): start {list_url}")
+        print(f"→ Eventbrite discovery crawl: {list_url}")
 
     pages_seen = 0
     detail_urls = set()
 
-    # 1) Collect detail links
-    prev_url = "https://www.eventbrite.com/"
-    for i in range(1, pages + 1):
-        u = page_url(i)
-
-        # First try with base headers
-        try:
-            r = sess.get(u, timeout=30, allow_redirects=True, headers={"Referer": prev_url})
-            st = r.status_code
-        except Exception:
-            st = 599
-            r = None
-
+    # 1) Collect event detail links
+    for i in range(start_page, start_page + int(pages)):
+        u = _with_page(list_url, i)
+        if os.getenv('FEEDS_DEBUG'):
+            print(f"   EB(discovery): start {u}")
+        st, body, _ = req_with_cache(u, headers=headers, throttle=(1,3))
         if os.getenv('FEEDS_DEBUG'):
             print(f"   Eventbrite page {i}: HTTP {st}")
-
-        # If 405, retry once with alternate UA + referer
-        if st == 405:
-            try:
-                r2 = sess.get(
-                    u, timeout=30, allow_redirects=True,
-                    headers={"User-Agent": UA2, "Referer": prev_url, **{k:v for k,v in base_headers.items() if k != "User-Agent"}}
-                )
-                st = r2.status_code
-                r = r2
-                if os.getenv('FEEDS_DEBUG'):
-                    print(f"   Eventbrite page {i}: retry with UA2 -> HTTP {st}")
-            except Exception:
-                st = 599
-                r = None
-
-        if st != 200 or not r or not r.text:
-            prev_url = u
+        if st != 200 or not body:
             continue
-
         pages_seen += 1
-        soup = BeautifulSoup(r.text, "html.parser")
+        soup = BeautifulSoup(body, "html.parser")
 
         for a in soup.select("a[href*='/e/']"):
-            href = (a.get("href") or "").split("?", 1)[0].strip()
+            href = (a.get("href") or "").split("?", 1)[0]
             if not href:
                 continue
-            absu = urljoin(u, href)
             try:
-                path = urlsplit(absu).path
+                absu = urllib.parse.urljoin(u, href)
+                path = urllib.parse.urlsplit(absu).path
             except Exception:
+                absu = href
                 path = href
-            if _is_detail(path):
-                detail_urls.add(absu)
+            if not path.startswith("/e/"):
+                continue
+            if any(seg in path for seg in ("/organizer/", "/o/", "/collections/")):
+                continue
+            detail_urls.add(absu)
 
         if os.getenv('FEEDS_DEBUG'):
             print(f"   Eventbrite page {i}: found {len(detail_urls)} links (cumulative)")
 
-        prev_url = u
-        jitter_sleep(1, 3)
-
     if os.getenv('FEEDS_DEBUG'):
         print(f"   Eventbrite (HTML): pages_visited={pages_seen} detail_urls={len(detail_urls)}")
 
-    # 2) Visit details and parse
+    # 2) Visit details & parse
     out = []
     for ev_url in sorted(detail_urls):
-        try:
-            rd = sess.get(ev_url, timeout=30, allow_redirects=True, headers={"Referer": prev_url})
-            st = rd.status_code
-        except Exception:
-            st = 599
-            rd = None
-
-        if st == 405:
-            try:
-                rd2 = sess.get(
-                    ev_url, timeout=30, allow_redirects=True,
-                    headers={"User-Agent": UA2, "Referer": prev_url, **{k:v for k,v in base_headers.items() if k != "User-Agent"}}
-                )
-                st = rd2.status_code
-                rd = rd2
-            except Exception:
-                st = 599
-                rd = None
-
-        if st != 200 or not rd or not rd.text:
-            if os.getenv('FEEDS_DEBUG'):
-                print("   · Eventbrite skipped (http):", ev_url, "status", st)
-            prev_url = ev_url
-            continue
-
-        ev = _parse_eventbrite_detail(ev_url, rd.text)
+        ev = _parse_eventbrite_detail(ev_url, user_agent=user_agent)
         if ev:
             out.append(ev)
         elif os.getenv('FEEDS_DEBUG'):
             print("   · Eventbrite skipped (parse failed):", ev_url)
 
-        prev_url = ev_url
-        jitter_sleep(1, 3)
-
     if os.getenv('FEEDS_DEBUG'):
         print(f"   Eventbrite (HTML): events={len(out)}")
 
     return out
+
 
 # -------------------------------------------------------------------------------
 
@@ -999,32 +795,57 @@ def fetch_html(url, hints=None, user_agent="fxbg-event-bot/1.0", throttle=(2,5))
 
 def fetch_eventbrite(api_url, token_env=None):
     """
-    Eventbrite HTML discovery/detail only (no API).
+    Unified Eventbrite fetcher:
+      - If `api_url` looks like an Eventbrite discovery or event HTML URL, use the HTML crawler.
+      - Otherwise, use API path only if a token is provided.
     """
-    import re
     if re.search(r"//[^/]*eventbrite\.com/(d/|e/)", api_url):
         if os.getenv('FEEDS_DEBUG'):
             print(f"→ Eventbrite discovery crawl: {api_url}")
         return fetch_eventbrite_discovery(api_url, pages=10)
 
-    # If someone passes a non-discovery URL, just try it as a single detail page:
-    if os.getenv('FEEDS_DEBUG'):
-        print(f"→ Eventbrite single detail attempt: {api_url}")
+    token = token_env or os.getenv("EVENTBRITE_TOKEN") or ""
+    if not token:
+        if os.getenv('FEEDS_DEBUG'):
+            print("   Eventbrite API: missing token (and URL is not discovery/detail); returning []")
+        return []
+    headers = {"Authorization": f"Bearer {token}"}
+    status, body, _ = req_with_cache(api_url, headers=headers, throttle=(2,5))
+    if status == 304:
+        return []
+    if status != 200:
+        if os.getenv('FEEDS_DEBUG'):
+            print(f"   Eventbrite HTTP {status}")
+            print((body or '')[:200])
+        return []
     try:
-        st, body, _ = req_with_cache(api_url, headers={
-            "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-            "Accept-Language": "en-US,en;q=0.9",
-            "Cache-Control": "no-cache", "Pragma": "no-cache",
-            "Upgrade-Insecure-Requests": "1",
-            "Referer": "https://www.eventbrite.com/",
-        }, throttle=(1,3))
-        if st == 200 and body:
-            ev = _parse_eventbrite_detail(api_url, body)
-            return [ev] if ev else []
+        data = json.loads(body)
+        if os.getenv('FEEDS_DEBUG'):
+            print(f"   Eventbrite ok: top-level keys={list(data.keys())}")
     except Exception:
-        pass
-    return []
+        return []
+    out = []
+    events = data.get("events") or data.get("data") or []
+    for ev in events:
+        title = (ev.get("name", {}) or {}).get("text") or ev.get("name")
+        desc = (ev.get("description", {}) or {}).get("text") or ev.get("description")
+        start = (ev.get("start") or {}).get("local") or ev.get("start")
+        end = (ev.get("end") or {}).get("local") or ev.get("end")
+        venue_name = None
+        if ev.get("venue"):
+            venue_name = ev["venue"].get("name")
+        elif ev.get("venue_id"):
+            venue_name = f"Venue ID {ev['venue_id']}"
+        out.append({
+            "title": title,
+            "description": desc,
+            "link": ev.get("url"),
+            "start": start,
+            "end": end,
+            "location": venue_name,
+            "source": "eventbrite"
+        })
+    return out
 
 def fetch_bandsintown(url, app_id_env=None):
     if os.getenv('FEEDS_DEBUG'):
@@ -1073,87 +894,6 @@ def fetch_bandsintown(url, app_id_env=None):
         })
     return out
 
-def _mackid_sitemap_discover_detail_urls(base_url, user_agent="Mozilla/5.0"):
-    """
-    Fallback for Macaroni KID: read robots.txt → find Sitemap: lines → fetch sitemaps
-    → extract /events/... links (works even when list pages are JS-only).
-    """
-    from urllib.parse import urlsplit
-    headers = {"User-Agent": user_agent, "Accept-Language": "en-US,en;q=0.9"}
-    urls = set()
-
-    # 1) robots.txt
-    try:
-        parts = urllib.parse.urlsplit(base_url)
-        robots_url = f"{parts.scheme}://{parts.netloc}/robots.txt"
-        st, body, _ = req_with_cache(robots_url, headers=headers, throttle=(1,3))
-    except Exception:
-        st, body = 0, ""
-
-    sitemaps = []
-    if st == 200 and body:
-        for line in body.splitlines():
-            line = line.strip()
-            if line.lower().startswith("sitemap:"):
-                sitemaps.append(line.split(":", 1)[1].strip())
-
-    # Common sitemap locations (in case robots doesn’t list them)
-    root = f"{parts.scheme}://{parts.netloc}"
-    sitemaps += [f"{root}/sitemap.xml", f"{root}/sitemap_index.xml", f"{root}/sitemap-events.xml"]
-
-    seen = set()
-    detail_pat = re.compile(r"^/events/[A-Za-z0-9\-]{6,}(?:/[\w\-]*)?$", re.I)
-
-    for sm in sitemaps:
-        if sm in seen:
-            continue
-        seen.add(sm)
-        st2, xml, _ = req_with_cache(sm, headers=headers, throttle=(1,3))
-        if st2 != 200 or not xml:
-            continue
-
-        # Extract <loc>…</loc> values (loose XML parse)
-        for m in re.finditer(r"<loc>\s*([^<]+)\s*</loc>", xml):
-            u = m.group(1).strip()
-            try:
-                path = urlsplit(u).path
-            except Exception:
-                path = u
-            if detail_pat.match(path):
-                urls.add(u)
-
-        # If this is a sitemap index, it may point to other sitemaps; follow shallowly
-        for sm2 in re.finditer(r"<sitemap>\s*<loc>\s*([^<]+)\s*</loc>\s*</sitemap>", xml):
-            u2 = sm2.group(1).strip()
-            if u2 and u2 not in seen:
-                seen.add(u2)
-                st3, xml2, _ = req_with_cache(u2, headers=headers, throttle=(1,3))
-                if st3 == 200 and xml2:
-                    for m in re.finditer(r"<loc>\s*([^<]+)\s*</loc>", xml2):
-                        u = m.group(1).strip()
-                        try:
-                            path = urlsplit(u).path
-                        except Exception:
-                            path = u
-                        if detail_pat.match(path):
-                            urls.add(u)
-
-    return urls
-
-def _is_mackid_detail_path(path: str) -> bool:
-    """
-    True for /events/<hex-id>[/optional-slug], false for calendar/submit/etc.
-    """
-    import re
-    segs = path.strip("/").split("/")
-    if len(segs) < 2 or segs[0] != "events":
-        return False
-    slug = segs[1].lower()
-    if slug in {"calendar", "submit", "search", "subscribe", "contact", "about"}:
-        return False
-    # MacKID event IDs are hex-ish of length >= 8
-    return bool(re.match(r"^[0-9a-f]{8,}$", slug))
-
 def fetch_macaronikid_fxbg(days=60, user_agent=None):
     """
     Crawl Macaroni KID Fredericksburg:
@@ -1197,20 +937,30 @@ def fetch_macaronikid_fxbg(days=60, user_agent=None):
     def _find_event_links(html, page_url):
         soup = BeautifulSoup(html, "html.parser")
         links = set()
-        for a in soup.select("a[href^='/events/'], a[href*='/events/']"):
-            href = (a.get("href") or "").split("?", 1)[0].strip()
+
+        # Accept only true detail URLs, not listing/month pages.
+        # Examples we accept:
+        #   /events/681814d3ede0d566abf77b86
+        #   /events/681814d3ede0d566abf77b86/some-slug
+        # Reject:
+        #   /events
+        #   /events/calendar
+        detail_pat = re.compile(r"^/events/[0-9a-f]{8,}(?:/[\w\-]*)?$", re.I)
+
+        for a in soup.select("a[href*='/events/']"):
+            href = (a.get("href") or "").split("?")[0].strip()
             if not href:
                 continue
             abs_url = urllib.parse.urljoin(page_url, href)
+            # Normalize to path for regex
             try:
                 from urllib.parse import urlsplit
                 path = urlsplit(abs_url).path
             except Exception:
                 path = href
-            if _is_mackid_detail_path(path):
+            if detail_pat.match(path):
                 links.add(abs_url)
         return links
-
 
 
     def _find_next_page(html, page_url):
@@ -1242,20 +992,6 @@ def fetch_macaronikid_fxbg(days=60, user_agent=None):
         print(f"   MacKID: pages_visited={pages_visited} detail_urls={len(detail_urls)}")
         for u in list(sorted(detail_urls))[:5]:
             print("     · detail:", u)
-
-    # If thin results (JS-only lists), supplement with sitemap fallback
-    if len(detail_urls) < 5:
-        sitemap_links = _mackid_sitemap_discover_detail_urls(base, user_agent=user_agent)
-        if os.getenv("FEEDS_DEBUG"):
-            print(f"   MacKID (SITEMAP): detail_urls={len(sitemap_links)}")
-        detail_urls |= sitemap_links
-
-    # If no links from list pages (JS-only?), fall back to sitemaps
-    if not detail_urls:
-        sitemap_links = _mackid_sitemap_discover_detail_urls(base, user_agent=user_agent)
-        if os.getenv("FEEDS_DEBUG"):
-            print(f"   MacKID (SITEMAP): detail_urls={len(sitemap_links)}")
-        detail_urls |= sitemap_links
 
 
     collected = []
@@ -1357,7 +1093,6 @@ def fetch_macaronikid_fxbg(days=60, user_agent=None):
                     pass
 
         print("     · parsed:", (title or "")[:60], "| date_text:", (date_text or "")[:80])
-
 
         sdt, edt = parse_when(date_text or "", default_tz="America/New_York")
         collected.append({
