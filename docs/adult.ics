@@ -2,320 +2,320 @@ BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:ics.py - http://git.io/lLljaA
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
+DTSTAMP:20250929T180459Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3907\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20251101T200000Z
-LAST-MODIFIED:20250929T172941Z
+LAST-MODIFIED:20250929T180459Z
 LOCATION:Commissioner of the Revenue's - 10459 Courthouse Drive Suite 101 King George VA 22485
 DTSTART:20251101T120000Z
 SUMMARY:Land Use Tax Application Deadline
 UID:6b55f741f4e52a9ef3d1aa0dcf1639a7137df387
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
+DTSTAMP:20250929T180459Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3804\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20251205T210000Z
-LAST-MODIFIED:20250929T172941Z
+LAST-MODIFIED:20250929T180459Z
 LOCATION:Treasurer's Office - 10459 Courthouse Drive Suite 100 King George VA 22485
 DTSTART:20251205T130000Z
 SUMMARY:Real Estate & Personal Property Taxes Due
 UID:fe71a97cc717b9f09ac0d87a63dda4041d8a0aea
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
+DTSTAMP:20250929T180459Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3444\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20260301T210000Z
-LAST-MODIFIED:20250929T172941Z
+LAST-MODIFIED:20250929T180459Z
 LOCATION:Commissioner of the Revenue's Office - 10459 Courthouse Drive Suite 101 King George VA 22485
 DTSTART:20260301T130000Z
 SUMMARY:Exemption Application Deadline for the Elderly and Disabled
 UID:34822f1daf6dde059c20421f2b2f820907096bc3
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
+DTSTAMP:20250929T180459Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3392\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20260301T210000Z
-LAST-MODIFIED:20250929T172941Z
+LAST-MODIFIED:20250929T180459Z
 LOCATION:Commissioner of the Revenue's Office - 10459 Courthouse Drive Suite 101 King George VA 22485
 DTSTART:20260301T130000Z
 SUMMARY:Business License Renewal Application & Payment Deadline
 UID:cc7ffbd6d41aee174eccab872700e6d8763d02b8
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
+DTSTAMP:20250929T180459Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3855\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20251101T200000Z
-LAST-MODIFIED:20250929T172941Z
+LAST-MODIFIED:20250929T180459Z
 LOCATION:Treasurer's Office - 10459 Courthouse Drive Suite 100 King George VA 22485
 DTSTART:20251101T120000Z
 SUMMARY:Dog Tags Available for Purchase
 UID:0f6408707f4915600573fffacc8e90554ba6dac6
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
+DTSTAMP:20250929T180459Z
 DESCRIPTION:https://www.fredericksburgva.gov/calendar.aspx?EID=3504\nhttps://www.fredericksburgva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=35
 DTEND:20251126T213000Z
-LAST-MODIFIED:20250929T172941Z
+LAST-MODIFIED:20250929T180459Z
 LOCATION:City Hall - 715 Princess Anne Street Fredericksburg VA 22401
 DTSTART:20251126T170000Z
 SUMMARY:Thanksgiving - City Offices Closed Half Day
 UID:aabaf1989419ef5919274ea2145990d7f9e2df97
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
+DTSTAMP:20250929T180459Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3340\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20260215T210000Z
-LAST-MODIFIED:20250929T172941Z
+LAST-MODIFIED:20250929T180459Z
 LOCATION:Commissioner of the Revenue's Office - 10459 Courthouse Drive Suite 101 King George VA 22485
 DTSTART:20260215T130000Z
 SUMMARY:High Mileage Discount Deadline
 UID:a2729e42768c61ffe19fb154cc14af7a667b4342
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
+DTSTAMP:20250929T180459Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4336\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20251026T000000Z
-LAST-MODIFIED:20250929T172941Z
+LAST-MODIFIED:20250929T180459Z
 LOCATION:Cedell Brooks\, Jr. Park - 11259 Henry Griffin Road King George VA 22485
 DTSTART:20251025T220000Z
 SUMMARY:KGP&R Trunk or Treat & Halloween Movie in the Park
 UID:4bed72270f0596ac0752674c356e9e4810d441bb
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
+DTSTAMP:20250929T180459Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3702\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20260115T210000Z
-LAST-MODIFIED:20250929T172941Z
+LAST-MODIFIED:20250929T180459Z
 LOCATION:Treasurer's Office - 10459 Courthouse Drive Suite 100 King George VA 22485
 DTSTART:20260115T130000Z
 SUMMARY:Estimated Quarterly State Income Tax Payment Due
 UID:db213134531f2235ba7509719e418e006fc4ddce
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
+DTSTAMP:20250929T180459Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3548\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20260501T200000Z
-LAST-MODIFIED:20250929T172941Z
+LAST-MODIFIED:20250929T180459Z
 LOCATION:Commissioner of the Revenue's Office - 10459 Courthouse Drive Suite 101 King George VA 22485
 DTSTART:20260501T120000Z
 SUMMARY:Estimated Quarterly State Income Tax Payment Due
 UID:c2b4da72ce9d9becb2d05db6e1bce38202fa340e
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
+DTSTAMP:20250929T180459Z
 DESCRIPTION:https://www.fredericksburgva.gov/calendar.aspx?EID=3505\nhttps://www.fredericksburgva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=35
 DTEND:20251128T050000Z
-LAST-MODIFIED:20250929T172941Z
+LAST-MODIFIED:20250929T180459Z
 LOCATION:City Hall - 715 Princess Anne Street Fredericksburg VA 22401
 DTSTART:20251127T050000Z
 SUMMARY:Thanksgiving - City Offices Closed
 UID:6d94d72f5581002c93c3c7a999122af970cfeb8d
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
+DTSTAMP:20250929T180459Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4335\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20251026T000000Z
-LAST-MODIFIED:20250929T172941Z
+LAST-MODIFIED:20250929T180459Z
 LOCATION:Caledon State Park - 11617 Caledon Road King George VA 22485
 DTSTART:20251025T220000Z
 SUMMARY:Caledon Trunk or Treat
 UID:8f55f57bf3379a87b8b6a6724baddd3b00a6fdc5
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
+DTSTAMP:20250929T180459Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3754\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20260605T200000Z
-LAST-MODIFIED:20250929T172941Z
+LAST-MODIFIED:20250929T180459Z
 LOCATION:Treasurer's Office - 10459 Courthouse Drive Suite 100 King George VA 22485
 DTSTART:20260605T120000Z
 SUMMARY:Real Estate & Personal Property Taxes Due
 UID:5a9e35570ac4ac4d544cdc0dc2a6b56fa343714f
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
+DTSTAMP:20250929T180459Z
 DESCRIPTION:https://www.fredericksburgva.gov/calendar.aspx?EID=3645\nhttps://www.fredericksburgva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=22
 DTEND:20251012T200000Z
-LAST-MODIFIED:20250929T172941Z
+LAST-MODIFIED:20250929T180459Z
 LOCATION:Fire Station #1 - 601 Princess Anne Street Fredericksburg VA 22401
 DTSTART:20251012T170000Z
 SUMMARY:Fredericksburg Fire Department's Open House
 UID:09af4f679ed4c2e3c65afd7b61c920e3679dac80
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
+DTSTAMP:20250929T180459Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3044\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20260215T210000Z
-LAST-MODIFIED:20250929T172941Z
+LAST-MODIFIED:20250929T180459Z
 LOCATION:Commissioner of the Revenue's Office - 10459 Courthouse Drive Suite 101 King George VA 22485
 DTSTART:20260215T130000Z
 SUMMARY:Deadline to File Business Personal Property Returns
 UID:288b9cb0d780cf0ca739edc90604316a05a15a9f
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
+DTSTAMP:20250929T180459Z
 DESCRIPTION:https://www.fredericksburgva.gov/calendar.aspx?EID=3634\nhttps://www.fredericksburgva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=22
 DTEND:20251001T000000Z
-LAST-MODIFIED:20250929T172941Z
+LAST-MODIFIED:20250929T180459Z
 LOCATION:Riverfront Park - 600 Sophia st Fredericksburg VA 22401
 DTSTART:20250930T220000Z
 SUMMARY:Kick Back Tuesday Concert Series
 UID:91098b32c119269fbf893b45a70da30751e44d7c
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
+DTSTAMP:20250929T180459Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3288\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20260201T210000Z
-LAST-MODIFIED:20250929T172941Z
+LAST-MODIFIED:20250929T180459Z
 LOCATION:Treasurer's Office - 10459 Courthouse Drive Suite 100 King George VA 22485
 DTSTART:20260201T130000Z
 SUMMARY:Deadline to Purchase Dog Tags
 UID:e5282e87f4e14b00171400e8eedc905d1621d802
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
+DTSTAMP:20250929T180459Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3496\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20260501T200000Z
-LAST-MODIFIED:20250929T172941Z
+LAST-MODIFIED:20250929T180459Z
 LOCATION:Commissioner of the Revenue's Office - 10459 Courthouse Drive Suite 101 King George VA 22485
 DTSTART:20260501T120000Z
 SUMMARY:State Income Taxes Due
 UID:cdbf4ae4a0688e22a37a61bb01c4522f1ccbaf9d
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
+DTSTAMP:20250929T180459Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3651\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20260915T200000Z
-LAST-MODIFIED:20250929T172941Z
+LAST-MODIFIED:20250929T180459Z
 LOCATION:Treasurer's Office - 10459 Courthouse Drive Suite 100 King George VA 22485
 DTSTART:20260915T120000Z
 SUMMARY:Estimated Quarterly State Income Tax Payment Due
 UID:ffb5c426d56db96d82bd7bd1c193c6d1950c077d
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
+DTSTAMP:20250929T180459Z
 DESCRIPTION:https://www.spotsylvania.va.us/calendar.aspx?EID=3276\nhttps://www.spotsylvania.va.us/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
 DTEND:20251029T203000Z
-LAST-MODIFIED:20250929T172941Z
+LAST-MODIFIED:20250929T180459Z
 LOCATION:Registration for the Spotsylvania Parks and Recreation Department Youth Basketball program will begin on Monday\, October 6.  Our program is for boys ages 6 – 17 and girls ages 6 – 14 who are Spotsylvania County Residents. The registration deadline is 4:30 p.m. on Wednesday\, October 29\, 2025. The age determination date for basketball is July 31\, 2025.   For more detailed information or questions\, call our office at (540)507-7529 or visit our web site at https://www.spotsylvania.va.us/469/Basketball - 10910 Leavells Road Spotsylvania VA 22553
 DTSTART:20251006T120000Z
 SUMMARY:Basketball Registration
 UID:8cad952ac47ba789774345faaa182dc92737a8be
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
+DTSTAMP:20250929T180459Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4332\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20251005T150000Z
-LAST-MODIFIED:20250929T172941Z
+LAST-MODIFIED:20250929T180459Z
 LOCATION:Caledon State Park - 11617 Caledon Road King George VA 22485
 DTSTART:20251005T130000Z
 SUMMARY:Bark Ranger Hike
 UID:cc0107007c9d172c97cac4f3de12f60ae4210691
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
+DTSTAMP:20250929T180459Z
 DESCRIPTION:https://www.fredericksburgva.gov/calendar.aspx?EID=3640\nhttps://www.fredericksburgva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=22
 DTEND:20251025T000000Z
-LAST-MODIFIED:20250929T172941Z
+LAST-MODIFIED:20250929T180459Z
 LOCATION:Memorial Park - 1401 Kenmore ave Fredericksburg VA 22401
 DTSTART:20251024T223000Z
 SUMMARY:Park After Dark
 UID:2c032c6083cef1846e5bc5329d41a3b719f4743c
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
+DTSTAMP:20250929T180459Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4315\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20251123T045900Z
-LAST-MODIFIED:20250929T172941Z
+LAST-MODIFIED:20250929T180459Z
 LOCATION:Caledon State Park - 11617 Caledon Road King George VA 22485
 DTSTART:20251122T130000Z
 SUMMARY:Turkey Chase Trail Race
 UID:22898b19e92e78a8ff63ab733d4eeaa8ff8d7d00
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
+DTSTAMP:20250929T180459Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4334\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20251019T003000Z
-LAST-MODIFIED:20250929T172941Z
+LAST-MODIFIED:20250929T180459Z
 LOCATION:King George Family YMCA - 10545 Kings Highway King George VA 22485
 DTSTART:20251018T223000Z
 SUMMARY:Creepy Crawly Carnival
 UID:2bf7fdff8bfca27aa5f9fdae0896336a96b4066f
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
+DTSTAMP:20250929T180459Z
 DESCRIPTION:https://www.fredericksburgva.gov/calendar.aspx?EID=3506\nhttps://www.fredericksburgva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=35
 DTEND:20251225T050000Z
-LAST-MODIFIED:20250929T172941Z
+LAST-MODIFIED:20250929T180459Z
 LOCATION:City Hall - 715 Princess Anne Street Fredericksburg VA 22401
 DTSTART:20251224T050000Z
 SUMMARY:Christmas - City Offices Closed
 UID:b60ecf74ae81d4d5ef529172cc4fbfac91e80098
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
+DTSTAMP:20250929T180459Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4331\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20251004T140000Z
-LAST-MODIFIED:20250929T172941Z
+LAST-MODIFIED:20250929T180459Z
 LOCATION:Caledon State Park - 11617 Caledon Road King George VA 22485
 DTSTART:20251004T120000Z
 SUMMARY:Howlin' Coyote Trail Race
 UID:236e3f5e5a1d28a6b61a998a75c00146fb4586a2
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
+DTSTAMP:20250929T180459Z
 DESCRIPTION:https://www.fredericksburgva.gov/calendar.aspx?EID=3639\nhttps://www.fredericksburgva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=22
 DTEND:20251011T140000Z
-LAST-MODIFIED:20250929T172941Z
+LAST-MODIFIED:20250929T180459Z
 LOCATION:Motts Run Reservoir  - 6600 River rd Fredericksburg VA 22401
 DTSTART:20251010T210000Z
 SUMMARY:Campout in the Park
 UID:71d1fec31be4e6392b92ad436064a3eaab147898
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
+DTSTAMP:20250929T180459Z
 DESCRIPTION:To honor the contributions of our United States Veterans. Procession Route: Along Washington Ave. From Mary Ball St. to George St. Public is invited to come cheer on our Veterans! https://www.fredericksburgva.gov/calendar.aspx?EID=3641\nhttps://www.fredericksburgva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=22
 DTEND:20251111T154500Z
-LAST-MODIFIED:20250929T172941Z
+LAST-MODIFIED:20250929T180459Z
 LOCATION:Memorial Park  - 1401 Kenmore ave Fredericksburg VA 22401
 DTSTART:20251111T140000Z
 SUMMARY:Veteran's Day Procession
 UID:6c08b337f4d2b6eaa2f0f0d4f051c7c4d51abb5e
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
+DTSTAMP:20250929T180459Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3600\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20260615T200000Z
-LAST-MODIFIED:20250929T172941Z
+LAST-MODIFIED:20250929T180459Z
 LOCATION:Treasurer's Office - 10459 Courthouse Drive Suite 100 King George VA 22485
 DTSTART:20260615T120000Z
 SUMMARY:Estimated Quarterly State Income Tax Payment Due
 UID:ed0afc1895ed0e3aeed07d63877ccb4d8d5efce0
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
+DTSTAMP:20250929T180459Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4311\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20251005T200000Z
-LAST-MODIFIED:20250929T172941Z
+LAST-MODIFIED:20250929T180459Z
 LOCATION:King George Citizens Center - 8076 Kings Highway King George VA 22485
 DTSTART:20251004T160000Z
 SUMMARY:1st Annual King George VCE 4-H County Fair
 UID:ed6b7680d6ff20dcff7fc2dfbf8e0f9cb22eb811
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
+DTSTAMP:20250929T180459Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4268\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20251018T180000Z
-LAST-MODIFIED:20250929T172941Z
+LAST-MODIFIED:20250929T180459Z
 LOCATION:Revercomb Administration Building Parking Lot - 10459 Courthouse Drive King George VA 22485
 DTSTART:20251018T140000Z
 SUMMARY:Household Shred Event
 UID:e5b152eaeae0fd3154caa5dbc2af5fb23a21e3e5
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
+DTSTAMP:20250929T180459Z
 DESCRIPTION:https://www.fredericksburgva.gov/calendar.aspx?EID=3503\nhttps://www.fredericksburgva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=35
 DTEND:20251112T050000Z
-LAST-MODIFIED:20250929T172941Z
+LAST-MODIFIED:20250929T180459Z
 LOCATION:City Hall - 715 Princess Anne Street Fredericksburg VA 22401
 DTSTART:20251111T050000Z
 SUMMARY:Veterans Day - City Offices Closed

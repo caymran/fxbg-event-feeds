@@ -2,72 +2,69 @@ BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:ics.py - http://git.io/lLljaA
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:John Lee Pratt Memorial Park\n120 River Rd\nFredericksburg VA 22405\nDescription\nFall festival is a fun-filled community event featuring a variety of ativities for all ages. Highlights include the Pumpkin Derby (pre-reg required)\, ive music\, petting zoo\, pony rides\, local crafters\, food trucks.\nFamilies can enjoy hayrides and a Hay Playground. Goody bags will be available.\nNo registration required for the event (only the derby)\nCost\nFREE\nMore Info\nstafford parks and rec\nhttps://fredericksburg.macaronikid.com/events/68a283eab9bdd6f8bc593160/fall-festival-stafford-pandr--
-DTEND:20251004T190000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251004T150000Z
-SUMMARY:Fall Festival Stafford P&R 🎃
-UID:2c351c53b8c3caec51ca5b7a5539f165963fe7d5
+DTSTAMP:20250929T180459Z
+DTEND:20251108T050000Z
+LAST-MODIFIED:20250929T180459Z
+DTSTART:20251107T050000Z
+SUMMARY:Fall Picture Retakes
+UID:ed5f30cd7a819bf42ec3cda4c83282d881b7cab7
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:CRRL - Montross Branch\n56 Polk Street\nMontross VA 22520\n804-472-3820\nDescription\nEnjoy a chill art afternoon. Bring your own supplies or use ours. Bring your own friends or meet new ones. Grades 6-12.\nhttps://fredericksburg.macaronikid.com/events/68a3363489ef2dec64e4f6fa/teen-art-tuesdays
-DTEND:20250930T203000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20250930T190000Z
-SUMMARY:Teen Art Tuesdays
-UID:56173db0a1760f2d0398d93c419fbb76b0fc7310
+DTSTAMP:20250929T180459Z
+DTEND:20251018T040000Z
+LAST-MODIFIED:20250929T180459Z
+DTSTART:20251017T040000Z
+SUMMARY:End of 1st Grading Period
+UID:7cebb2890be7854c4097f903b9cc1ac6997cd2c9
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:Dorothy Hart Community Center\n408 Canal St\nFredericksburg VA 22401\nDescription\nJoin in the fun with your toddler! Participants engage in movement activities that improve balance\, coordination\, and motor skills while getting the wiggles out and socializing with peers. Familiar follow-along songs and prop activities keep the class engaging and exciting for your young mover and shaker!\nParent participation is required.\nOnly the registered child is permitted to attend class. Thursday\, 9-9:40am\nSession A: August 21-September 11\nSession B: October 2-23\nSession C: October 30-November 20\nLocation: Dorothy Hart Community Center\n$20/$25 City Residents/Non-City Residents\nWho\nAges 2 to 5 with an adult\nMore Info\nFredericksburg.gov\nhttps://fredericksburg.macaronikid.com/events/68a2544532a2c775e4a1ad69/toddler-tumbler-tales
-DTEND:20251002T134000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251002T130000Z
-SUMMARY:Toddler Tumbler Tales
-UID:49c0a68a6b10f7bde7c2785482b10cb7167380d0
+DTSTAMP:20250929T180459Z
+DTEND:20251105T050000Z
+LAST-MODIFIED:20250929T180459Z
+DTSTART:20251104T050000Z
+SUMMARY:No School (Workday & Family Conferences)
+UID:8023ca3a7f1a1424d8935572ad625eb28cbd54b4
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:Online Event\nDescription\nThe air is getting cooler\, and the leaves are starting to turn so not only have we updated our Fall Guide with festivals\, pumpkin fun\, trunk or Treats\, and more\, but we're also filling up 100 Boo Bags!\nA Boo Bag is a gift bag full of Halloween Fun!  We stuff our bags with items from our sponsors\, along with additional goodies. Click below to find out more about these great sponsors!\nMore Info\nhttps://fredericksburg.macaronikid.com/articles/68a72f408f684c47e8b41134/2025-boo-bags--get-one-for-your-family-\nhttps://fredericksburg.macaronikid.com/events/68d2b7a19142d4fadb90bcb4/boo-bags-sign-up-to-get-one-for-your-family
-DTEND:20251004T040000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251003T040000Z
-SUMMARY:Boo Bags - Sign up to get one for your family!
-UID:893b47a9e0a9c3741415beb488b097980ac53831
+DTSTAMP:20250929T180459Z
+DTEND:20260106T050000Z
+LAST-MODIFIED:20250929T180459Z
+DTSTART:20260105T050000Z
+SUMMARY:No School (Inservice/Workday)
+UID:0ea98d97ef8cc03344047f22b6610096c0e51874
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:Online Event\nDescription\nThe air is getting cooler\, and the leaves are starting to turn so not only have we updated our Fall Guide with festivals\, pumpkin fun\, trunk or Treats\, and more\, but we're also filling up 100 Boo Bags!\nA Boo Bag is a gift bag full of Halloween Fun!  We stuff our bags with items from our sponsors\, along with additional goodies. Click below to find out more about these great sponsors!\nMore Info\nhttps://fredericksburg.macaronikid.com/articles/68a72f408f684c47e8b41134/2025-boo-bags--get-one-for-your-family-\nhttps://fredericksburg.macaronikid.com/events/68d2b7a19142d4fadb90bcb6/boo-bags-sign-up-to-get-one-for-your-family
-DTEND:20251006T040000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251005T040000Z
-SUMMARY:Boo Bags - Sign up to get one for your family!
-UID:9664a535edd28e166856b3368144a5612c4e8e3e
+DTSTAMP:20250929T180459Z
+DESCRIPTION:Gather your friends\, family\, civic group\, club or church and help us "Keep Spotsylvania Beautiful" with this community roadside litter cleanup day. https://www.spotsylvania.va.us/calendar.aspx?EID=3407\nhttps://www.spotsylvania.va.us/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+DTEND:20251101T170000Z
+LAST-MODIFIED:20250929T180459Z
+LOCATION:Marshall Center - 8800 Courthouse Road Spotsylvania VA 22553
+DTSTART:20251101T120000Z
+SUMMARY:Fall Community Clean Up Day
+UID:ff21fccb62a783cb0b0380fd1dba1e45d130b118
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:Milestones Play Gym & Pediatric Therapy\n1329 Alum Spring Rd\nSuite 101\nFREDERICKSBURG VA 22401\nDescription\nOur indoor play gym space is clean & well maintained. It is filled with equipment & toys very purposefully selected by a pediatric occupational therapist to provide developmentally stimulating play experiences. Toys are changed each week in alignment with our weekly themes to provide new experiences. Children have natural opportunities to practice social\, social emotional\, cognitive\, motor\, & communication skills in a safe place with gentle guidance & consultation from an occupational therapy professional. Play is child-led. Parents are active participants.\nWho\nchildren ages 0-3 w/ adult\nCost\n$20 per participating child\nHow\nhttps://www.milestonesgym.com/offers/oBYPaN4C/checkout\nMore Info\nChildren and adults play in socks. Please complete our online waiver prior to attending. You will be redirected to it after payment. Event Repeats on the Following Dates:\nMarch: Mondays: 3/10\, 3/17\, 3/24\, 3/31\nApril: Mondays: 4/7\, 4/14\, 4/21\, 4/28\nMay: Mondays: 5/5\, 5/12\, 5/19\, (makeup: 5/30 10-11)\nJune Mondays: 6/9\, 6/16\, 6/23\, 6/30\nJuly Mondays: 7/7\, 7/14\, 7/21\, 7/28\nAugust Mondays: 8/4\, 8/11\, 8/18\, 8/25\nSeptember: Mondays: 9/8\, 9/15\, 9/22\, 9/29\nOctober: Mondays:10/6\, 10/13\, 10/20\, 10/27\nNovember: Mondays 11/3\, 11/10\, 11/17\, 11/24\nDecember: Mondays: 12/1\, 12/8\, 12/15\, 12/29\nhttps://fredericksburg.macaronikid.com/events/67c9b4d62d26703e169b6a33/infant-and-toddler-developmental-playgroup-w--ot-in-indoor-play-gym
-DTEND:20250929T143000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20250929T133000Z
-SUMMARY:Infant & Toddler Developmental Playgroup w/ OT in Indoor Play Gym
-UID:a8cdaede0399e63732fcf0ddedfbf56322bc85ae
+DTSTAMP:20250929T180459Z
+DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4330\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
+DTEND:20251004T160000Z
+LAST-MODIFIED:20250929T180459Z
+LOCATION:King George Citizens Center - 8076 Kings Highway P.O. Box 71 King George VA 22485
+DTSTART:20251004T110000Z
+SUMMARY:King George Flea Market
+UID:f776d6cfd50288f6bea898c5b75ef5ce11a8f3dc
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:USA Ninja Challenge Stafford\n650 Corporate Dr\nSuite 185\nStafford VA 22554\nNotes regarding time\nCamp begins promptly at 9:00 AM. Pick-up promptly at 3:00 PM\nDescription\n🎉 School’s Out. Ninja’s In! 🎉 Looking for something fun and active for your kids when school is out?\nBring them to our Ninja Day Camp for a full day of adventure\, strength-building\, and unforgettable memories! Kids will enjoy: ✅ Ninja obstacle training and challenges ✅ Team-building games ✅ Crafts and creative activities ✅ Open gym exploration ✅ Tons of energy-burning FUN! 🍎 Please pack a nut-free lunch\, water bottle\, and a snack. Spaces are limited\, so grab your spot today and let your child experience the ultimate ninja adventure!\n👉 Register now: https://portal.iclasspro.com/usaninjaquantico/camps/2?sortBy=time\nWho\nAges 6 - 14\nCost\n$80 per child. Family discounts available.\nHow\nRegister: https://portal.iclasspro.com/usaninjaquantico/camps/2?sortBy=time\nhttps://fredericksburg.macaronikid.com/events/68c2fb4b0da616716bd66015/schools-out-ninjas-in-day-camp
-DTEND:20251002T190000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251002T130000Z
-SUMMARY:School's Out Ninja's In Day Camp
-UID:919d701b8a7c37f410b9f5bfafb43d0343e746c1
+DTSTAMP:20250929T180459Z
+DTEND:20251031T040000Z
+LAST-MODIFIED:20250929T180459Z
+DTSTART:20251030T040000Z
+SUMMARY:Report Cards Sent Home
+UID:df52c0b9ce3787e6cecb2370b72a279abe799253
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
+DTSTAMP:20250929T180459Z
 DTEND:20251008T233000Z
-LAST-MODIFIED:20250929T172941Z
+LAST-MODIFIED:20250929T180459Z
 LOCATION:Gladys West Library
 DTSTART:20251008T223000Z
 SUMMARY:PTA Meeting
@@ -75,630 +72,146 @@ UID:62a671ab4777d1ae6475b6a0de83fd9c8b6defeb
 END:VEVENT
 BEGIN:VEVENT
 X-ALT-DESC;FMTTYPE=t,e,x,t,/,h,t,m,l:<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><body><div class="cal_2c6a"><div><div class="x_cal_3902"><div><div style="text-align:left; text-indent:0px; margin:0px; font-family:Aptos,Aptos_EmbeddedFont,Aptos_MSFontService,Calibri,Helvetica,sans-serif; font-size:12pt; color:rgb(0,0,0)">Open to students from <b>GWES, HMES &amp; LES ðð¤ð</b></div><div style="text-align:left; text-indent:0px; margin:0px; font-family:Aptos,Aptos_EmbeddedFont,Aptos_MSFontService,Calibri,Helvetica,sans-serif; font-size:12pt; color:rgb(0,0,0)">come in costume, bring your trick-or-treat bags,</div><div style="text-align:left; text-indent:0px; margin:0px; font-family:Aptos,Aptos_EmbeddedFont,Aptos_MSFontService,Calibri,Helvetica,sans-serif; font-size:12pt; color:rgb(0,0,0)">and enjoy a night of fun, candy, and community!</div></div></div></div></div></body></html>
-DTSTAMP:20250929T172941Z
+DTSTAMP:20250929T180459Z
 DESCRIPTION:Open to students from\nGWES\, HMES & LES ðð¤ð\ncome in costume\, bring your trick-or-treat bags\,\nand enjoy a night of fun\, candy\, and community!
 DTEND:20251024T233000Z
-LAST-MODIFIED:20250929T172941Z
+LAST-MODIFIED:20250929T180459Z
 DTSTART:20251024T213000Z
 SUMMARY:Trunk or Treat
 UID:90d76f5987a16e7c0ac3ec3e28ccff3067445a71
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:Old Mill Park\n2201 Caroline Street\nFredericksburg VA 22401\nDescription\nJoin us for a fun\, family-friendly day to support a cause that changes lives! Go to IMGNLife.org/events for more details and to register!\nLace up your sneakers and bring your crew—it's time to Walk4Life!\nJoin IMGN Life for a fun-filled morning as we walk\, celebrate life\, and rally together to support moms\, dads\, and babies right here in our community. Whether you're walking\, cheering\, or just here for the snacks—every step makes a difference. 💙\n🎉 Music • Kids’ Activities • Food • Life-Changing Impact\nLet's walk with purpose. Let’s Walk4Life\nWalk 4 Life Guidebook\nRegister Here\nMore Info\nhttps://www.imgnlife.org/events/walk-4-life\nhttps://fredericksburg.macaronikid.com/events/68d2e2d66ea61cc4309311ca/walk-4-life
-DTEND:20251004T160000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251004T120000Z
-SUMMARY:Walk 4 LIFE
-UID:d3e2e850dd61fc833ad602183abaf78e89694937
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:John Lee Pratt Memorial Park\n120 River Rd\nFredericksburg VA 22405\nDescription\nJoin Stafford County Parks Recreation Facilities and Tourism for a day full of autumn fun and festivities at our annual Fall Family Festival. Celebrate the season with an array of activities designed for the whole family. From exciting games\, delicious seasonal treats and live entertainment\, there’s something for everyone.\nCost\nFREE\nhttps://fredericksburg.macaronikid.com/events/685dfe3eb0261e0f74545a80/fall-family-festival
-DTEND:20251004T190000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251004T150000Z
-SUMMARY:Fall Family Festival
-UID:5f5fcbf69db9254fc4751997b8674a74f8fbfd1d
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
+DTSTAMP:20250929T180459Z
 DTEND:20251031T040000Z
-LAST-MODIFIED:20250929T172941Z
+LAST-MODIFIED:20250929T180459Z
 DTSTART:20251030T040000Z
 SUMMARY:Pumpkin Run Fun Run
 UID:81fd378e87c942a54a6a98c78fe2059dcc24f710
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:Riverfront Park\nSophia Street\nFredericksburg VA 22401\nDescription\nUnwind by the river every Tuesday in September with our Kick Back Tuesday Concert Series! Bring your crew\, spread a blanket on the lawn\, and enjoy live music as the sun sets over the river.\nTuesdays\, September 2-30\, 6-9pm\nFREE TO ATTEND\n9/2: Major League Band (Go-Go)\n9/9: Good Time Alibi (Alternative)\n916: Spanglish (Latin)\n9/23: FXBG Big Band (Brass Band)\n9/30: Ashleigh Chevalier (Country)\nCost\nFREE\nMore Info\nFredericksburg Parks and Rec\nhttps://fredericksburg.macaronikid.com/events/68b71adfdaab23b4bc0b7a1f/kick-back-tuesday-concert-series
-DTEND:20251001T010000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20250930T220000Z
-SUMMARY:🎵Kick Back Tuesday Concert Series
-UID:ecb26a8a23558a92e4b963c78dbd899a8e043af1
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:The Meadow Event Park\n13191 Dawn Blvd\nDoswell VA 23047\nDescription\nAmusement rides open at 11 a.m. daily and the Midway will continue to operate for a minimum of one hour after the Ticket Plaza closes or longer on weekends at the discretion of fair management.\nENTERTAINMENT\nPig races Daily - 11:30 AM\, 1:30 PM\, 6:30 PM\, 8:30 PM\nChainsaw Carver: Daily - 11:30 AM\, 2:30 PM\, 5:30 PM\nDisc-Connected K9s: Daily - 11:30 AM\, 2:30 PM\, 5:30 PM\nShimmer Guy: Daily - 1:30 PM\, 4:00 PM\, 6:00 PM\nStilt Fun: Daily - 11:00 AM\, 12:30 PM\, 3:00 PM\, 7:00 PM\nTriple Crown Circus: Daily - 2:00 PM\, 5:00 PM\, 8:00 PM\nAgri-Golf: Daily - 12 noon - 8 PM\nGreenlee Draft Horse Hitch: Daily-3pm\nWolvers of the Worls: noon\, 3pm and 6pm (26-30th)\nDennis Lee 11am and 2pm (29-3rd)\nRevenge Roughstock Rodeo Co: 6pm (29&30th)\nChampionship Blacksmith: 10am (2-5th)\nTractor Pulls Oct 4 noon and 5\; Oct 5 at 1pm\nCost\n$11.50 +\nMore Info\nhttps://www.statefairva.org/\nhttps://fredericksburg.macaronikid.com/events/68a8b7441805a01e15d4ef17/state-fair-of-virginia
-DTEND:20251005T010000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251004T150000Z
-SUMMARY:State Fair of Virginia
-UID:08d380e0200731382735cd1eef0dfb854a5f54eb
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
+DTSTAMP:20250929T180459Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4306\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20251011T190000Z
-LAST-MODIFIED:20250929T172941Z
+LAST-MODIFIED:20250929T180459Z
 LOCATION:King George High School - 10100 Foxes Way King George VA 22485
 DTSTART:20251011T140000Z
 SUMMARY:66th Annual Fall Festival
 UID:b39547234457c9c5d266980ce5facdd9d7e0830b
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:Germanna Community College\n10000 Germanna Point Dr\,\nFredericksburg VA 22408\nDescription\nCelebrate 55 Years of Germanna!\nJoin us in-person or virtually October 4.\nGermanna Homecoming 2025\nSaturday\, October 4 | 1–5 p.m.\nFredericksburg Area Campus\n10000 Germanna Point Drive\, Fredericksburg\, VA 22408\nCelebrate Germanna’s 55 years at our very first Homecoming—on Give Day!\nLearn how you can join us and make a difference.\nhttps://tinyurl.com/Germanna-Homecoming2025\nCost\nFREE\nHow\nFree Registration HERE\nhttps://fredericksburg.macaronikid.com/events/68d2c02a6aa69d9ab076cce9/germanna-homecoming-2025
-DTEND:20251004T210000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251004T170000Z
-SUMMARY:Germanna Homecoming 2025
-UID:fec798a3ef6d13c4ff80578b20778ba9cb8ece74
+DTSTAMP:20250929T180459Z
+DTEND:20260103T050000Z
+LAST-MODIFIED:20250929T180459Z
+DTSTART:20251222T050000Z
+SUMMARY:Winter Break (No School for Staff & Students)
+UID:caa88adec2c8ed9ef340b5d330803e7f0c6dad93
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
+DTSTAMP:20250929T180459Z
+DTEND:20251001T040000Z
+LAST-MODIFIED:20250929T180459Z
+DTSTART:20250930T040000Z
+SUMMARY:Gator Gallop
+UID:905a609dca6e21743b1eba7b03b0e90d4ec4a8ce
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250929T180459Z
 DESCRIPTION:Join us as we light up the night with this galactic\, glow-in-the-dark fun run\,...After everyone has crossed the finish line\, race on over to grab your space for a family-friendly Glow Dance Party on the Amphitheater stage! https://www.spotsylvania.va.us/calendar.aspx?EID=3277\nhttps://www.spotsylvania.va.us/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
 DTEND:20251005T010000Z
-LAST-MODIFIED:20250929T172941Z
+LAST-MODIFIED:20250929T180459Z
 LOCATION:Patriot Park - 5710 Smith Station Road Fredericksburg VA 22407
 DTSTART:20251004T220000Z
 SUMMARY:Kids' Galaxy Glow Run
 UID:0dce38bae7970641fd5e70766c1f7f9c1bd7f583
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:Fredericksburg Convention Center\n2371 Carl D. Silver Parkway\nFredericksburg VA 22401\nDescription\nGet ready to transform your home into a cozy haven this winter! Embrace the upcoming season by attending the Fall Home Show\, your one-stop destination for all things home improvement. Connect with skilled landscapers\, talented designers\, reliable contractors\, and a host of other experts who can help bring your vision to life. From enhancing your outdoor spaces to revamping the interiors\, this event has everything you need to elevate your living environment. Don’t miss out on the chance to explore exclusive deals\, special offers\, exciting giveaways\, and much more at the Fall Home Show. Make your way to the event and take the first step towards creating the home of your dreams!\nSaturday\, October 4th:  9am – 5pm\nSunday\, October 5th:  10am – 4pm\nBest of all\, admission is FREE with a simple online ticket!\nHow\nhttps://fredericksburg.macaronikid.com/events/68cc066d7b6a0c99976bba10/fall-home-show
-DTEND:20251005T200000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251005T140000Z
-SUMMARY:Fall Home Show
-UID:14478cdc8e9ca704dce8d9248d4855d931b12065
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:Home Depot\n1201 Gateway Blvd\nFredericksburg VA 22401\nDescription\nFree In-Store Kids Workshops\n9 a.m. on the First Saturday of Every Month. While Supplies Last. Projects vary by month.\nCost\nFREE\nHow\nClick here for details and registration\nMore Info\nWe strive to provide accurate and up-to-date event information\, but dates\, times\, and details are subject to change. Please contact the host directly to confirm before attending.\nhttps://fredericksburg.macaronikid.com/events/67c07e387f02ba243fbc846a/kids-workshops-activities-and-crafts-at-the-home-depot
-DTEND:20251004T170000Z
-LAST-MODIFIED:20250929T172941Z
-LOCATION:The Home Depot
-DTSTART:20251004T160000Z
-SUMMARY:Kids Workshops: Activities & Crafts
-UID:087b1dd067cd734f1a25c7bb602f7befe4625121
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:Cavalier Family Skating\n1924 Jefferson Davis Hwy\nStafford VA 22554\n540-657-0758\nDescription\nBring your favorite ride on toy or play in the Play Zone.\nWho\nAges 5 and under with an adult\nCost\n$4 per child\, parents free\nMore Info\nhttps://cavalierskating.com/\nWe strive to provide accurate and up-to-date event information\, but dates\, times\, and details are subject to change. Please contact the host directly to confirm before attending.\nhttps://fredericksburg.macaronikid.com/events/67c07dc9a17c2740fa8e41b0/stroll-and-roll
-DTEND:20251002T160000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251002T140000Z
-SUMMARY:Stroll & Roll
-UID:03d0c284339749dbf27eab95179d773d56253d1c
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DTEND:20251002T040000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251001T040000Z
-SUMMARY:Fall Picture Day
-UID:f1eeb24ca6d693cfe2db2c140537ef964b617233
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:Rowser Building\n1739 Richmond Highway\nStafford VA 22554\n5406585116\nNotes regarding time\nRoom A\nDescription\nJoin us of rhte 13th Annual Great Pumpkin Derby and workshop.\nGrab your pumpkin racer and head to Patt Park to compete against your friends and neighbors and race your pumpkin downhill to victory during the Stafford Fall Famil Festival.\nPrizes will be given to winning racers and for the best decorated pumpkin. We will teach you to build your pumpkin racer during the workshop. You bring the pumpkin\, we will being the wheels\, axles and craft supplies.\nCost\n$28 resident / $31 non-resident\nHow\nAttend the workshop on 10/2 and bring your racer to the Derby on 10/4!\nhttps://fredericksburg.macaronikid.com/events/687062d685ba44c9e5be9991/great-pumpkin-derby-workshop
-DTEND:20251003T000000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251002T220000Z
-SUMMARY:🍂Great Pumpkin Derby - Workshop
-UID:6d974f60e90a82b4960e8b90c34a8b62b1f44f17
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:The Meadow Event Park\n13191 Dawn Blvd\nDoswell VA 23047\nDescription\nAmusement rides open at 11 a.m. daily and the Midway will continue to operate for a minimum of one hour after the Ticket Plaza closes or longer on weekends at the discretion of fair management.\nENTERTAINMENT\nPig races Daily - 11:30 AM\, 1:30 PM\, 6:30 PM\, 8:30 PM\nChainsaw Carver: Daily - 11:30 AM\, 2:30 PM\, 5:30 PM\nDisc-Connected K9s: Daily - 11:30 AM\, 2:30 PM\, 5:30 PM\nShimmer Guy: Daily - 1:30 PM\, 4:00 PM\, 6:00 PM\nStilt Fun: Daily - 11:00 AM\, 12:30 PM\, 3:00 PM\, 7:00 PM\nTriple Crown Circus: Daily - 2:00 PM\, 5:00 PM\, 8:00 PM\nAgri-Golf: Daily - 12 noon - 8 PM\nGreenlee Draft Horse Hitch: Daily-3pm\nWolvers of the Worls: noon\, 3pm and 6pm (26-30th)\nDennis Lee 11am and 2pm (29-3rd)\nRevenge Roughstock Rodeo Co: 6pm (29&30th)\nChampionship Blacksmith: 10am (2-5th)\nTractor Pulls Oct 4 noon and 5\; Oct 5 at 1pm\nCost\n$11.50 +\nMore Info\nhttps://www.statefairva.org/\nhttps://fredericksburg.macaronikid.com/events/68a8b7441805a01e15d4ef14/state-fair-of-virginia
-DTEND:20251003T010000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251002T150000Z
-SUMMARY:State Fair of Virginia
-UID:ae5e2bf8a1e9368237c2175dcc2c194c4fe9513a
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:The Revival Center\n11506 Brian Drive\nFredericksburg VA 22407\nDescription\nRadiant Women's Conference - where women gather to ignite their faith and thrive in their journey with Christ.\nThis year\, join us under the theme "Thrive\," inspired by John 10:10\, where Jesus promises abundant life. The conference kicks off on Friday evening with a powerful time of prayer\, uplifting worship\, and a compelling message.\nOn Saturday morning\, don't miss our engaging panel discussion\, where seasoned speakers and passionate women of faith will share insights\, personal stories\, and practical wisdom on thriving and becoming more like Jesus in every season of life. Come expecting to be refreshed\, challenged\, and equipped to embrace the abundant life Jesus offers. Whether you're seeking spiritual growth\, fellowship with like-hearted women\, or a deeper understanding of God's Word\, this conference is designed to empower you to thrive in your faith journey. This event is FREE but we kindly ask that you register\, either online or in person. Prepare to experience a weekend that will renew your spirit and empower you to thrive in Christ.\nFriday\, October 3\, 2025 Doors open: 6:30pm Service Begins: 7:00pm\nSaturday\, October 4\, 2025 Doors open: 9:30am Service Begins: 10:00am\nWho\n15+\nCost\nFree\nhttps://fredericksburg.macaronikid.com/events/68a8bc99ff15e81e59f49b58/radiant-womens-conference
-DTEND:20251003T233000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251003T223000Z
-SUMMARY:Radiant Women's Conference
-UID:0c9c0f53065790a35b1f9be6831c15991736feed
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DTEND:20251129T050000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251126T050000Z
-SUMMARY:Fall Break (No School for Students & Staff)
-UID:3184b5e76ee9d823fa77db7dfbbad411f2eae0c2
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:Online Event\nDescription\nThe air is getting cooler\, and the leaves are starting to turn so not only have we updated our Fall Guide with festivals\, pumpkin fun\, trunk or Treats\, and more\, but we're also filling up 100 Boo Bags!\nA Boo Bag is a gift bag full of Halloween Fun!  We stuff our bags with items from our sponsors\, along with additional goodies. Click below to find out more about these great sponsors!\nMore Info\nhttps://fredericksburg.macaronikid.com/articles/68a72f408f684c47e8b41134/2025-boo-bags--get-one-for-your-family-\nhttps://fredericksburg.macaronikid.com/events/68d2b7a19142d4fadb90bcb5/boo-bags-sign-up-to-get-one-for-your-family
-DTEND:20251005T040000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251004T040000Z
-SUMMARY:Boo Bags - Sign up to get one for your family!
-UID:653e2648548e47e22af3ea677f95a3eac28a6c88
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:Gather your friends\, family\, civic group\, club or church and help us "Keep Spotsylvania Beautiful" with this community roadside litter cleanup day. https://www.spotsylvania.va.us/calendar.aspx?EID=3407\nhttps://www.spotsylvania.va.us/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
-DTEND:20251101T170000Z
-LAST-MODIFIED:20250929T172941Z
-LOCATION:Marshall Center - 8800 Courthouse Road Spotsylvania VA 22553
-DTSTART:20251101T120000Z
-SUMMARY:Fall Community Clean Up Day
-UID:ff21fccb62a783cb0b0380fd1dba1e45d130b118
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4330\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
-DTEND:20251004T160000Z
-LAST-MODIFIED:20250929T172941Z
-LOCATION:King George Citizens Center - 8076 Kings Highway P.O. Box 71 King George VA 22485
-DTSTART:20251004T110000Z
-SUMMARY:King George Flea Market
-UID:f776d6cfd50288f6bea898c5b75ef5ce11a8f3dc
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:Dorothy Hart Community Center\n408 Canal St\nFredericksburg VA 22401\nDescription\nToddlers will have fun recreating famous works of art with a toddler twist. Prepare to get messy as your child paints\, sculpts\, colors\, and more!\nTuesday\, 11-11:45am\nSession A: August 19-September 9\nSession B: September 30-October 21\nSession C: October 28-November 18\nLocation: Dorothy Hart Community Center $20/$25 City Residents/Non-City Residents\nWho\nAges 2 to 5 with an adult\nMore Info\nfredericksburg.gov\nhttps://fredericksburg.macaronikid.com/events/68a255a18c0e7fa4e9b46ed1/toddlers-become-the-artists
-DTEND:20250930T154500Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20250930T150000Z
-SUMMARY:Toddlers Become The Artists
-UID:072be61d6956d6a369f759acfd8a86d3ef3b7108
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:The Meadow Event Park\n13191 Dawn Blvd\nDoswell VA 23047\nDescription\nAmusement rides open at 11 a.m. daily and the Midway will continue to operate for a minimum of one hour after the Ticket Plaza closes or longer on weekends at the discretion of fair management.\nENTERTAINMENT\nPig races Daily - 11:30 AM\, 1:30 PM\, 6:30 PM\, 8:30 PM\nChainsaw Carver: Daily - 11:30 AM\, 2:30 PM\, 5:30 PM\nDisc-Connected K9s: Daily - 11:30 AM\, 2:30 PM\, 5:30 PM\nShimmer Guy: Daily - 1:30 PM\, 4:00 PM\, 6:00 PM\nStilt Fun: Daily - 11:00 AM\, 12:30 PM\, 3:00 PM\, 7:00 PM\nTriple Crown Circus: Daily - 2:00 PM\, 5:00 PM\, 8:00 PM\nAgri-Golf: Daily - 12 noon - 8 PM\nGreenlee Draft Horse Hitch: Daily-3pm\nWolvers of the Worls: noon\, 3pm and 6pm (26-30th)\nDennis Lee 11am and 2pm (29-3rd)\nRevenge Roughstock Rodeo Co: 6pm (29&30th)\nChampionship Blacksmith: 10am (2-5th)\nTractor Pulls Oct 4 noon and 5\; Oct 5 at 1pm\nCost\n$11.50 +\nMore Info\nhttps://www.statefairva.org/\nhttps://fredericksburg.macaronikid.com/events/68a8b7441805a01e15d4ef13/state-fair-of-virginia
-DTEND:20251002T010000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251001T150000Z
-SUMMARY:State Fair of Virginia
-UID:36e4595e7b82ef8bfb1919f57e19adb714fa5720
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DTEND:20251003T040000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251002T040000Z
-SUMMARY:No School (Yom Kippur)
-UID:7cfd45a5fc3f2cec5b6ddaf7f1626b822be1c60c
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:King George Citizen's Center\n8076 Kings Hwy\nKing George VA 22485\nDescription\nFridays\, 10:30-11:30 am | Free play\, snack\, and craft\nWho\nAges 0-5\nCost\n$3pp (ages 1 and under free)\nMore Info\nhttps://www.facebook.com/KGPRTots/posts/pfbid0hxi5VsK2TPT53eem82zkLLVJTo25Ny7nxVtgSWtQ7Le4CKtr4i2X2KdzELtPzZSLl\nWe strive to provide accurate and up-to-date event information\, but dates\, times\, and details are subject to change. Please contact the host directly to confirm before attending.\nhttps://fredericksburg.macaronikid.com/events/67c07f0149481f1136e64131/king-george-tot-time
-DTEND:20251003T153000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251003T143000Z
-SUMMARY:King George Tot Time
-UID:a4944a1a0599e0f4422ce8c04d186fe7491208ef
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4333\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
-DTEND:20251018T200000Z
-LAST-MODIFIED:20250929T172941Z
-LOCATION:Graves Mountain Apple Harvest Festival - Syria VA 22743
-DTSTART:20251018T130000Z
-SUMMARY:KGP&R Regional Trip—Graves Mountain Apple Harvest Festival
-UID:ea03ffc86417600680d5dfdf309919751a27bae2
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:Fraternal order of eagles Aerie #4123\n21 Cool Springs RD\nFredericksburg VA 22405\nNotes regarding time\nVendor raffles will be called every 15 minutes. Large raffles will be called at end of event or the ticket phone number will receive a phone call.\nDescription\nBring your kids and join us on October 4th for 90 craft vendors\, moonbounces\, live music\, HUGE raffles like $750 worth of tickets and FREE ultimate party packages to urban air!\, kids activities\, and food! Entry is free but donations are deeply appreciated and with a donation you receive a free raffle ticket! All proceeds go to Arms Outstretched Ministry’s first responder and veteran programs that house homeless veterans\, counseling heroes with PTSD\, sending care packages overseas\, “Honoring our Heroes” events\, while caring for families at the home front as well. Come join us for a day full of fun!\nWho\nAll ages are welcome! Disability friendly venue\nCost\n$0 (donation only)\nHow\nCome to the front table on day of the event if you wish to donate to our cause then enjoy the fun!\nMore Info\nSupport us by following our Instagram! @heroesfest2025 More information can be found at https://www.armsoutstretchedministry.com/\nhttps://fredericksburg.macaronikid.com/events/68974912af4d32b828378cd6/heroesfest-craft-festival-fundraiser-
-DTEND:20251004T200000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251004T140000Z
-SUMMARY:Heroesfest Craft festival Fundraiser
-UID:75c7a51aeeba57100be4efbc30e62c012f2010aa
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DTEND:20251108T050000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251107T050000Z
-SUMMARY:Fall Picture Retakes
-UID:ed5f30cd7a819bf42ec3cda4c83282d881b7cab7
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4328\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
-DTEND:20251018T160000Z
-LAST-MODIFIED:20250929T172941Z
-LOCATION:King George Middle School Parking Lot - 8246 Dahlgren Road King George VA 22485
-DTSTART:20251018T120000Z
-SUMMARY:King George Farmers Market
-UID:636f5074af6e49061cc2b8bd7285400f7b93d602
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:Your Hobby Place\n4276 Plank Rd\nFredericksburg VA 22407\nDescription\nEntry Cost: $12\nRounds: 3 (Best of 3 matches\, 55min rounds)\nFormat: Standard Constructed\nPrizes: Every player gets 2 Pokémon packs and a Series Prize pack.\n(Current prizing is due to limited supplies. Prizing will change when that is not an issue)\nCost\n$12\nhttps://fredericksburg.macaronikid.com/events/684e1817cb4c2520e0d35f9a/sunday-pokemon
-DTEND:20251005T213000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251005T183000Z
-SUMMARY:Sunday Pokemon
-UID:2c1891322b7854ef71993a6dfda3d293c38987d7
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:Online Event\nDescription\nThe air is getting cooler\, and the leaves are starting to turn so not only have we updated our Fall Guide with festivals\, pumpkin fun\, trunk or Treats\, and more\, but we're also filling up 100 Boo Bags!\nA Boo Bag is a gift bag full of Halloween Fun!  We stuff our bags with items from our sponsors\, along with additional goodies. Click below to find out more about these great sponsors!\nMore Info\nhttps://fredericksburg.macaronikid.com/articles/68a72f408f684c47e8b41134/2025-boo-bags--get-one-for-your-family-\nhttps://fredericksburg.macaronikid.com/events/68d2b7a19142d4fadb90bcb3/boo-bags-sign-up-to-get-one-for-your-family
-DTEND:20251003T040000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251002T040000Z
-SUMMARY:Boo Bags - Sign up to get one for your family!
-UID:22536e612b4e6aefe462b421ad005f8173e64b2f
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:The Meadow Event Park\n13191 Dawn Blvd\nDoswell VA 23047\nDescription\nAmusement rides open at 11 a.m. daily and the Midway will continue to operate for a minimum of one hour after the Ticket Plaza closes or longer on weekends at the discretion of fair management.\nENTERTAINMENT\nPig races Daily - 11:30 AM\, 1:30 PM\, 6:30 PM\, 8:30 PM\nChainsaw Carver: Daily - 11:30 AM\, 2:30 PM\, 5:30 PM\nDisc-Connected K9s: Daily - 11:30 AM\, 2:30 PM\, 5:30 PM\nShimmer Guy: Daily - 1:30 PM\, 4:00 PM\, 6:00 PM\nStilt Fun: Daily - 11:00 AM\, 12:30 PM\, 3:00 PM\, 7:00 PM\nTriple Crown Circus: Daily - 2:00 PM\, 5:00 PM\, 8:00 PM\nAgri-Golf: Daily - 12 noon - 8 PM\nGreenlee Draft Horse Hitch: Daily-3pm\nWolvers of the Worls: noon\, 3pm and 6pm (26-30th)\nDennis Lee 11am and 2pm (29-3rd)\nRevenge Roughstock Rodeo Co: 6pm (29&30th)\nChampionship Blacksmith: 10am (2-5th)\nTractor Pulls Oct 4 noon and 5\; Oct 5 at 1pm\nCost\n$11.50 +\nMore Info\nhttps://www.statefairva.org/\nhttps://fredericksburg.macaronikid.com/events/68a8b7441805a01e15d4ef16/state-fair-of-virginia
-DTEND:20251004T010000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251003T150000Z
-SUMMARY:State Fair of Virginia
-UID:ee93e7f91f339209d74305146d46c863f6bef3f5
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DTEND:20251018T040000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251017T040000Z
-SUMMARY:End of 1st Grading Period
-UID:7cebb2890be7854c4097f903b9cc1ac6997cd2c9
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DTEND:20251105T050000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251104T050000Z
-SUMMARY:No School (Workday & Family Conferences)
-UID:8023ca3a7f1a1424d8935572ad625eb28cbd54b4
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:Downtown Fredericksburg\nFredericksburg VA 22401\nDescription\nOctober 1 - October 31: Scarecrows can be found at participating businesses throughout the downtown corridor.\nScarecrows have taken over downtown! Grab a map and find all the scarecrows. Vote for your favorites through October 31. Ballots are available at participating businesses or download online.  FXBG.com\nMore Info\nFXBG.com\nhttps://fredericksburg.macaronikid.com/events/68978b4b24ac898f99148030/scarecrow-contest-
-DTEND:20251005T040000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251004T040000Z
-SUMMARY:Scarecrow Contest 🎃
-UID:817eed24cadc6bd66701bd93ec1987d5e95f5107
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:John Lee Pratt Memorial Park\n120 River Road\nStafford VA 22401\nDescription\nA day full of fall fun featuring food trucks\, games\, vendors\, mechanical bull\, and bracket-style pumpkin race!\nWho\nall ages\nCost\nFree\nhttps://fredericksburg.macaronikid.com/events/68c2eb4b0a27a4713fb1eead/stafford-fall-family-festival-and-great-pumpkin-derby-
-DTEND:20251004T190000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251004T150000Z
-SUMMARY:Stafford Fall Family Festival and Great Pumpkin Derby 🎃
-UID:79e8e7f9dd29ffd240cdf1e329711b518e129211
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DTEND:20260106T050000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20260105T050000Z
-SUMMARY:No School (Inservice/Workday)
-UID:0ea98d97ef8cc03344047f22b6610096c0e51874
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DTEND:20251031T040000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251030T040000Z
-SUMMARY:Report Cards Sent Home
-UID:df52c0b9ce3787e6cecb2370b72a279abe799253
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:The Meadow Event Park\n13191 Dawn Blvd\nDoswell VA 23047\nDescription\nAmusement rides open at 11 a.m. daily and the Midway will continue to operate for a minimum of one hour after the Ticket Plaza closes or longer on weekends at the discretion of fair management.\nENTERTAINMENT\nPig races Daily - 11:30 AM\, 1:30 PM\, 6:30 PM\, 8:30 PM\nChainsaw Carver: Daily - 11:30 AM\, 2:30 PM\, 5:30 PM\nDisc-Connected K9s: Daily - 11:30 AM\, 2:30 PM\, 5:30 PM\nShimmer Guy: Daily - 1:30 PM\, 4:00 PM\, 6:00 PM\nStilt Fun: Daily - 11:00 AM\, 12:30 PM\, 3:00 PM\, 7:00 PM\nTriple Crown Circus: Daily - 2:00 PM\, 5:00 PM\, 8:00 PM\nAgri-Golf: Daily - 12 noon - 8 PM\nGreenlee Draft Horse Hitch: Daily-3pm\nWolvers of the Worls: noon\, 3pm and 6pm (26-30th)\nDennis Lee 11am and 2pm (29-3rd)\nRevenge Roughstock Rodeo Co: 6pm (29&30th)\nChampionship Blacksmith: 10am (2-5th)\nTractor Pulls Oct 4 noon and 5\; Oct 5 at 1pm\nCost\n$11.50 +\nMore Info\nhttps://www.statefairva.org/\nhttps://fredericksburg.macaronikid.com/events/68a8b7441805a01e15d4ef19/state-fair-of-virginia
-DTEND:20251006T010000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251005T150000Z
-SUMMARY:State Fair of Virginia
-UID:aae661888794f287860712129730fe889d5a3855
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:Historic Salubria\n19173 Salubria Lane\nStevensburg VA 22741\nDescription\nDrop by Historic Salubria any time btween 11:00am and 3:00pm on Sunday April 13 for an informal afternoon of art and community. Explore the 18th century house and grounds\, and be inspired to create art of your own! Limited art supplies\, including paper\, pencils\, and paint\, will be provided\, but if you have favorite art supplies of your own\, bring them! A suggested donation of $10 per adult\, $5 per child\, is recommended. Registration is encouraged\, but not required. In the event of inclement weather\, the event will be cancelled.\nWho\nAges 4 and up\nCost\n10\nHow\nRegistration Recommended at https://www.eventbrite.com/e/salubria-art-day-tickets-1684387681899?aff=oddtdtcreator\nhttps://fredericksburg.macaronikid.com/events/68c473af0da616716be209ad/salubria-art-day
-DTEND:20250929T180000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20250929T140000Z
-SUMMARY:Salubria Art Day
-UID:c50843ac2900cbf6e2c55053ceb584b23899b856
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:Downtown Fredericksburg\nFredericksburg VA 22401\nDescription\nOctober 1 - October 31: Scarecrows can be found at participating businesses throughout the downtown corridor.\nScarecrows have taken over downtown! Grab a map and find all the scarecrows. Vote for your favorites through October 31. Ballots are available at participating businesses or download online.  FXBG.com\nMore Info\nFXBG.com\nhttps://fredericksburg.macaronikid.com/events/68978b4b24ac898f9914802e/scarecrow-contest-
-DTEND:20251003T040000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251002T040000Z
-SUMMARY:Scarecrow Contest 🎃
-UID:d9ce57d506fa6fb5e37287e3eb6323fcff396911
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:Downtown Fredericksburg\nFredericksburg VA 22401\nDescription\nFestive fun for the whole family during First Friday. There will be games\, activities and contests!\nAdmission is FREE.\nMore Info\nhttps://fxbg.com/find-things-to-do/scarecrow-fest/\nhttps://fredericksburg.macaronikid.com/events/68978a6bb1b944aecda70c98/scarecrow-fall-fest
-DTEND:20251004T000000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251003T210000Z
-SUMMARY:🎃Scarecrow Fall Fest
-UID:79267c67255d41bb0357a2977a81f3daa436d2c6
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:Online Event\nDescription\nReady to make history one mile at a time? Walk or Run 250 Miles to Celebrate America’s 250th!\nLace up your sneakers and get moving in the free Run America 250 Challenge: a country-wide virtual walk/run event celebrating 250 years of American history!\nBetween July 4\, 2025 and July 5\, 2026 we’re challenging you to walk or run 250 miles—anytime\, anywhere. Whether you’re hitting the trails\, the treadmill\, or your neighborhood sidewalk\, every mile brings us closer to honoring America’s incredible journey since 1776.\nHow you hit 250 miles is totally up to you! From grocery runs to evening dog walks\, teeing off on the golf course to exploring scenic trails\, every step counts.\nRegistration for the Run America 250 Challenge opens July 4\, 2025\, and it’s completely free to join! Sign up by April 30\, 2026\, to start working toward your 250-mile goal and a commemorative medal.\nTo log your miles\, make sure you’ve downloaded the RaceJoy app. This is how we’ll track your progress so that you can get your well-earned medal! Use the app’s GPS feature to log your miles in real-time\, or enter your miles manually into the RaceJoy app. This will help make it easy for you to track your progress and help you reach your goal!\nChallenge finishers can pick up their medals in person at Widewater State Park\, one of Stafford County\, Virginia’s most scenic outdoor destinations. Medals will be available for pickup from April 1\, 2026 and July 31\, 2026.\nCost\nFREE\nHow\nREGISTER HERE\nhttps://fredericksburg.macaronikid.com/events/6837b4a86fdf73b723195e70/run-america-250-virtual-race
-DTEND:20251005T040000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251004T040000Z
-SUMMARY:Run America 250 Virtual Race
-UID:7f53350cf2c630a57829985f950b2f765ad2bbd1
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
+DTSTAMP:20250929T180459Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4327\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20251011T160000Z
-LAST-MODIFIED:20250929T172941Z
+LAST-MODIFIED:20250929T180459Z
 LOCATION:King George Middle School Parking Lot - 8246 Dahlgren Road King George VA 22485
 DTSTART:20251011T120000Z
 SUMMARY:King George Farmers Market
 UID:aa1944e4ff35f9eaf475de2386e26c7aa1d062ec
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:Downtown Fredericksburg\nFredericksburg VA 22401\nDescription\nIn the heart of the heart of Fredericksburg\, woven into the tapestry of America’s most historic city\, are eight art galleries and studios\, each one a vibrant celebration of visual creativity. And on First Fridays for the past 30 years\, the galleries have drawn thousands downtown to check out local art\, rub shoulders with the artists\, hear street-corner musicians\, and sample the fares and wares at downtown’s 21 restaurants and 30 late-night shops. Some\, if they’re of age\, buy a beverage so they can sip and stroll–walking\, talking\, and gawking at the diverse riches downtown Fredericksburg has to offer. Others hop on and off the free trolley that loops through the arts and business district. Exhibitions. Performances. Special Events. FXBG First Friday is no still life. It’s worlds within worlds\, waiting for you to explore.\nFree Trolley Shuttle: 5:00pm – 8:30pm\nSip and Stroll: 5:00pm – 9:00pm (last call at 8:30pm)\nArt galleries\, retailers and restaurants are open late.\nMore Info\nhttps://fxbgfirstfriday.com/\nhttps://fredericksburg.macaronikid.com/events/681a42de26398d20f92db69e/first-friday
-DTEND:20251004T003000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251003T210000Z
-SUMMARY:First Friday
-UID:3cb6fd8570a1ffc7a19d9006e517f0c1e55e5630
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:The Meadow Event Park\n13191 Dawn Blvd\nDoswell VA 23047\nDescription\nAmusement rides open at 11 a.m. daily and the Midway will continue to operate for a minimum of one hour after the Ticket Plaza closes or longer on weekends at the discretion of fair management.\nENTERTAINMENT\nPig races Daily - 11:30 AM\, 1:30 PM\, 6:30 PM\, 8:30 PM\nChainsaw Carver: Daily - 11:30 AM\, 2:30 PM\, 5:30 PM\nDisc-Connected K9s: Daily - 11:30 AM\, 2:30 PM\, 5:30 PM\nShimmer Guy: Daily - 1:30 PM\, 4:00 PM\, 6:00 PM\nStilt Fun: Daily - 11:00 AM\, 12:30 PM\, 3:00 PM\, 7:00 PM\nTriple Crown Circus: Daily - 2:00 PM\, 5:00 PM\, 8:00 PM\nAgri-Golf: Daily - 12 noon - 8 PM\nGreenlee Draft Horse Hitch: Daily-3pm\nWolvers of the Worls: noon\, 3pm and 6pm (26-30th)\nDennis Lee 11am and 2pm (29-3rd)\nRevenge Roughstock Rodeo Co: 6pm (29&30th)\nChampionship Blacksmith: 10am (2-5th)\nTractor Pulls Oct 4 noon and 5\; Oct 5 at 1pm\nCost\n$11.50 +\nMore Info\nhttps://www.statefairva.org/\nhttps://fredericksburg.macaronikid.com/events/68a8b7441805a01e15d4ef11/state-fair-of-virginia
-DTEND:20251001T010000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20250930T150000Z
-SUMMARY:State Fair of Virginia
-UID:d34ce43f327dccd35251d973d7b9b37e536f4033
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4326\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
-DTEND:20251004T160000Z
-LAST-MODIFIED:20250929T172941Z
-LOCATION:King George Middle School Parking Lot - 8246 Dahlgren Road King George VA 22485
-DTSTART:20251004T120000Z
-SUMMARY:King George Farmers Market
-UID:8ac6f1c4109b259abd5817c8880b64d4cf11d7fc
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:Fredericksburg Fairgrounds\n2400 Airport Ave\nFredericksburg VA 22408\nDescription\nNovember 29\, 2025 from 9am-3PM at the Fredericksburg Fairgrounds\nThe PokeBurg TCG Card & Collectibles Fall Show will feature 130 tables of TCG related Cards\, Collectibles\, FUNKO's\, Arts & Crafts featuring Pokemon\, One Piece\, Disney Lorcana\, Magic and more.\nFree Admission / Free Parking / Giveaways / Food Truck / Kids Scavenger Hunt\nhttps://www.ontreasure.com/events/pokeburg-tcg-fall-show-11292025-2\nhttps://fredericksburg.macaronikid.com/events/68cc00306acd776295f74c8a/pokeburg-tcg-fall-show
-DTEND:20250929T190000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20250929T130000Z
-SUMMARY:PokeBurg TCG Fall Show
-UID:a9753a242ee3fad7d42920a17151527e5d502f3d
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:The Revival Center\n11506 Brian Drive\nFredericksburg VA 22407\nDescription\nRadiant Women's Conference - where women gather to ignite their faith and thrive in their journey with Christ.\nThis year\, join us under the theme "Thrive\," inspired by John 10:10\, where Jesus promises abundant life. The conference kicks off on Friday evening with a powerful time of prayer\, uplifting worship\, and a compelling message.\nOn Saturday morning\, don't miss our engaging panel discussion\, where seasoned speakers and passionate women of faith will share insights\, personal stories\, and practical wisdom on thriving and becoming more like Jesus in every season of life. Come expecting to be refreshed\, challenged\, and equipped to embrace the abundant life Jesus offers. Whether you're seeking spiritual growth\, fellowship with like-hearted women\, or a deeper understanding of God's Word\, this conference is designed to empower you to thrive in your faith journey. This event is FREE but we kindly ask that you register\, either online or in person. Prepare to experience a weekend that will renew your spirit and empower you to thrive in Christ.\nFriday\, October 3\, 2025 Doors open: 6:30pm Service Begins: 7:00pm\nSaturday\, October 4\, 2025 Doors open: 9:30am Service Begins: 10:00am\nWho\n15+\nCost\nFree\nhttps://fredericksburg.macaronikid.com/events/68ac614306b32f1f92780cae/radiant-womens-conference
-DTEND:20251004T140000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251004T133000Z
-SUMMARY:Radiant Women's Conference
-UID:bd6c0fb2495fcce3c72560a99ae311d0530f7653
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:Spotsylvania Farmer's Market (Rt 3 & Gordon Rd)\n12150 Gordon Rd\nFredericksburg VA 22407\nDescription\nWhat’s in Season at the Spotsylvania Farmers Market?\nCurious what fresh fruits\, veggies (and even local meats!) are at their peak right now? Come shop with us at the Spotsylvania Farmers Market!\nEating with the seasons means better flavor\, better nutrition\, and supporting your local farmers who pour love into every harvest.\nJune/July is bursting with berries\, tomatoes\, squash\, greens\, and so much more. Come see what’s ripe and ready at our markets this week.\nWednesdays 2pm-6pm\n(Spotsylvania Regional Medical Center- Hospital Parking Lot)\n4600 Spotsylvania Parkway\, Fredericksburg\, VA 22408\nSaturdays 8am-1pm\nRoute 3-Gordon Road Commuter Lot\n12150 Gordon Road\nGrab your basket. Save this post. Bring the kids. Let’s nourish ourselves and our community…one season at a time.\nSpotsylvania Farmers Market\nSaturdays | 8am–1pm\nWednesdays | 2pm–6pm\nCash\, Card\, & EBT/SNAP Accepted\nMore Info\nhttps://www.facebook.com/events/1058628402468120/1058628412468119\nhttps://fredericksburg.macaronikid.com/events/68654295dfae6d89ba6d1b2b/spotsylvania-farmers-market
-DTEND:20251004T170000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251004T120000Z
-SUMMARY:Spotsylvania Farmer's Market
-UID:1a3deec38220099a469f8397290c750ab5b35159
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:Cavalier Family Skating\n1924 Jefferson Davis Hwy\nStafford VA 22554\n540-657-0758\nDescription\nFamily Skating for $8/ skater or $24 for a family of up to 6 people\nMore Info\nhttps://cavalierskating.com/\nhttps://fredericksburg.macaronikid.com/events/677de9e56e10a17b89007029/family-skating-sunday
-DTEND:20251005T220000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251005T180000Z
-SUMMARY:Family Skating Sunday
-UID:a51dfb5f180cee7cec9947b3e77fa9e2fd748d69
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:The Meadow Event Park\n13191 Dawn Blvd\nDoswell VA 23047\nDescription\nAmusement rides open at 11 a.m. daily and the Midway will continue to operate for a minimum of one hour after the Ticket Plaza closes or longer on weekends at the discretion of fair management.\nENTERTAINMENT\nPig races Daily - 11:30 AM\, 1:30 PM\, 6:30 PM\, 8:30 PM\nChainsaw Carver: Daily - 11:30 AM\, 2:30 PM\, 5:30 PM\nDisc-Connected K9s: Daily - 11:30 AM\, 2:30 PM\, 5:30 PM\nShimmer Guy: Daily - 1:30 PM\, 4:00 PM\, 6:00 PM\nStilt Fun: Daily - 11:00 AM\, 12:30 PM\, 3:00 PM\, 7:00 PM\nTriple Crown Circus: Daily - 2:00 PM\, 5:00 PM\, 8:00 PM\nAgri-Golf: Daily - 12 noon - 8 PM\nGreenlee Draft Horse Hitch: Daily-3pm\nWolvers of the Worls: noon\, 3pm and 6pm (26-30th)\nDennis Lee 11am and 2pm (29-3rd)\nRevenge Roughstock Rodeo Co: 6pm (29&30th)\nChampionship Blacksmith: 10am (2-5th)\nTractor Pulls Oct 4 noon and 5\; Oct 5 at 1pm\nCost\n$11.50 +\nMore Info\nhttps://www.statefairva.org/\nhttps://fredericksburg.macaronikid.com/events/68a8b7441805a01e15d4ef10/state-fair-of-virginia
-DTEND:20250930T010000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20250929T150000Z
-SUMMARY:State Fair of Virginia
-UID:69eb102742f64707c3a62060b7cacfdc0668243b
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:Downtown Fredericksburg\nFredericksburg VA 22401\nDescription\nOctober 1 - October 31: Scarecrows can be found at participating businesses throughout the downtown corridor.\nScarecrows have taken over downtown! Grab a map and find all the scarecrows. Vote for your favorites through October 31. Ballots are available at participating businesses or download online.  FXBG.com\nMore Info\nFXBG.com\nhttps://fredericksburg.macaronikid.com/events/68978b4b24ac898f9914802f/scarecrow-contest-
-DTEND:20251004T040000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251003T040000Z
-SUMMARY:Scarecrow Contest 🎃
-UID:e710e2144ce420aea2b377d9e13200ffa7823e42
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:Faternal Order of Eagles 4123\n21 Cool Springs Rd\nFredericksburg VA 22401\nDescription\nLove craft shows! Come visit our Honoring Our Heroes Fundraiser Craft show on 10/04/25 from 10:00am-4:00pm. We will have over 85 vendors indoors and moon bounces for the kids and our local fire department and sheriffs office with a firetruck passing out goodies to the kids.\nEnduring freedom band will be playing live inside the venue. Win raffle prizes to all who attend. B101.5 is our official sponsor and will be on site with BUZZ THE BEE taking photos with children and passing out stickers! Event will be broadcasted 30 times two weeks up to event and on the day of the event. Awesome craft fair with lots of unique and one of a kind vendors! Don’t miss this one!\nMore Info\nhttps://www.facebook.com/events/4059775444341844\nhttps://fredericksburg.macaronikid.com/events/689a4569b1b944aecdaee2dc/2025-arms-craft-fair-honoring-our-heroes
-DTEND:20251004T200000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251004T140000Z
-SUMMARY:2025 ARMS Craft Fair Honoring Our Heroes
-UID:38c53cb0bf4bc562ea52414b1535dafe1fce5d80
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:Online Event\nDescription\nThe air is getting cooler\, and the leaves are starting to turn so not only have we updated our Fall Guide with festivals\, pumpkin fun\, trunk or Treats\, and more\, but we're also filling up 100 Boo Bags!\nA Boo Bag is a gift bag full of Halloween Fun!  We stuff our bags with items from our sponsors\, along with additional goodies. Click below to find out more about these great sponsors!\nMore Info\nhttps://fredericksburg.macaronikid.com/articles/68a72f408f684c47e8b41134/2025-boo-bags--get-one-for-your-family-\nhttps://fredericksburg.macaronikid.com/events/68d2b7a09142d4fadb90bcb0/boo-bags-sign-up-to-get-one-for-your-family
-DTEND:20251002T040000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251001T040000Z
-SUMMARY:Boo Bags - Sign up to get one for your family!
-UID:3f85bc2faab8bda8d38d39c4d6d519d3c8ef453c
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DTEND:20260103T050000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251222T050000Z
-SUMMARY:Winter Break (No School for Staff & Students)
-UID:caa88adec2c8ed9ef340b5d330803e7f0c6dad93
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DTEND:20251001T040000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20250930T040000Z
-SUMMARY:Gator Gallop
-UID:905a609dca6e21743b1eba7b03b0e90d4ec4a8ce
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:Patriot Park\n5710 Smith Station Road\nFredericksburg VA 22408\nDescription\nJoin us as we LIGHT UP the night with the galactic glow in the dark fun run followed by a dance party!\n1/4 mile ages 5 and under\n1 mile ages 5-13\nWho\nThrough age 13\nCost\n$25\nHow\nRegister at spotsylvania.va.us/parksandrec\nNO RACE DAY REGISTRATION\nhttps://fredericksburg.macaronikid.com/events/67f09a9a77ecc44db61ff4ca/kids-galaxy-glow-run
-DTEND:20251005T003000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251004T223000Z
-SUMMARY:Kids Galaxy Glow Run
-UID:360ee55696e23eb8c91968c521f78c573c7fe760
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:Dorothy Hart Community Center\n408 Canal St\nFredericksburg VA 22401\nDescription\nJoin in the fun with your toddler! Participants engage in movement activities that improve balance\, coordination\, and motor skills while getting the wiggles out and socializing with peers. Familiar follow-along songs and prop activities keep the class engaging and exciting for your young mover and shaker!\nParent participation is required.\nOnly the registered child is permitted to attend class. Thursday\, 9-9:40am\nSession A: August 21-September 11\nSession B: October 2-23\nSession C: October 30-November 20\nLocation: Dorothy Hart Community Center\n$20/$25 City Residents/Non-City Residents\nWho\nAges 2 to 5 with an adult\nMore Info\nFredericksburg.gov\nhttps://fredericksburg.macaronikid.com/events/68a2545d32a2c775e4a1ad75/toddler-tumbler-tales
-DTEND:20250930T134000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20250930T130000Z
-SUMMARY:Toddler Tumbler Tales
-UID:2b34f4e5117b6e1724e6294ffb6044b8eace1082
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:Milestones Play Gym & Pediatric Therapy\n1329 Alum Spring Rd\nSuite 101\nFredericksburg VA 22401\nDescription\nThis social group was created for children who do not necessarily require skilled occupational therapy services\, may have graduated from such services\, and/ or are receiving some sort of therapy services but would benefit from naturalistic & fun opportunities to practice social skills in a therapeutic & supportive environment.\nWhat you'll get: small groups created & led by occupational therapy professionals natural social skill building opportunities provided in a supportive environment exposure to purposeful & developmentally appropriate activities that generalize a variety of skills\, to include but not limited to\, cooking\, STEM and STEM projects\, board games\, team-building activities\, science experiments\, & outdoor activities. skill building and maintaining in the areas of fine motor\, gross motor\, sensory processing\, social\, play\, leisure\, language & communication\, cognitive\, and executive functioning.\nWe also touch upon age-appropriate social emotional learning topics\, such as self-esteem\, friendships\, kindness\, health & fitness\, bullying\, self-confidence\, mindfulness\, coping skills\, self-control\, etc. that are customized to the needs of our specific group members\nWho\nGirls 7-9\nCost\n45\nHow\nhttps://www.milestonesgym.com/drop-ins\nMore Info\nRepeats: 9/8\, 9/15\, 9/29\, 10/6\, 10/27\, 11/3\, 11/17\, 11/24\, 12/1\, 12/8\, 12/15\nhttps://fredericksburg.macaronikid.com/events/68c6de290da616716befb42e/girl-power-social-club-
-DTEND:20250929T223000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20250929T213000Z
-SUMMARY:Girl Power Social Club
-UID:65de9d76a997d21ff34b392333be1586aa576f68
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
+DTSTAMP:20250929T180459Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4329\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20251025T160000Z
-LAST-MODIFIED:20250929T172941Z
+LAST-MODIFIED:20250929T180459Z
 LOCATION:King George Middle School Parking Lot - 8246 Dahlgren Road King George VA 22485
 DTSTART:20251025T120000Z
 SUMMARY:King George Farmers Market
 UID:9711390883eee30a582afa678994bdefa34fa2bb
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:Dorothy Hart Community Center\n408 Canal St\nFredericksburg VA 22401\nDescription\nCome and play with us! The gym is open! Bounce a ball\, chase your friends\, or maybe build with blocks and color! Enjoy some nonstructured play with your child. An adult must accompany children.\nWednesday\, 9:30-11:30am August 20-December 17\nNo program 9/17\, 11/26\nLocation: Dorothy Hart Community Center Daily fee: $4/$5 City Residents/Non-City Residents 10 visit punch cards are available $32/$40 City Residents/non city residents\nWho\nAges 1 to 5 years w/ an adult.\nCost\n$4\nMore Info\nhttps://www.fredericksburgva.gov/\nhttps://fredericksburg.macaronikid.com/events/68a251188c0e7fa4e9b45d41/indoor-play-park
-DTEND:20251001T153000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251001T133000Z
-SUMMARY:Indoor Play Park
-UID:b5c4e95bf2f1d3faf7035607e5db937734dc817c
+DTSTAMP:20250929T180459Z
+DTEND:20251003T040000Z
+LAST-MODIFIED:20250929T180459Z
+DTSTART:20251002T040000Z
+SUMMARY:No School (Yom Kippur)
+UID:7cfd45a5fc3f2cec5b6ddaf7f1626b822be1c60c
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:CRRL - Fredericksburg (downtown) Branch\n1201 Caroline Street\nFredericksburg VA 22408\nDescription\nRead aloud to a trained therapy bunny\, go on a scavenger hunt\, and do a craft. Grades K-6.\nhttps://fredericksburg.macaronikid.com/events/68a332ef42ff20efdce13cf1/teen-council-presents-books-with-bunnies
-DTEND:20251004T190000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251004T180000Z
-SUMMARY:Teen Council Presents: Books with Bunnies
-UID:a0303e3c9366c4ac2d39f4500561da056c9c1f40
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:USA Ninja Challenge Stafford\n650 Corporate Dr\nSuite 185\nStafford VA 22554\nNotes regarding time\nBegins promptly at 9:00 AM. Pick-up Promptly at 3:00 PM\nDescription\n🎉 School’s Out. Ninja’s In! 🎉 Looking for something fun and active for your kids when school is out? Bring them to our Ninja Day Camp for a full day of adventure\, strength-building\, and unforgettable memories! Kids will enjoy: ✅ Ninja obstacle training and challenges ✅ Team-building games ✅ Crafts and creative activities ✅ Open gym exploration ✅ Tons of energy-burning FUN! 🍎 Please pack a nut-free lunch\, water bottle\, and a snack. Spaces are limited\, so grab your spot today and let your child experience the ultimate ninja adventure! 👉 Register now: https://portal.iclasspro.com/usaninjaquantico/camps/2?sortBy=time\nWho\nAges 6 -12\nCost\n$80 per child. Family discounts available\nHow\nRegister here: https://portal.iclasspro.com/usaninjaquantico/camps/2?sortBy=time\nhttps://fredericksburg.macaronikid.com/events/68c2fc4748ee5b24af72763c/schools-out-ninjas-in-day-camp
-DTEND:20251003T190000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251003T130000Z
-SUMMARY:School's Out Ninja's In Day Camp
-UID:47e027fac410d14a1e5c7f60fbcc052dc8ca83d3
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:Downtown Fredericksburg\nFredericksburg VA 22401\nDescription\nOctober 1 - October 31: Scarecrows can be found at participating businesses throughout the downtown corridor.\nScarecrows have taken over downtown! Grab a map and find all the scarecrows. Vote for your favorites through October 31. Ballots are available at participating businesses or download online.  FXBG.com\nMore Info\nFXBG.com\nhttps://fredericksburg.macaronikid.com/events/68978b4a24ac898f9914802b/scarecrow-contest-
+DTSTAMP:20250929T180459Z
 DTEND:20251002T040000Z
-LAST-MODIFIED:20250929T172941Z
+LAST-MODIFIED:20250929T180459Z
 DTSTART:20251001T040000Z
-SUMMARY:Scarecrow Contest 🎃
-UID:131ff0687b7cb2679ade4cbf89a37ea934817f79
+SUMMARY:Fall Picture Day
+UID:f1eeb24ca6d693cfe2db2c140537ef964b617233
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:Fredericksburg Convention Center\n2371 Carl D. Silver Parkway\nFredericksburg VA 22401\nDescription\nGet ready to transform your home into a cozy haven this winter! Embrace the upcoming season by attending the Fall Home Show\, your one-stop destination for all things home improvement. Connect with skilled landscapers\, talented designers\, reliable contractors\, and a host of other experts who can help bring your vision to life. From enhancing your outdoor spaces to revamping the interiors\, this event has everything you need to elevate your living environment. Don’t miss out on the chance to explore exclusive deals\, special offers\, exciting giveaways\, and much more at the Fall Home Show. Make your way to the event and take the first step towards creating the home of your dreams!\nSaturday\, October 4th:  9am – 5pm\nSunday\, October 5th:  10am – 4pm\nBest of all\, admission is FREE with a simple online ticket!\nHow\nhttps://fredericksburg.macaronikid.com/events/68cc06456aa69d9ab06413da/fall-home-show
-DTEND:20251004T210000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251004T130000Z
-SUMMARY:Fall Home Show
-UID:31eaf3780910e9bb454ae411e4c02f7806bbaf90
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:Downtown Fredericksburg\nFredericksburg VA 22401\nDescription\nOctober 1 - October 31: Scarecrows can be found at participating businesses throughout the downtown corridor.\nScarecrows have taken over downtown! Grab a map and find all the scarecrows. Vote for your favorites through October 31. Ballots are available at participating businesses or download online.  FXBG.com\nMore Info\nFXBG.com\nhttps://fredericksburg.macaronikid.com/events/68978b4b24ac898f99148031/scarecrow-contest-
-DTEND:20251006T040000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251005T040000Z
-SUMMARY:Scarecrow Contest 🎃
-UID:2af1f59fea6bc3341a1e6d18c125d87b14ae7b92
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
+DTSTAMP:20250929T180459Z
 DTEND:20251122T050000Z
-LAST-MODIFIED:20250929T172941Z
+LAST-MODIFIED:20250929T180459Z
 DTSTART:20251121T050000Z
 SUMMARY:Turkey Trot Fun Run
 UID:3c5647b7889fdebd107e84b4ad0fc3a9ea37efd8
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:USA Ninja Challenge Stafford\n650 Corporate Dr\nSuite 185\nStafford VA 22554\nNotes regarding time\nBegins promptly at 2:00 PM\nDescription\n🐾 Ninjas Unleashed: SPCA Adoption Event 🐾 Come out for a special day where ninja fun meets furry friends! We’re teaming up with the FXBG SPCA to host an adoption event at our gym. Families can meet adorable adoptable pets and have fun with Open Gym\n. ✨ Admission to the adoption event is FREE!\n💥 Want even more fun? Add Open Gym for just $20 per person and let your ninjas swing\, climb\, and conquer the obstacles. Don’t miss this chance to support a great cause\, meet some amazing animals\, and unleash your inner ninja!\nWho\nAges 6-12\nCost\nFREE Event. Optional Open Gym $20\nHow\nRegister now for the event. https://portal.iclasspro.com/usaninjaquantico/camps/7?sortBy=time\nMore Info\nThis is an Adoption event with the SPCA. Come find your sidekick and help support a good cause. There is an optional Open Gym available for children 6-12. Register for price.\nhttps://fredericksburg.macaronikid.com/events/68c3055c755214d87041703c/ninjas-unleashed-spca-adoption-event
-DTEND:20251004T200000Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251004T180000Z
-SUMMARY:Ninjas Unleashed: SPCA Adoption Event
-UID:43d294e0b244b2c3f7e782838bec90e0b0195111
+DTSTAMP:20250929T180459Z
+DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4326\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
+DTEND:20251004T160000Z
+LAST-MODIFIED:20250929T180459Z
+LOCATION:King George Middle School Parking Lot - 8246 Dahlgren Road King George VA 22485
+DTSTART:20251004T120000Z
+SUMMARY:King George Farmers Market
+UID:8ac6f1c4109b259abd5817c8880b64d4cf11d7fc
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
+DTSTAMP:20250929T180459Z
+DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4333\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
+DTEND:20251018T200000Z
+LAST-MODIFIED:20250929T180459Z
+LOCATION:Graves Mountain Apple Harvest Festival - Syria VA 22743
+DTSTART:20251018T130000Z
+SUMMARY:KGP&R Regional Trip—Graves Mountain Apple Harvest Festival
+UID:ea03ffc86417600680d5dfdf309919751a27bae2
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250929T180459Z
 DTEND:20251014T040000Z
-LAST-MODIFIED:20250929T172941Z
+LAST-MODIFIED:20250929T180459Z
 DTSTART:20251013T040000Z
 SUMMARY:No School (Inservice/Workday)
 UID:3c75aae7e418a96b41dc29e2536ccaec4c0d269f
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250929T172941Z
-DESCRIPTION:CRRL - Howell Branch\n806 Lyons Boulevard\nFredericksburg VA 22406\nDescription\nActivities\, games\, and more. Grades K-6.\nhttps://fredericksburg.macaronikid.com/events/68a332cfae8e6bee45a72287/fabulous-friday-the-bad-guys
-DTEND:20251003T211500Z
-LAST-MODIFIED:20250929T172941Z
-DTSTART:20251003T203000Z
-SUMMARY:Fabulous Friday: The Bad Guys
-UID:f0c7a501f40cd405de7e026c60c0b9afc533f2db
+DTSTAMP:20250929T180459Z
+DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4328\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
+DTEND:20251018T160000Z
+LAST-MODIFIED:20250929T180459Z
+LOCATION:King George Middle School Parking Lot - 8246 Dahlgren Road King George VA 22485
+DTSTART:20251018T120000Z
+SUMMARY:King George Farmers Market
+UID:636f5074af6e49061cc2b8bd7285400f7b93d602
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250929T180459Z
+DTEND:20251129T050000Z
+LAST-MODIFIED:20250929T180459Z
+DTSTART:20251126T050000Z
+SUMMARY:Fall Break (No School for Students & Staff)
+UID:3184b5e76ee9d823fa77db7dfbbad411f2eae0c2
 END:VEVENT
 END:VCALENDAR
