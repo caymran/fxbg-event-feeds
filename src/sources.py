@@ -539,6 +539,14 @@ def _parse_eventbrite_detail(detail_url, user_agent=None, default_tz="America/Ne
 
 def fetch_eventbrite_discovery_playwright(list_url, pages=3, user_agent=None):
     from playwright.sync_api import sync_playwright
+    import re, urllib.parse as _up
+    sel_event_link = (
+        "a[href^='/e/'], a[href*='/e/'], "
+        "[data-testid='search-event-card'] a[href*='/e/'], "
+        "[data-spec='search-event-card'] a[href*='/e/']"
+    )
+
+    sel_results_root = "[data-testid='search-content'], [data-spec='search-content'], main, body"
 
     user_agent = user_agent or (
         "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
@@ -546,11 +554,11 @@ def fetch_eventbrite_discovery_playwright(list_url, pages=3, user_agent=None):
     )
 
     def _with_page(u, n):
-        parts = list(urllib.parse.urlsplit(u))
-        q = urllib.parse.parse_qs(parts[3])
+        parts = list(_up.urlsplit(u))
+        q = _up.parse_qs(parts[3])
         q["page"] = [str(n)]
-        parts[3] = urllib.parse.urlencode({k: v[0] for k, v in q.items()})
-        return urllib.parse.urlunsplit(parts)
+        parts[3] = _up.urlencode({k: v[0] for k, v in q.items()})
+        return _up.urlunsplit(parts)
 
     out, detail_urls = [], set()
 
@@ -565,147 +573,91 @@ def fetch_eventbrite_discovery_playwright(list_url, pages=3, user_agent=None):
         )
         page = ctx.new_page()
 
-        # 1) collect detail links
-        for i in range(1, int(pages) + 1):
-            u = _with_page(list_url, i)
-            try:
-                page.goto(u, wait_until="networkidle", timeout=45000)
-                page.wait_for_timeout(400)
-                hrefs = page.eval_on_selector_all(
-                    "a[href*='/e/']", "els => els.map(e => e.getAttribute('href'))"
-                ) or []
-                for h in hrefs:
-                    if not h:
-                        continue
-                    absu = urllib.parse.urljoin(u, h.split("?", 1)[0])
-                    path = urllib.parse.urlsplit(absu).path
-                    if path.startswith("/e/") and not any(
-                        seg in path for seg in ("/organizer/", "/o/", "/collections/")
-                    ):
-                        detail_urls.add(absu)
-                if os.getenv("FEEDS_DEBUG"):
-                    LOG.debug("   EB(PW) page %d: links=%d cum", i, len(detail_urls))
-            except Exception as ex:
-                if os.getenv("FEEDS_DEBUG"):
-                    LOG.debug("   EB(PW) page %d error: %s", i, str(ex)[:120])
-
-        # 2) visit each detail and parse JSON-LD
-        def parse_jsonld(soup):
-            import json as _json
-            title = desc = start = end = loc = None
-            for tag in soup.select('script[type="application/ld+json"]'):
+        def accept_cookies_if_present():
+            # Try a couple of common buttons the banner uses
+            for sel in [
+                "button:has-text('Accept All')",
+                "[data-testid='cookies-banner-accept']",
+                "button:has-text('Accept all cookies')",
+                "button:has-text('I agree')",
+            ]:
                 try:
-                    data = _json.loads(tag.string or "")
+                    b = page.locator(sel).first
+                    # if it shows up within 1s, click it
+                    b.wait_for(state="visible", timeout=1000)
+                    b.click()
+                    page.wait_for_timeout(300)
+                    return
                 except Exception:
                     continue
+                    
 
-                def use(ev):
-                    nonlocal title, desc, start, end, loc
-                    if not isinstance(ev, dict):
-                        return
-                    if ev.get("@type") != "Event":
-                        return
-
-                    # Description fallback from "About this event"
-                    if not desc:
-                        about = soup.find(
-                            lambda t: t.name in ("section", "div")
-                            and re.search(r"\bAbout this event\b", t.get_text(" ", strip=True), re.I)
-                        )
-                        if not about:
-                            about = soup.select_one("[data-testid='event-description'], [data-spec='event-description']")
-                        if about:
-                            lines = [ln.strip() for ln in about.get_text("\n", strip=True).splitlines() if ln.strip()]
-                            lines = [ln for ln in lines if not re.search(r"^Share|Follow|Tags|Report this event", ln, re.I)]
-                            tmp = ""
-                            for ln in lines:
-                                if len(tmp) + len(ln) + 1 > 400:
-                                    break
-                                tmp = (tmp + ("\n" if tmp else "") + ln).strip()
-                            if tmp:
-                                desc = tmp
-
-                    title = title or (ev.get("name") or "").strip()
-                    desc = desc or (ev.get("description") or "")
-                    start = start or (ev.get("startDate") or ev.get("start_date"))
-                    end = end or (ev.get("endDate") or ev.get("end_date"))
-                    locobj = ev.get("location")
-                    if isinstance(locobj, dict):
-                        nm = (locobj.get("name") or "").strip()
-                        addr = locobj.get("address")
-                        addr_txt = ""
-                        if isinstance(addr, dict):
-                            parts = [
-                                addr.get("streetAddress"),
-                                addr.get("addressLocality"),
-                                addr.get("addressRegion"),
-                                addr.get("postalCode"),
-                            ]
-                            addr_txt = " ".join(p for p in parts if p)
-                        elif isinstance(addr, str):
-                            addr_txt = addr.strip()
-                        loc = loc or (f"{nm} - {addr_txt}".strip(" -") if (nm or addr_txt) else None)
-
-                if isinstance(data, dict):
-                    if data.get("@type") == "Event":
-                        use(data)
-                    for node in (data.get("@graph") or []):
-                        use(node)
-                elif isinstance(data, list):
-                    for node in data:
-                        use(node)
-            return title, desc, start, end, loc
-
-        for ev_url in sorted(detail_urls):
+        def collect_links_from_current():
             try:
-                page.goto(ev_url, wait_until="networkidle", timeout=45000)
+                hrefs = page.eval_on_selector_all(
+                    sel_event_link,
+                    "els => els.map(e => e.getAttribute('href') || '')"
+                ) or []
+            except Exception:
+                hrefs = []
+            links = set()
+            for h in hrefs:
+                h = (h or "").split("?", 1)[0]
+                if not h:
+                    continue
+                absu = _up.urljoin(page.url, h)
+                path = _up.urlsplit(absu).path
+                if not path.startswith("/e/"):
+                    continue
+                if any(seg in path for seg in ("/organizer/", "/o/", "/collections/")):
+                    continue
+                links.add(absu)
+            return links
+
+        def load_and_scrape(url):
+            try:
+                page.goto(url, wait_until="domcontentloaded", timeout=45000)
+                # right after page.goto(...)
+                accept_cookies_if_present()
                 page.wait_for_timeout(300)
-                html = page.content()
-                soup = BeautifulSoup(html, "html.parser")
-                t, d, s, e, l = parse_jsonld(soup)
-                if not t:
-                    h1 = soup.select_one("h1,[data-testid='event-title']")
-                    if h1:
-                        t = h1.get_text(" ", strip=True)
-                if not (s or e):
-                    blk = soup.find(
-                        lambda n: n.name in ("section", "div")
-                        and "Date and time" in n.get_text(" ", strip=True)
+
+                try:
+                    page.wait_for_selector(
+                        "a[href^='/e/'], a[href*='/e/'], [data-testid='search-event-card']",
+                        timeout=6000
                     )
-                    if blk:
-                        sdt, edt = parse_when(
-                            blk.get_text(" ", strip=True), default_tz="America/New_York"
-                        )
-                        if sdt:
-                            s = sdt.isoformat()
-                        if edt:
-                            e = edt.isoformat()
-                if t and s:
-                    out.append(
-                        {
-                            "title": t,
-                            "description": d or "",
-                            "link": ev_url,
-                            "start": s,
-                            "end": e,
-                            "location": l,
-                            "source": "eventbrite",
-                        }
-                    )
-                    if os.getenv("FEEDS_DEBUG"):
-                        LOG.debug(
-                            "     · EB(PW) parsed: %s | start:%s loc:%s",
-                            t[:60],
-                            s,
-                            (l or "")[:50],
-                        )
-                else:
-                    if os.getenv("FEEDS_DEBUG"):
-                        LOG.debug("   · EB(PW) skipped (missing title or start): %s", ev_url)
+                except Exception:
+                    pass  # keep going; we still do scroll + scrape
+
+
+                # Lazy-load: scroll a few times
+                for _ in range(12):
+                    page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+                    page.wait_for_timeout(450)
+                # One extra settle
+                page.wait_for_timeout(600)
+
+                links = collect_links_from_current()
+                if os.getenv("FEEDS_DEBUG"):
+                    LOG.debug("   EB(PW) %s -> found %d links", url, len(links))
+                return links
             except Exception as ex:
                 if os.getenv("FEEDS_DEBUG"):
-                    LOG.debug("   · EB(PW) detail error: %s %s", ev_url, str(ex)[:120])
-                continue
+                    LOG.debug("   EB(PW) list error on %s: %s", url, str(ex)[:160])
+                return set()
+
+        # 1) collect detail links across pages
+        for i in range(1, int(pages) + 1):
+            u = _with_page(list_url, i)
+            detail_urls |= load_and_scrape(u)
+
+        # 2) visit each detail; parse via the same detail parser you already have
+        for ev_url in sorted(detail_urls):
+            ev = _parse_eventbrite_detail(ev_url, user_agent=user_agent)
+            if ev:
+                out.append(ev)
+            elif os.getenv("FEEDS_DEBUG"):
+                LOG.debug("   · EB(PW) skipped (parse failed): %s", ev_url)
 
         ctx.close()
         browser.close()
@@ -739,16 +691,22 @@ def fetch_eventbrite_discovery(list_url, pages=3, user_agent="fxbg-event-bot/1.0
     }
 
     detail_urls, pages_seen = set(), 0
-    first_statuses = []
 
     for i in range(1, int(pages) + 1):
         u = _with_page(list_url, i)
         st, body, _ = req_with_cache(u, headers=headers, throttle=(1, 3))
-        first_statuses.append(st)
         if os.getenv("FEEDS_DEBUG"):
             LOG.debug("   Eventbrite page %d: HTTP %s", i, st)
+
+        # Fast exit to Playwright if page 1 is blocked
+        if i == 1 and st != 200:
+            if os.getenv("FEEDS_DEBUG"):
+                LOG.debug("   Eventbrite HTML got %s on page 1 → using Playwright", st)
+            return fetch_eventbrite_discovery_playwright(list_url, pages=pages, user_agent=ua)
+
         if st != 200 or not body:
             continue
+
         pages_seen += 1
         soup = BeautifulSoup(body, "html.parser")
         for a in soup.select("a[href*='/e/']"):
@@ -757,15 +715,10 @@ def fetch_eventbrite_discovery(list_url, pages=3, user_agent="fxbg-event-bot/1.0
                 continue
             absu = urllib.parse.urljoin(u, href)
             path = urllib.parse.urlsplit(absu).path
-            if not path.startswith("/e/"):
-                continue
-            if any(seg in path for seg in ("/organizer/", "/o/", "/collections/")):
-                continue
-            detail_urls.add(absu)
-        if os.getenv("FEEDS_DEBUG"):
-            LOG.debug("   Eventbrite (HTML): pages_visited=%d detail_urls=%d", pages_seen, len(detail_urls))
+            if path.startswith("/e/") and not any(seg in path for seg in ("/organizer/", "/o/", "/collections/")):
+                detail_urls.add(absu)
 
-    if not detail_urls or all(s != 200 for s in first_statuses[:3]):
+    if not detail_urls:
         if os.getenv("FEEDS_DEBUG"):
             LOG.debug("   Eventbrite (HTML) blocked or empty → falling back to Playwright")
         return fetch_eventbrite_discovery_playwright(list_url, pages=pages, user_agent=ua)
