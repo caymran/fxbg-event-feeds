@@ -6,3 +6,9 @@ __pycache__/
 .venv/
 .env
 .DS_Store
+data/events.json
+docs/adult.ics
+docs/family.ics
+docs/recurring.ics
+docs/sports.ics
+
