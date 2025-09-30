@@ -2,69 +2,79 @@ BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:ics.py - http://git.io/lLljaA
 BEGIN:VEVENT
-DTSTAMP:20250930T000012Z
+DTSTAMP:20250930T001900Z
+DESCRIPTION:FREE ENTRY! Best Fall Fest in Town! From bounce houses to Trunk-or-Treat\, there’s something for everyone! Join us on Oct 4th!\nhttps://www.eventbrite.com/e/folloween-jesus-fall-festival-tickets-1681199967359
+DTEND:20251004T213000Z
+LAST-MODIFIED:20250930T001900Z
+LOCATION:10440 Crain Hwy - 10440 Crain Highway\, Faulkner\, MD 20632 Faulkner MD 20632
+DTSTART:20251004T160000Z
+SUMMARY:Folloween Jesus Fall Festival
+UID:bfcbd7b497ac08d273a5d4860215a67f99411e42
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250930T001900Z
 DTEND:20251108T050000Z
-LAST-MODIFIED:20250930T000012Z
+LAST-MODIFIED:20250930T001900Z
 DTSTART:20251107T050000Z
 SUMMARY:Fall Picture Retakes
 UID:ed5f30cd7a819bf42ec3cda4c83282d881b7cab7
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T000012Z
+DTSTAMP:20250930T001900Z
 DTEND:20251018T040000Z
-LAST-MODIFIED:20250930T000012Z
+LAST-MODIFIED:20250930T001900Z
 DTSTART:20251017T040000Z
 SUMMARY:End of 1st Grading Period
 UID:7cebb2890be7854c4097f903b9cc1ac6997cd2c9
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T000012Z
+DTSTAMP:20250930T001900Z
 DTEND:20251105T050000Z
-LAST-MODIFIED:20250930T000012Z
+LAST-MODIFIED:20250930T001900Z
 DTSTART:20251104T050000Z
 SUMMARY:No School (Workday & Family Conferences)
 UID:8023ca3a7f1a1424d8935572ad625eb28cbd54b4
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T000012Z
+DTSTAMP:20250930T001900Z
 DTEND:20260106T050000Z
-LAST-MODIFIED:20250930T000012Z
+LAST-MODIFIED:20250930T001900Z
 DTSTART:20260105T050000Z
 SUMMARY:No School (Inservice/Workday)
 UID:0ea98d97ef8cc03344047f22b6610096c0e51874
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T000012Z
+DTSTAMP:20250930T001900Z
 DESCRIPTION:Gather your friends\, family\, civic group\, club or church and help us "Keep Spotsylvania Beautiful" with this community roadside litter cleanup day. https://www.spotsylvania.va.us/calendar.aspx?EID=3407\nhttps://www.spotsylvania.va.us/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
 DTEND:20251101T170000Z
-LAST-MODIFIED:20250930T000012Z
+LAST-MODIFIED:20250930T001900Z
 LOCATION:Marshall Center - 8800 Courthouse Road Spotsylvania VA 22553
 DTSTART:20251101T120000Z
 SUMMARY:Fall Community Clean Up Day
 UID:ff21fccb62a783cb0b0380fd1dba1e45d130b118
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T000012Z
+DTSTAMP:20250930T001900Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4330\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20251004T160000Z
-LAST-MODIFIED:20250930T000012Z
+LAST-MODIFIED:20250930T001900Z
 LOCATION:King George Citizens Center - 8076 Kings Highway P.O. Box 71 King George VA 22485
 DTSTART:20251004T110000Z
 SUMMARY:King George Flea Market
 UID:f776d6cfd50288f6bea898c5b75ef5ce11a8f3dc
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T000012Z
+DTSTAMP:20250930T001900Z
 DTEND:20251031T040000Z
-LAST-MODIFIED:20250930T000012Z
+LAST-MODIFIED:20250930T001900Z
 DTSTART:20251030T040000Z
 SUMMARY:Report Cards Sent Home
 UID:df52c0b9ce3787e6cecb2370b72a279abe799253
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T000012Z
+DTSTAMP:20250930T001900Z
 DTEND:20251008T233000Z
-LAST-MODIFIED:20250930T000012Z
+LAST-MODIFIED:20250930T001900Z
 LOCATION:Gladys West Library
 DTSTART:20251008T223000Z
 SUMMARY:PTA Meeting
@@ -72,144 +82,289 @@ UID:62a671ab4777d1ae6475b6a0de83fd9c8b6defeb
 END:VEVENT
 BEGIN:VEVENT
 X-ALT-DESC;FMTTYPE=t,e,x,t,/,h,t,m,l:<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head><body><div class="cal_2c6a"><div><div class="x_cal_3902"><div><div style="text-align:left; text-indent:0px; margin:0px; font-family:Aptos,Aptos_EmbeddedFont,Aptos_MSFontService,Calibri,Helvetica,sans-serif; font-size:12pt; color:rgb(0,0,0)">Open to students from <b>GWES, HMES &amp; LES ðð¤ð</b></div><div style="text-align:left; text-indent:0px; margin:0px; font-family:Aptos,Aptos_EmbeddedFont,Aptos_MSFontService,Calibri,Helvetica,sans-serif; font-size:12pt; color:rgb(0,0,0)">come in costume, bring your trick-or-treat bags,</div><div style="text-align:left; text-indent:0px; margin:0px; font-family:Aptos,Aptos_EmbeddedFont,Aptos_MSFontService,Calibri,Helvetica,sans-serif; font-size:12pt; color:rgb(0,0,0)">and enjoy a night of fun, candy, and community!</div></div></div></div></div></body></html>
-DTSTAMP:20250930T000012Z
+DTSTAMP:20250930T001900Z
 DESCRIPTION:Open to students from\nGWES\, HMES & LES ðð¤ð\ncome in costume\, bring your trick-or-treat bags\,\nand enjoy a night of fun\, candy\, and community!
 DTEND:20251024T233000Z
-LAST-MODIFIED:20250930T000012Z
+LAST-MODIFIED:20250930T001900Z
 DTSTART:20251024T213000Z
 SUMMARY:Trunk or Treat
 UID:90d76f5987a16e7c0ac3ec3e28ccff3067445a71
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T000012Z
+DTSTAMP:20250930T001900Z
+DESCRIPTION:Join us for a day of delicious street food and awesome music at the Manassas VA Street Food And Music Festival on November 16\, 2025\, startin\nhttps://www.eventbrite.com/e/international-food-and-culture-festival-manassas-va-tickets-1102548575469
+DTEND:20251116T220000Z
+LAST-MODIFIED:20250930T001900Z
+LOCATION:9021 Prince William St - 9021 Prince William Street\, Manassas\, VA 20110 Manassas VA 20110
+DTSTART:20251116T150000Z
+SUMMARY:International Food and Culture Festival @ Manassas VA
+UID:2b828899a36a83b7620cdb01fcc75275fc0d7429
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250930T001900Z
+DESCRIPTION:https://www.eventbrite.com/e/entradas-festival-de-otono-occoquan-river-1415207867829
+DTEND:20251011T203000Z
+LAST-MODIFIED:20250930T001900Z
+LOCATION:The Church of Jesus Christ of Latter-day Saints - 5750 Websters Way\, Manassas\, VA 20112 Manassas VA 20112
+DTSTART:20251011T130000Z
+SUMMARY:FESTIVAL DE OTOÑO OCCOQUAN RIVER
+UID:0b3df0f0386ad27266d311e2a6a01a214ce5d782
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250930T001900Z
 DTEND:20251031T040000Z
-LAST-MODIFIED:20250930T000012Z
+LAST-MODIFIED:20250930T001900Z
 DTSTART:20251030T040000Z
 SUMMARY:Pumpkin Run Fun Run
 UID:81fd378e87c942a54a6a98c78fe2059dcc24f710
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T000012Z
+DTSTAMP:20250930T001900Z
+DESCRIPTION:Come hang out with adorable animals at our Preschool Petting Zoo Open House - it's going to be a fun day for the whole family!\nhttps://www.eventbrite.com/e/preschool-petting-zoo-open-house-tickets-1640688115319
+DTEND:20251019T203000Z
+LAST-MODIFIED:20250930T001900Z
+LOCATION:The Learning Experience - Bristow - 10225 Carnoch Way\, Linton Hall\, VA 20136 Linton Hall VA 20136
+DTSTART:20251019T183000Z
+SUMMARY:Preschool Petting Zoo Open House
+UID:c70aca707bd60f1f44c1f21237710e383b43eb0e
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250930T001900Z
+DESCRIPTION:https://www.eventbrite.com/e/the-gratitude-market-tickets-1532713530429
+DTEND:20251122T220000Z
+LAST-MODIFIED:20250930T001900Z
+DTSTART:20251122T170000Z
+SUMMARY:The Gratitude Market
+UID:d7b1f74e6f7b819125cc64e5194cd2da26bb36d6
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250930T001900Z
+DESCRIPTION:https://www.eventbrite.com/e/fall-market-tickets-1736150285239
+DTEND:20251005T210000Z
+LAST-MODIFIED:20250930T001900Z
+DTSTART:20251005T160000Z
+SUMMARY:Fall Market
+UID:7ea301915de002d10fcea5b8c2487ed59765d7d8
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250930T001900Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4306\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20251011T190000Z
-LAST-MODIFIED:20250930T000012Z
+LAST-MODIFIED:20250930T001900Z
 LOCATION:King George High School - 10100 Foxes Way King George VA 22485
 DTSTART:20251011T140000Z
 SUMMARY:66th Annual Fall Festival
 UID:b39547234457c9c5d266980ce5facdd9d7e0830b
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T000012Z
+DTSTAMP:20250930T001900Z
 DTEND:20260103T050000Z
-LAST-MODIFIED:20250930T000012Z
+LAST-MODIFIED:20250930T001900Z
 DTSTART:20251222T050000Z
 SUMMARY:Winter Break (No School for Staff & Students)
 UID:caa88adec2c8ed9ef340b5d330803e7f0c6dad93
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T000012Z
+DTSTAMP:20250930T001900Z
 DTEND:20251001T040000Z
-LAST-MODIFIED:20250930T000012Z
+LAST-MODIFIED:20250930T001900Z
 DTSTART:20250930T040000Z
 SUMMARY:Gator Gallop
 UID:905a609dca6e21743b1eba7b03b0e90d4ec4a8ce
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T000012Z
+DTSTAMP:20250930T001900Z
 DESCRIPTION:Join us as we light up the night with this galactic\, glow-in-the-dark fun run\,...After everyone has crossed the finish line\, race on over to grab your space for a family-friendly Glow Dance Party on the Amphitheater stage! https://www.spotsylvania.va.us/calendar.aspx?EID=3277\nhttps://www.spotsylvania.va.us/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
 DTEND:20251005T010000Z
-LAST-MODIFIED:20250930T000012Z
+LAST-MODIFIED:20250930T001900Z
 LOCATION:Patriot Park - 5710 Smith Station Road Fredericksburg VA 22407
 DTSTART:20251004T220000Z
 SUMMARY:Kids' Galaxy Glow Run
 UID:0dce38bae7970641fd5e70766c1f7f9c1bd7f583
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T000012Z
+DTSTAMP:20250930T001900Z
+DESCRIPTION:https://www.eventbrite.com/e/2nd-annual-witches-wizards-market-tickets-1571503281619
+DTEND:20251026T230000Z
+LAST-MODIFIED:20250930T001900Z
+DTSTART:20251026T160000Z
+SUMMARY:2nd Annual Witches & Wizards Market
+UID:674854ca10ae3912ad7b61e2ee9b20a700f2c139
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250930T001900Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4327\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20251011T160000Z
-LAST-MODIFIED:20250930T000012Z
+LAST-MODIFIED:20250930T001900Z
 LOCATION:King George Middle School Parking Lot - 8246 Dahlgren Road King George VA 22485
 DTSTART:20251011T120000Z
 SUMMARY:King George Farmers Market
 UID:aa1944e4ff35f9eaf475de2386e26c7aa1d062ec
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T000012Z
+DTSTAMP:20250930T001900Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4329\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20251025T160000Z
-LAST-MODIFIED:20250930T000012Z
+LAST-MODIFIED:20250930T001900Z
 LOCATION:King George Middle School Parking Lot - 8246 Dahlgren Road King George VA 22485
 DTSTART:20251025T120000Z
 SUMMARY:King George Farmers Market
 UID:9711390883eee30a582afa678994bdefa34fa2bb
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T000012Z
+DTSTAMP:20250930T001900Z
+DESCRIPTION:Come celebrate Halloween with us! This event is open to all kids 10 and under.\nhttps://www.eventbrite.com/e/dcvfd-fall-festival-tickets-1514238611449
+DTEND:20251025T190000Z
+LAST-MODIFIED:20250930T001900Z
+LOCATION:Desanto Community Hall - 13511 Hillendale Drive\, Woodbridge\, VA 22193 Woodbridge VA 22193
+DTSTART:20251025T170000Z
+SUMMARY:DCVFD Fall Festival
+UID:450084f78cc99968c812f9334ece8329de2a15fd
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250930T001900Z
+DESCRIPTION:Get your Christmas shopping done along with some free family fun!\nhttps://www.eventbrite.com/e/kris-kringle-market-tickets-1665309167549
+DTEND:20251206T220000Z
+LAST-MODIFIED:20250930T001900Z
+LOCATION:Remington Community Garden\, West Bowen Street\, Remington\, VA\, USA - 160 West Bowen Street\, Remington\, VA 22734 Remington VA 22734
+DTSTART:20251206T180000Z
+SUMMARY:Kris Kringle Market
+UID:69931c9ad7ff0571a3ef9f1ee0338258e66e963f
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250930T001900Z
+DESCRIPTION:https://www.eventbrite.com/e/family-readiness-advisor-assistant-training-tickets-1552949386419
+DTEND:20251007T230000Z
+LAST-MODIFIED:20250930T001900Z
+DTSTART:20251007T210000Z
+SUMMARY:Family Readiness Advisor & Assistant Training
+UID:3a305b9f7f5d75e0b5ddb78cb4207cf61ad05c26
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250930T001900Z
+DESCRIPTION:Come join us at the Patawomeck Halloween Festival & Craft Fair for a spooktacular time filled with crafts\, treats\, and fun!\nhttps://www.eventbrite.com/e/patawomeck-halloween-festival-craft-fair-tickets-1307729296529
+DTEND:20251025T200000Z
+LAST-MODIFIED:20250930T001900Z
+LOCATION:Patawomeck Museum &amp\; Cultural Center - 638 Kings Highway\, Fredericksburg\, VA 22405 Fredericksburg VA 22405
+DTSTART:20251025T150000Z
+SUMMARY:Patawomeck Halloween Festival & Craft Fair
+UID:f6270bcd8e408adb6b7388d82f4e768a92a8a165
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250930T001900Z
 DTEND:20251003T040000Z
-LAST-MODIFIED:20250930T000012Z
+LAST-MODIFIED:20250930T001900Z
 DTSTART:20251002T040000Z
 SUMMARY:No School (Yom Kippur)
 UID:7cfd45a5fc3f2cec5b6ddaf7f1626b822be1c60c
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T000012Z
+DTSTAMP:20250930T001900Z
+DESCRIPTION:Get ready for a fun-filled day of fall festivities at our Harvest Festival & Trunk or Treat - food\, games and community at its best!\nhttps://www.eventbrite.com/e/hope-hill-harvest-festival-trunk-or-treat-tickets-1664772341889
+DTEND:20251026T173000Z
+LAST-MODIFIED:20250930T001900Z
+LOCATION:Hope Hill Church - 15024 Dumfries Road\, Manassas\, VA 20112 Manassas VA 20112
+DTSTART:20251026T143000Z
+SUMMARY:Hope Hill Harvest Festival & Trunk-or-Treat
+UID:b4a4c9fe227b78cb51b5ef2e226bff07730f37f7
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250930T001900Z
 DTEND:20251002T040000Z
-LAST-MODIFIED:20250930T000012Z
+LAST-MODIFIED:20250930T001900Z
 DTSTART:20251001T040000Z
 SUMMARY:Fall Picture Day
 UID:f1eeb24ca6d693cfe2db2c140537ef964b617233
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T000012Z
+DTSTAMP:20250930T001900Z
+DESCRIPTION:You’re Invited! Join us for a day of fun\, food\, and fall festivities! Bring your family\, friends\, and celebrate! Free Event!\nhttps://www.eventbrite.com/e/fall-harvest-festival-tickets-1752179539169
+DTEND:20251101T200000Z
+LAST-MODIFIED:20250930T001900Z
+LOCATION:Alexandria Chapel Fellowship Hall - 5601 Chicamuxen Road\, Indian Head\, MD 20640 Indian Head MD 20640
+DTSTART:20251101T170000Z
+SUMMARY:FALL HARVEST FESTIVAL
+UID:68725b1c481a480789185a0929e5503f4e0af65b
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250930T001900Z
+DESCRIPTION:https://www.eventbrite.com/e/dcvfd-holiday-market-tickets-1754080194079
+DTEND:20251108T200000Z
+LAST-MODIFIED:20250930T001900Z
+DTSTART:20251108T150000Z
+SUMMARY:DCVFD Holiday Market
+UID:36ac59caa523ee40ef13e6b152181e706c0a0ca9
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250930T001900Z
+DESCRIPTION:Join us for a spooky good time at the Wilderness Halloween Festival & Car Show!\nhttps://www.eventbrite.com/e/wilderness-halloween-festival-car-show-tickets-1307723489159
+DTEND:20251019T200000Z
+LAST-MODIFIED:20250930T001900Z
+LOCATION:Wilderness Presidential Resort - 9220 Plank Road\, Spotsylvania Courthouse\, VA 22553 Spotsylvania Courthouse VA 22553
+DTSTART:20251019T150000Z
+SUMMARY:Wilderness Halloween Festival & Car Show
+UID:4a0dfa88c15eb2a38a01c6c0dc50ee6613805d1c
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250930T001900Z
 DTEND:20251122T050000Z
-LAST-MODIFIED:20250930T000012Z
+LAST-MODIFIED:20250930T001900Z
 DTSTART:20251121T050000Z
 SUMMARY:Turkey Trot Fun Run
 UID:3c5647b7889fdebd107e84b4ad0fc3a9ea37efd8
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T000012Z
+DTSTAMP:20250930T001900Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4326\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20251004T160000Z
-LAST-MODIFIED:20250930T000012Z
+LAST-MODIFIED:20250930T001900Z
 LOCATION:King George Middle School Parking Lot - 8246 Dahlgren Road King George VA 22485
 DTSTART:20251004T120000Z
 SUMMARY:King George Farmers Market
 UID:8ac6f1c4109b259abd5817c8880b64d4cf11d7fc
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T000012Z
+DTSTAMP:20250930T001900Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4333\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20251018T200000Z
-LAST-MODIFIED:20250930T000012Z
+LAST-MODIFIED:20250930T001900Z
 LOCATION:Graves Mountain Apple Harvest Festival - Syria VA 22743
 DTSTART:20251018T130000Z
 SUMMARY:KGP&R Regional Trip—Graves Mountain Apple Harvest Festival
 UID:ea03ffc86417600680d5dfdf309919751a27bae2
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T000012Z
+DTSTAMP:20250930T001900Z
 DTEND:20251014T040000Z
-LAST-MODIFIED:20250930T000012Z
+LAST-MODIFIED:20250930T001900Z
 DTSTART:20251013T040000Z
 SUMMARY:No School (Inservice/Workday)
 UID:3c75aae7e418a96b41dc29e2536ccaec4c0d269f
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T000012Z
+DTSTAMP:20250930T001900Z
+DESCRIPTION:Discover the flavors and traditions of Thailand at DMV\, with a wide range of authentic food\, drinks\, and cultural performances.\nhttps://www.eventbrite.com/e/nva-thai-street-food-culture-festival-tickets-1623821617169
+DTEND:20251012T210000Z
+LAST-MODIFIED:20250930T001900Z
+LOCATION:The Manassas Museum - 9101 Prince William Street\, Manassas\, VA 20110 Manassas VA 20110
+DTSTART:20251012T140000Z
+SUMMARY:NVA Thai Street Food & Culture Festival
+UID:8ed8089e409ba8607a59d2b48a5f443ecd855f36
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250930T001900Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4328\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20251018T160000Z
-LAST-MODIFIED:20250930T000012Z
+LAST-MODIFIED:20250930T001900Z
 LOCATION:King George Middle School Parking Lot - 8246 Dahlgren Road King George VA 22485
 DTSTART:20251018T120000Z
 SUMMARY:King George Farmers Market
 UID:636f5074af6e49061cc2b8bd7285400f7b93d602
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T000012Z
+DTSTAMP:20250930T001900Z
 DTEND:20251129T050000Z
-LAST-MODIFIED:20250930T000012Z
+LAST-MODIFIED:20250930T001900Z
 DTSTART:20251126T050000Z
 SUMMARY:Fall Break (No School for Students & Staff)
 UID:3184b5e76ee9d823fa77db7dfbbad411f2eae0c2
