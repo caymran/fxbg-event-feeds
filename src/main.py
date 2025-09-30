@@ -1,149 +1,78 @@
-import os, json, yaml, re
+# src/main.py
+import os
+import json
+import yaml
+import fnmatch
+import re
+import logging
 from datetime import datetime, timedelta, timezone
 from dateutil import tz, parser
 from ics import Calendar, Event
+from bs4 import BeautifulSoup
+from urllib.parse import urlsplit
+
+# ---- Add TRACE level ---------------------------------------------------------
+TRACE = 5
+logging.addLevelName(TRACE, "TRACE")
+
+def _trace(self, msg, *args, **kwargs):
+    if self.isEnabledFor(TRACE):
+        self._log(TRACE, msg, args, **kwargs)
+
+logging.Logger.trace = _trace  # type: ignore[attr-defined]
+
+def _init_logging():
+    # FEEDS_LOG_LEVEL overrides; otherwise honor FEEDS_TRACE/FEEDS_DEBUG
+    env_level = os.getenv("FEEDS_LOG_LEVEL", "").upper().strip()
+    if not env_level:
+        if os.getenv("FEEDS_TRACE"):
+            env_level = "TRACE"
+        elif os.getenv("FEEDS_DEBUG"):
+            env_level = "DEBUG"
+        else:
+            env_level = "INFO"
+
+    level_map = {
+        "CRITICAL": logging.CRITICAL,
+        "ERROR": logging.ERROR,
+        "WARNING": logging.WARNING,
+        "INFO": logging.INFO,
+        "DEBUG": logging.DEBUG,
+        "TRACE": TRACE,
+        "NOTSET": logging.NOTSET,
+    }
+    level = level_map.get(env_level, logging.INFO)
+
+    fmt = "%(asctime)s %(levelname)-5s %(name)s :: %(message)s"
+    logging.basicConfig(level=level, format=fmt)
+
+_init_logging()
+log = logging.getLogger("main")
+
+# ---- ics ContentLine compatibility shim -------------------------------------
 try:
     from ics.grammar.parse import ContentLine
 except Exception:
     try:
-        from ics.grammar.line import ContentLine
+        from ics.grammar.line import ContentLine  # type: ignore
     except Exception:
-        ContentLine = None
-from sources import fetch_rss, fetch_ics, fetch_html, fetch_eventbrite, fetch_bandsintown, fetch_freepress_calendar, fetch_thrillshare_ical
+        ContentLine = None  # type: ignore
 
-# ---- Macaroni KID import & fallback ----
-try:
-    from sources import fetch_macaronikid_fxbg_playwright
-except Exception:
-    fetch_macaronikid_fxbg_playwright = None
+# ---- Source import surface ---------------------------------------------------
+from sources import (
+    fetch_rss,
+    fetch_ics,
+    fetch_html,
+    fetch_eventbrite,
+    fetch_bandsintown,
+    fetch_freepress_calendar,
+    fetch_thrillshare_ical,
+    fetch_macaronikid_fxbg,                 # requests/cloudscraper/sitemap
+    fetch_macaronikid_fxbg_playwright,      # may be None if playwright missing
+)
 
-from sources import fetch_macaronikid_fxbg  # requests fallback
-
+# ---- Utils -------------------------------------------------------------------
 from utils import hash_event, parse_when, categorize_text
-from bs4 import BeautifulSoup
-from urllib.parse import urlsplit
-import fnmatch
-import re
-from urllib.parse import urlsplit
-import fnmatch
-
-def _host_from(ev: dict) -> str:
-    src = (ev.get("source") or "").strip()
-    link = (ev.get("link") or "").strip()
-    try:
-        return (urlsplit(link or src).netloc or "").lower()
-    except Exception:
-        return ""
-
-def is_dropped(ev: dict, cfg: dict) -> bool:
-    """Keep this if you still want general drop rules (non-sports)."""
-    drops = cfg.get("drop", {})
-    title = (ev.get("title") or "").strip()
-    location = (ev.get("location") or "").strip()
-    host = _host_from(ev)
-
-    for dom in drops.get("domains", []):
-        dom = dom.lower().strip()
-        if dom and host.endswith(dom):
-            return True
-
-    for pat in drops.get("title_regex", []):
-        try:
-            if re.search(pat, title, re.IGNORECASE):
-                return True
-        except re.error:
-            pass
-
-    for pat in drops.get("title_glob", []):
-        if fnmatch.fnmatch(title.lower(), pat.lower()):
-            return True
-
-    for pat in drops.get("location_regex", []):
-        try:
-            if re.search(pat, location, re.IGNORECASE):
-                return True
-        except re.error:
-            pass
-
-    return False
-
-def route_to_sports(ev: dict, cfg: dict) -> bool:
-    """Return True if event should be routed into the sports calendar."""
-    rt = cfg.get("route_to_sports", {})
-    title = (ev.get("title") or "").strip()
-    location = (ev.get("location") or "").strip()
-    host = _host_from(ev)
-
-    # Host/domain routing
-    for dom in rt.get("domains", []):
-        dom = dom.lower().strip()
-        if dom and host.endswith(dom):
-            return True
-
-    # Title patterns (regex + glob)
-    for pat in rt.get("title_regex", []):
-        try:
-            if re.search(pat, title, re.IGNORECASE):
-                return True
-        except re.error:
-            pass
-
-    for pat in rt.get("title_glob", []):
-        if fnmatch.fnmatch(title.lower(), pat.lower()):
-            return True
-
-    # Location patterns
-    for pat in rt.get("location_regex", []):
-        try:
-            if re.search(pat, location, re.IGNORECASE):
-                return True
-        except re.error:
-            pass
-
-    return False
-
-def is_dropped(ev: dict, cfg: dict) -> bool:
-    """Return True if event should be dropped per config.drop_* filters."""
-    drops = cfg.get("drop", {})
-    title = (ev.get("title") or "").strip()
-    location = (ev.get("location") or "").strip()
-    source = (ev.get("source") or "").strip()
-    link = (ev.get("link") or "").strip()
-    host = ""
-    try:
-        host = urlsplit(link or source).netloc.lower()
-    except Exception:
-        pass
-
-    # domain/host filters
-    for dom in drops.get("domains", []):
-        dom = dom.lower().strip()
-        if dom and host.endswith(dom):
-            return True
-
-    # title regex filters
-    for pat in drops.get("title_regex", []):
-        try:
-            if re.search(pat, title, re.IGNORECASE):
-                return True
-        except re.error:
-            pass
-
-    # title glob filters (simple wildcards)
-    for pat in drops.get("title_glob", []):
-        if fnmatch.fnmatch(title.lower(), pat.lower()):
-            return True
-
-    # location regex filters
-    for pat in drops.get("location_regex", []):
-        try:
-            if re.search(pat, location, re.IGNORECASE):
-                return True
-        except re.error:
-            pass
-
-    return False
-
 
 HTML_TAG_RE = re.compile(r"<[^>]+>")
 WS_RE = re.compile(r"[ \t\f\v]+")
@@ -160,8 +89,31 @@ BOILERPLATE_LINE_PATTERNS = [
     re.compile(r"^\s*get your free ticket here\s*$", re.I),
 ]
 
+# Add to BOILERPLATE_LINE_PATTERNS
+BOILERPLATE_LINE_PATTERNS += [
+    re.compile(r"^\s*Eventbrite\b.*$", re.I),
+    re.compile(r"^\s*Find my tickets\b.*$", re.I),
+    re.compile(r"^\s*Log In\s*Sign Up\s*$", re.I),
+    re.compile(r"^\s*Create Events\b.*$", re.I),
+    re.compile(r"^\s*Solutions\b.*$", re.I),
+    re.compile(r"^\s*Community Guidelines\b.*$", re.I),
+    re.compile(r"^\s*Help Center\b.*$", re.I),
+    re.compile(r"^\s*Privacy\b.*$", re.I),
+    re.compile(r"^\s*Do Not Sell or Share My Personal Information\b.*$", re.I),
+]
+
+DATA_EVENTS = "data/events.json"
+DOCS_DIR = "docs"
+
+def _host_from(ev: dict) -> str:
+    src = (ev.get("source") or "").strip()
+    link = (ev.get("link") or "").strip()
+    try:
+        return (urlsplit(link or src).netloc or "").lower()
+    except Exception:
+        return ""
+
 def strip_html_to_text(html: str) -> str:
-    """Turn HTML into plain text with REAL newlines (not literal \\n)."""
     if not html:
         return ""
     try:
@@ -171,25 +123,9 @@ def strip_html_to_text(html: str) -> str:
         txt = txt.replace("&nbsp;", " ").replace("&amp;", "&")
     lines = [WS_RE.sub(" ", ln).strip() for ln in txt.splitlines()]
     lines = [ln for ln in lines if ln]
-    # return real newline characters; ics.py will escape/fold correctly
     return "\n".join(lines)
 
-def clean_location_field(raw_loc: str) -> str:
-    if not raw_loc:
-        return ""
-    s = raw_loc.strip()
-    # If it looks like HTML, strip tags safely; fallback to regex
-    if "<" in s and ">" in s:
-        try:
-            s = BeautifulSoup(s, "html.parser").get_text(" ")
-        except Exception:
-            s = HTML_TAG_RE.sub("", s)
-    # collapse whitespace and trim common junk separators
-    s = WS_RE.sub(" ", s).strip(" -–—|")
-    return s
-
 def tidy_desc_text(text: str) -> str:
-    """Remove boilerplate lines and collapse whitespace; keep meaningful lines."""
     if not text:
         return ""
     out = []
@@ -197,11 +133,9 @@ def tidy_desc_text(text: str) -> str:
         s = ln.strip()
         if not s:
             continue
-        # drop boilerplate markers like "View on site", a lone "|" etc.
         if any(pat.match(s) for pat in BOILERPLATE_LINE_PATTERNS):
             continue
         out.append(s)
-    # collapse runs of duplicate lines while preserving order
     dedup = []
     seen = set()
     for s in out:
@@ -213,23 +147,96 @@ def tidy_desc_text(text: str) -> str:
     return "\n".join(dedup)
 
 def add_html_description(event_obj, html: str):
-    if not html:
+    if not html or not ContentLine:
         return
     try:
-        if ContentLine:
-            event_obj.extra.append(
-                ContentLine(name="X-ALT-DESC", params={"FMTTYPE": "text/html"}, value=html)
-            )
+        event_obj.extra.append(
+            ContentLine(name="X-ALT-DESC", params={"FMTTYPE": "text/html"}, value=html)
+        )
     except Exception:
-        # best-effort; ignore if ics library doesn't support extra lines
         pass
 
+EVENTBRITE_LOC_START_RE = re.compile(r"\bLocation\b[:\s]*", re.I)
+EVENTBRITE_LOC_STOP_MARKERS = [
+    r"\bGet directions\b",
+    r"\bGood to know\b",
+    r"\bHighlights\b",
+    r"\bAbout this event\b",
+    r"\bTags\b",
+    r"\bOrganized by\b",
+    r"\bReport this event\b",
+    r"\bFree\b",
+    r"\bMultiple dates\b",
+]
 
-DATA_EVENTS = 'data/events.json'
-DOCS_DIR = 'docs'
+def _extract_eventbrite_location(big: str) -> str:
+    """
+    From a huge Eventbrite page-dump string that includes site chrome, pull out the
+    address block that follows 'Location' and ends before common section markers.
+    Returns '' if no confident extraction.
+    """
+    if not big:
+        return ""
+    # Normalize whitespace to simplify slicing.
+    txt = WS_RE.sub(" ", strip_html_to_text(big)).strip()
+    # Only try if it clearly looks like Eventbrite chrome
+    if "Eventbrite" not in txt or "Find my tickets" not in txt:
+        return ""
+
+    # Find where 'Location' starts
+    m = EVENTBRITE_LOC_START_RE.search(txt)
+    if not m:
+        return ""
+    start_idx = m.end()
+
+    # Find the earliest stop marker after start
+    stop_idx = len(txt)
+    for pat in EVENTBRITE_LOC_STOP_MARKERS:
+        mm = re.search(pat, txt[start_idx:], flags=re.I)
+        if mm:
+            stop_idx = min(stop_idx, start_idx + mm.start())
+
+    chunk = txt[start_idx:stop_idx].strip(" -–—|")
+    # De-duplicate repeated address lines like "320 Emancipation Hwy 320 Emancipation Highway ..."
+    # Heuristic: collapse triple+ spaces, remove consecutive duplicate tokens.
+    parts = [p.strip() for p in re.split(r"[,\s]{2,}", chunk) if p.strip()]
+    dedup = []
+    seen = set()
+    for p in parts:
+        key = p.lower()
+        if key in seen:
+            continue
+        seen.add(key)
+        dedup.append(p)
+    # Rebuild; prefer commas between likely address tokens
+    loc = ", ".join(dedup)
+    # Trim obvious trailing noise like ZIP repeated twice, or dangling words.
+    loc = re.sub(r"(?:,?\s*(Get directions|Good to know|Highlights).*)$", "", loc, flags=re.I).strip(", ")
+    return loc
+
+# ---- modify existing clean_location_field ----
+def clean_location_field(raw_loc: str) -> str:
+    if not raw_loc:
+        return ""
+    s = raw_loc.strip()
+    if "<" in s and ">" in s:
+        try:
+            from bs4 import BeautifulSoup as _BS
+            s = _BS(s, "html.parser").get_text(" ")
+        except Exception:
+            s = HTML_TAG_RE.sub("", s)
+    s = WS_RE.sub(" ", s).strip(" -–—|")
+
+    # NEW: If it looks like the giant Eventbrite page dump, extract the true location.
+    if ("Eventbrite" in s and "Find my tickets" in s) or len(s) > 400:
+        eb_loc = _extract_eventbrite_location(s)
+        if eb_loc:
+            return eb_loc
+
+    return s
+
 
 def _clean_title_and_location(raw_title: str, existing_loc: str | None) -> tuple[str, str | None]:
-    """Remove 'Mon dd, yyyy: ' prefix and peel trailing ' at Location' into LOCATION if not provided."""
     title = (raw_title or "").strip()
     title = DATE_PREFIX_RE.sub("", title).strip()
     loc = (existing_loc or "").strip()
@@ -239,6 +246,8 @@ def _clean_title_and_location(raw_title: str, existing_loc: str | None) -> tuple
             loc = m.group(1).strip()
             title = TRAILING_AT_RE.sub("", title).strip()
     return title, (loc or None)
+
+
 
 def normalize_event(raw, timezone='America/New_York'):
     title = (raw.get('title') or '').strip()
@@ -252,9 +261,13 @@ def normalize_event(raw, timezone='America/New_York'):
     title, loc2 = _clean_title_and_location(title, loc)
     if loc2 is not None:
         loc = loc2
-    # strip any HTML and tidy whitespace in LOCATION
     loc = clean_location_field(loc)
 
+    # If location is still empty or still looks like EB chrome, try to extract from description
+    if (not loc) or ("Eventbrite" in loc and "Find my tickets" in loc):
+        maybe = _extract_eventbrite_location(desc or "")
+        if maybe:
+            loc = maybe
 
     def to_dt(x):
         if not x: return None
@@ -272,11 +285,12 @@ def normalize_event(raw, timezone='America/New_York'):
         if sdt and not edt:
             edt = edt2
     if not title or not sdt:
+        log.debug("normalize_event: drop (missing title/start) title=%r start=%r src=%r", title, start, raw.get("source"))
         return None
     if not edt:
         edt = sdt + timedelta(hours=2)
 
-    return {
+    out = {
         'title': title,
         'description': desc,
         'location': loc,
@@ -285,21 +299,18 @@ def normalize_event(raw, timezone='America/New_York'):
         'link': link,
         'source': raw.get('source'),
     }
+    log.trace("normalize_event -> %s @ %s", out['title'], out['start'])
+    return out
 
 def to_ics_event(ev):
     e = Event()
-    # SUMMARY
     e.name = ev['title']
-
-    # DTSTART/DTEND
     e.begin = ev['start']
     e.end = ev['end']
 
-    # LOCATION
     if ev.get('location'):
         e.location = ev['location']
 
-    # DESCRIPTION (plain text) + X-ALT-DESC (html if original looked like HTML)
     desc_html = ev.get('description') or ''
     if '<' in desc_html and '>' in desc_html:
         desc_text = strip_html_to_text(desc_html)
@@ -307,7 +318,6 @@ def to_ics_event(ev):
         desc_text = desc_html
     desc_text = tidy_desc_text(desc_text)
 
-    # add link as a final line if not already present
     link = ev.get('link')
     if link and (link not in desc_text.split()):
         desc_text = (desc_text + ("\n" if desc_text else "") + link)
@@ -315,18 +325,15 @@ def to_ics_event(ev):
     if desc_text:
         e.description = desc_text
 
-    # If it appears to be HTML, also include HTML alt description
     if desc_html and (('<' in desc_html and '>' in desc_html) or desc_html.strip().startswith('&lt;')):
         add_html_description(e, desc_html)
 
-    # Stable UID from our own hash (set later once id is attached)
     if 'id' in ev:
         try:
             e.uid = ev['id']
         except Exception:
             pass
 
-    # Metadata
     now_utc = datetime.now(timezone.utc)
     try:
         e.created = now_utc
@@ -342,15 +349,17 @@ def build_cals(events, out_dir):
     recurring = Calendar()
     sports = Calendar()
 
+    cat_counts = {"family": 0, "adult": 0, "recurring": 0, "sports": 0}
+
     for ev in events:
         if ev['category'] == 'family':
-            family.events.add(to_ics_event(ev))
+            family.events.add(to_ics_event(ev)); cat_counts["family"] += 1
         elif ev['category'] == 'recurring':
-            recurring.events.add(to_ics_event(ev))
+            recurring.events.add(to_ics_event(ev)); cat_counts["recurring"] += 1
         elif ev['category'] == 'sports':
-            sports.events.add(to_ics_event(ev))
+            sports.events.add(to_ics_event(ev)); cat_counts["sports"] += 1
         else:
-            adult.events.add(to_ics_event(ev))
+            adult.events.add(to_ics_event(ev)); cat_counts["adult"] += 1
 
     os.makedirs(out_dir, exist_ok=True)
     with open(os.path.join(out_dir, 'family.ics'), 'w', encoding='utf-8', newline='\n') as f:
@@ -362,6 +371,84 @@ def build_cals(events, out_dir):
     with open(os.path.join(out_dir, 'sports.ics'), 'w', encoding='utf-8', newline='\n') as f:
         f.writelines(sports.serialize_iter())
 
+    log.info("Wrote calendars to %s (family=%d, adult=%d, recurring=%d, sports=%d)",
+             out_dir, cat_counts["family"], cat_counts["adult"], cat_counts["recurring"], cat_counts["sports"])
+
+def _looks_like_time_or_range(txt: str) -> bool:
+    if not txt: return False
+    t = txt.lower()
+    pat_range = r'(\d{1,2}(:\d{2})?\s*(a\.m\.|am|p\.m\.|pm))\s*[–\-to]{1,3}\s*(\d{1,2}(:\d{2})?\s*(a\.m\.|am|p\.m\.|pm))'
+    pat_single = r'\b(\d{1,2}(:\d{2})?\s*(a\.m\.|am|p\.m\.|pm)|noon|midnight)\b'
+    return bool(re.search(pat_range, t)) or bool(re.search(pat_single, t))
+
+def route_to_sports(ev: dict, cfg: dict) -> bool:
+    rt = cfg.get("route_to_sports", {})
+    title = (ev.get("title") or "").strip()
+    location = (ev.get("location") or "").strip()
+    host = _host_from(ev)
+
+    for dom in rt.get("domains", []):
+        dom = dom.lower().strip()
+        if dom and host.endswith(dom):
+            return True
+
+    for pat in rt.get("title_regex", []):
+        try:
+            if re.search(pat, title, re.IGNORECASE):
+                return True
+        except re.error:
+            pass
+
+    for pat in rt.get("title_glob", []):
+        if fnmatch.fnmatch(title.lower(), pat.lower()):
+            return True
+
+    for pat in rt.get("location_regex", []):
+        try:
+            if re.search(pat, location, re.IGNORECASE):
+                return True
+        except re.error:
+            pass
+
+    return False
+
+def is_dropped(ev: dict, cfg: dict) -> bool:
+    drops = cfg.get("drop", {})
+    title = (ev.get("title") or "").strip()
+    location = (ev.get("location") or "").strip()
+    source = (ev.get("source") or "").strip()
+    link = (ev.get("link") or "").strip()
+    host = ""
+    try:
+        host = urlsplit(link or source).netloc.lower()
+    except Exception:
+        pass
+
+    for dom in drops.get("domains", []):
+        dom = dom.lower().strip()
+        if dom and host.endswith(dom):
+            return True
+
+    for pat in drops.get("title_regex", []):
+        try:
+            if re.search(pat, title, re.IGNORECASE):
+                return True
+        except re.error:
+            pass
+
+    for pat in drops.get("title_glob", []):
+        if fnmatch.fnmatch(title.lower(), pat.lower()):
+            return True
+
+    for pat in drops.get("location_regex", []):
+        try:
+            if re.search(pat, location, re.IGNORECASE):
+                return True
+        except re.error:
+            pass
+
+    return False
+
 def main():
     cfg = yaml.safe_load(open('config.yaml','r',encoding='utf-8'))
     timezone = cfg.get('timezone', 'America/New_York')
@@ -369,48 +456,56 @@ def main():
     keep_days = int(cfg.get('max_future_days', 365))
 
     collected = []
-    debug = bool(os.getenv('FEEDS_DEBUG'))
-    debug = bool(os.getenv('FEEDS_DEBUG'))
+
+    log.info("Config: tz=%s keep_days=%s sources=%d", timezone, keep_days, len(cfg.get('sources', [])))
+    if os.getenv("FEEDS_DEBUG") or os.getenv("FEEDS_TRACE"):
+        log.debug("Keywords buckets: %s", list(rules.keys()))
 
     for src in cfg.get('sources', []):
-        if debug: print(f"→ Fetching: {src.get('name')} [{src.get('type')}] {src.get('url')}")
-        if debug: print(f"→ Fetching: {src.get('name')} [{src.get('type')}] {src.get('url')}")
-        t = src.get('type')
+        name = src.get('name')
+        typ = src.get('type')
+        url = src.get('url')
+        log.info("→ Fetching: %s [%s] %s", name, typ, url)
+
         try:
-            if t == 'rss':
-                got = fetch_rss(src['url']); collected += got; print(f"   rss events: {len(got)}") if debug else None
-            elif t == 'ics':
-                got = fetch_ics(src['url']); collected += got; print(f"   ics events: {len(got)}") if debug else None
-            elif t == 'thrillshare_ical':
-                got = fetch_thrillshare_ical(src['url']); collected += got
-                if debug: print(f"   thrillshare ICS events: {len(got)}")
-            elif t == 'html':
-                got = fetch_html(src['url'], src.get('html', {})); collected += got; print(f"   html events: {len(got)}") if debug else None
-            elif t == 'eventbrite' and cfg.get('enable_eventbrite', True):
+            got = []
+            if typ == 'rss':
+                got = fetch_rss(url); log.debug("   rss events: %d", len(got))
+            elif typ == 'ics':
+                got = fetch_ics(url); log.debug("   ics events: %d", len(got))
+            elif typ == 'thrillshare_ical':
+                got = fetch_thrillshare_ical(url); log.debug("   thrillshare ICS events: %d", len(got))
+            elif typ == 'html':
+                got = fetch_html(url, src.get('html', {})); log.debug("   html events: %d", len(got))
+            elif typ == 'eventbrite' and cfg.get('enable_eventbrite', True):
                 token = os.getenv('EVENTBRITE_TOKEN') or cfg.get('eventbrite_token')
-                got = fetch_eventbrite(src['url'], token_env=token); collected += got; print(f"   eventbrite events: {len(got)}") if debug else None
-            elif t == 'bandsintown' and cfg.get('enable_bandsintown', True):
+                got = fetch_eventbrite(url, token_env=token); log.debug("   eventbrite events: %d", len(got))
+            elif typ == 'bandsintown' and cfg.get('enable_bandsintown', True):
                 appid = os.getenv('BANDSINTOWN_APP_ID') or cfg.get('bandsintown_app_id')
-                got = fetch_bandsintown(src['url'], app_id_env=appid); collected += got; print(f"   bandsintown events: {len(got)}") if debug else None
-            elif t == 'macaronikid_fxbg':
-                got = []
+                got = fetch_bandsintown(url, app_id_env=appid); log.debug("   bandsintown events: %d", len(got))
+            elif typ == 'macaronikid_fxbg':
                 if fetch_macaronikid_fxbg_playwright:
+                    log.debug("   MacKID: trying Playwright crawler …")
                     try:
-                        got = fetch_macaronikid_fxbg_playwright()
+                        # headless can be toggled via FEEDS_PW_HEADLESS=0
+                        headless = os.getenv("FEEDS_PW_HEADLESS", "1") != "0"
+                        got = fetch_macaronikid_fxbg_playwright(headless=headless)
                     except Exception as e:
-                        if debug:
-                            print("   MacKID (PW) failed, falling back to requests:", e)
+                        log.warning("   MacKID (PW) failed, falling back to requests: %s", e)
                         got = []
                 if not got:
+                    log.debug("   MacKID: using requests/sitemap fallback …")
                     got = fetch_macaronikid_fxbg()
-                collected += got
-                if debug: print(f"   macaroni events: {len(got)}")
-            elif t == 'freepress':
-                got = fetch_freepress_calendar(src['url']);collected += got
-                print(f"   freepress events: {len(got)}")
-
+                log.info("   macaroni events: %d", len(got))
+            elif typ == 'freepress':
+                got = fetch_freepress_calendar(url)
+                log.info("   freepress events: %d", len(got))
+            else:
+                log.warning("Unknown source type %r for %s", typ, name)
+                got = []
+            collected += got
         except Exception as e:
-            print("WARN source failed:", src.get('name'), e)
+            log.exception("WARN source failed: %s (%s)", name, e)
 
     for m in cfg.get('manual_events', []):
         collected.append({
@@ -423,35 +518,28 @@ def main():
             'link': m.get('link'),
         })
 
+    log.info("Collected raw events: %d", len(collected))
+
     norm = []
     for raw in collected:
         ev = normalize_event(raw, timezone=timezone)
         if not ev:
-            if os.getenv('FEEDS_DEBUG'):
-                ttl = (raw.get('title') or '')[:120]
-                src = raw.get('source')
-                dt = raw.get('start') or ''
-                print(f"   · Dropped (no normalized datetime/title): '{ttl}' from {src} raw_start='{dt}'")
+            ttl = (raw.get('title') or '')[:120]
+            src = raw.get('source')
+            dtv = raw.get('start') or ''
+            log.debug("   · Dropped (no normalized datetime/title): '%s' from %s raw_start='%s'", ttl, src, dtv)
             continue
 
-        # sanitize location if it looks like a time string, and round times
-        def looks_like_time_or_range(txt: str) -> bool:
-            if not txt: return False
-            t = txt.lower()
-            pat_range = r'(\d{1,2}(:\d{2})?\s*(a\.m\.|am|p\.m\.|pm))\s*[–\-to]{1,3}\s*(\d{1,2}(:\d{2})?\s*(a\.m\.|am|p\.m\.|pm))'
-            pat_single = r'\b(\d{1,2}(:\d{2})?\s*(a\.m\.|am|p\.m\.|pm)|noon|midnight)\b'
-            return bool(re.search(pat_range, t)) or bool(re.search(pat_single, t))
-
-        if ev.get('location') and looks_like_time_or_range(ev['location']):
+        if ev.get('location') and _looks_like_time_or_range(ev['location']):
+            log.trace("location looked like time; clearing: %r", ev['location'])
             ev['location'] = ''
-        # round datetimes to the minute
+
         ev['start'] = ev['start'].replace(second=0, microsecond=0)
         if ev.get('end'):
             ev['end'] = ev['end'].replace(second=0, microsecond=0)
 
         ev['category'] = categorize_text(ev['title'], ev.get('description',''), rules)
 
-        # FORCE FAMILY FOR GWES + Macaroni KID
         host = _host_from(ev)
         if (ev.get('source') in ('macaronikid', 'thrillshare')
             or host.endswith('fxbgschools.us')
@@ -460,20 +548,11 @@ def main():
 
         ev['id'] = hash_event(ev['title'], ev['start'], ev.get('location',''))
 
-        # Route to sports bucket if configured to do so
         if route_to_sports(ev, cfg):
             ev['category'] = 'sports'
 
-        # Optional: keep generic drop rules for other noisy items
         if is_dropped(ev, cfg):
-            if os.getenv('FEEDS_DEBUG'):
-                print(f"   · Dropped by rule: '{ev['title']}' ({ev.get('source')})")
-            continue
-
-        # drop via config rules (e.g., UMW sports)
-        if is_dropped(ev, cfg):
-            if os.getenv('FEEDS_DEBUG'):
-                print(f"   · Dropped by rule: '{ev['title']}' ({ev.get('source')})")
+            log.debug("   · Dropped by rule: '%s' (%s)", ev['title'], ev.get('source'))
             continue
 
         norm.append(ev)
@@ -488,11 +567,12 @@ def main():
     filtered.sort(key=lambda x: x['start'])
 
     os.makedirs('data', exist_ok=True)
-    with open('data/events.json', 'w', encoding='utf-8') as f:
+    with open(DATA_EVENTS, 'w', encoding='utf-8') as f:
         json.dump({'events': filtered}, f, indent=2, default=str)
+    log.info("Wrote %s (events=%d)", DATA_EVENTS, len(filtered))
 
     build_cals(filtered, DOCS_DIR)
-    print(f"Built {DOCS_DIR}/family.ics, adult.ics, recurring.ics with {len(filtered)} events.")
+    log.info("Built %s/family.ics, adult.ics, recurring.ics, sports.ics with %d events total.", DOCS_DIR, len(filtered))
 
 if __name__ == '__main__':
     main()
