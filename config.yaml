@@ -41,6 +41,33 @@ route_to_sports:
 
 # --- new sources: FCPS District + Gladys West Elementary ---
 sources:
+  # --- FXBG tourism/events (HTML crawler) ---
+  - name: FXBG Events
+    type: fxbg
+    url: https://fxbg.com/events/
+
+  # --- Spotsylvania Towne Centre (HTML crawler) ---
+  - name: Spotsylvania Towne Centre
+    type: spotsy_townecentre
+    url: https://www.spotsylvaniatownecentre.com/events/
+
+  # --- Spotsylvania ICS category feeds (CivicEngage) ---
+  - name: Spotsy Calendar catID 50
+    type: ics
+    url: https://www.spotsylvania.va.us/common/modules/iCalendar/iCalendar.aspx?catID=50&feed=calendar
+
+  - name: Spotsy Calendar catID 23
+    type: ics
+    url: https://www.spotsylvania.va.us/common/modules/iCalendar/iCalendar.aspx?catID=23&feed=calendar
+
+  - name: Spotsy Calendar catID 66
+    type: ics
+    url: https://www.spotsylvania.va.us/common/modules/iCalendar/iCalendar.aspx?catID=66&feed=calendar
+
+  - name: Spotsy Calendar catID 54
+    type: ics
+    url: https://www.spotsylvania.va.us/common/modules/iCalendar/iCalendar.aspx?catID=54&feed=calendar
+
   # Fredericksburg City Public Schools (district) events page
   - name: "FCPS District Events"
     type: html

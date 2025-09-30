@@ -67,10 +67,12 @@ from sources import (
     fetch_bandsintown,
     fetch_freepress_calendar,
     fetch_thrillshare_ical,
-    fetch_macaronikid_fxbg,                 # requests/cloudscraper/sitemap
-    fetch_macaronikid_fxbg_playwright,      # may be None if playwright missing
-    resolve_eventbrite_location,
+    fetch_macaronikid_fxbg,
+    fetch_macaronikid_fxbg_playwright,
+    fetch_fxbg_events,                # NEW
+    fetch_spotsy_townecentre,         # NEW
 )
+
 
 # ---- Utils -------------------------------------------------------------------
 from utils import hash_event, parse_when, categorize_text
@@ -647,6 +649,11 @@ def main():
             elif typ == 'freepress':
                 got = fetch_freepress_calendar(url)
                 log.info("   freepress events: %d", len(got))
+            elif typ == 'fxbg':
+                got = fetch_fxbg_events(url); log.debug("   fxbg events: %d", len(got))
+            elif typ == 'spotsy_townecentre':
+                got = fetch_spotsy_townecentre(url); log.debug("   spotsy_townecentre events: %d", len(got))
+
             else:
                 log.warning("Unknown source type %r for %s", typ, name)
                 got = []

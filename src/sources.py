@@ -969,6 +969,293 @@ def fetch_freepress_calendar(url: str, default_tz="America/New_York"):
 
     return out
 
+# ---------- FXBG (fxbg.com/events) ----------
+def fetch_fxbg_events(url: str, default_tz="America/New_York", user_agent="fxbg-event-bot/1.0"):
+    """
+    Crawl https://fxbg.com/events/:
+      - Prefer JSON-LD Event blocks on detail pages
+      - Fallback: parse list cards and derive date/time via parse_when()
+    Returns raw event dicts to be normalized by normalize_event().
+    """
+    if not robots_allowed(url, user_agent):
+        return []
+
+    status, body, _ = req_with_cache(url, headers={"User-Agent": user_agent}, throttle=(2, 5))
+    if status != 200 or not body:
+        return []
+
+    soup = BeautifulSoup(body, "html.parser")
+    out = []
+
+    # Find event cards/links
+    detail_links = set()
+    for a in soup.select("a[href]"):
+        href = (a.get("href") or "").strip()
+        if not href:
+            continue
+        # fxbg tends to have on-site event detail pages; filter obvious external junk
+        absu = urllib.parse.urljoin(url, href)
+        if "fxbg.com" in urllib.parse.urlsplit(absu).netloc and "/event" in urllib.parse.urlsplit(absu).path:
+            detail_links.add(absu)
+
+    # helper: parse JSON-LD Event from a detail page
+    def _parse_detail(ev_url: str):
+        st, html, _ = req_with_cache(ev_url, headers={"User-Agent": user_agent}, throttle=(1, 3))
+        if st != 200 or not html:
+            return None
+        s = BeautifulSoup(html, "html.parser")
+
+        # JSON-LD first
+        for tag in s.select('script[type="application/ld+json"]'):
+            try:
+                data = json.loads(tag.string or "")
+            except Exception:
+                continue
+
+            def try_emit(evt):
+                if not isinstance(evt, dict):
+                    return None
+                if evt.get("@type") not in ("Event", "Festival"):
+                    return None
+                name = _clean_text(evt.get("name", ""))
+                start = _parse_dt(evt.get("startDate"), default_tz)
+                end = _parse_dt(evt.get("endDate"), default_tz)
+                desc = _clean_text(evt.get("description", ""))
+                loc = _eb_location_str(evt.get("location"))  # reuse existing helper → "Name - addr"
+                if name and start:
+                    return {
+                        "title": name,
+                        "description": desc,
+                        "location": loc,
+                        "start": start.isoformat(),
+                        "end": end.isoformat() if end else None,
+                        "link": ev_url,
+                        "source": url,
+                    }
+                return None
+
+            if isinstance(data, dict):
+                cand = try_emit(data)
+                if cand:
+                    return cand
+                for node in (data.get("@graph") or []):
+                    cand = try_emit(node)
+                    if cand:
+                        return cand
+            elif isinstance(data, list):
+                for node in data:
+                    cand = try_emit(node)
+                    if cand:
+                        return cand
+
+        # Fallbacks from visible HTML
+        title_el = s.select_one("h1, .entry-title, [data-testid='event-title']")
+        title = _clean_text(title_el.get_text(" ", strip=True)) if title_el else ""
+        date_text = ""
+        # Common date containers
+        for sel in ("time[datetime]", ".event-date", ".date", ".wp-block-post-date", ".tribe-events-schedule"):
+            els = s.select(sel)
+            if els and not date_text:
+                date_text = " ".join(e.get("datetime") or e.get_text(" ", strip=True) for e in els if (e.get("datetime") or e.get_text(strip=True)))
+        sdt, edt = parse_when(_clean_text(date_text or ""), default_tz=default_tz)
+
+        # location guess
+        loc_guess = ""
+        loc_el = s.select_one(".event-location, [itemprop='location'], .location, .wp-block-columns .wp-block-column p")
+        if loc_el:
+            loc_guess = _clean_text(loc_el.get_text(" ", strip=True))
+
+        if title and sdt:
+            return {
+                "title": title,
+                "description": "",
+                "location": loc_guess,
+                "start": sdt.isoformat(),
+                "end": edt.isoformat() if edt else None,
+                "link": ev_url,
+                "source": url,
+            }
+        return None
+
+    # Visit detail pages
+    for ev_url in sorted(detail_links):
+        ev = _parse_detail(ev_url)
+        if ev:
+            out.append(ev)
+
+    # If nothing from detail pages, fall back to list parsing
+    if not out:
+        # Generic card scan
+        cards = soup.select("article, .event, .events, .wp-block-post")
+        for c in cards:
+            a = c.select_one("a[href]")
+            title = _clean_text(c.get_text(" ", strip=True))[:120]
+            href = urllib.parse.urljoin(url, a["href"]) if a and a.has_attr("href") else url
+            date_text = ""
+            t = c.select_one("time[datetime]")
+            if t and t.get("datetime"):
+                date_text = t["datetime"]
+            else:
+                dt_el = c.select_one(".date, .event-date, .wp-block-post-date")
+                if dt_el:
+                    date_text = dt_el.get_text(" ", strip=True)
+            sdt, edt = parse_when(_clean_text(date_text), default_tz=default_tz)
+            if title and sdt:
+                out.append({
+                    "title": title,
+                    "description": "",
+                    "location": "",
+                    "start": sdt.isoformat(),
+                    "end": edt.isoformat() if edt else None,
+                    "link": href,
+                    "source": url,
+                })
+
+    return out
+
+
+# ---------- Spotsylvania Towne Centre (spotsylvaniatownecentre.com/events) ----------
+def fetch_spotsy_townecentre(url: str, default_tz="America/New_York", user_agent="fxbg-event-bot/1.0"):
+    """
+    Crawl https://www.spotsylvaniatownecentre.com/events/
+      - Parse week groupings and event items
+      - Visit detail pages if available
+      - Prefer structured data on details; fallback to parse_when()
+    """
+    if not robots_allowed(url, user_agent):
+        return []
+
+    status, body, _ = req_with_cache(url, headers={"User-Agent": user_agent}, throttle=(2, 5))
+    if status != 200 or not body:
+        return []
+
+    soup = BeautifulSoup(body, "html.parser")
+    out = []
+
+    # The page lists by week; grab all event links/cards
+    detail_links = set()
+    for a in soup.select("a[href]"):
+        href = (a.get("href") or "").strip()
+        if not href:
+            continue
+        absu = urllib.parse.urljoin(url, href)
+        host = urllib.parse.urlsplit(absu).netloc
+        # keep on-site event detail pages
+        if "spotsylvaniatownecentre.com" in host and "/events/" in absu:
+            detail_links.add(absu)
+
+    def _parse_detail(ev_url: str):
+        st, html, _ = req_with_cache(ev_url, headers={"User-Agent": user_agent}, throttle=(1, 3))
+        if st != 200 or not html:
+            return None
+        s = BeautifulSoup(html, "html.parser")
+
+        # JSON-LD first
+        for tag in s.select('script[type="application/ld+json"]'):
+            try:
+                data = json.loads(tag.string or "")
+            except Exception:
+                continue
+
+            def emit(evt):
+                if not isinstance(evt, dict) or evt.get("@type") not in ("Event", "Festival"):
+                    return None
+                name = _clean_text(evt.get("name", ""))
+                start = _parse_dt(evt.get("startDate"), default_tz)
+                end = _parse_dt(evt.get("endDate"), default_tz)
+                desc = _clean_text(evt.get("description", ""))
+                loc = _eb_location_str(evt.get("location"))
+                if name and start:
+                    return {
+                        "title": name,
+                        "description": desc,
+                        "location": loc,
+                        "start": start.isoformat(),
+                        "end": end.isoformat() if end else None,
+                        "link": ev_url,
+                        "source": url,
+                    }
+                return None
+
+            if isinstance(data, dict):
+                cand = emit(data)
+                if cand:
+                    return cand
+                for node in (data.get("@graph") or []):
+                    cand = emit(node)
+                    if cand:
+                        return cand
+            elif isinstance(data, list):
+                for node in data:
+                    cand = emit(node)
+                    if cand:
+                        return cand
+
+        # Fallbacks
+        title_el = s.select_one("h1, .event-title, .entry-title")
+        title = _clean_text(title_el.get_text(" ", strip=True)) if title_el else ""
+
+        dt_text = ""
+        tnodes = s.select("time[datetime]")
+        if tnodes:
+            dt_text = " ".join(t.get("datetime") for t in tnodes if t.get("datetime"))
+        if not dt_text:
+            for sel in (".event-date", ".date", ".event-time", ".entry-meta"):
+                el = s.select_one(sel)
+                if el:
+                    dt_text = el.get_text(" ", strip=True)
+                    break
+        sdt, edt = parse_when(_clean_text(dt_text), default_tz=default_tz)
+
+        loc = ""
+        loc_el = s.select_one(".event-location, [itemprop='location'], .location, .venue")
+        if loc_el:
+            loc = _clean_text(loc_el.get_text(" ", strip=True))
+
+        if title and sdt:
+            return {
+                "title": title,
+                "description": "",
+                "location": loc,
+                "start": sdt.isoformat(),
+                "end": edt.isoformat() if edt else None,
+                "link": ev_url,
+                "source": url,
+            }
+        return None
+
+    for ev_url in sorted(detail_links):
+        ev = _parse_detail(ev_url)
+        if ev:
+            out.append(ev)
+
+    # If the site keeps everything on the listing page (no details),
+    # try to parse cards directly
+    if not out:
+        cards = soup.select("article, .event, .events-list li, .event-card")
+        for c in cards:
+            a = c.select_one("a[href]")
+            href = urllib.parse.urljoin(url, a["href"]) if a and a.has_attr("href") else url
+            title_el = c.select_one("h2, h3, .event-title, .card-title")
+            title = _clean_text(title_el.get_text(" ", strip=True)) if title_el else _clean_text(c.get_text(" ", strip=True))[:120]
+            dt_el = c.select_one("time[datetime], .date, .event-date, .when")
+            dt_text = ""
+            if dt_el:
+                dt_text = dt_el.get("datetime") or dt_el.get_text(" ", strip=True)
+            sdt, edt = parse_when(_clean_text(dt_text), default_tz=default_tz)
+            if title and sdt:
+                out.append({
+                    "title": title,
+                    "description": "",
+                    "location": "",
+                    "start": sdt.isoformat(),
+                    "end": edt.isoformat() if edt else None,
+                    "link": href,
+                    "source": url,
+                })
+
+    return out
+
 
 # ---------- Generic HTML fetcher with optional parser hint ----------
 def fetch_html(url, hints=None, user_agent="fxbg-event-bot/1.0", throttle=(2, 5)):
