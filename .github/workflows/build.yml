@@ -56,7 +56,7 @@ jobs:
       - name: Install Playwright browsers
         run: python -m playwright install --with-deps chromium
 
-     - name: Build calendars
+      - name: Build calendars
         run: |
           # Ensure output folders exist and Jekyll is disabled
           mkdir -p docs data
