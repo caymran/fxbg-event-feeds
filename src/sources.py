@@ -205,7 +205,7 @@ def fetch_thrillshare_ical(events_page_url, user_agent="fxbg-event-bot/1.0"):
     return events
 
 
-# ---------------- Eventbrite HTML crawler (discovery/list → detail) ----------------
+# ---------------- Eventbrite helpers & crawler ----------------
 def _eb_clean_text(s: str) -> str:
     if not s:
         return ""
@@ -213,38 +213,53 @@ def _eb_clean_text(s: str) -> str:
 
 
 def _eb_location_str(place):
-    """Build a single string for location from JSON-LD Place."""
+    """
+    Build a single string for location from JSON-LD Place or VirtualLocation.
+    Format:
+       - Place:   "<name> - <street> <city> <region> <postalCode>"
+       - Virtual: "Online" (optionally append " - <name>" if a label exists)
+    """
     if not place:
         return ""
-    name = ""
-    addr_txt = ""
+    if isinstance(place, list):
+        for p in place:
+            s = _eb_location_str(p)
+            if s:
+                return s
+        return ""
+
     if isinstance(place, dict):
+        typ = (place.get("@type") or place.get("type") or "").lower()
+        if "virtuallocation" in typ:
+            nm = (place.get("name") or "").strip()
+            return "Online" if not nm else f"Online - {nm}"
+
+        # Otherwise assume Place
         name = (place.get("name") or "").strip()
+        addr_txt = ""
         addr = place.get("address")
         if isinstance(addr, dict):
             parts = [
-                addr.get("streetAddress"),
-                addr.get("addressLocality"),
-                addr.get("addressRegion"),
-                addr.get("postalCode"),
+                (addr.get("streetAddress") or "").strip(),
+                (addr.get("addressLocality") or "").strip(),
+                (addr.get("addressRegion") or "").strip(),
+                (addr.get("postalCode") or "").strip(),
             ]
-            addr_txt = " ".join([p.strip() for p in parts if p and str(p).strip()])
+            addr_txt = " ".join([p for p in parts if p])
         elif isinstance(addr, str):
             addr_txt = addr.strip()
-    elif isinstance(place, list):
-        # take first
-        return _eb_location_str(place[0])
-    else:
-        name = str(place).strip()
-    if name and addr_txt:
-        return f"{name} - {addr_txt}"
-    return name or addr_txt
+
+        if name and addr_txt:
+            return f"{name} - {addr_txt}".strip(" -")
+        return (name or addr_txt or "").strip()
+
+    return str(place).strip()
 
 
 def _parse_eventbrite_detail(detail_url, user_agent=None, default_tz="America/New_York"):
     """
     Parse a single Eventbrite event page; prefer JSON-LD @type=Event, with
-    solid fallbacks for title/date/location from visible HTML/meta.
+    solid fallbacks for title/date/location/description from visible HTML/meta.
     """
     from dateutil import parser as dtp, tz as dttz
 
@@ -263,6 +278,148 @@ def _parse_eventbrite_detail(detail_url, user_agent=None, default_tz="America/Ne
 
     soup = BeautifulSoup(body, "html.parser")
 
+    # --- put these near the top of _parse_eventbrite_detail, after soup = BeautifulSoup(...)
+
+    _NAV_NOISE = re.compile(
+        r"(?:^|\b)(Log In|Sign Up|Find my tickets|Find Events|Eventbrite)\b",
+        re.I,
+    )
+
+
+    def _sanitize_text(txt: str) -> str:
+        if not txt:
+            return ""
+        # collapse whitespace
+        txt = re.sub(r"\s+", " ", txt).strip()
+        # nuke obvious chrome
+        txt = _NAV_NOISE.sub("", txt).strip(" -|•")
+        # collapse again after removals
+        txt = re.sub(r"\s{2,}", " ", txt)
+        return txt
+
+    def _extract_description(soup: BeautifulSoup, jsonld_desc: str | None) -> str:
+        """
+        Priority:
+          1) Visible 'About this event' block (or new EB description containers)
+          2) JSON-LD description (sanitized)
+          3) <meta property="og:description">
+        Return <= 800 chars, no nav boilerplate.
+        """
+        # 1) Visible long form
+        about = soup.find(
+            lambda t: t.name in ("section", "div")
+            and re.search(r"\bAbout this event\b", t.get_text(" ", strip=True), re.I)
+        ) or soup.select_one("[data-testid='event-description'], [data-spec='event-description']")
+        if about:
+            lines = [ln.strip() for ln in about.get_text("\n", strip=True).splitlines() if ln.strip()]
+            # drop UI crumbs / share bars
+            lines = [
+                ln for ln in lines
+                if not re.search(r"^(Share|Follow|Tags|Report this event)\b", ln, re.I)
+                and not _NAV_NOISE.search(ln)
+            ]
+            desc = "\n".join(lines).strip()
+            desc = re.sub(r"\n{3,}", "\n\n", desc)
+            return desc[:800].rstrip()
+
+        # 2) JSON-LD description
+        if jsonld_desc:
+            desc = BeautifulSoup(jsonld_desc, "html.parser").get_text(" ", strip=True)
+            desc = _sanitize_text(desc)
+            if desc:
+                return desc[:800].rstrip()
+
+        # 3) og:description
+        og = soup.select_one("meta[property='og:description'], meta[name='description']")
+        if og and og.get("content"):
+            desc = _sanitize_text(og["content"])
+            if desc:
+                return desc[:800].rstrip()
+
+        return ""
+
+    def _extract_location_from_html(soup: BeautifulSoup) -> str:
+        """
+        Try to pull a clean visible address; ignore nav chrome.
+        """
+        blk = soup.select_one("[data-testid='event-details-location']") \
+              or soup.select_one("[data-spec='event-details-location']")
+        if blk:
+            addr_tag = blk.find("address")
+            if addr_tag:
+                loc = _sanitize_text(addr_tag.get_text(" ", strip=True))
+                if loc and not _NAV_NOISE.search(loc) and len(loc) < 200:
+                    return loc
+            # fallback to short lines
+            lines = [ln.strip() for ln in blk.get_text("\n", strip=True).splitlines() if ln.strip()]
+            lines = [ln for ln in lines if not _NAV_NOISE.search(ln)][:3]
+            loc = _sanitize_text(" - ".join(lines))
+            if loc and len(loc) < 200:
+                return loc
+
+        # Classic microdata
+        loc_el = soup.select_one('[itemprop="location"]')
+        if loc_el:
+            name = loc_el.select_one('[itemprop="name"]')
+            name = name.get_text(" ", strip=True) if name else ""
+            addr = loc_el.select_one('[itemprop="address"]')
+            parts = []
+            if addr:
+                for prop in ("streetAddress", "addressLocality", "addressRegion", "postalCode"):
+                    node = addr.select_one(f'[itemprop="{prop}"]')
+                    if node:
+                        parts.append(node.get_text(" ", strip=True))
+            addr_txt = " ".join([p for p in parts if p])
+            loc = _sanitize_text(f"{name} - {addr_txt}".strip(" -"))
+            if loc and len(loc) < 200:
+                return loc
+
+    # ---------- local helpers ----------
+    def _clean_loc_txt(txt: str) -> str:
+        txt = (txt or "").strip()
+        txt = re.sub(r"\s+", " ", txt)
+        if "Eventbrite" in txt and len(txt) > 200:
+            return ""
+        return txt
+
+    def _find_microdata_location(soup) -> str:
+        loc_el = soup.select_one('[itemprop="location"]')
+        if not loc_el:
+            return ""
+        name = loc_el.select_one('[itemprop="name"]')
+        name = name.get_text(" ", strip=True) if name else ""
+        addr = loc_el.select_one('[itemprop="address"]')
+        parts = []
+        if addr:
+            for prop in ("streetAddress", "addressLocality", "addressRegion", "postalCode"):
+                node = addr.select_one(f'[itemprop="{prop}"]')
+                if node:
+                    parts.append(node.get_text(" ", strip=True))
+        addr_txt = " ".join([p for p in parts if p])
+        out = f"{name} - {addr_txt}".strip(" -")
+        return _clean_loc_txt(out)
+
+    def _find_visible_location(soup) -> str:
+        blk = soup.select_one("[data-testid='event-details-location']") \
+              or soup.select_one("[data-spec='event-details-location']")
+        if blk:
+            addr_tag = blk.find("address")
+            if addr_tag:
+                return _clean_loc_txt(addr_tag.get_text(" ", strip=True))
+            lines = [ln.strip() for ln in blk.get_text("\n", strip=True).splitlines() if ln.strip()]
+            lines = [ln for ln in lines if "Eventbrite" not in ln][:3]
+            return _clean_loc_txt(" - ".join(lines).strip(" -"))
+
+        cand = soup.find(lambda t: t.name in ("section", "div") and re.search(r"\bLocation\b", t.get_text(" ", strip=True), re.I))
+        if cand:
+            addr_tag = cand.find("address")
+            if addr_tag:
+                return _clean_loc_txt(addr_tag.get_text(" ", strip=True))
+            lines = [ln.strip() for ln in cand.get_text("\n", strip=True).splitlines() if ln.strip()]
+            lines = [ln for ln in lines if "Eventbrite" not in ln][:3]
+            return _clean_loc_txt(" - ".join(lines).strip(" -"))
+        return ""
+
     def _to_iso(val):
         if not val:
             return None
@@ -277,7 +434,7 @@ def _parse_eventbrite_detail(detail_url, user_agent=None, default_tz="America/Ne
     ev_name = desc = start = end = None
     location_str = ""
 
-    # ---- 1) JSON-LD @type=Event (often the cleanest) ----
+    # ---- 1) JSON-LD @type=Event ----
     for tag in soup.select('script[type="application/ld+json"]'):
         try:
             data = json.loads(tag.string or "")
@@ -313,26 +470,20 @@ def _parse_eventbrite_detail(detail_url, user_agent=None, default_tz="America/Ne
                 if isinstance(node, dict) and node.get("@type") in ("Event", "Festival"):
                     handle_evt(node)
 
-    # ---- 2) Fallbacks from visible HTML ----
+    # ---- 2) Visible HTML fallbacks ----
     if not ev_name:
         h = soup.select_one("h1, [data-testid='event-title'], [data-automation='listing-title']")
         if h:
             ev_name = _eb_clean_text(h.get_text(" ", strip=True))
 
-    # Try meta/itemprop times
     if not (start or end):
-        m_start = soup.select_one(
-            "meta[itemprop='startDate'], meta[itemprop='startdate'], meta[property='event:start_time']"
-        )
-        m_end = soup.select_one(
-            "meta[itemprop='endDate'], meta[itemprop='enddate'], meta[property='event:end_time']"
-        )
+        m_start = soup.select_one("meta[itemprop='startDate'], meta[itemprop='startdate'], meta[property='event:start_time']")
+        m_end   = soup.select_one("meta[itemprop='endDate'], meta[itemprop='enddate'], meta[property='event:end_time']")
         if m_start and m_start.get("content"):
             start = _to_iso(m_start["content"]) or start
         if m_end and m_end.get("content"):
             end = _to_iso(m_end["content"]) or end
 
-    # <time datetime="...">
     if not (start or end):
         ts = [t.get("datetime") for t in soup.select("time[datetime]") if t.get("datetime")]
         if ts:
@@ -340,12 +491,8 @@ def _parse_eventbrite_detail(detail_url, user_agent=None, default_tz="America/Ne
             if len(ts) > 1:
                 end = end or _to_iso(ts[1]) or ts[1]
 
-    # 'Date and time' block text -> parse_when
     if not (start or end):
-        dt_blk = soup.find(
-            lambda t: t.name in ("section", "div")
-            and "Date and time" in t.get_text(" ", strip=True)
-        )
+        dt_blk = soup.find(lambda t: t.name in ("section", "div") and "Date and time" in t.get_text(" ", strip=True))
         if dt_blk:
             sdt, edt = parse_when(_eb_clean_text(dt_blk.get_text(" ", strip=True)), default_tz=default_tz)
             if sdt:
@@ -353,32 +500,24 @@ def _parse_eventbrite_detail(detail_url, user_agent=None, default_tz="America/Ne
             if edt:
                 end = edt.isoformat()
 
-    # Location from visible blocks if JSON-LD didn’t give it
+    # ---- Location fallbacks ----
     if not location_str:
-        loc_cont = soup.select_one(
-            "[data-spec='event-details-location'], [data-testid='event-details-location']"
-        )
-        if loc_cont:
-            txt = _eb_clean_text(loc_cont.get_text(" ", strip=True))
-            if txt:
-                location_str = txt
-        if not location_str:
-            loc_blk = soup.find(
-                lambda t: t.name in ("section", "div")
-                and re.search(r"\bLocation\b", t.get_text(" ", strip=True), re.I)
-            )
-            if loc_blk:
-                lines = [
-                    ln.strip()
-                    for ln in loc_blk.get_text("\n", strip=True).splitlines()
-                    if ln.strip()
-                ]
-                if lines:
-                    if len(lines) >= 2:
-                        location_str = _eb_clean_text(f"{lines[0]} - {' '.join(lines[1:])}")
-                    else:
-                        location_str = _eb_clean_text(lines[0])
+        location_str = _find_microdata_location(soup)
+    if not location_str:
+        location_str = _find_visible_location(soup)
+    if location_str and ("Eventbrite" in location_str or len(location_str) > 300):
+        location_str = ""
 
+    # Location: prefer JSON-LD, else visible HTML; drop boilerplate
+    if not location_str:
+        location_str = _extract_location_from_html(soup)
+    if location_str and (_NAV_NOISE.search(location_str) or len(location_str) > 300):
+        location_str = ""
+
+    # Description: favor visible "About this event"; sanitize JSON-LD; fallback to og:description
+    desc = _extract_description(soup, desc)
+
+    
     if not (ev_name and start):
         return None
 
@@ -398,7 +537,7 @@ def _parse_eventbrite_detail(detail_url, user_agent=None, default_tz="America/Ne
     return evt
 
 
-def fetch_eventbrite_discovery_playwright(list_url, pages=10, user_agent=None):
+def fetch_eventbrite_discovery_playwright(list_url, pages=3, user_agent=None):
     from playwright.sync_api import sync_playwright
 
     user_agent = user_agent or (
@@ -453,7 +592,6 @@ def fetch_eventbrite_discovery_playwright(list_url, pages=10, user_agent=None):
         # 2) visit each detail and parse JSON-LD
         def parse_jsonld(soup):
             import json as _json
-
             title = desc = start = end = loc = None
             for tag in soup.select('script[type="application/ld+json"]'):
                 try:
@@ -467,6 +605,26 @@ def fetch_eventbrite_discovery_playwright(list_url, pages=10, user_agent=None):
                         return
                     if ev.get("@type") != "Event":
                         return
+
+                    # Description fallback from "About this event"
+                    if not desc:
+                        about = soup.find(
+                            lambda t: t.name in ("section", "div")
+                            and re.search(r"\bAbout this event\b", t.get_text(" ", strip=True), re.I)
+                        )
+                        if not about:
+                            about = soup.select_one("[data-testid='event-description'], [data-spec='event-description']")
+                        if about:
+                            lines = [ln.strip() for ln in about.get_text("\n", strip=True).splitlines() if ln.strip()]
+                            lines = [ln for ln in lines if not re.search(r"^Share|Follow|Tags|Report this event", ln, re.I)]
+                            tmp = ""
+                            for ln in lines:
+                                if len(tmp) + len(ln) + 1 > 400:
+                                    break
+                                tmp = (tmp + ("\n" if tmp else "") + ln).strip()
+                            if tmp:
+                                desc = tmp
+
                     title = title or (ev.get("name") or "").strip()
                     desc = desc or (ev.get("description") or "")
                     start = start or (ev.get("startDate") or ev.get("start_date"))
@@ -506,7 +664,6 @@ def fetch_eventbrite_discovery_playwright(list_url, pages=10, user_agent=None):
                 soup = BeautifulSoup(html, "html.parser")
                 t, d, s, e, l = parse_jsonld(soup)
                 if not t:
-                    # crude fallbacks
                     h1 = soup.select_one("h1,[data-testid='event-title']")
                     if h1:
                         t = h1.get_text(" ", strip=True)
@@ -556,7 +713,7 @@ def fetch_eventbrite_discovery_playwright(list_url, pages=10, user_agent=None):
     return out
 
 
-def fetch_eventbrite_discovery(list_url, pages=10, user_agent="fxbg-event-bot/1.0"):
+def fetch_eventbrite_discovery(list_url, pages=3, user_agent="fxbg-event-bot/1.0"):
     if not robots_allowed(list_url, user_agent):
         return []
 
@@ -969,6 +1126,7 @@ def fetch_freepress_calendar(url: str, default_tz="America/New_York"):
 
     return out
 
+
 # ---------- FXBG (fxbg.com/events) ----------
 def fetch_fxbg_events(url: str, default_tz="America/New_York", user_agent="fxbg-event-bot/1.0"):
     """
@@ -993,12 +1151,10 @@ def fetch_fxbg_events(url: str, default_tz="America/New_York", user_agent="fxbg-
         href = (a.get("href") or "").strip()
         if not href:
             continue
-        # fxbg tends to have on-site event detail pages; filter obvious external junk
         absu = urllib.parse.urljoin(url, href)
         if "fxbg.com" in urllib.parse.urlsplit(absu).netloc and "/event" in urllib.parse.urlsplit(absu).path:
             detail_links.add(absu)
 
-    # helper: parse JSON-LD Event from a detail page
     def _parse_detail(ev_url: str):
         st, html, _ = req_with_cache(ev_url, headers={"User-Agent": user_agent}, throttle=(1, 3))
         if st != 200 or not html:
@@ -1021,7 +1177,7 @@ def fetch_fxbg_events(url: str, default_tz="America/New_York", user_agent="fxbg-
                 start = _parse_dt(evt.get("startDate"), default_tz)
                 end = _parse_dt(evt.get("endDate"), default_tz)
                 desc = _clean_text(evt.get("description", ""))
-                loc = _eb_location_str(evt.get("location"))  # reuse existing helper → "Name - addr"
+                loc = _eb_location_str(evt.get("location"))
                 if name and start:
                     return {
                         "title": name,
@@ -1052,14 +1208,12 @@ def fetch_fxbg_events(url: str, default_tz="America/New_York", user_agent="fxbg-
         title_el = s.select_one("h1, .entry-title, [data-testid='event-title']")
         title = _clean_text(title_el.get_text(" ", strip=True)) if title_el else ""
         date_text = ""
-        # Common date containers
         for sel in ("time[datetime]", ".event-date", ".date", ".wp-block-post-date", ".tribe-events-schedule"):
             els = s.select(sel)
             if els and not date_text:
                 date_text = " ".join(e.get("datetime") or e.get_text(" ", strip=True) for e in els if (e.get("datetime") or e.get_text(strip=True)))
         sdt, edt = parse_when(_clean_text(date_text or ""), default_tz=default_tz)
 
-        # location guess
         loc_guess = ""
         loc_el = s.select_one(".event-location, [itemprop='location'], .location, .wp-block-columns .wp-block-column p")
         if loc_el:
@@ -1077,15 +1231,12 @@ def fetch_fxbg_events(url: str, default_tz="America/New_York", user_agent="fxbg-
             }
         return None
 
-    # Visit detail pages
     for ev_url in sorted(detail_links):
         ev = _parse_detail(ev_url)
         if ev:
             out.append(ev)
 
-    # If nothing from detail pages, fall back to list parsing
     if not out:
-        # Generic card scan
         cards = soup.select("article, .event, .events, .wp-block-post")
         for c in cards:
             a = c.select_one("a[href]")
@@ -1114,7 +1265,7 @@ def fetch_fxbg_events(url: str, default_tz="America/New_York", user_agent="fxbg-
     return out
 
 
-# ---------- Spotsylvania Towne Centre (spotsylvaniatownecentre.com/events) ----------
+# ---------- Spotsylvania Towne Centre ----------
 def fetch_spotsy_townecentre(url: str, default_tz="America/New_York", user_agent="fxbg-event-bot/1.0"):
     """
     Crawl https://www.spotsylvaniatownecentre.com/events/
@@ -1132,7 +1283,6 @@ def fetch_spotsy_townecentre(url: str, default_tz="America/New_York", user_agent
     soup = BeautifulSoup(body, "html.parser")
     out = []
 
-    # The page lists by week; grab all event links/cards
     detail_links = set()
     for a in soup.select("a[href]"):
         href = (a.get("href") or "").strip()
@@ -1140,7 +1290,6 @@ def fetch_spotsy_townecentre(url: str, default_tz="America/New_York", user_agent
             continue
         absu = urllib.parse.urljoin(url, href)
         host = urllib.parse.urlsplit(absu).netloc
-        # keep on-site event detail pages
         if "spotsylvaniatownecentre.com" in host and "/events/" in absu:
             detail_links.add(absu)
 
@@ -1150,7 +1299,6 @@ def fetch_spotsy_townecentre(url: str, default_tz="America/New_York", user_agent
             return None
         s = BeautifulSoup(html, "html.parser")
 
-        # JSON-LD first
         for tag in s.select('script[type="application/ld+json"]'):
             try:
                 data = json.loads(tag.string or "")
@@ -1191,7 +1339,6 @@ def fetch_spotsy_townecentre(url: str, default_tz="America/New_York", user_agent
                     if cand:
                         return cand
 
-        # Fallbacks
         title_el = s.select_one("h1, .event-title, .entry-title")
         title = _clean_text(title_el.get_text(" ", strip=True)) if title_el else ""
 
@@ -1229,8 +1376,6 @@ def fetch_spotsy_townecentre(url: str, default_tz="America/New_York", user_agent
         if ev:
             out.append(ev)
 
-    # If the site keeps everything on the listing page (no details),
-    # try to parse cards directly
     if not out:
         cards = soup.select("article, .event, .events-list li, .event-card")
         for c in cards:
@@ -1257,7 +1402,7 @@ def fetch_spotsy_townecentre(url: str, default_tz="America/New_York", user_agent
     return out
 
 
-# ---------- Generic HTML fetcher with optional parser hint ----------
+# ---------- Generic HTML helper ----------
 def fetch_html(url, hints=None, user_agent="fxbg-event-bot/1.0", throttle=(2, 5)):
     """
     When hints is a dict of CSS selectors (legacy behavior):
@@ -1355,7 +1500,7 @@ def fetch_eventbrite(api_url, token_env=None):
     if re.search(r"//[^/]*eventbrite\.com/(d/|e/)", api_url):
         if os.getenv("FEEDS_DEBUG"):
             LOG.debug("→ Eventbrite discovery crawl: %s", api_url)
-        return fetch_eventbrite_discovery(api_url, pages=10)
+        return fetch_eventbrite_discovery(api_url, pages=3)
 
     token = token_env or os.getenv("EVENTBRITE_TOKEN") or ""
     if not token:
@@ -1459,6 +1604,7 @@ def fetch_bandsintown(url, app_id_env=None):
         )
     return out
 
+
 # ---- Public helper to resolve clean Eventbrite location from a detail URL ----
 def resolve_eventbrite_location(detail_url: str) -> str:
     """
@@ -1469,6 +1615,7 @@ def resolve_eventbrite_location(detail_url: str) -> str:
     ev = _parse_eventbrite_detail(detail_url)
     loc = (ev or {}).get("location") if isinstance(ev, dict) else None
     return (loc or "").strip()
+
 
 def _extract_dates_from_html(soup, default_tz="America/New_York"):
     """
@@ -1539,6 +1686,7 @@ def _extract_dates_from_html(soup, default_tz="America/New_York"):
     return iso_start, iso_end, date_text
 
 
+# ---------- Macaroni KID Fredericksburg (Playwright) ----------
 def fetch_macaronikid_fxbg_playwright(days=60, user_agent=None, headless=True, save_artifacts=True):
     """
     Playwright crawler for Macaroni KID Fredericksburg.
@@ -1563,7 +1711,6 @@ def fetch_macaronikid_fxbg_playwright(days=60, user_agent=None, headless=True, s
         *[f"{base}/events?page={i}" for i in range(1, 9)],
     ]
 
-    # Realistic UA unless overridden
     ua = user_agent or os.getenv("MAC_KID_UA") or (
         "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
         "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
@@ -1626,7 +1773,6 @@ def fetch_macaronikid_fxbg_playwright(days=60, user_agent=None, headless=True, s
         for ev_url in sorted(detail_urls):
             try:
                 page.goto(ev_url, wait_until="domcontentloaded", timeout=45000)
-                # Handle CF/JS challenge-ish pages
                 title = (page.title() or "").strip()
                 if any(k in title for k in ("Just a moment", "Attention Required", "Please Wait")):
                     logging.getLogger("sources").warning("MacKID(PW): challenge on detail, waiting… %s", ev_url)
@@ -1637,7 +1783,6 @@ def fetch_macaronikid_fxbg_playwright(days=60, user_agent=None, headless=True, s
                 html = page.content()
                 title = page.title() or ""
 
-                # Save artifacts
                 if save_artifacts and os.getenv("FEEDS_DEBUG"):
                     ts = datetime.now().strftime("%Y%m%d-%H%M%S")
                     path_part = urlsplit(ev_url).path.strip("/").replace("/", "_")
@@ -1659,27 +1804,23 @@ def fetch_macaronikid_fxbg_playwright(days=60, user_agent=None, headless=True, s
                 # Prefer per-event ICS link (can be HTTPS OR data:text/calendar)
                 ics_href = None
                 try:
-                    # Gather ALL anchors with href + their text
                     anchors = page.eval_on_selector_all(
                         "a[href]",
                         "els => els.map(e => ({ href: e.getAttribute('href') || '', text: (e.textContent || '').toLowerCase().trim() }))"
                     ) or []
 
-                    # First, exact .ics hrefs
                     for a in anchors:
                         h = (a['href'] or '').strip()
                         if h.lower().endswith('.ics'):
                             ics_href = h
                             break
 
-                    # Then, Apple Calendar by text
                     if not ics_href:
                         for a in anchors:
                             if 'apple calendar' in a['text']:
                                 ics_href = (a['href'] or '').strip()
                                 break
 
-                    # Finally, explicit data:text/calendar
                     if not ics_href:
                         for a in anchors:
                             h = (a['href'] or '').strip()
@@ -1690,7 +1831,6 @@ def fetch_macaronikid_fxbg_playwright(days=60, user_agent=None, headless=True, s
                     ics_href = None
 
                 if ics_href:
-                    # NOTE: urljoin will leave data: URLs untouched; ok for fetch_ics()
                     ics_abs = urljoin(ev_url, ics_href)
                     try:
                         evs = fetch_ics(ics_abs, user_agent="fxbg-event-bot/1.0") or []
@@ -1699,12 +1839,11 @@ def fetch_macaronikid_fxbg_playwright(days=60, user_agent=None, headless=True, s
                             e.setdefault("link", ev_url)
                         out.extend(evs)
                         logging.getLogger("sources").debug("MacKID(PW): ICS ok %s -> +%d", ics_abs, len(evs))
-                        continue  # done with this detail page
+                        continue
                     except Exception as ex:
                         logging.getLogger("sources").warning("MacKID(PW) ICS parse failed %s: %s", ics_abs, str(ex)[:160])
 
-
-                # ---- HTML fallback (mirrors fetch_macaronikid_fxbg) ----
+                # ---- HTML fallback (robust date extraction)
                 soup = BeautifulSoup(html, "html.parser")
 
                 h = soup.select_one("h1") or soup.select_one("[data-element='event-title']")
@@ -1716,7 +1855,6 @@ def fetch_macaronikid_fxbg_playwright(days=60, user_agent=None, headless=True, s
                 l = soup.select_one("[data-element='event-location'], .event-location, .location, [itemprop='location']")
                 loc = l.get_text(" ", strip=True) if l else None
 
-                # ---- robust date extraction
                 iso_start, iso_end, date_text = _extract_dates_from_html(soup)
                 combined_dt = None
                 if iso_start or iso_end:
@@ -1724,7 +1862,6 @@ def fetch_macaronikid_fxbg_playwright(days=60, user_agent=None, headless=True, s
                 elif date_text:
                     combined_dt = date_text
 
-                # DEBUG log instead of print
                 if os.getenv("FEEDS_DEBUG"):
                     logging.getLogger("sources").debug(
                         "MacKID parsed: %s | date_text: %s",
@@ -1736,7 +1873,6 @@ def fetch_macaronikid_fxbg_playwright(days=60, user_agent=None, headless=True, s
                 if combined_dt:
                     sdt, edt = parse_when(combined_dt, default_tz="America/New_York")
 
-                # If we STILL don't have a start, skip this event (don't emit broken VEVENTs)
                 if not sdt:
                     if os.getenv("FEEDS_DEBUG"):
                         logging.getLogger("sources").debug("MacKID skip (no date): %s", ev_url)
@@ -1752,8 +1888,6 @@ def fetch_macaronikid_fxbg_playwright(days=60, user_agent=None, headless=True, s
                     "source": "macaronikid",
                 })
 
-
-
             except Exception as ex:
                 logging.getLogger("sources").warning("MacKID(PW) detail error %s: %s", ev_url, str(ex)[:160])
 
@@ -1763,6 +1897,7 @@ def fetch_macaronikid_fxbg_playwright(days=60, user_agent=None, headless=True, s
     return out
 
 
+# ---------- Macaroni KID Fredericksburg (requests) ----------
 def fetch_macaronikid_fxbg(days=60, user_agent=None):
     """
     Crawl Macaroni KID Fredericksburg using requests (no Playwright):
@@ -1774,7 +1909,6 @@ def fetch_macaronikid_fxbg(days=60, user_agent=None):
     Returns raw events to be normalized by normalize_event().
     """
     import json as _json
-    from datetime import datetime, timedelta
 
     user_agent = user_agent or os.getenv("MAC_KID_UA") or (
         "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
@@ -1885,7 +2019,6 @@ def fetch_macaronikid_fxbg(days=60, user_agent=None):
         links = set()
         detail_pat = re.compile(r"^/events/[0-9a-f]{8,}(?:/[\w\-]*)?$", re.I)
 
-        # 1) Normal anchors
         a_links = 0
         for a in soup.select("a[href*='/events/']"):
             href = (a.get("href") or "").split("?", 1)[0].strip()
@@ -1899,11 +2032,9 @@ def fetch_macaronikid_fxbg(days=60, user_agent=None):
                 links.add(abs_url)
                 a_links += 1
 
-        # 2) JSON-LD Event URLs
         ld_links = _extract_links_from_jsonld(html, page_url)
         links |= ld_links
 
-        # 3) Regex scan (includes script blobs)
         rx_links = _extract_links_by_regex(html, page_url)
         links |= rx_links
 
@@ -1919,7 +2050,7 @@ def fetch_macaronikid_fxbg(days=60, user_agent=None):
 
     detail_urls = set()
     pages_visited = 0
-    max_pages = 20  # overall safety cap across all starts
+    max_pages = 20
 
     LOG.debug("MacKID: using requests/sitemap fallback …")
     for start in start_urls:
@@ -1995,12 +2126,10 @@ def fetch_macaronikid_fxbg(days=60, user_agent=None):
         if l:
             loc = l.get_text(" ", strip=True)
 
-        # structured date/time blocks
         nodes = soup.select("[data-element='event-date'], .event-date, .event-time")
         if nodes:
             date_text = " ".join(n.get_text(" ", strip=True) for n in nodes if n.get_text(strip=True))
 
-        # ISO datetimes from <time datetime="...">
         iso_start, iso_end = None, None
         for t in soup.select("time[datetime]"):
             dtv = (t.get("datetime") or "").strip()
@@ -2012,7 +2141,6 @@ def fetch_macaronikid_fxbg(days=60, user_agent=None):
         if not date_text and (iso_start or iso_end):
             date_text = f"{iso_start or ''} {iso_end or ''}".strip()
 
-        # itemprop meta
         if not date_text:
             sm_tag = soup.select_one("meta[itemprop='startDate'], meta[itemprop='startdate']")
             em_tag = soup.select_one("meta[itemprop='endDate'], meta[itemprop='enddate']")
@@ -2021,8 +2149,8 @@ def fetch_macaronikid_fxbg(days=60, user_agent=None):
             if sm or em:
                 date_text = f"{sm} {em}".strip()
 
-        # JSON-LD Event (object OR list)
         if not date_text:
+            import json as _json
             for s in soup.find_all("script", type="application/ld+json"):
                 try:
                     dct = _json.loads(s.string)
