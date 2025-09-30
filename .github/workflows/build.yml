@@ -8,7 +8,24 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+env:
+  PYTHONUNBUFFERED: "1"
+  TZ: "America/New_York"
+  # Toggle verbose logs without changing code
+  FEEDS_DEBUG: "1"
+  # If you want to disable Playwright crawling in CI, leave it out (default falls back to requests)
+  # FEEDS_PW_HEADLESS: "1"
+  # Pass optional API keys via repo/environment secrets if you use them:
+  # EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
+  # BANDSINTOWN_APP_ID: ${{ secrets.BANDSINTOWN_APP_ID }}
 
 jobs:
   build:
@@ -39,17 +56,68 @@ jobs:
       - name: Install Playwright browsers
         run: python -m playwright install --with-deps chromium
 
-      - name: Build calendars
-        env:
-          EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
-          BANDSINTOWN_APP_ID: ${{ secrets.BANDSINTOWN_APP_ID }}
-          FEEDS_DEBUG: "1"
-        run: python src/main.py
-
-      - name: Commit and push changes
+     - name: Build calendars
         run: |
-          git config user.name "fxbg-feeds-bot"
-          git config user.email "fxbg-feeds-bot@users.noreply.github.com"
-          git add docs/ data/
-          git commit -m "chore: auto-build calendars [skip ci]" || echo "No changes"
-          git push
+          # Ensure output folders exist and Jekyll is disabled
+          mkdir -p docs data
+          : > docs/.nojekyll
+
+          # Run your builder
+          python src/main.py
+
+          # Safety: ensure .ics exist so Pages isn’t empty even if a run yields no events
+          ls -l docs || true
+          if ! ls docs/*.ics >/dev/null 2>&1; then
+            echo "No .ics generated; creating placeholder files"
+            for f in family adult recurring sports; do echo "" > "docs/$f.ics"; done
+          fi
+
+          # (Optional) simple index
+          if [ ! -f docs/index.html ]; then
+cat > docs/index.html <<'HTML'
+<!doctype html><meta charset="utf-8">
+<title>Calendars</title>
+<h1>Calendars</h1>
+<ul>
+  <li><a href="family.ics">family.ics</a></li>
+  <li><a href="adult.ics">adult.ics</a></li>
+  <li><a href="recurring.ics">recurring.ics</a></li>
+  <li><a href="sports.ics">sports.ics</a></li>
+</ul>
+HTML
+          fi
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./docs
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+        
+        
+#      - name: Build calendars
+#        env:
+#          #EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
+#          #BANDSINTOWN_APP_ID: ${{ secrets.BANDSINTOWN_APP_ID }}
+#          FEEDS_DEBUG: "1"
+#        run: python src/main.py
+#
+#      - name: Commit and push changes
+#        run: |
+#          git config user.name "fxbg-feeds-bot"
+#          git config user.email "fxbg-feeds-bot@users.noreply.github.com"
+#          git add docs/ data/
+#          git commit -m "chore: auto-build calendars [skip ci]" || echo "No changes"
+#          git push
