@@ -1,1 +1,29 @@
-**/.DS_Store
+# --- OS cruft ---
+.DS_Store
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+
+# --- IDEs/editors ---
+.vscode/
+.idea/
+
+# --- Local env/secrets ---
+.env
+
+# --- Playwright (local cache if you ever set PLAYWRIGHT_BROWSERS_PATH=.playwright) ---
+.playwright/
+
+# --- Generated at runtime (keep out of git) ---
+data/cache.json
+data/events.json
+
+# --- Local helper script (requested) ---
+/build.sh
+
+# NOTE: We DO NOT ignore docs/*.ics so CI can commit updated calendars.
+# If you ever want to ignore them locally, uncomment the next line:
+# docs/*.ics
