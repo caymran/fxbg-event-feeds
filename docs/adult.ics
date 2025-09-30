@@ -2,1599 +2,323 @@ BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:ics.py - http://git.io/lLljaA
 BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/ignite-the-altar-fire-and-breakthrough-2025-tickets-1689585659189
-DTEND:20251012T000000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251011T180000Z
-SUMMARY:Ignite The Altar - Fire and Breakthrough 2025
-UID:597747d3d673611186730ef63177f2376e58d531
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3804\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
-DTEND:20251205T210000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Treasurer's Office - 10459 Courthouse Drive Suite 100 King George VA 22485
-DTSTART:20251205T130000Z
-SUMMARY:Real Estate & Personal Property Taxes Due
-UID:fe71a97cc717b9f09ac0d87a63dda4041d8a0aea
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:SMP Fall Bash\nhttps://www.eventbrite.com/e/quantico-single-marine-program-smp-fall-bash-tickets-1607418304419
-DTEND:20251009T220000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:206 Nicholas Rd - 206 Nicholas Road\, Quantico\, VA 22134 Quantico VA 22134
-DTSTART:20251009T190000Z
-SUMMARY:Quantico Single Marine Program (SMP) Fall Bash
-UID:cd51d741e234ba0a3e2d33cf782b835ee9da96c9
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/empowering-women-in-real-estate-monthly-meetup-fredericksburg-tickets-1249852545609
-DTEND:20251023T170000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20250227T170000Z
-SUMMARY:Empowering Women in Real Estate Monthly Meetup | Fredericksburg
-UID:c14f4921edfe2aa406c4ae945c80e8b90a269265
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/links-mentor-training-tickets-1553052304249
-DTEND:20251021T180000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251020T140000Z
-SUMMARY:L.I.N.K.S. Mentor Training
-UID:c421140522abc43201aa4e000c2e4fee05524653
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/snake-identification-tickets-1644629845139
-DTEND:20260121T233000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20260121T220000Z
-SUMMARY:Snake identification
-UID:5bb4b1b60980868638bd86dbc183a4f0729ba335
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/cheers-to-20-years-tickets-1348367687049
-DTEND:20251025T230000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251025T210000Z
-SUMMARY:Cheers to 20 Years!
-UID:91cc3409933f1964f1b4536efc653fd7e37be731
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/learn-to-play-riftbound-tickets-1744385537099
-DTEND:20251014T020000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251013T230000Z
-SUMMARY:Learn to Play Riftbound
-UID:070a5d28e0cc54fb37be9af6ab078d32324a039b
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/potomac-shores-fall-2025-trails-fun-run-tickets-1393406900549
-DTEND:20251004T160000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251004T130000Z
-SUMMARY:Potomac Shores Fall 2025 Trails Fun Run
-UID:cceb01c11bb2678e8f8533a515b5946f345b26c3
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/spouse-transition-and-readiness-seminar-stars-tickets-1126451439579
-DTEND:20251205T010000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Eventbrite - Eventbrite Find my tickets Log In Sign Up Find Events Create Events Solutions Solutions Event Ticketing Event Marketing Platform Eventbrite Ads Payments Industry Industry Music Food & Beverage Performing Arts Charity & Causes Retail Event Types Event Types Concerts Classes & Workshops Festivals & Fairs Conferences Corporate Events Online Events Blog Blog Tips & Guides News & Trends Community Tools & Features Organizer Resource Hub Create Events Contact Sales Get Started Help Center Help Center Find your tickets Contact your event organizer Search events Choose a location autocomplete Contact Sales Create Events Help Center Find my tickets Log In Sign Up Find Events Create Events Solutions Solutions Event Ticketing Event Marketing Platform Eventbrite Ads Payments Industry Industry Music Food & Beverage Performing Arts Charity & Causes Retail Event Types Event Types Concerts Classes & Workshops Festivals & Fairs Conferences Corporate Events Online Events Blog Blog Tips & Guides News & Trends Community Tools & Features Organizer Resource Hub Create Events Contact Sales Get Started Help Center Help Center Find your tickets Contact your event organizer Multiple dates Spouse Transition and Readiness Seminar (STARS) By MCCS Quantico: Personal and Professional Follow Transition information for military spouses whose service member is separating or retiring. SME info on Tricare\, VA Benefits\, and more! Location Religious & Family Services Center 3019 Embry Loop Quantico\, VA 22134 Get directions Good to know Highlights In person Highlights In person About this event Family & Education • Other This quarterly seminar is designed to inform military spouses about benefits and resources for families transitioning from active duty service. Subject matter experts provide information on: Tricare benefits after retirement Healthcare options for separatees VA Benefits for separatees and retirees Personal financial expectations after active duty\, incuding taxes\, budgeting for transition\, and life insurance Relocation considerations and much more Tags United States Events Virginia Events Things to do in Quantico Base\, VA Quantico Base Seminars Quantico Base Family & Education Seminars #stars #military_family #support_program #spouse_transition #readiness_seminar Organized by MCCS Quantico: Personal and Professional Followers -- Events -- Hosting -- Contact Follow Report this event Free Multiple dates Check availability Use Eventbrite Create Events Pricing Event Marketing Platform Eventbrite Mobile Ticket App Eventbrite Check-In App Eventbrite App Marketplace Event Registration Software Community Guidelines FAQs Sitemap Plan events Sell Tickets Online Performing Arts Ticketing Software Sell Concert Tickets Online Event Payment System Solutions for Professional Services Event Management Software Halloween Party Planning Virtual Events Platform QR Codes for Event Check-In Post your event online Find events Browse Quantico Events Get the Eventbrite App Connect with us Report This Event Help Center Terms Privacy CA Privacy Notice Accessibility Community Guidelines Manage Cookie Preferences Do Not Sell or Share My Personal Information Privacy Eventbrite + Ticketfly © 2025 Eventbrite
-DTSTART:20250128T220000Z
-SUMMARY:Spouse Transition and Readiness Seminar (STARS)
-UID:6fbde8df1df3520cc9630b8d7d4b419b6fcbb596
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/harry-potter-dark-arts-trivia-alamo-drafthouse-cinema-woodbridge-tickets-1754393150139
-DTEND:20251024T010000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251023T230000Z
-SUMMARY:Harry Potter Dark Arts Trivia - Alamo Drafthouse Cinema Woodbridge
-UID:42951085a45429f51bbb3172333b8deb5dc68cb7
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4336\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
-DTEND:20251026T000000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Cedell Brooks\, Jr. Park - 11259 Henry Griffin Road King George VA 22485
-DTSTART:20251025T220000Z
-SUMMARY:KGP&R Trunk or Treat & Halloween Movie in the Park
-UID:4bed72270f0596ac0752674c356e9e4810d441bb
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:Learn VA homebuying tips from Patrick Holland & Chasity Porter—buy vs. rent\, sell or hold\, and more. Drinks included!\nhttps://www.eventbrite.com/e/va-home-loan-seminar-tickets-1748347527519
-DTEND:20251113T233000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Full Distance Brewing - 650 Corporate Drive #101\, Stafford\, VA 22554 Stafford VA 22554
-DTSTART:20251113T220000Z
-SUMMARY:VA Home Loan Seminar
-UID:bafb78afd3b47ad93d99668a18f4176c0c80f001
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/all-about-catttails-tickets-1680123848659
-DTEND:20251005T190000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251005T180000Z
-SUMMARY:All About Catttails
-UID:57a0aa681b9318d1b25ba97d0b034c04f966f3be
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4335\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
-DTEND:20251026T000000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Caledon State Park - 11617 Caledon Road King George VA 22485
-DTSTART:20251025T220000Z
-SUMMARY:Caledon Trunk or Treat
-UID:8f55f57bf3379a87b8b6a6724baddd3b00a6fdc5
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/learn-a-revolutionary-way-to-pay-off-debt-without-increasing-your-budget-tickets-1200564784589
-DTEND:20260115T010000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Eventbrite - Eventbrite Find my tickets Log In Sign Up Find Events Create Events Solutions Solutions Event Ticketing Event Marketing Platform Eventbrite Ads Payments Industry Industry Music Food & Beverage Performing Arts Charity & Causes Retail Event Types Event Types Concerts Classes & Workshops Festivals & Fairs Conferences Corporate Events Online Events Blog Blog Tips & Guides News & Trends Community Tools & Features Organizer Resource Hub Create Events Contact Sales Get Started Help Center Help Center Find your tickets Contact your event organizer Search events Choose a location autocomplete Contact Sales Create Events Help Center Find my tickets Log In Sign Up Find Events Create Events Solutions Solutions Event Ticketing Event Marketing Platform Eventbrite Ads Payments Industry Industry Music Food & Beverage Performing Arts Charity & Causes Retail Event Types Event Types Concerts Classes & Workshops Festivals & Fairs Conferences Corporate Events Online Events Blog Blog Tips & Guides News & Trends Community Tools & Features Organizer Resource Hub Create Events Contact Sales Get Started Help Center Help Center Find your tickets Contact your event organizer Multiple dates Learn a revolutionary way to pay off DEBT\, without increasing your budget! By Scott Richards Follow Discover a game-changing strategy to conquer debt without spending more each month! Location Fredericksburg 123 Main St Fredericksburg\, VA 22401 Get directions Good to know Highlights In person Highlights In person About this event Business • Finance Do you owe money to any creditors? Are you working to pay off debts like a mortgage\, maybe a student loan\, a car loan\, or credit cards? Are the never-ending payments creating immense stress and anxiety in your life? Would having zero debt provide you with peace of mind and a less stressful life? Of course it would\, then you need to do something about it! We have a plan that gets you out of debt faster than the way you’re currently paying your bills\, and we’d like to share it with you. It’s free to see\, and no obligation to do anything Register and in the confirmation email will be a link to the information that describes the program. This is NOT credit consolidation\, debt relief or anything that affects your credit. You’ll still pay off your debts\, but using a modified snowball approach. You can usually do it much faster than just paying extra on your debt. We’ll show you how\, without changing your monthly spend. However\, this isn’t for everyone... Sorry! We’re on a mission to help as many people get out of debt as fast as possible\, see if we can help you by reviewing the information\, then decide if it’s a fit for you. After reviewing the information\, we get comments like\; “Why isn’t anyone talking more about this” or “Why haven’t I heard about this sooner”. Just think what life would be like being debt free? Would you put the money you usually paid out towards debt towards retirement\, or a 2nd vacation home\, a trip?? If you make over $100K a year and are paying extra every month to reduce your bills\, this is something you will want to know about! Frequently asked questions Q: Can you let me know about how much the monthly payments will be? Q: Can you let me know about how much the cost will be? Q: Is this plan for everyone? Tags United States Events Virginia Events Things to do in Fredericksburg\, VA Fredericksburg Classes Fredericksburg Business Classes #mortgage #financial #debt #debtfreedom #financial_freedom #debt_reduction #pay_off_debt #debt_elimination #mortgagepayoff #studentloandebt Organized by Scott Richards Followers -- Events -- Hosting -- Contact Follow Report this event Free Multiple dates Check availability Use Eventbrite Create Events Pricing Event Marketing Platform Eventbrite Mobile Ticket App Eventbrite Check-In App Eventbrite App Marketplace Event Registration Software Community Guidelines FAQs Sitemap Plan events Sell Tickets Online Performing Arts Ticketing Software Sell Concert Tickets Online Event Payment System Solutions for Professional Services Event Management Software Halloween Party Planning Virtual Events Platform QR Codes for Event Check-In Post your event online Find events Browse Fredericksburg Events Get the Eventbrite App Connect with us Report This Event Help Center Terms Privacy CA Privacy Notice Accessibility Community Guidelines Manage Cookie Preferences Do Not Sell or Share My Personal Information Privacy Eventbrite + Ticketfly © 2025 Eventbrite
-DTSTART:20250116T000000Z
-SUMMARY:Learn a revolutionary way to pay off DEBT\, without increasing your budget!
-UID:78d7d99ba340b868398e649a02cc25c667186975
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.fredericksburgva.gov/calendar.aspx?EID=3645\nhttps://www.fredericksburgva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=22
-DTEND:20251012T200000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Fire Station #1 - 601 Princess Anne Street Fredericksburg VA 22401
-DTSTART:20251012T170000Z
-SUMMARY:Fredericksburg Fire Department's Open House
-UID:09af4f679ed4c2e3c65afd7b61c920e3679dac80
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/downsizing-seminar-five-step-roadmap-to-a-stress-free-move-nova-tickets-1669890751189
-DTEND:20251011T163000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251011T143000Z
-SUMMARY:Downsizing Seminar: Five-Step Roadmap to a Stress-Free Move (NoVA)
-UID:8d1cd358bd4027c3561d74c6a5636ac0b2db2a1a
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3496\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
-DTEND:20260501T200000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Commissioner of the Revenue's Office - 10459 Courthouse Drive Suite 101 King George VA 22485
-DTSTART:20260501T120000Z
-SUMMARY:State Income Taxes Due
-UID:cdbf4ae4a0688e22a37a61bb01c4522f1ccbaf9d
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:***NOT A FREE SHOWING*** ***ADMISSION TO BE PAID AT THE DOOR***\nhttps://www.eventbrite.com/e/quantico-movie-the-roses-r-300-thursday-tickets-1721646142959
-DTEND:20251009T234500Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Little Hall Theater - 2034 Barnett Ave. Main Floor\, Quantico\, VA 22134 Quantico VA 22134
-DTSTART:20251009T220000Z
-SUMMARY:QUANTICO - Movie: The Roses - R *$3.00 THURSDAY*
-UID:57183a72d513aa6a08a93fe448f1ae43b8306d9b
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/magic-academy-learn-to-play-tickets-1744384945329
-DTEND:20251011T230000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251011T200000Z
-SUMMARY:Magic Academy: Learn to Play
-UID:dc2237562fa5c7e1817d2f34ec3e1efa2e6cb256
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.spotsylvania.va.us/calendar.aspx?EID=3276\nhttps://www.spotsylvania.va.us/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
-DTEND:20251029T203000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Registration for the Spotsylvania Parks and Recreation Department Youth Basketball program will begin on Monday\, October 6.  Our program is for boys ages 6 – 17 and girls ages 6 – 14 who are Spotsylvania County Residents. The registration deadline is 4:30 p.m. on Wednesday\, October 29\, 2025. The age determination date for basketball is July 31\, 2025.   For more detailed information or questions\, call our office at (540)507-7529 or visit our web site at https://www.spotsylvania.va.us/469/Basketball - 10910 Leavells Road Spotsylvania VA 22553
-DTSTART:20251006T120000Z
-SUMMARY:Basketball Registration
-UID:8cad952ac47ba789774345faaa182dc92737a8be
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4332\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
-DTEND:20251005T150000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Caledon State Park - 11617 Caledon Road King George VA 22485
-DTSTART:20251005T130000Z
-SUMMARY:Bark Ranger Hike
-UID:cc0107007c9d172c97cac4f3de12f60ae4210691
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:Get ready to witness the most hilarious and spooky roast battle you've ever seen - Bargoyles Live Halloween Roast Battle!\nhttps://www.eventbrite.com/e/bargoyles-live-halloween-roast-battle-tickets-1712305244079
-DTEND:20251027T000000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Electric Palm Restaurant - 12745 Sea Ray Lane\, Woodbridge\, VA 22192 Woodbridge VA 22192
-DTSTART:20251026T220000Z
-SUMMARY:Bargoyles Live Halloween Roast Battle
-UID:a26f7b9d7eba507d1662932a6899c58dce5a790b
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/potomac-shores-real-estate-club-meeting-tickets-1234144171439
-DTEND:20251204T000000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20250205T230000Z
-SUMMARY:Potomac Shores Real Estate Club Meeting
-UID:0c0055b1b7fd551dd6836d34352fda4064524f1b
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/an-introduction-to-the-history-of-occoquan-tickets-1645187743829
-DTEND:20251029T000000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251028T220000Z
-SUMMARY:An Introduction to the History of Occoquan
-UID:4c4ec79c96577f91c2658bf816229402798e2df2
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/tricare-for-life-class-tickets-772237833147
-DTEND:20260115T180000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Eventbrite - Eventbrite Find my tickets Log In Sign Up Find Events Create Events Solutions Solutions Event Ticketing Event Marketing Platform Eventbrite Ads Payments Industry Industry Music Food & Beverage Performing Arts Charity & Causes Retail Event Types Event Types Concerts Classes & Workshops Festivals & Fairs Conferences Corporate Events Online Events Blog Blog Tips & Guides News & Trends Community Tools & Features Organizer Resource Hub Create Events Contact Sales Get Started Help Center Help Center Find your tickets Contact your event organizer Search events Choose a location autocomplete Contact Sales Create Events Help Center Find my tickets Log In Sign Up Find Events Create Events Solutions Solutions Event Ticketing Event Marketing Platform Eventbrite Ads Payments Industry Industry Music Food & Beverage Performing Arts Charity & Causes Retail Event Types Event Types Concerts Classes & Workshops Festivals & Fairs Conferences Corporate Events Online Events Blog Blog Tips & Guides News & Trends Community Tools & Features Organizer Resource Hub Create Events Contact Sales Get Started Help Center Help Center Find your tickets Contact your event organizer Previous slide Next slide Go to slide 1 Go to slide 2 Multiple dates TRICARE FOR LIFE CLASS Hey there! Join us for the TRICARE for Life Class\, where we'll cover everything you need to know about how this fantastic program works. Location 3259 Catlin Avenue\, Quantico\, VA\, USA 3259 Catlin Avenue Quantico\, VA 22134 Get directions Good to know Highlights In person Highlights In person About this event Health • Medical TRICARE FOR LIFE CLASS Are you a TRICARE beneficiary? Join us for a TRICARE For Life Class ! This in-person event is designed to help you understand the ins and outs of TRICARE\, the healthcare program for military retirees and their families. During this class\, you'll learn about the benefits available to you\, how to navigate the TRICARE system\, and receive tips on how to maximize your coverage. We'll also address any questions or concerns you may have about TRICARE. Don't miss out on this opportunity to gain a better understanding of your TRICARE benefits! Sign up for our TRICARE For Life Class today and take control of your healthcare. Tags United States Events Virginia Events Things to do in Quantico Base\, VA Quantico Base Classes Quantico Base Health Classes #class #event #veterans #healthcare #tricareforlife Organized by Contact organizer Report this event Free Multiple dates Check availability Use Eventbrite Create Events Pricing Event Marketing Platform Eventbrite Mobile Ticket App Eventbrite Check-In App Eventbrite App Marketplace Event Registration Software Community Guidelines FAQs Sitemap Plan events Sell Tickets Online Performing Arts Ticketing Software Sell Concert Tickets Online Event Payment System Solutions for Professional Services Event Management Software Halloween Party Planning Virtual Events Platform QR Codes for Event Check-In Post your event online Find events Browse Quantico Events Get the Eventbrite App Connect with us Report This Event Help Center Terms Privacy CA Privacy Notice Accessibility Community Guidelines Manage Cookie Preferences Do Not Sell or Share My Personal Information Privacy Eventbrite + Ticketfly © 2025 Eventbrite
-DTSTART:20240118T170000Z
-SUMMARY:TRICARE FOR LIFE CLASS
-UID:4a7f247cb43d89f69ed7faa31bd22725ead5534e
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/settlers-of-catan-casual-tournament-tickets-1744387482919
-DTEND:20251101T230000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251101T150000Z
-SUMMARY:Settlers of Catan Casual Tournament
-UID:dc3ff78f4515d5ac5ff1707a30f51ac8cdc9a6a6
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:This class will be an overview of providing supportive care and creating appropriate temporary habitats until a help can be provided.\nhttps://www.eventbrite.com/e/keeping-wildlife-alive-tickets-1644532203089
-DTEND:20251119T233000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Prince William County Animal Services Center - 14807 Bristow Road\, Manassas\, VA 20112 Manassas VA 20112
-DTSTART:20251119T220000Z
-SUMMARY:Keeping Wildlife Alive
-UID:08814b24d1796838d127b12b646efcb84f83d5c8
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/tentative-seed-swap-community-event-tickets-1392791479809
-DTEND:20260208T045900Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:The Church of Jesus Christ of Latter-day Saints - 20 Boscobel Road\, Fredericksburg\, VA 22405 Fredericksburg VA 22405
-DTSTART:20260207T050000Z
-SUMMARY:[TENTATIVE] Seed Swap Community Event
-UID:f6034c4951c20d53caee827d09cb5c8595a30b13
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/a-celebration-of-ministry-tickets-1603562993079
-DTEND:20251026T030000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251025T230000Z
-SUMMARY:A Celebration of Ministry
-UID:0b5aee730b9a4f6d6a55e44d10e1f314c1fbdad7
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/october-nature-walk-tickets-1606802622899
-DTEND:20251025T163000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251025T150000Z
-SUMMARY:October Nature Walk
-UID:e9bce25af8c8d05adaabaabb0798ac916c348ec8
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/sidecar-sazerac-selects-tasting-room-experience-tickets-1748648046379
-DTEND:20251009T000000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251008T220000Z
-SUMMARY:Sidecar Sazerac Selects: Tasting Room Experience
-UID:a6e784d9dcee56ca88415268a76ec63f2ed1093e
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/mothers-in-formation-tickets-1677100746479
-DTEND:20251015T170000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251015T150000Z
-SUMMARY:Mothers In Formation
-UID:7e51120b58e8e6facba2f3c16d152516ade0c25c
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/occoquan-lgbtq-book-club-tickets-1644295134009
-DTEND:20251012T180000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251012T160000Z
-SUMMARY:Occoquan LGBTQ+ Book Club
-UID:441a0e27ab9c020d1f06af068d5b98627f36c5f8
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/writing-military-stories-using-artificial-intelligence-tickets-1302281612359
-DTEND:20260402T230000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Eventbrite - Eventbrite Find my tickets Log In Sign Up Find Events Create Events Solutions Solutions Event Ticketing Event Marketing Platform Eventbrite Ads Payments Industry Industry Music Food & Beverage Performing Arts Charity & Causes Retail Event Types Event Types Concerts Classes & Workshops Festivals & Fairs Conferences Corporate Events Online Events Blog Blog Tips & Guides News & Trends Community Tools & Features Organizer Resource Hub Create Events Contact Sales Get Started Help Center Help Center Find your tickets Contact your event organizer Search events Choose a location autocomplete Contact Sales Create Events Help Center Find my tickets Log In Sign Up Find Events Create Events Solutions Solutions Event Ticketing Event Marketing Platform Eventbrite Ads Payments Industry Industry Music Food & Beverage Performing Arts Charity & Causes Retail Event Types Event Types Concerts Classes & Workshops Festivals & Fairs Conferences Corporate Events Online Events Blog Blog Tips & Guides News & Trends Community Tools & Features Organizer Resource Hub Create Events Contact Sales Get Started Help Center Help Center Find your tickets Contact your event organizer Multiple dates Writing Military Stories Using Artificial Intelligence By Words of Veterans Follow I’m Alex Sebby\, and I run Words of Veterans. My platform helps U.S. Veterans write down their Military Stories with the help of AI. Location Mickey Finn Detachment 333 18736 Fuller Heights Road Triangle\, VA 22172 Get directions Good to know Highlights In person Highlights In person About this event Community • Heritage I’m Alex Sebby\, and I run Words of Veterans. My platform helps U.S. Veterans write down their Military Stories with the help of AI technology. I believe there’s a unique opportunity to help younger and older generations sharpen their writing\, technical\, and storytelling skills. Artificial Intelligence is rapidly becoming one of the most important tools of our time—if it isn’t already. In a class like mine\, we can help students use AI in ways that are both practical and meaningful to them. This course would cover: - The fundamentals of narrative structure and writing techniques. - How AI can assist with brainstorming\, editing\, and refining personal or historical narratives. - Practical writing skills\, alongside an introduction to the AI technology that is reshaping our world. Students will get hands-on experience with AI technology while strengthening their storytelling and writing skills. Semper Fi\, Alex K Sebby MY PHONE NUMBER 571-494-5106 EVENT ADDRESS (GO HERE) Mickey Finn Detachment 333 18736 Fuller Heights Rd Triangle\, VA 22172 MY MAILING ADDRESS Words of Veterans PO Box 49 Quantico\, VA 22134 Frequently asked questions I’m not a writer. Can I still use the Words of Veterans AI-assisted U.S. Veteran writing platform? I’m not tech savvy. Do I need technical skills? What does “AI-Assisted” mean? Is my story automatically made public? I have more questions. How can I contact you? Tags United States Events Virginia Events Things to do in Triangle\, VA Triangle Classes Triangle Community Classes #military #event #stories #artificial_intelligence #writing_military_stories Organized by Words of Veterans Followers -- Events -- Hosting -- Contact Follow Report this event Free Multiple dates Check availability Use Eventbrite Create Events Pricing Event Marketing Platform Eventbrite Mobile Ticket App Eventbrite Check-In App Eventbrite App Marketplace Event Registration Software Community Guidelines FAQs Sitemap Plan events Sell Tickets Online Performing Arts Ticketing Software Sell Concert Tickets Online Event Payment System Solutions for Professional Services Event Management Software Halloween Party Planning Virtual Events Platform QR Codes for Event Check-In Post your event online Find events Browse Triangle Events Get the Eventbrite App Connect with us Report This Event Help Center Terms Privacy CA Privacy Notice Accessibility Community Guidelines Manage Cookie Preferences Do Not Sell or Share My Personal Information Privacy Eventbrite + Ticketfly © 2025 Eventbrite
-DTSTART:20250327T203000Z
-SUMMARY:Writing Military Stories Using Artificial Intelligence
-UID:eb2f3ac76694e2b4f37747080b96bfc07057a7c1
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/stronger-relationships-with-prep-tickets-1607219850839
-DTEND:20251204T210000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251204T143000Z
-SUMMARY:Stronger Relationships with PREP
-UID:80fd4206b9e6cfcbfec3fb39ba24590b5707be99
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/revive-med-turns-3-tickets-1681310056639
-DTEND:20251011T180000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251011T150000Z
-SUMMARY:Revive Med Turns 3!
-UID:f5ee635a530435714c0c1868c0a792cbd5a015f8
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4268\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
-DTEND:20251018T180000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Revercomb Administration Building Parking Lot - 10459 Courthouse Drive King George VA 22485
-DTSTART:20251018T140000Z
-SUMMARY:Household Shred Event
-UID:e5b152eaeae0fd3154caa5dbc2af5fb23a21e3e5
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/saint-john-paul-the-great-catholic-high-school-hq-tickets-1665156771729
-DTEND:20251030T003000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251029T230000Z
-SUMMARY:Saint John Paul the Great Catholic High School - HQ
-UID:6708d0b5f3ffbcbbfe2cdd265b9363657d614fa2
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
+DTSTAMP:20250930T030818Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3907\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20251101T200000Z
-LAST-MODIFIED:20250930T001900Z
+LAST-MODIFIED:20250930T030818Z
 LOCATION:Commissioner of the Revenue's - 10459 Courthouse Drive Suite 101 King George VA 22485
 DTSTART:20251101T120000Z
 SUMMARY:Land Use Tax Application Deadline
 UID:6b55f741f4e52a9ef3d1aa0dcf1639a7137df387
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/robert-e-jenkins-scholastic-chess-tournament-tickets-1505245392489
-DTEND:20251101T180000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251101T133000Z
-SUMMARY:Robert E. Jenkins Scholastic Chess Tournament.
-UID:038ed45cb05644bccd4781457e87cc6fdd09986a
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/qi-gong-for-vitality-tickets-1703101826409
-DTEND:20251117T160000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Eventbrite - Eventbrite Find my tickets Log In Sign Up Find Events Create Events Solutions Solutions Event Ticketing Event Marketing Platform Eventbrite Ads Payments Industry Industry Music Food & Beverage Performing Arts Charity & Causes Retail Event Types Event Types Concerts Classes & Workshops Festivals & Fairs Conferences Corporate Events Online Events Blog Blog Tips & Guides News & Trends Community Tools & Features Organizer Resource Hub Create Events Contact Sales Get Started Help Center Help Center Find your tickets Contact your event organizer Search events Choose a location autocomplete Contact Sales Create Events Help Center Find my tickets Log In Sign Up Find Events Create Events Solutions Solutions Event Ticketing Event Marketing Platform Eventbrite Ads Payments Industry Industry Music Food & Beverage Performing Arts Charity & Causes Retail Event Types Event Types Concerts Classes & Workshops Festivals & Fairs Conferences Corporate Events Online Events Blog Blog Tips & Guides News & Trends Community Tools & Features Organizer Resource Hub Create Events Contact Sales Get Started Help Center Help Center Find your tickets Contact your event organizer Multiple dates Qi Gong for Vitality By Yes to Holistic Health Follow Come join us for a fun and interactive Qigong discovery class where you'll learn the basics of this ancient Chinese practice! Location Central Rappahannock Regional Library Salem Church Branch 2607 Salem Church Road Fredericksburg\, VA 22407 Get directions Good to know Highlights ages 18+ In person Free parking Highlights ages 18+ In person Free parking About this event Health • Yoga Qigong for Vitality Come discover the gentle\, flowing practice of Qigong and how it can help you feel more energized\, grounded\, and balanced. This beginner-friendly class is perfect for anyone—no experience needed\, just wear something comfortable and bring an open mind. Together\, we’ll explore simple movements\, mindful breath\, and easy routines that support circulation\, release tension\, and restore your energy. You’ll leave with a practical Qigong flow you can use anytime\, plus tools to care for your body\, mind\, and energy every day. This class is a chance to slow down\, reconnect\, and experience the lasting benefits of this ancient practice in your modern life. Frequently asked questions What is qigong? Organized by Yes to Holistic Health Followers -- Events -- Hosting -- Contact Follow Report this event Free Multiple dates Check availability Use Eventbrite Create Events Pricing Event Marketing Platform Eventbrite Mobile Ticket App Eventbrite Check-In App Eventbrite App Marketplace Event Registration Software Community Guidelines FAQs Sitemap Plan events Sell Tickets Online Performing Arts Ticketing Software Sell Concert Tickets Online Event Payment System Solutions for Professional Services Event Management Software Halloween Party Planning Virtual Events Platform QR Codes for Event Check-In Post your event online Find events Browse Fredericksburg Events Get the Eventbrite App Connect with us Report This Event Help Center Terms Privacy CA Privacy Notice Accessibility Community Guidelines Manage Cookie Preferences Do Not Sell or Share My Personal Information Privacy Eventbrite + Ticketfly © 2025 Eventbrite
-DTSTART:20251020T140000Z
-SUMMARY:Qi Gong for Vitality
-UID:caa019879411c3626630e19e8e440715c218dda3
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/vista-eye-holiday-dinner-tickets-1751423277169
-DTEND:20251213T003000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251212T223000Z
-SUMMARY:Vista Eye Holiday Dinner
-UID:81d400f1c6dce97ff37358758a2e01bd1ab25ad2
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:***NOT A FREE SHOWING*** ***ADMISSION TO BE PAID AT THE DOOR***\nhttps://www.eventbrite.com/e/quantico-movie-demon-slayer-infinity-castle-r-300-thursday-tickets-1721584719239
-DTEND:20251003T003500Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Little Hall Theater - 2034 Barnett Ave. Main Floor\, Quantico\, VA 22134 Quantico VA 22134
-DTSTART:20251002T220000Z
-SUMMARY:QUANTICO - Movie: Demon Slayer: Infinity Castle - R *$3.00 THURSDAY*
-UID:d28f544d5f5506bbe5e417572648ba503c3f4489
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.fredericksburgva.gov/calendar.aspx?EID=3504\nhttps://www.fredericksburgva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=35
-DTEND:20251126T213000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:City Hall - 715 Princess Anne Street Fredericksburg VA 22401
-DTSTART:20251126T170000Z
-SUMMARY:Thanksgiving - City Offices Closed Half Day
-UID:aabaf1989419ef5919274ea2145990d7f9e2df97
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3340\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
-DTEND:20260215T210000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Commissioner of the Revenue's Office - 10459 Courthouse Drive Suite 101 King George VA 22485
-DTSTART:20260215T130000Z
-SUMMARY:High Mileage Discount Deadline
-UID:a2729e42768c61ffe19fb154cc14af7a667b4342
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/coexisting-and-being-a-good-wildlife-neighbor-tickets-1644544098669
-DTEND:20251217T233000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251217T220000Z
-SUMMARY:Coexisting and being a good Wildlife neighbor
-UID:e68320e56d3634baf081a4639a95ce9e3981c89a
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/community-day-5-comics-collectibles-more-hosted-by-time-and-space-com-tickets-1708960249109
-DTEND:20251002T230000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251002T150000Z
-SUMMARY:Community Day 5: Comics\, Collectibles & More – Hosted by Time and Space Com
-UID:936afbc2200798b3d20149ce4fa1680701a88e2e
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/wellness-in-motion-hilldrup-x-f45-stafford-715a-tickets-1689512550519
-DTEND:20251001T120000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251001T110000Z
-SUMMARY:Wellness in Motion: Hilldrup x F45 Stafford (7:15a)
-UID:1dd51b9ecfad9f9ff4fcda4dac2fe96b995d7895
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:Join us at The Harbour Grille for a special charity event with Goodbye Vienna\, performing live to raise awareness for the 22 A Day project\nhttps://www.eventbrite.com/e/goodbye-vienna-performing-the-22-a-day-charity-event-the-harbour-grille-tickets-1546537668799
-DTEND:20251110T045900Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:The Harbour Grille - 13188 Marina Way\, Woodbridge\, VA 22191 Woodbridge VA 22191
-DTSTART:20251110T010000Z
-SUMMARY:Goodbye Vienna performing The 22 A Day Charity Event @ The Harbour Grille
-UID:d11be209daa02f940e9c472bd1bb3bea88ae91a8
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3754\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
-DTEND:20260605T200000Z
-LAST-MODIFIED:20250930T001900Z
+DTSTAMP:20250930T030818Z
+DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3804\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
+DTEND:20251205T210000Z
+LAST-MODIFIED:20250930T030818Z
 LOCATION:Treasurer's Office - 10459 Courthouse Drive Suite 100 King George VA 22485
-DTSTART:20260605T120000Z
+DTSTART:20251205T130000Z
 SUMMARY:Real Estate & Personal Property Taxes Due
-UID:5a9e35570ac4ac4d544cdc0dc2a6b56fa343714f
+UID:fe71a97cc717b9f09ac0d87a63dda4041d8a0aea
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/2025-boots-to-business-entrepreneurship-class-tickets-1107404630059
-DTEND:20251028T200000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Eventbrite - Eventbrite Find my tickets Log In Sign Up Find Events Create Events Solutions Solutions Event Ticketing Event Marketing Platform Eventbrite Ads Payments Industry Industry Music Food & Beverage Performing Arts Charity & Causes Retail Event Types Event Types Concerts Classes & Workshops Festivals & Fairs Conferences Corporate Events Online Events Blog Blog Tips & Guides News & Trends Community Tools & Features Organizer Resource Hub Create Events Contact Sales Get Started Help Center Help Center Find your tickets Contact your event organizer Search events Choose a location autocomplete Contact Sales Create Events Help Center Find my tickets Log In Sign Up Find Events Create Events Solutions Solutions Event Ticketing Event Marketing Platform Eventbrite Ads Payments Industry Industry Music Food & Beverage Performing Arts Charity & Causes Retail Event Types Event Types Concerts Classes & Workshops Festivals & Fairs Conferences Corporate Events Online Events Blog Blog Tips & Guides News & Trends Community Tools & Features Organizer Resource Hub Create Events Contact Sales Get Started Help Center Help Center Find your tickets Contact your event organizer Multiple dates 2025 Boots to Business (Entrepreneurship) Class By MCCS Quantico: Personal and Professional Follow Interested in starting a business or owning a franchise? Presented by the SBA. Topics include business plans and funding options. View all event details Sold Out Explore similar events Use Eventbrite Create Events Pricing Event Marketing Platform Eventbrite Mobile Ticket App Eventbrite Check-In App Eventbrite App Marketplace Event Registration Software Community Guidelines FAQs Sitemap Plan events Sell Tickets Online Performing Arts Ticketing Software Sell Concert Tickets Online Event Payment System Solutions for Professional Services Event Management Software Halloween Party Planning Virtual Events Platform QR Codes for Event Check-In Post your event online Find events Browse Quantico Events Get the Eventbrite App Connect with us Report This Event Help Center Terms Privacy CA Privacy Notice Accessibility Community Guidelines Manage Cookie Preferences Do Not Sell or Share My Personal Information Privacy Eventbrite + Ticketfly © 2025 Eventbrite
-DTSTART:20250123T130000Z
-SUMMARY:2025 Boots to Business (Entrepreneurship) Class
-UID:c6bbbe2166df3aa04fb3c50b447602d16fcd3e94
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:Faith In Action! Hope Alive Foundation Presents the Annual Breast Cancer Awareness Walk\nhttps://www.eventbrite.com/e/hope-alive-foundation-annual-breast-cancer-awareness-sponsored-by-sentara-tickets-1742163099729
-DTEND:20251004T150000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:17877 Old Triangle Rd - 17877 Old Triangle Road\, Triangle\, VA 22172 Triangle VA 22172
-DTSTART:20251004T123000Z
-SUMMARY:Hope Alive Foundation Annual Breast Cancer Awareness (Sponsored by Sentara)
-UID:d02d2fbf00a861a09eb64e21de04f434ff9507ec
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/thursday-night-football-watch-party-tickets-1675954959399
-DTEND:20251219T040000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Eventbrite - Eventbrite Find my tickets Log In Sign Up Find Events Create Events Solutions Solutions Event Ticketing Event Marketing Platform Eventbrite Ads Payments Industry Industry Music Food & Beverage Performing Arts Charity & Causes Retail Event Types Event Types Concerts Classes & Workshops Festivals & Fairs Conferences Corporate Events Online Events Blog Blog Tips & Guides News & Trends Community Tools & Features Organizer Resource Hub Create Events Contact Sales Get Started Help Center Help Center Find your tickets Contact your event organizer Search events Choose a location autocomplete Contact Sales Create Events Help Center Find my tickets Log In Sign Up Find Events Create Events Solutions Solutions Event Ticketing Event Marketing Platform Eventbrite Ads Payments Industry Industry Music Food & Beverage Performing Arts Charity & Causes Retail Event Types Event Types Concerts Classes & Workshops Festivals & Fairs Conferences Corporate Events Online Events Blog Blog Tips & Guides News & Trends Community Tools & Features Organizer Resource Hub Create Events Contact Sales Get Started Help Center Help Center Find your tickets Contact your event organizer Multiple dates Thursday Night Football Watch Party By MCCS Quantico Main Side Recreation Center (MSRC) Follow Active Duty Marines\, join us at the MSRC for Thursday Night Football! Location Main Side Recreation Center 206 Nicholas road Quantico\, VA 22134 Get directions Good to know Highlights In person Highlights In person About this event Sports & Fitness • Football ACTIVE DUTY MARINES! Join us at the Main Side Rec Center for some Thursday Night Football Fun! Mark your calendars for this awesome weekly event! BRING YOUR OWN SNACKS AND DRINKS! If you have any questions\, please call MSRC at 703.432.0363 Active Duty only. Need transportation to/from the Rec Center? We've got wheels! Call 703.432.0363 for a ride. Tags United States Events Virginia Events Things to do in Quantico Base\, VA Quantico Base Parties Quantico Base Sports & Fitness Parties #watch_party #social_event #game_night #thursday_night #football_party Organized by MCCS Quantico Main Side Recreation Center (MSRC) Followers -- Events -- Hosting -- Contact Follow Report this event Free Multiple dates Check availability Use Eventbrite Create Events Pricing Event Marketing Platform Eventbrite Mobile Ticket App Eventbrite Check-In App Eventbrite App Marketplace Event Registration Software Community Guidelines FAQs Sitemap Plan events Sell Tickets Online Performing Arts Ticketing Software Sell Concert Tickets Online Event Payment System Solutions for Professional Services Event Management Software Halloween Party Planning Virtual Events Platform QR Codes for Event Check-In Post your event online Find events Browse Quantico Events Get the Eventbrite App Connect with us Report This Event Help Center Terms Privacy CA Privacy Notice Accessibility Community Guidelines Manage Cookie Preferences Do Not Sell or Share My Personal Information Privacy Eventbrite + Ticketfly © 2025 Eventbrite
-DTSTART:20250912T000000Z
-SUMMARY:Thursday Night Football Watch Party
-UID:e0ef4eaed65b7d612f97224e31f00050a2857383
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:Bring your furry friends to receive a special blessing and celebrate their unconditional love at our Blessing of the Pets event!\nhttps://www.eventbrite.com/e/blessing-of-the-pets-tickets-1664781258559
-DTEND:20251004T210000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:15695 Blackburn Rd - 15695 Blackburn Road\, Woodbridge\, VA 22191 Woodbridge VA 22191
-DTSTART:20251004T200000Z
-SUMMARY:Blessing of the Pets
-UID:b122c33d6f7b66e7c23c37d0bef4224b10ba4cf9
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/links-team-meeting-in-person-tickets-1553017700749
-DTEND:20251014T180000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251014T170000Z
-SUMMARY:L.I.N.K.S. Team Meeting - In Person
-UID:4b9224780588647a3e16d2c31c5a92a30f1c9e48
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/quantico-single-marine-program-smp-trip-marine-corps-museum-tickets-1673888729249
-DTEND:20251010T170000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251010T130000Z
-SUMMARY:Quantico Single Marine Program (SMP) Trip - Marine Corps Museum
-UID:30aeb9d9b2ac6d107c76304ff1ba7b936b6b533a
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/first-time-homebuyers-class-tickets-1747194749529
-DTEND:20251018T180000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251018T120000Z
-SUMMARY:First-time Homebuyers Class
-UID:b9ac25ce75627db40b96e21c2254101bc54f5683
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/spotsy-fall-classic-car-show-tickets-1450629805799
-DTEND:20251101T180000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251101T140000Z
-SUMMARY:Spotsy Fall Classic Car Show
-UID:f5fb450a4820cce78f25605e69c1c2137871e49e
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/seller-workshop-tickets-1680079465909
-DTEND:20251108T180000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251108T160000Z
-SUMMARY:Seller Workshop
-UID:27168fbc6189b382da87e3673aef946893686f21
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/washington-commanders-ticket-raffle-roadhouse-tickets-1669604585259
-DTEND:20251201T040000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20250912T001500Z
-SUMMARY:Washington Commanders Ticket Raffle @ Roadhouse!
-UID:eae4a17cfe5b825c858fc167da8e7b58cb15ac07
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/trunk-or-treat-tickets-1582900159989
-DTEND:20251024T220000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251024T200000Z
-SUMMARY:Trunk or Treat
-UID:c92738fcc539bd5e38c05698ecffa5262d72fd81
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/monthly-ruck-progression-18-mile-costume-ruck-tickets-1357124167919
-DTEND:20251101T190000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251101T120000Z
-SUMMARY:Monthly Ruck Progression: 18 Mile Costume Ruck
-UID:46c56d278d98ee53f4dfca8560225f574ef1ed9f
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/mainspring-recovery-alumni-event-tickets-1733955219739
-DTEND:20251122T200000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251122T180000Z
-SUMMARY:Mainspring Recovery Alumni Event
-UID:8214017c7bb0a27305f1d7fb0565f55a0b4a63fd
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/2025-tuition-assistance-orientation-classes-tickets-1073859014219
-DTEND:20251213T030000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Eventbrite - Eventbrite Find my tickets Log In Sign Up Find Events Create Events Solutions Solutions Event Ticketing Event Marketing Platform Eventbrite Ads Payments Industry Industry Music Food & Beverage Performing Arts Charity & Causes Retail Event Types Event Types Concerts Classes & Workshops Festivals & Fairs Conferences Corporate Events Online Events Blog Blog Tips & Guides News & Trends Community Tools & Features Organizer Resource Hub Create Events Contact Sales Get Started Help Center Help Center Find your tickets Contact your event organizer Search events Choose a location autocomplete Contact Sales Create Events Help Center Find my tickets Log In Sign Up Find Events Create Events Solutions Solutions Event Ticketing Event Marketing Platform Eventbrite Ads Payments Industry Industry Music Food & Beverage Performing Arts Charity & Causes Retail Event Types Event Types Concerts Classes & Workshops Festivals & Fairs Conferences Corporate Events Online Events Blog Blog Tips & Guides News & Trends Community Tools & Features Organizer Resource Hub Create Events Contact Sales Get Started Help Center Help Center Find your tickets Contact your event organizer Multiple dates 2025 Tuition Assistance Orientation Classes By MCCS Quantico: Personal and Professional Follow Calling all first time military TA users! Location Voluntary Education Center 3088 Roan Street Quantico\, VA 22134 Get directions Good to know Highlights In person Highlights In person About this event Family & Education • Education In this orientation class you will learn: ~Eligibility requirements to obtain and maintain USMC TA. ~Learn how to apply for TA through the USMC WebTA system. ~FASFA information will also be provided. If you would like more information on the class please call the VEC at 703.784.2375 or email MCCSQuanticoEdCenter@usmc.mil. Tags United States Events Virginia Events Things to do in Quantico Base\, VA Quantico Base Classes Quantico Base Family & Education Classes #orientation #classes #tuition #assistance #2024 Organized by MCCS Quantico: Personal and Professional Followers -- Events -- Hosting -- Contact Follow Report this event Free Multiple dates Check availability Use Eventbrite Create Events Pricing Event Marketing Platform Eventbrite Mobile Ticket App Eventbrite Check-In App Eventbrite App Marketplace Event Registration Software Community Guidelines FAQs Sitemap Plan events Sell Tickets Online Performing Arts Ticketing Software Sell Concert Tickets Online Event Payment System Solutions for Professional Services Event Management Software Halloween Party Planning Virtual Events Platform QR Codes for Event Check-In Post your event online Find events Browse Quantico Events Get the Eventbrite App Connect with us Report This Event Help Center Terms Privacy CA Privacy Notice Accessibility Community Guidelines Manage Cookie Preferences Do Not Sell or Share My Personal Information Privacy Eventbrite + Ticketfly © 2025 Eventbrite
-DTSTART:20250110T150000Z
-SUMMARY:2025 Tuition Assistance Orientation Classes
-UID:2f2ea0f81442b43c6c454a508067c442ec1de5ea
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/start-your-journey-as-a-real-estate-investor-woodbridge-tickets-535347808707
-DTEND:20251224T030000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Eventbrite - Eventbrite Find my tickets Log In Sign Up Find Events Create Events Solutions Solutions Event Ticketing Event Marketing Platform Eventbrite Ads Payments Industry Industry Music Food & Beverage Performing Arts Charity & Causes Retail Event Types Event Types Concerts Classes & Workshops Festivals & Fairs Conferences Corporate Events Online Events Blog Blog Tips & Guides News & Trends Community Tools & Features Organizer Resource Hub Create Events Contact Sales Get Started Help Center Help Center Find your tickets Contact your event organizer Search events Choose a location autocomplete Contact Sales Create Events Help Center Find my tickets Log In Sign Up Find Events Create Events Solutions Solutions Event Ticketing Event Marketing Platform Eventbrite Ads Payments Industry Industry Music Food & Beverage Performing Arts Charity & Causes Retail Event Types Event Types Concerts Classes & Workshops Festivals & Fairs Conferences Corporate Events Online Events Blog Blog Tips & Guides News & Trends Community Tools & Features Organizer Resource Hub Create Events Contact Sales Get Started Help Center Help Center Find your tickets Contact your event organizer Multiple dates Start Your Journey as a Real Estate Investor - Woodbridge By Impactrei Follow Checkout your new community Location Woodbridge Online Woodbridge\, VA 22193 Get directions Good to know Highlights In person Highlights In person About this event Business • Real Estate 🚀 Ready to Build Wealth Through Real Estate? 🚀 💡 Join us for our Real Estate Investing meeting on Zoom! Our community empowers individuals with the education\, tools\, and support to thrive in real estate. 🔑 After attending you will have the opportunity to attend our other community meetings: Finding Deals Workshop Finding Money Workshop Deal or No Deal Workshop Debt Elimination Workshop Debt Elimination Workshop *** ACCURATE INFORMATION IS REQUIRED TO RECEIVED THE ZOOM LINK *** Tags United States Events Virginia Events Things to do in Dale City\, VA Dale City Networking Dale City Business Networking #wealth #investing #online #thingstodo #virginia #dmv #realestateinvesting #real_estate #real_estate_education #investing_in_real_estate Organized by Impactrei Followers -- Events -- Hosting -- Contact Follow Report this event Free Multiple dates Check availability Use Eventbrite Create Events Pricing Event Marketing Platform Eventbrite Mobile Ticket App Eventbrite Check-In App Eventbrite App Marketplace Event Registration Software Community Guidelines FAQs Sitemap Plan events Sell Tickets Online Performing Arts Ticketing Software Sell Concert Tickets Online Event Payment System Solutions for Professional Services Event Management Software Halloween Party Planning Virtual Events Platform QR Codes for Event Check-In Post your event online Find events Browse Woodbridge Events Get the Eventbrite App Connect with us Report This Event Help Center Terms Privacy CA Privacy Notice Accessibility Community Guidelines Manage Cookie Preferences Do Not Sell or Share My Personal Information Privacy Eventbrite + Ticketfly © 2025 Eventbrite
-DTSTART:20230210T000000Z
-SUMMARY:Start Your Journey as a Real Estate Investor - Woodbridge
-UID:6543d28a4d38b0b92f3c85f2e32ee8a0e85545d3
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/food-tasting-tickets-1629252240309
-DTEND:20251116T030000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251116T000000Z
-SUMMARY:Food tasting
-UID:bae2b612e7d25507923225725aeedd91c65e43f8
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.fredericksburgva.gov/calendar.aspx?EID=3640\nhttps://www.fredericksburgva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=22
-DTEND:20251025T000000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Memorial Park - 1401 Kenmore ave Fredericksburg VA 22401
-DTSTART:20251024T223000Z
-SUMMARY:Park After Dark
-UID:2c032c6083cef1846e5bc5329d41a3b719f4743c
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/qigong-discovery-class-tickets-1431358163799
-DTEND:20251217T154500Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Eventbrite - Eventbrite Find my tickets Log In Sign Up Find Events Create Events Solutions Solutions Event Ticketing Event Marketing Platform Eventbrite Ads Payments Industry Industry Music Food & Beverage Performing Arts Charity & Causes Retail Event Types Event Types Concerts Classes & Workshops Festivals & Fairs Conferences Corporate Events Online Events Blog Blog Tips & Guides News & Trends Community Tools & Features Organizer Resource Hub Create Events Contact Sales Get Started Help Center Help Center Find your tickets Contact your event organizer Search events Choose a location autocomplete Contact Sales Create Events Help Center Find my tickets Log In Sign Up Find Events Create Events Solutions Solutions Event Ticketing Event Marketing Platform Eventbrite Ads Payments Industry Industry Music Food & Beverage Performing Arts Charity & Causes Retail Event Types Event Types Concerts Classes & Workshops Festivals & Fairs Conferences Corporate Events Online Events Blog Blog Tips & Guides News & Trends Community Tools & Features Organizer Resource Hub Create Events Contact Sales Get Started Help Center Help Center Find your tickets Contact your event organizer Multiple dates Qigong discovery class By Yes to Holistic Health Follow Come join us for a fun and interactive Qigong discovery class where you'll learn the basics of this ancient Chinese practice! Location 320 Emancipation Hwy 320 Emancipation Highway Fredericksburg\, VA 22401 Get directions Good to know Highlights ages 18+ In person Highlights ages 18+ In person About this event Health • Yoga Qigong discovery class Curious about Qigong and how it can boost your energy\, ease pain\, and support your overall wellness? This beginner-friendly discovery class is the perfect place to start. Whether you're navigating a busy life or simply seeking more balance\, this class introduces you to the ancient roots of Qigong and how to apply it in modern life for greater vitality and wellbeing. This guided experience blends breath\, gentle movement\, and mindfulness to help you feel more grounded\, improve circulation\, and restore your energy from the inside out. You'll also learn an easy but impactful Qigong flow you can use anytime. Explore the origin story of Qigong and how it supports physical\, emotional\, and energetic health Practice flowing movements to release tension and improve circulation Learn a simple routine you can continue at home—seated or standing Feel calmer\, stronger\, and more energized in just one session All are welcome—no prior experience needed. Come as you are\, and leave with a new way to care for yourself\, every day. Tags United States Events Virginia Events Things to do in Fredericksburg\, VA Fredericksburg Classes Fredericksburg Health Classes #energy #class #meditation #discovery #qigong Organized by Yes to Holistic Health Followers -- Events -- Hosting -- Contact Follow Report this event Free Multiple dates Check availability Use Eventbrite Create Events Pricing Event Marketing Platform Eventbrite Mobile Ticket App Eventbrite Check-In App Eventbrite App Marketplace Event Registration Software Community Guidelines FAQs Sitemap Plan events Sell Tickets Online Performing Arts Ticketing Software Sell Concert Tickets Online Event Payment System Solutions for Professional Services Event Management Software Halloween Party Planning Virtual Events Platform QR Codes for Event Check-In Post your event online Find events Browse Fredericksburg Events Get the Eventbrite App Connect with us Report This Event Help Center Terms Privacy CA Privacy Notice Accessibility Community Guidelines Manage Cookie Preferences Do Not Sell or Share My Personal Information Privacy Eventbrite + Ticketfly © 2025 Eventbrite
-DTSTART:20250716T140000Z
-SUMMARY:Qigong discovery class
-UID:a4c70b84232b730cba024d66523a6be642720f31
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/toastmasters-meeting-in-fredericksburg-tickets-902819305847
-DTEND:20251105T020000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Eventbrite - Eventbrite Find my tickets Log In Sign Up Find Events Create Events Solutions Solutions Event Ticketing Event Marketing Platform Eventbrite Ads Payments Industry Industry Music Food & Beverage Performing Arts Charity & Causes Retail Event Types Event Types Concerts Classes & Workshops Festivals & Fairs Conferences Corporate Events Online Events Blog Blog Tips & Guides News & Trends Community Tools & Features Organizer Resource Hub Create Events Contact Sales Get Started Help Center Help Center Find your tickets Contact your event organizer Search events Choose a location autocomplete Contact Sales Create Events Help Center Find my tickets Log In Sign Up Find Events Create Events Solutions Solutions Event Ticketing Event Marketing Platform Eventbrite Ads Payments Industry Industry Music Food & Beverage Performing Arts Charity & Causes Retail Event Types Event Types Concerts Classes & Workshops Festivals & Fairs Conferences Corporate Events Online Events Blog Blog Tips & Guides News & Trends Community Tools & Features Organizer Resource Hub Create Events Contact Sales Get Started Help Center Help Center Find your tickets Contact your event organizer Multiple dates Toastmasters Meeting in Fredericksburg By Rappahannock Regional Toastmasters Club 8920 Follow We invite guests to attend our next meeting. We offer a hybrid meeting format via Zoom. You can attend on-line or in person. Mask optional. Location 308 Hanover St 308 Hanover Street Fredericksburg\, VA 22401 Get directions Good to know Highlights In person Highlights In person About this event Business • Career Become a better public speaker\, a better listener\, a better leader. The Rappahannock Regional Toastmasters Club is part of Toastmasters International. We offer a safe space to learn and practice speaking\, listening and leadership skills. As an educational non profit organization\, our club is run by and for its members. We welcome all guests. W﻿e currently offer a "hybrid" meeting via Zoom which means guests and members can attend meetings via the Zoom link\, or by attending in person at our meeting location. Please see our website for meeting location. A Zoom link will be provided with Eventbrite response! V﻿isit our website: https://rappahannock.toastmastersclubs.org O﻿ur Facebook page: https://www.facebook.com/rrtm8920 Frequently asked questions How I can attend on-line? Is there a fee to attend as a guest? As a guest\, am I expected to speak at the meeting? What is "Table Topics?" Tags United States Events Virginia Events Things to do in Fredericksburg\, VA Fredericksburg Networking Fredericksburg Business Networking #public_speaking #leadership_skills #educational_leadership #hybrid_event #educational_development Organized by Rappahannock Regional Toastmasters Club 8920 Followers -- Events -- Hosting -- Contact Follow Report this event Free Multiple dates Check availability Use Eventbrite Create Events Pricing Event Marketing Platform Eventbrite Mobile Ticket App Eventbrite Check-In App Eventbrite App Marketplace Event Registration Software Community Guidelines FAQs Sitemap Plan events Sell Tickets Online Performing Arts Ticketing Software Sell Concert Tickets Online Event Payment System Solutions for Professional Services Event Management Software Halloween Party Planning Virtual Events Platform QR Codes for Event Check-In Post your event online Find events Browse Fredericksburg Events Get the Eventbrite App Connect with us Report This Event Help Center Terms Privacy CA Privacy Notice Accessibility Community Guidelines Manage Cookie Preferences Do Not Sell or Share My Personal Information Privacy Eventbrite + Ticketfly © 2025 Eventbrite
-DTSTART:20240604T233000Z
-SUMMARY:Toastmasters Meeting in Fredericksburg
-UID:c07e6dd67d9b103e14b74f29771e45ffb0784eea
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/simply-church-tickets-1625879552509
-DTEND:20270404T180000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20250824T170000Z
-SUMMARY:Simply Church
-UID:b4f9549e2b121a838012b8331ce4ef2db38efc1c
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/october-live-wine-women-wealth-fxbg-with-judy-robbins-tickets-1712194252099
-DTEND:20251008T000000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251007T213000Z
-SUMMARY:October LIVE Wine\, Women & Wealth® FXBG with Judy Robbins
-UID:c5266c54ecdef30cfb1aee36f3c38c25cfb89b51
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4334\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
-DTEND:20251019T003000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:King George Family YMCA - 10545 Kings Highway King George VA 22485
-DTSTART:20251018T223000Z
-SUMMARY:Creepy Crawly Carnival
-UID:2bf7fdff8bfca27aa5f9fdae0896336a96b4066f
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/step-initiative-workshop-tickets-1601854593209
-DTEND:20260114T223000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251008T203000Z
-SUMMARY:STEP Initiative Workshop
-UID:8cb42dc65309dd70dd10cc144fa31b3b7d405f48
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.fredericksburgva.gov/calendar.aspx?EID=3506\nhttps://www.fredericksburgva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=35
-DTEND:20251225T050000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:City Hall - 715 Princess Anne Street Fredericksburg VA 22401
-DTSTART:20251224T050000Z
-SUMMARY:Christmas - City Offices Closed
-UID:b60ecf74ae81d4d5ef529172cc4fbfac91e80098
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:Join us for Ghosts in the Garden 2025\, an evening filled with trunk or treat\, ghost stories\, an old fashioned bake sale\, and more!\nhttps://www.eventbrite.com/e/ghosts-in-the-garden-2025-tickets-1665283761559
-DTEND:20251018T230000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Remington Community Garden\, West Bowen Street\, Remington\, VA\, USA - 160 West Bowen Street\, Remington\, VA 22734 Remington VA 22734
-DTSTART:20251018T200000Z
-SUMMARY:Ghosts in the Garden 2025
-UID:c5864f9b5cdb8e2ee3a62e50312a118524120567
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/fredericksburg-virginia-empower-your-finances-tickets-995446054947
-DTEND:20260219T200000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Eventbrite - Eventbrite Find my tickets Log In Sign Up Find Events Create Events Solutions Solutions Event Ticketing Event Marketing Platform Eventbrite Ads Payments Industry Industry Music Food & Beverage Performing Arts Charity & Causes Retail Event Types Event Types Concerts Classes & Workshops Festivals & Fairs Conferences Corporate Events Online Events Blog Blog Tips & Guides News & Trends Community Tools & Features Organizer Resource Hub Create Events Contact Sales Get Started Help Center Help Center Find your tickets Contact your event organizer Search events Choose a location autocomplete Contact Sales Create Events Help Center Find my tickets Log In Sign Up Find Events Create Events Solutions Solutions Event Ticketing Event Marketing Platform Eventbrite Ads Payments Industry Industry Music Food & Beverage Performing Arts Charity & Causes Retail Event Types Event Types Concerts Classes & Workshops Festivals & Fairs Conferences Corporate Events Online Events Blog Blog Tips & Guides News & Trends Community Tools & Features Organizer Resource Hub Create Events Contact Sales Get Started Help Center Help Center Find your tickets Contact your event organizer Multiple dates Fredericksburg\, Virginia: Empower Your Finances This event is designed to empower you with the knowledge\, tools\, and strategies needed to attain financial freedom Location Fredericksburg Fredericksburg Fredericksburg\, VA 22401 Get directions Good to know Highlights In person Highlights In person About this event Business • Finance Join us for an empowering event: Empower Your Finances: Navigating the Road to Independence Are you ready to take control of your financial future? This event is designed to help you gain the knowledge and skills needed to achieve financial independence. From budgeting to investing\, our expert speakers will guide you through the steps to secure your financial well-being. Event Details: Location: Virtual Meeting Come join us and take the first step towards a more secure financial future! Tags United States Events Virginia Events Things to do in Fredericksburg\, VA Fredericksburg Classes Fredericksburg Business Classes #finances #moneymindset #financial_literacy #money_management #financial_freedom #coaching_training #wealth_building #wealth_creation #financial_education Organized by Contact organizer Report this event Free Multiple dates Check availability Use Eventbrite Create Events Pricing Event Marketing Platform Eventbrite Mobile Ticket App Eventbrite Check-In App Eventbrite App Marketplace Event Registration Software Community Guidelines FAQs Sitemap Plan events Sell Tickets Online Performing Arts Ticketing Software Sell Concert Tickets Online Event Payment System Solutions for Professional Services Event Management Software Halloween Party Planning Virtual Events Platform QR Codes for Event Check-In Post your event online Find events Browse Fredericksburg Events Get the Eventbrite App Connect with us Report This Event Help Center Terms Privacy CA Privacy Notice Accessibility Community Guidelines Manage Cookie Preferences Do Not Sell or Share My Personal Information Privacy Eventbrite + Ticketfly © 2025 Eventbrite
-DTSTART:20240829T173000Z
-SUMMARY:Fredericksburg\, Virginia: Empower Your Finances
-UID:9a65b87e6f9354f76d4d89e3edf0ea89ce0eb06c
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:Join us for a FREE Candle Making class! Ladies of all ages are welcome (children must have adult). Take home the candle you make\nhttps://www.eventbrite.com/e/ladies-candle-making-class-tickets-1698090377029
-DTEND:20251025T170000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Stevensburg Baptist Church - 19393 York Road\, Stevensburg\, VA 22741 Stevensburg VA 22741
-DTSTART:20251025T140000Z
-SUMMARY:Ladies Candle Making Class
-UID:1cdba5224ce0e6ffa745a6f62322ea0d4c5842f9
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.fredericksburgva.gov/calendar.aspx?EID=3639\nhttps://www.fredericksburgva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=22
-DTEND:20251011T140000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Motts Run Reservoir  - 6600 River rd Fredericksburg VA 22401
-DTSTART:20251010T210000Z
-SUMMARY:Campout in the Park
-UID:71d1fec31be4e6392b92ad436064a3eaab147898
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:Come join us for the 17th Annual Mental Health Awareness event in Prince William County on October 6th.\nhttps://www.eventbrite.com/e/prince-william-countys-17th-annual-mental-health-awareness-tickets-1353968850279
-DTEND:20251006T230000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Prince William County Government - A.J. Ferlazzo Building - 15941 Donald Curtis Drive\, Woodbridge\, VA 22191 Woodbridge VA 22191
-DTSTART:20251006T190000Z
-SUMMARY:Prince William County’s 17th Annual Mental Health Awareness
-UID:8dda21c31d28e13215172bf32e4954b6a7a41ff8
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:Join us for Live Music with Cylas Ibanez!\nhttps://www.eventbrite.com/e/live-music-w-cylas-ibanez-courtyard-marriott-tickets-1596082629109
-DTEND:20251023T010000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Courtyard Fredericksburg Historic District - 620 Caroline Street\, Fredericksburg\, VA 22401 Fredericksburg VA 22401
-DTSTART:20251022T220000Z
-SUMMARY:Live Music w/ Cylas Ibanez @ Courtyard Marriott
-UID:ab35b3175cf467405cbab4c437e3761bd785f692
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:GriefShare is a caring support group where you don’t have to grieve alone. Find hope\, healing\, and community after loss.\nhttps://www.eventbrite.com/e/griefshare-support-group-tickets-1625875881529
-DTEND:20251214T210000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Sentara Northern Virginia Medical Center - 2300 Opitz Boulevard\, Woodbridge\, VA 22191 Woodbridge VA 22191
-DTSTART:20250824T183000Z
-SUMMARY:GriefShare – Support Group
-UID:6dcc0982f2c14aa84d7f08b001c2b77e95ae7426
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4311\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
-DTEND:20251005T200000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:King George Citizens Center - 8076 Kings Highway King George VA 22485
-DTSTART:20251004T160000Z
-SUMMARY:1st Annual King George VCE 4-H County Fair
-UID:ed6b7680d6ff20dcff7fc2dfbf8e0f9cb22eb811
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
+DTSTAMP:20250930T030818Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3444\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20260301T210000Z
-LAST-MODIFIED:20250930T001900Z
+LAST-MODIFIED:20250930T030818Z
 LOCATION:Commissioner of the Revenue's Office - 10459 Courthouse Drive Suite 101 King George VA 22485
 DTSTART:20260301T130000Z
 SUMMARY:Exemption Application Deadline for the Elderly and Disabled
 UID:34822f1daf6dde059c20421f2b2f820907096bc3
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:Find pet rescues\, pet-friendly photo booth\, resources for pet parents & more! VENDORS: Use "Get Tickets" button to register for a table.\nhttps://www.eventbrite.com/e/barktoberfest-2025-tickets-1635822241359
-DTEND:20251018T180000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:K9 Gunner Memorial Dog Park - 13000 Minnieville Road\, Lake Ridge\, VA 22192 Lake Ridge VA 22192
-DTSTART:20251018T150000Z
-SUMMARY:Barktoberfest 2025
-UID:5180f9142ef3e72046e938b71a9cbf6fee9a6207
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/culpeper-democrats-monthly-meeting-tickets-1316208056729
-DTEND:20251206T160000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Eventbrite - Eventbrite Find my tickets Log In Sign Up Find Events Create Events Solutions Solutions Event Ticketing Event Marketing Platform Eventbrite Ads Payments Industry Industry Music Food & Beverage Performing Arts Charity & Causes Retail Event Types Event Types Concerts Classes & Workshops Festivals & Fairs Conferences Corporate Events Online Events Blog Blog Tips & Guides News & Trends Community Tools & Features Organizer Resource Hub Create Events Contact Sales Get Started Help Center Help Center Find your tickets Contact your event organizer Search events Choose a location autocomplete Contact Sales Create Events Help Center Find my tickets Log In Sign Up Find Events Create Events Solutions Solutions Event Ticketing Event Marketing Platform Eventbrite Ads Payments Industry Industry Music Food & Beverage Performing Arts Charity & Causes Retail Event Types Event Types Concerts Classes & Workshops Festivals & Fairs Conferences Corporate Events Online Events Blog Blog Tips & Guides News & Trends Community Tools & Features Organizer Resource Hub Create Events Contact Sales Get Started Help Center Help Center Find your tickets Contact your event organizer Saturday\, May 3 Culpeper Democrats Monthly Meeting By Culpeper County Democratic Committee Follow Come join us at the Culpeper Democrats Monthly Meeting to discuss local issues\, connect with like-minded individuals\, and make a difference View all event details Explore similar events Use Eventbrite Create Events Pricing Event Marketing Platform Eventbrite Mobile Ticket App Eventbrite Check-In App Eventbrite App Marketplace Event Registration Software Community Guidelines FAQs Sitemap Plan events Sell Tickets Online Performing Arts Ticketing Software Sell Concert Tickets Online Event Payment System Solutions for Professional Services Event Management Software Halloween Party Planning Virtual Events Platform QR Codes for Event Check-In Post your event online Find events Browse Culpeper Events Get the Eventbrite App Connect with us Report This Event Help Center Terms Privacy CA Privacy Notice Accessibility Community Guidelines Manage Cookie Preferences Do Not Sell or Share My Personal Information Privacy Eventbrite + Ticketfly © 2025 Eventbrite
-DTSTART:20250503T130000Z
-SUMMARY:Culpeper Democrats Monthly Meeting
-UID:8b90aa00824e1faff33bd002dd271ef1b32e1ef2
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/nova-and-fredericksburg-foster-care-information-session-in-person-tickets-1325868631769
-DTEND:20251230T180000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Eventbrite - Eventbrite Find my tickets Log In Sign Up Find Events Create Events Solutions Solutions Event Ticketing Event Marketing Platform Eventbrite Ads Payments Industry Industry Music Food & Beverage Performing Arts Charity & Causes Retail Event Types Event Types Concerts Classes & Workshops Festivals & Fairs Conferences Corporate Events Online Events Blog Blog Tips & Guides News & Trends Community Tools & Features Organizer Resource Hub Create Events Contact Sales Get Started Help Center Help Center Find your tickets Contact your event organizer Search events Choose a location autocomplete Contact Sales Create Events Help Center Find my tickets Log In Sign Up Find Events Create Events Solutions Solutions Event Ticketing Event Marketing Platform Eventbrite Ads Payments Industry Industry Music Food & Beverage Performing Arts Charity & Causes Retail Event Types Event Types Concerts Classes & Workshops Festivals & Fairs Conferences Corporate Events Online Events Blog Blog Tips & Guides News & Trends Community Tools & Features Organizer Resource Hub Create Events Contact Sales Get Started Help Center Help Center Find your tickets Contact your event organizer Multiple dates NOVA and Fredericksburg Foster Care Information Session (In-Person) By UMFS Follow There are nearly 5\,000 children and teens in foster care in VA that are in need of a home. Attend a information session to learn more. Location 1300 Augustine Ave 1300 Augustine Avenue Fredericksburg\, VA 22401 Get directions Good to know Highlights In person Highlights In person About this event Family & Education • Parenting Our information session requires no commitment. During our time together\, we’ll provide more details about the children and teens we serve\, as well as the extensive training and comprehensive support UMFS provides along the way. Please join us in learning more about how you can become a champion for children and families within your community. If you are married or will be co-parenting with a significant other that lives in your home\, we ask that both adults attend the information session. If you are unable to attend our planned information sessions and need to schedule a different day/time\, or have targeted questions you’d like to ask before attending\, please contact Brittany Flowers at 804.773.4676 or bflowers@UMFS.org. Tags United States Events Virginia Events Things to do in Fredericksburg\, VA Fredericksburg Seminars Fredericksburg Family & Education Seminars #parenting #virginia #nova #dcevents #fostering #fredericksburg #foster #fostercare #northern_virginia #fostering_information Organized by UMFS Followers -- Events -- Hosting -- Contact Follow Report this event Free Multiple dates Check availability Use Eventbrite Create Events Pricing Event Marketing Platform Eventbrite Mobile Ticket App Eventbrite Check-In App Eventbrite App Marketplace Event Registration Software Community Guidelines FAQs Sitemap Plan events Sell Tickets Online Performing Arts Ticketing Software Sell Concert Tickets Online Event Payment System Solutions for Professional Services Event Management Software Halloween Party Planning Virtual Events Platform QR Codes for Event Check-In Post your event online Find events Browse Fredericksburg Events Get the Eventbrite App Connect with us Report This Event Help Center Terms Privacy CA Privacy Notice Accessibility Community Guidelines Manage Cookie Preferences Do Not Sell or Share My Personal Information Privacy Eventbrite + Ticketfly © 2025 Eventbrite
-DTSTART:20250429T160000Z
-SUMMARY:NOVA and Fredericksburg Foster Care Information Session (In-Person)
-UID:b7f34b19851dcb1e253ec489bb3a394c72a7ac75
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:This is a set up day for the seed swap community event\nhttps://www.eventbrite.com/e/seed-swap-community-event-preparation-day-tickets-1392775050669
-DTEND:20260131T045900Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:The Church of Jesus Christ of Latter-day Saints - 20 Boscobel Road\, Fredericksburg\, VA 22405 Fredericksburg VA 22405
-DTSTART:20260130T050000Z
-SUMMARY:Seed Swap Community Event (Preparation Day)
-UID:662f929b80d2ec6d3a2dac03bb3c738592ea36ed
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:Come join us for a free screening of "Open: A Journey Through Love" - a beautiful film about love\, relationships\, and self-discovery!\nhttps://www.eventbrite.com/e/free-screening-of-open-a-journey-through-love-tickets-1597812914439
-DTEND:20250930T233000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Pride Center FXBG - 4343 Plank Road #Suite 100 & 110\, Fredericksburg\, VA 22407 Fredericksburg VA 22407
-DTSTART:20250930T210000Z
-SUMMARY:Free Screening of "Open: A Journey Through Love"
-UID:b3db42c1d0495a0a4f7fb4c4f5fe939c3e8a1085
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/october-live-money-101-fxbg-with-judy-robbins-tickets-1712195345369
-DTEND:20251015T000000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251014T220000Z
-SUMMARY:October LIVE Money 101 FXBG with Judy Robbins
-UID:31cac4441763571d26c852c076a025c1c1f8d2b1
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/deploymentuniformed-readiness-coordinator-training-tickets-1559820237319
-DTEND:20251017T200000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251016T133000Z
-SUMMARY:Deployment/Uniformed Readiness Coordinator Training
-UID:cc5f985482c82eaada343bb13ca6691d85b16e3d
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/money-habitudes-learn-your-money-personality-tickets-1126906420439
-DTEND:20251016T160000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Eventbrite - Eventbrite Find my tickets Log In Sign Up Find Events Create Events Solutions Solutions Event Ticketing Event Marketing Platform Eventbrite Ads Payments Industry Industry Music Food & Beverage Performing Arts Charity & Causes Retail Event Types Event Types Concerts Classes & Workshops Festivals & Fairs Conferences Corporate Events Online Events Blog Blog Tips & Guides News & Trends Community Tools & Features Organizer Resource Hub Create Events Contact Sales Get Started Help Center Help Center Find your tickets Contact your event organizer Search events Choose a location autocomplete Contact Sales Create Events Help Center Find my tickets Log In Sign Up Find Events Create Events Solutions Solutions Event Ticketing Event Marketing Platform Eventbrite Ads Payments Industry Industry Music Food & Beverage Performing Arts Charity & Causes Retail Event Types Event Types Concerts Classes & Workshops Festivals & Fairs Conferences Corporate Events Online Events Blog Blog Tips & Guides News & Trends Community Tools & Features Organizer Resource Hub Create Events Contact Sales Get Started Help Center Help Center Find your tickets Contact your event organizer Multiple dates MONEY HABITUDES - LEARN YOUR MONEY PERSONALITY By MCCS Quantico: Personal and Professional Follow Money Habitudes is a fun class that helps people easily understand their money type and habits that influence their spending behavior. Location Religious & Family Services Center 3019 Embry Loop Quantico\, VA 22134 Get directions Good to know Highlights In person Highlights In person About this event Business • Finance Money Habitudes is a fun class that helps people easily understand their money type. The class introduces Marines and their family members to the human side of money. You will identify your personal financial patterns and how they affect your goals and relationships. A great class for couples! This class will be in person but subject to change to remote delivery with short notice due to unforeseen circumstances (including inclement weather). Notification of changes to this class will be via the email you provide during registration. Registration Required. NO WALK-INS ***REGISTRATION CLOSES 2 DAYS BEFORE THE SCHEDULED CLASS DATE*** Location : Religious and Family Service Center\, 3019 Embry Loop\, Quantico VA 22134 Time : 0900-1200 Parking : Lejeune Hall overflow parking lot - on Catlin Rd. Do not park in employee parking in the rear or front of the building Attire : Uniform of the Day or Appropriate Civilian Attire For more information email mccsquanticoppdregistration@usmc.mil Tags United States Events Virginia Events Things to do in Quantico Base\, VA Quantico Base Classes Quantico Base Business Classes #event #learn #personal_finance #money_personality #money_habitudes Organized by MCCS Quantico: Personal and Professional Followers -- Events -- Hosting -- Contact Follow Report this event Free Multiple dates Check availability Use Eventbrite Create Events Pricing Event Marketing Platform Eventbrite Mobile Ticket App Eventbrite Check-In App Eventbrite App Marketplace Event Registration Software Community Guidelines FAQs Sitemap Plan events Sell Tickets Online Performing Arts Ticketing Software Sell Concert Tickets Online Event Payment System Solutions for Professional Services Event Management Software Halloween Party Planning Virtual Events Platform QR Codes for Event Check-In Post your event online Find events Browse Quantico Events Get the Eventbrite App Connect with us Report This Event Help Center Terms Privacy CA Privacy Notice Accessibility Community Guidelines Manage Cookie Preferences Do Not Sell or Share My Personal Information Privacy Eventbrite + Ticketfly © 2025 Eventbrite
-DTSTART:20250122T140000Z
-SUMMARY:MONEY HABITUDES - LEARN YOUR MONEY PERSONALITY
-UID:08d0c3d0cb04d961503480597c8bde7c8559f6b9
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/spotsylvania-sports-card-pokemon-collectibles-show-november-1-tickets-1693044484629
-DTEND:20251101T190000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251101T130000Z
-SUMMARY:Spotsylvania Sports Card Pokémon & Collectibles Show November 1
-UID:264d107ceddc375fd3f7e954340141d436b8c289
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:Christmas party in the gym and kitchen. Party will start at 6 till 8. Reserving gym and kitchen the whole day for set up.\nhttps://www.eventbrite.com/e/amber-stice-tickets-1721738007729
-DTEND:20251207T020000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:The Church of Jesus Christ of Latter-day Saints - 3718 Old Bridge Road\, Woodbridge\, VA 22192 Woodbridge VA 22192
-DTSTART:20251206T140000Z
-SUMMARY:Amber Stice
-UID:f6f23bc4def77909ac948f7b0f7205579d72a36e
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/adult-ukulele-jam-free-tickets-1698311438229
-DTEND:20251025T153000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251025T143000Z
-SUMMARY:Adult Ukulele Jam - Free
-UID:ffc8831efc552fd81f12135ec724ab62acacf500
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3702\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
-DTEND:20260115T210000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Treasurer's Office - 10459 Courthouse Drive Suite 100 King George VA 22485
-DTSTART:20260115T130000Z
-SUMMARY:Estimated Quarterly State Income Tax Payment Due
-UID:db213134531f2235ba7509719e418e006fc4ddce
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:Join us for a fun evening with Amena as she showcases her artistic talent live through painting on the streets of Fredericksburg!\nhttps://www.eventbrite.com/e/amena-art-meet-amena-live-painting-tickets-1715890527759
-DTEND:20251004T200000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Caroline Street - Caroline Street\, Fredericksburg\, VA 22401 Fredericksburg VA 22401
-DTSTART:20251004T150000Z
-SUMMARY:Amena Art - Meet Amena Live Painting!
-UID:bda26932d6e70b774725542f93d22f3551d9d05b
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/conflict-management-tickets-1553075293009
-DTEND:20251030T170000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251030T150000Z
-SUMMARY:Conflict Management
-UID:b528e0037639f9ed233ee37ba3ecbdb040b41a0a
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/pcs-workshop-2025-tickets-1049584273817
-DTEND:20251216T170000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20250116T140000Z
-SUMMARY:PCS Workshop 2025
-UID:e66292936da7c04419fe5e47b74aed8a17b5cb0e
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/ladies-of-the-yellow-rose-meet-and-greet-tickets-1726029112539
-DTEND:20251004T180000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251004T160000Z
-SUMMARY:Ladies of the Yellow Rose Meet and Greet
-UID:967c7a39068767a854b162b9fa77ff2cdc15694c
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/skillbridge-information-session-quantico-tickets-1123097838869
-DTEND:20251209T200000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Eventbrite - Eventbrite Find my tickets Log In Sign Up Find Events Create Events Solutions Solutions Event Ticketing Event Marketing Platform Eventbrite Ads Payments Industry Industry Music Food & Beverage Performing Arts Charity & Causes Retail Event Types Event Types Concerts Classes & Workshops Festivals & Fairs Conferences Corporate Events Online Events Blog Blog Tips & Guides News & Trends Community Tools & Features Organizer Resource Hub Create Events Contact Sales Get Started Help Center Help Center Find your tickets Contact your event organizer Search events Choose a location autocomplete Contact Sales Create Events Help Center Find my tickets Log In Sign Up Find Events Create Events Solutions Solutions Event Ticketing Event Marketing Platform Eventbrite Ads Payments Industry Industry Music Food & Beverage Performing Arts Charity & Causes Retail Event Types Event Types Concerts Classes & Workshops Festivals & Fairs Conferences Corporate Events Online Events Blog Blog Tips & Guides News & Trends Community Tools & Features Organizer Resource Hub Create Events Contact Sales Get Started Help Center Help Center Find your tickets Contact your event organizer Multiple dates Skillbridge Information Session - Quantico By MCCS Quantico: Personal and Professional Follow DOD SkillBridge program is an opportunity for service members to gain valuable civilian work experience through specific industry training Location Chapel Annex - RFSC 3019 Embry Loop Quantico\, VA 22134 Get directions Good to know Highlights In person Highlights In person About this event Business • Career The DOD SkillBridge program is an opportunity for service members to gain valuable civilian work experience through specific industry training\, apprenticeships\, or internships. DOD SkillBridge connects transitioning service members with industry partners in real-world job experiences. In this SkillBridge Information session we’ll discuss the purpose of SkillBridge\, its directives\, your responsibilities as the applicant\, and the application process. Participants will tour of the DoD SkillBridge website\, and the local MCCS Quantico SkillBridge site. Discover how the process works in order to set yourself up for a successful opportunity to attend a SkillBridge program. This information session will be the perfect starting point if you have questions about SkillBridge! Tags United States Events Virginia Events Things to do in Quantico Base\, VA Quantico Base Classes Quantico Base Business Classes #event #information #session #quântico #skillbridge_info_session Organized by MCCS Quantico: Personal and Professional Followers -- Events -- Hosting -- Contact Follow Report this event Free Multiple dates Check availability Use Eventbrite Create Events Pricing Event Marketing Platform Eventbrite Mobile Ticket App Eventbrite Check-In App Eventbrite App Marketplace Event Registration Software Community Guidelines FAQs Sitemap Plan events Sell Tickets Online Performing Arts Ticketing Software Sell Concert Tickets Online Event Payment System Solutions for Professional Services Event Management Software Halloween Party Planning Virtual Events Platform QR Codes for Event Check-In Post your event online Find events Browse Quantico Events Get the Eventbrite App Connect with us Report This Event Help Center Terms Privacy CA Privacy Notice Accessibility Community Guidelines Manage Cookie Preferences Do Not Sell or Share My Personal Information Privacy Eventbrite + Ticketfly © 2025 Eventbrite
-DTSTART:20250114T180000Z
-SUMMARY:Skillbridge Information Session - Quantico
-UID:d3cfaf7459030a9062ca237a3671c4bfe7360457
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/baby-boot-camp-tickets-1754863607289
-DTEND:20251014T200000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251014T130000Z
-SUMMARY:Baby Boot Camp
-UID:aa993c47a403438892df7079243c4202a3708923
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/money-101-dinner-event-tickets-1435870921579
-DTEND:20251031T000000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20250724T220000Z
-SUMMARY:Money 101 Dinner Event
-UID:f8b269ad92a6d48e8408b36cddccf187097e7c7e
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/unit-transition-coordinator-utc-training-tickets-1107283337269
-DTEND:20251210T203000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Eventbrite - Eventbrite Find my tickets Log In Sign Up Find Events Create Events Solutions Solutions Event Ticketing Event Marketing Platform Eventbrite Ads Payments Industry Industry Music Food & Beverage Performing Arts Charity & Causes Retail Event Types Event Types Concerts Classes & Workshops Festivals & Fairs Conferences Corporate Events Online Events Blog Blog Tips & Guides News & Trends Community Tools & Features Organizer Resource Hub Create Events Contact Sales Get Started Help Center Help Center Find your tickets Contact your event organizer Search events Choose a location autocomplete Contact Sales Create Events Help Center Find my tickets Log In Sign Up Find Events Create Events Solutions Solutions Event Ticketing Event Marketing Platform Eventbrite Ads Payments Industry Industry Music Food & Beverage Performing Arts Charity & Causes Retail Event Types Event Types Concerts Classes & Workshops Festivals & Fairs Conferences Corporate Events Online Events Blog Blog Tips & Guides News & Trends Community Tools & Features Organizer Resource Hub Create Events Contact Sales Get Started Help Center Help Center Find your tickets Contact your event organizer Multiple dates Unit Transition Coordinator (UTC) Training By MCCS Quantico: Personal and Professional Follow Are you a new UTC and need to know the process of coordinating the transition process? Attend the next UTC Class. Location Religious and Family Service Center 3019 Embry Loop Quantico\, VA 22134 Get directions Good to know Highlights In person Highlights In person About this event Business • Career This training is for ALL UTCs not just new UTCs. The training will cover the UTC’s duties and responsibilities\, best practices\, resources\, and updated processes and procedures. The training will be in person but subject to change to remote delivery with short notice due to unforeseen circumstances (including inclement weather). Notification of changes to this class will be via the email you provide during registration. Registration Required. NO WALK-INS ***REGISTRATION CLOSES 2 DAYS BEFORE THE SCHEDULED CLASS DATE*** Location: 3019 Embry Loop\, Quantico VA Time: 1330-1530 Attire: Uniform of the day Parking: Lejeune Hall Overflow parking lot (Kindly avoid parking in staff parking in the front or rear of the building) Bring your a ppointment letter to receive your completion certificate on-site. Otherwise a completion certificate will be emailed to you when the appointment letter is received. For Transition Readiness and UTC information\, visit us at our website at https://ppr-quantico.libguides.com/MCCSQuantico/ . For questions about the UTC training\, email mccsquanticoppdregistration@usmc.mil Tags United States Events Virginia Events Things to do in Quantico Base\, VA Quantico Base Classes Quantico Base Business Classes #training #utc #unittransitioncoordinator Organized by MCCS Quantico: Personal and Professional Followers -- Events -- Hosting -- Contact Follow Report this event Free Multiple dates Check availability Use Eventbrite Create Events Pricing Event Marketing Platform Eventbrite Mobile Ticket App Eventbrite Check-In App Eventbrite App Marketplace Event Registration Software Community Guidelines FAQs Sitemap Plan events Sell Tickets Online Performing Arts Ticketing Software Sell Concert Tickets Online Event Payment System Solutions for Professional Services Event Management Software Halloween Party Planning Virtual Events Platform QR Codes for Event Check-In Post your event online Find events Browse Quantico Events Get the Eventbrite App Connect with us Report This Event Help Center Terms Privacy CA Privacy Notice Accessibility Community Guidelines Manage Cookie Preferences Do Not Sell or Share My Personal Information Privacy Eventbrite + Ticketfly © 2025 Eventbrite
-DTSTART:20250206T183000Z
-SUMMARY:Unit Transition Coordinator (UTC) Training
-UID:1261914b4fcbc23352a3f638d4d1f70f7be2e69b
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:Come jam out with Scott at our live music event!\nhttps://www.eventbrite.com/e/live-music-w-scott-stallard-courtyard-marriott-tickets-1596225045079
-DTEND:20251018T010000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Courtyard Fredericksburg Historic District - 620 Caroline Street\, Fredericksburg\, VA 22401 Fredericksburg VA 22401
-DTSTART:20251017T220000Z
-SUMMARY:Live Music w/ Scott Stallard @ Courtyard Marriott
-UID:afba88be574b3813525c2fd3e838aeb4599d7eb7
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/2025-potomac-river-conference-harmful-algal-blooms-tickets-1510186200579
-DTEND:20251022T190000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251022T130000Z
-SUMMARY:2025 Potomac River Conference: Harmful Algal Blooms
-UID:3080f260c586eb430f5e42ee798281819eed2a06
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/warhammer-40k-october-2025-rtt-tickets-1744386359559
-DTEND:20251019T000000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251018T143000Z
-SUMMARY:Warhammer 40k October 2025 RTT
-UID:325ace09392dfed893caa664b19ab2652278296c
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/trunk-or-treat-tickets-1664778069019
-DTEND:20251025T220000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251025T200000Z
-SUMMARY:Trunk or Treat
-UID:4721dc38dbfd9b4e9d9257d8e7f609255778f72b
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:Come jam out with Dave Nichols at our live music event!\nhttps://www.eventbrite.com/e/live-music-w-dave-nichols-courtyard-marriott-tickets-1596075828769
-DTEND:20251016T010000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Courtyard Fredericksburg Historic District - 620 Caroline Street\, Fredericksburg\, VA 22401 Fredericksburg VA 22401
-DTSTART:20251015T220000Z
-SUMMARY:Live Music w/ Dave Nichols @ Courtyard Marriott
-UID:fcfdfe88a0f34e5f76c774055e82309ae984fb8e
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/ten-steps-to-a-federal-job-tickets-1127086358639
-DTEND:20251212T170000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Eventbrite - Eventbrite Find my tickets Log In Sign Up Find Events Create Events Solutions Solutions Event Ticketing Event Marketing Platform Eventbrite Ads Payments Industry Industry Music Food & Beverage Performing Arts Charity & Causes Retail Event Types Event Types Concerts Classes & Workshops Festivals & Fairs Conferences Corporate Events Online Events Blog Blog Tips & Guides News & Trends Community Tools & Features Organizer Resource Hub Create Events Contact Sales Get Started Help Center Help Center Find your tickets Contact your event organizer Search events Choose a location autocomplete Contact Sales Create Events Help Center Find my tickets Log In Sign Up Find Events Create Events Solutions Solutions Event Ticketing Event Marketing Platform Eventbrite Ads Payments Industry Industry Music Food & Beverage Performing Arts Charity & Causes Retail Event Types Event Types Concerts Classes & Workshops Festivals & Fairs Conferences Corporate Events Online Events Blog Blog Tips & Guides News & Trends Community Tools & Features Organizer Resource Hub Create Events Contact Sales Get Started Help Center Help Center Find your tickets Contact your event organizer Multiple dates Ten Steps to a Federal Job By MCCS Quantico: Personal and Professional Follow Interested in becoming a Federal Employee? Learn the 10 Steps to getting a federal job and improve your federal resume. Location Religious and Family Service Center 3019 Embry Loop Quantico\, VA 22134 Get directions Good to know Highlights In person Highlights In person About this event Business • Career During the class you will gain better understanding of the federal hiring process as well as create a federal resume and set up a USA Jobs acount. What you learn will help you land a federal job and grow your career. THIS CLASS IS NOT OPEN TO THE GENERAL PUBLIC . Must have a Department of Defense (DOD) ID card to attend. This class will be in person but subject to change to remote delivery with short notice due to unforeseen circumstances (including inclement weather). Notification of changes to this class will be via the email you provide during registration. Registration Required. NO WALK-INS ***REGISTRATION CLOSES 2 DAYS BEFORE THE SCHEDULED CLASS DATE*** Location : Religious and Family Service Center\, 3019 Embry Loop\, Quantico VA 22134 Time : 0800-1200 Parking : Lejeune Hall overflow parking lot - on Catlin Rd. Do not park in employee parking in the rear or front of the building Attire : Uniform of the Day or Appropriate Civilian Attire For more information email mccsquanticoppdregistration@usmc.mil Tags United States Events Virginia Events Things to do in Quantico Base\, VA Quantico Base Classes Quantico Base Business Classes #event #resume #federal #federalresume #tensteps Organized by MCCS Quantico: Personal and Professional Followers -- Events -- Hosting -- Contact Follow Report this event Free Multiple dates Check availability Use Eventbrite Create Events Pricing Event Marketing Platform Eventbrite Mobile Ticket App Eventbrite Check-In App Eventbrite App Marketplace Event Registration Software Community Guidelines FAQs Sitemap Plan events Sell Tickets Online Performing Arts Ticketing Software Sell Concert Tickets Online Event Payment System Solutions for Professional Services Event Management Software Halloween Party Planning Virtual Events Platform QR Codes for Event Check-In Post your event online Find events Browse Quantico Events Get the Eventbrite App Connect with us Report This Event Help Center Terms Privacy CA Privacy Notice Accessibility Community Guidelines Manage Cookie Preferences Do Not Sell or Share My Personal Information Privacy Eventbrite + Ticketfly © 2025 Eventbrite
-DTSTART:20250124T130000Z
-SUMMARY:Ten Steps to a Federal Job
-UID:d38899c99fb7ff8779379281768c08f171335296
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:Holding this date as a back up for the community seed swap event should weather conditions prevent the event from occuring on Jan 30-31.\nhttps://www.eventbrite.com/e/tentative-seed-swap-community-event-preparation-day-tickets-1392790506899
-DTEND:20260207T010000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:The Church of Jesus Christ of Latter-day Saints - 20 Boscobel Road\, Fredericksburg\, VA 22405 Fredericksburg VA 22405
-DTSTART:20260206T170000Z
-SUMMARY:[Tentative] Seed Swap Community Event (Preparation Day)
-UID:71413e3bb118d542ea102f1d5ab3042fbf4bebdb
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/november-twilight-nature-walk-tickets-1606884156769
-DTEND:20251121T230000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251121T213000Z
-SUMMARY:November Twilight Nature Walk
-UID:8f1eb8c143f80c1e761d25057124eb0b32f601ff
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/introduction-to-real-estate-investing-fredericksburg-va-tickets-501231716557
-DTEND:20261230T030000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Eventbrite - Eventbrite Find my tickets Log In Sign Up Find Events Create Events Solutions Solutions Event Ticketing Event Marketing Platform Eventbrite Ads Payments Industry Industry Music Food & Beverage Performing Arts Charity & Causes Retail Event Types Event Types Concerts Classes & Workshops Festivals & Fairs Conferences Corporate Events Online Events Blog Blog Tips & Guides News & Trends Community Tools & Features Organizer Resource Hub Create Events Contact Sales Get Started Help Center Help Center Find your tickets Contact your event organizer Search events Choose a location autocomplete Contact Sales Create Events Help Center Find my tickets Log In Sign Up Find Events Create Events Solutions Solutions Event Ticketing Event Marketing Platform Eventbrite Ads Payments Industry Industry Music Food & Beverage Performing Arts Charity & Causes Retail Event Types Event Types Concerts Classes & Workshops Festivals & Fairs Conferences Corporate Events Online Events Blog Blog Tips & Guides News & Trends Community Tools & Features Organizer Resource Hub Create Events Contact Sales Get Started Help Center Help Center Find your tickets Contact your event organizer Multiple dates INTRODUCTION TO REAL ESTATE INVESTING - FREDERICKSBURG\, VA By Legacy Realty Investments\, LLC Follow Complementary Online Training and Introduction to Real Estate Investing Location Fredericksburg Online Virtual Event Fredericksburg\, VA 22401 Get directions Good to know Highlights In person Highlights In person About this event Business • Real Estate NTRODUCTION TO REAL ESTATE INVESTING Join us Via ZOOM for an introduction webinar on real estate investing. Learn how to create MASSIVE CASHFLOW when investing in real estate: Content: - Type of investments in REI: Fix & Flip\, Short Term Rental\, Long Term Rental - The structure of a creative deal- The 4 currencies - Why Real Estate Invesing is IDEAL- Mindset: Income vs. Revenue (tax structure) -Accelerated Debt Elimination Strategy ...plus more. The Zoom link will be provided once registration is completed. Tags United States Events Virginia Events Things to do in Fredericksburg\, VA Fredericksburg Classes Fredericksburg Business Classes #network #charlotte #cashflow #sidehustle #zoom #real_estate #small_business_start_up #webinar_online #rei_education #rei_investing Organized by Legacy Realty Investments\, LLC Followers -- Events -- Hosting -- Contact Follow Report this event Free Multiple dates Check availability Use Eventbrite Create Events Pricing Event Marketing Platform Eventbrite Mobile Ticket App Eventbrite Check-In App Eventbrite App Marketplace Event Registration Software Community Guidelines FAQs Sitemap Plan events Sell Tickets Online Performing Arts Ticketing Software Sell Concert Tickets Online Event Payment System Solutions for Professional Services Event Management Software Halloween Party Planning Virtual Events Platform QR Codes for Event Check-In Post your event online Find events Browse Fredericksburg Events Get the Eventbrite App Connect with us Report This Event Help Center Terms Privacy CA Privacy Notice Accessibility Community Guidelines Manage Cookie Preferences Do Not Sell or Share My Personal Information Privacy Eventbrite + Ticketfly © 2025 Eventbrite
-DTSTART:20230106T000000Z
-SUMMARY:INTRODUCTION TO REAL ESTATE INVESTING - FREDERICKSBURG\, VA
-UID:aac3c29466b0d792321d6e27954ed391c468d044
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/skirmish-nights-born-2-game-tickets-1744406218959
-DTEND:20251127T030000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Eventbrite - Eventbrite Find my tickets Log In Sign Up Find Events Create Events Solutions Solutions Event Ticketing Event Marketing Platform Eventbrite Ads Payments Industry Industry Music Food & Beverage Performing Arts Charity & Causes Retail Event Types Event Types Concerts Classes & Workshops Festivals & Fairs Conferences Corporate Events Online Events Blog Blog Tips & Guides News & Trends Community Tools & Features Organizer Resource Hub Create Events Contact Sales Get Started Help Center Help Center Find your tickets Contact your event organizer Search events Choose a location autocomplete Contact Sales Create Events Help Center Find my tickets Log In Sign Up Find Events Create Events Solutions Solutions Event Ticketing Event Marketing Platform Eventbrite Ads Payments Industry Industry Music Food & Beverage Performing Arts Charity & Causes Retail Event Types Event Types Concerts Classes & Workshops Festivals & Fairs Conferences Corporate Events Online Events Blog Blog Tips & Guides News & Trends Community Tools & Features Organizer Resource Hub Create Events Contact Sales Get Started Help Center Help Center Find your tickets Contact your event organizer Multiple dates Skirmish Nights @ Born 2 Game By Born 2 Game Follow Join us Wednesdays for a night to try out smaller scale miniature games or enjoy alternate formats for your favorite wargames Location Born 2 Game 1372 Old Bridge Road Woodbridge\, VA 22192 Get directions Good to know Highlights In person Highlights In person About this event Hobbies • Gaming Join us for a night to try out smaller scale miniature games such as Marvel Crisis Protocol\, The Fallout Miniature Game\, and Warhammer Underworlds\, or enjoy alternate formats for your favorite wargames like Combat Patrol\, and Spearhead. Whether you are brand new to these games or looking for somewhere to play everyone is welcome to come out and have fun. Purchase tickets on our website. https://www.born2gamellc.com/event-details/skirmish-nights-born-2-game-2025-10-01-19-00 Organized by Born 2 Game Followers -- Events -- Hosting -- Contact Follow Report this event Free Multiple dates Check availability Use Eventbrite Create Events Pricing Event Marketing Platform Eventbrite Mobile Ticket App Eventbrite Check-In App Eventbrite App Marketplace Event Registration Software Community Guidelines FAQs Sitemap Plan events Sell Tickets Online Performing Arts Ticketing Software Sell Concert Tickets Online Event Payment System Solutions for Professional Services Event Management Software Halloween Party Planning Virtual Events Platform QR Codes for Event Check-In Post your event online Find events Browse Woodbridge Events Get the Eventbrite App Connect with us Report This Event Help Center Terms Privacy CA Privacy Notice Accessibility Community Guidelines Manage Cookie Preferences Do Not Sell or Share My Personal Information Privacy Eventbrite + Ticketfly © 2025 Eventbrite
-DTSTART:20251001T230000Z
-SUMMARY:Skirmish Nights @ Born 2 Game
-UID:3fc357fd5cce821bca1a623205559234aea4e505
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:Let us help YOU lighten your load! Bring your Junk and Donations to Southlake Recreation Parking Lot.\nhttps://www.eventbrite.com/e/hsr-dumpster-day-tickets-1559657430359
-DTEND:20251005T190000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Montclair Country Club Parking Lot - 16500 Edgewood Drive\, Montclair\, VA 22025 Montclair VA 22025
-DTSTART:20251005T160000Z
-SUMMARY:HSR Dumpster Day
-UID:3b804107943d65097405ce7c9569e3d64bc8db4d
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4331\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
-DTEND:20251004T140000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Caledon State Park - 11617 Caledon Road King George VA 22485
-DTSTART:20251004T120000Z
-SUMMARY:Howlin' Coyote Trail Race
-UID:236e3f5e5a1d28a6b61a998a75c00146fb4586a2
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/preschool-playdate-chestys-fall-adventure-tickets-1578201997659
-DTEND:20251007T160000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251007T140000Z
-SUMMARY:Preschool Playdate: Chesty's Fall Adventure
-UID:5669a2e97767a798fe9eabd374c6fcfe6cb0fb19
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:To honor the contributions of our United States Veterans. Procession Route: Along Washington Ave. From Mary Ball St. to George St. Public is invited to come cheer on our Veterans! https://www.fredericksburgva.gov/calendar.aspx?EID=3641\nhttps://www.fredericksburgva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=22
-DTEND:20251111T154500Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Memorial Park  - 1401 Kenmore ave Fredericksburg VA 22401
-DTSTART:20251111T140000Z
-SUMMARY:Veteran's Day Procession
-UID:6c08b337f4d2b6eaa2f0f0d4f051c7c4d51abb5e
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/tuesday-night-mtg-commander-tickets-1744401504859
-DTEND:20260304T030000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20250930T210000Z
-SUMMARY:Tuesday Night MTG Commander
-UID:283cc0584d57701d0940f6d46330fd763c5240ba
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/quantico-single-marine-program-smp-volunteer-base-clean-up-event-tickets-1258163895079
-DTEND:20251014T133000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251014T113000Z
-SUMMARY:Quantico Single Marine Program (SMP) Volunteer - Base Clean-Up Event
-UID:5a326a6ecf6b4e65f14c1704ac0fcd3c42cedfdd
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/strength-conditioning-workshop-tickets-1693570287319
-DTEND:20251004T130000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251004T110000Z
-SUMMARY:Strength & Conditioning Workshop
-UID:7b855bc207ce7d504446f4a7454abd985bdc35fa
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.fredericksburgva.gov/calendar.aspx?EID=3503\nhttps://www.fredericksburgva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=35
-DTEND:20251112T050000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:City Hall - 715 Princess Anne Street Fredericksburg VA 22401
-DTSTART:20251111T050000Z
-SUMMARY:Veterans Day - City Offices Closed
-UID:f7525ea503817993f58e392e72fed3451ef32baf
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/million-marine-tickets-1126874956329
-DTEND:20251203T210000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20250304T140000Z
-SUMMARY:Million $$$ Marine
-UID:9cf59f4e72fa6fcc13c0b22e95b197a93848bb45
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:***FREE SHOWING***\nhttps://www.eventbrite.com/e/quantico-movie-elio-pg-free-encore-showing-tickets-1721628289559
-DTEND:20251004T193900Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Little Hall Theater - 2034 Barnett Ave. Main Floor\, Quantico\, VA 22134 Quantico VA 22134
-DTSTART:20251004T180000Z
-SUMMARY:QUANTICO - Movie: Elio - PG *FREE ENCORE SHOWING*
-UID:cd542837e11eb1a2f070367b6b5d2fba67c0b1e9
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:Join us for a night of live music with Anthony G\, where you can groove to some awesome tunes!\nhttps://www.eventbrite.com/e/live-music-w-anthony-g-courtyard-marriott-tickets-1596037784979
-DTEND:20251011T010000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Courtyard Fredericksburg Historic District - 620 Caroline Street\, Fredericksburg\, VA 22401 Fredericksburg VA 22401
-DTSTART:20251010T220000Z
-SUMMARY:Live Music w/ Anthony G @ Courtyard Marriott
-UID:434cd11a180a527c08ead9e207753ddf02cc002e
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
+DTSTAMP:20250930T030818Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3392\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20260301T210000Z
-LAST-MODIFIED:20250930T001900Z
+LAST-MODIFIED:20250930T030818Z
 LOCATION:Commissioner of the Revenue's Office - 10459 Courthouse Drive Suite 101 King George VA 22485
 DTSTART:20260301T130000Z
 SUMMARY:Business License Renewal Application & Payment Deadline
 UID:cc7ffbd6d41aee174eccab872700e6d8763d02b8
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
+DTSTAMP:20250930T030818Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3855\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20251101T200000Z
-LAST-MODIFIED:20250930T001900Z
+LAST-MODIFIED:20250930T030818Z
 LOCATION:Treasurer's Office - 10459 Courthouse Drive Suite 100 King George VA 22485
 DTSTART:20251101T120000Z
 SUMMARY:Dog Tags Available for Purchase
 UID:0f6408707f4915600573fffacc8e90554ba6dac6
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/renesting-and-reuniting-baby-wildlife-tickets-1644105827789
-DTEND:20251029T223000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251029T210000Z
-SUMMARY:Renesting and Reuniting Baby Wildlife
-UID:1a969131cccd4558776b39fc0a2d5c631a59820a
+DTSTAMP:20250930T030818Z
+DESCRIPTION:https://www.fredericksburgva.gov/calendar.aspx?EID=3504\nhttps://www.fredericksburgva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=35
+DTEND:20251126T213000Z
+LAST-MODIFIED:20250930T030818Z
+LOCATION:City Hall - 715 Princess Anne Street Fredericksburg VA 22401
+DTSTART:20251126T170000Z
+SUMMARY:Thanksgiving - City Offices Closed Half Day
+UID:aabaf1989419ef5919274ea2145990d7f9e2df97
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/tiny-feet-big-dreams-tickets-1731100701799
-DTEND:20251012T220000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251012T190000Z
-SUMMARY:Tiny Feet\, Big Dreams !!!!
-UID:3825e47a062c7474cb9b6c720b48549baa522c0c
+DTSTAMP:20250930T030818Z
+DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3340\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
+DTEND:20260215T210000Z
+LAST-MODIFIED:20250930T030818Z
+LOCATION:Commissioner of the Revenue's Office - 10459 Courthouse Drive Suite 101 King George VA 22485
+DTSTART:20260215T130000Z
+SUMMARY:High Mileage Discount Deadline
+UID:a2729e42768c61ffe19fb154cc14af7a667b4342
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/counselors-kickback-tickets-1689499692059
-DTEND:20251018T230000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251018T190000Z
-SUMMARY:Counselors Kickback
-UID:ae5da77541222b51f4833472918fd6d1fa573d5a
+DTSTAMP:20250930T030818Z
+DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4336\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
+DTEND:20251026T000000Z
+LAST-MODIFIED:20250930T030818Z
+LOCATION:Cedell Brooks\, Jr. Park - 11259 Henry Griffin Road King George VA 22485
+DTSTART:20251025T220000Z
+SUMMARY:KGP&R Trunk or Treat & Halloween Movie in the Park
+UID:4bed72270f0596ac0752674c356e9e4810d441bb
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/wine-women-wealth-fredericksburg-tickets-1668609087699
-DTEND:20251002T000000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251001T220000Z
-SUMMARY:Wine\, Women & Wealth® - Fredericksburg
-UID:4823f3f6a7b0fce1b5c6557741b7557d86a0eae2
+DTSTAMP:20250930T030818Z
+DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3702\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
+DTEND:20260115T210000Z
+LAST-MODIFIED:20250930T030818Z
+LOCATION:Treasurer's Office - 10459 Courthouse Drive Suite 100 King George VA 22485
+DTSTART:20260115T130000Z
+SUMMARY:Estimated Quarterly State Income Tax Payment Due
+UID:db213134531f2235ba7509719e418e006fc4ddce
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/happy-hour-slay-your-sales-monster-tickets-1740052356439
-DTEND:20251008T233000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251008T220000Z
-SUMMARY:Happy Hour: Slay Your Sales Monster
-UID:38e357af6afc036e28fdc48ee5bdde4b34b8f50d
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/fall-2025-fresh-food-access-community-meeting-tickets-1656969633779
-DTEND:20251023T170000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251023T150000Z
-SUMMARY:Fall 2025 Fresh Food Access Community Meeting
-UID:b4dc09612db01644900f7c4cc3db91550bd7232d
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
+DTSTAMP:20250930T030818Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3548\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20260501T200000Z
-LAST-MODIFIED:20250930T001900Z
+LAST-MODIFIED:20250930T030818Z
 LOCATION:Commissioner of the Revenue's Office - 10459 Courthouse Drive Suite 101 King George VA 22485
 DTSTART:20260501T120000Z
 SUMMARY:Estimated Quarterly State Income Tax Payment Due
 UID:c2b4da72ce9d9becb2d05db6e1bce38202fa340e
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
+DTSTAMP:20250930T030818Z
 DESCRIPTION:https://www.fredericksburgva.gov/calendar.aspx?EID=3505\nhttps://www.fredericksburgva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=35
 DTEND:20251128T050000Z
-LAST-MODIFIED:20250930T001900Z
+LAST-MODIFIED:20250930T030818Z
 LOCATION:City Hall - 715 Princess Anne Street Fredericksburg VA 22401
 DTSTART:20251127T050000Z
 SUMMARY:Thanksgiving - City Offices Closed
 UID:6d94d72f5581002c93c3c7a999122af970cfeb8d
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/1st-annual-massiv3-skat3-out-car-show-tickets-1478620466619
-DTEND:20260704T180000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20260704T120000Z
-SUMMARY:1st Annual Massiv3 Skat3 Out & Car Show
-UID:ac985d33a77fd7243510a28947547b0be130def2
+DTSTAMP:20250930T030818Z
+DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4335\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
+DTEND:20251026T000000Z
+LAST-MODIFIED:20250930T030818Z
+LOCATION:Caledon State Park - 11617 Caledon Road King George VA 22485
+DTSTART:20251025T220000Z
+SUMMARY:Caledon Trunk or Treat
+UID:8f55f57bf3379a87b8b6a6724baddd3b00a6fdc5
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:Come hang out and enjoy some awesome live music with Brian Hill!\nhttps://www.eventbrite.com/e/live-music-w-brian-hill-courtyard-marriott-tickets-1595906923569
-DTEND:20251009T010000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Courtyard Fredericksburg Historic District - 620 Caroline Street\, Fredericksburg\, VA 22401 Fredericksburg VA 22401
-DTSTART:20251008T220000Z
-SUMMARY:Live Music w/ Brian Hill @ Courtyard Marriott
-UID:1abde31244a91d575fa88e8fab8e7877dfee6e64
+DTSTAMP:20250930T030818Z
+DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3754\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
+DTEND:20260605T200000Z
+LAST-MODIFIED:20250930T030818Z
+LOCATION:Treasurer's Office - 10459 Courthouse Drive Suite 100 King George VA 22485
+DTSTART:20260605T120000Z
+SUMMARY:Real Estate & Personal Property Taxes Due
+UID:5a9e35570ac4ac4d544cdc0dc2a6b56fa343714f
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/quantico-single-marine-program-smp-event-thanksgiving-dinner-tickets-1628464554319
-DTEND:20251120T190000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251120T160000Z
-SUMMARY:Quantico Single Marine Program (SMP) Event - Thanksgiving Dinner
-UID:b63b3052f4b43a09633ebda0e2e7490f75cc635f
+DTSTAMP:20250930T030818Z
+DESCRIPTION:https://www.fredericksburgva.gov/calendar.aspx?EID=3645\nhttps://www.fredericksburgva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=22
+DTEND:20251012T200000Z
+LAST-MODIFIED:20250930T030818Z
+LOCATION:Fire Station #1 - 601 Princess Anne Street Fredericksburg VA 22401
+DTSTART:20251012T170000Z
+SUMMARY:Fredericksburg Fire Department's Open House
+UID:09af4f679ed4c2e3c65afd7b61c920e3679dac80
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/walk-in-the-woods-tomorrows-trees-tickets-1660923620259
-DTEND:20251005T190000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251005T170000Z
-SUMMARY:Walk in the Woods: Tomorrow's Trees
-UID:4c7586738a07227263e67fffbcb0d524f29cf3e7
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/breastfeeding-basics-tickets-1677093996289
-DTEND:20251007T170000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251007T150000Z
-SUMMARY:Breastfeeding Basics
-UID:efa961dcc535343718e4b0cdbba40e6a57807345
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/meet-and-greet-angels-hands-llc-home-care-tickets-1677671593899
-DTEND:20251004T170000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251004T143000Z
-SUMMARY:Meet and Greet Angels Hands LLC Home Care
-UID:b7a1afde0b0af4a9e1cf2e8615538a904aa41165
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
+DTSTAMP:20250930T030818Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3044\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20260215T210000Z
-LAST-MODIFIED:20250930T001900Z
+LAST-MODIFIED:20250930T030818Z
 LOCATION:Commissioner of the Revenue's Office - 10459 Courthouse Drive Suite 101 King George VA 22485
 DTSTART:20260215T130000Z
 SUMMARY:Deadline to File Business Personal Property Returns
 UID:288b9cb0d780cf0ca739edc90604316a05a15a9f
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
+DTSTAMP:20250930T030818Z
 DESCRIPTION:https://www.fredericksburgva.gov/calendar.aspx?EID=3634\nhttps://www.fredericksburgva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=22
 DTEND:20251001T000000Z
-LAST-MODIFIED:20250930T001900Z
+LAST-MODIFIED:20250930T030818Z
 LOCATION:Riverfront Park - 600 Sophia st Fredericksburg VA 22401
 DTSTART:20250930T220000Z
 SUMMARY:Kick Back Tuesday Concert Series
 UID:91098b32c119269fbf893b45a70da30751e44d7c
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/sip-for-chimchim-tickets-1727012223049
-DTEND:20251018T200000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251018T160000Z
-SUMMARY:Sip For ChimChim
-UID:5c181ff1267086ece956602f7f178d4efa7a3c67
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
+DTSTAMP:20250930T030818Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3288\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20260201T210000Z
-LAST-MODIFIED:20250930T001900Z
+LAST-MODIFIED:20250930T030818Z
 LOCATION:Treasurer's Office - 10459 Courthouse Drive Suite 100 King George VA 22485
 DTSTART:20260201T130000Z
 SUMMARY:Deadline to Purchase Dog Tags
 UID:e5282e87f4e14b00171400e8eedc905d1621d802
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/building-confidence-101-fredericksburg-tickets-785504855167
-DTEND:20260205T200000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20240104T183000Z
-SUMMARY:Building Confidence 101 Fredericksburg
-UID:6d454458b6e3bf6ce6cb8422667f64517f3b30e9
+DTSTAMP:20250930T030818Z
+DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3496\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
+DTEND:20260501T200000Z
+LAST-MODIFIED:20250930T030818Z
+LOCATION:Commissioner of the Revenue's Office - 10459 Courthouse Drive Suite 101 King George VA 22485
+DTSTART:20260501T120000Z
+SUMMARY:State Income Taxes Due
+UID:cdbf4ae4a0688e22a37a61bb01c4522f1ccbaf9d
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/vent-sip-build-fix-your-follow-up-system-live-build-cafe-tickets-1716488014859
-DTEND:20251024T200000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251024T180000Z
-SUMMARY:Vent\, Sip\, Build: Fix Your Follow-Up System (Live Build Café)
-UID:1dd9a50557cc05bac1edad87146803981f452aa5
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:Explore Chatham Manor’s historic gardens for free before Fredericksburg Fashion Week’s Secret Garden Runway Show. Sign up now!\nhttps://www.eventbrite.com/e/step-into-history-before-the-ffwi-runway-main-event-2025-tickets-1661258190969
-DTEND:20251004T210000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Chatham Manor - 120 Chatham Lane\, Fredericksburg\, VA 22405 Fredericksburg VA 22405
-DTSTART:20251004T130000Z
-SUMMARY:Step Into History Before the F.F.W.I Runway Main Event 2025
-UID:609456a91feb6e5e7b243d72df5b5696ad2defb2
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:An atmostphere of encountering Christ with special guest and worldwide artist Joe Mettle!\nhttps://www.eventbrite.com/e/liberation-praise-banquet-tickets-1714149289669
-DTEND:20251013T000000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:17877 Old Triangle Rd - 17877 Old Triangle Road\, Triangle\, VA 22172 Triangle VA 22172
-DTSTART:20251012T190000Z
-SUMMARY:Liberation Praise Banquet
-UID:16d8279e8e4a45511e7165e24a60f7248eda32ff
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/riftbound-release-event-tickets-1744388887119
-DTEND:20251104T030000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251103T230000Z
-SUMMARY:Riftbound Release Event
-UID:3e177aa79bf9581d730bfab336a4c3cff539e8a5
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/virtual-seller-workshop-tickets-1719490084129
-DTEND:20251002T160000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251002T150000Z
-SUMMARY:Virtual Seller Workshop
-UID:360801115bf56a65865ed03ef1e02e0e80673c6a
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:***FREE SHOWING***\nhttps://www.eventbrite.com/e/quantico-movie-lilo-stitch-2025-pg-free-encore-showing-tickets-1721634718789
-DTEND:20251005T194800Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Little Hall Theater - 2034 Barnett Ave. Main Floor\, Quantico\, VA 22134 Quantico VA 22134
-DTSTART:20251005T180000Z
-SUMMARY:QUANTICO - Movie: Lilo & Stitch (2025) - PG *FREE ENCORE SHOWING*
-UID:54b9ed486173cca252f15d538f74b3281e0dd3f2
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/washington-commanders-military-youth-football-clinic-tickets-1668546119359
-DTEND:20251030T000000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251029T220000Z
-SUMMARY:Washington Commanders Military Youth Football Clinic
-UID:1688a1a8e48d28805ea36b78ba7c2ff2cc6e1a97
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
+DTSTAMP:20250930T030818Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3651\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20260915T200000Z
-LAST-MODIFIED:20250930T001900Z
+LAST-MODIFIED:20250930T030818Z
 LOCATION:Treasurer's Office - 10459 Courthouse Drive Suite 100 King George VA 22485
 DTSTART:20260915T120000Z
 SUMMARY:Estimated Quarterly State Income Tax Payment Due
 UID:ffb5c426d56db96d82bd7bd1c193c6d1950c077d
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/stop-the-bleed-free-emergency-training-class-tickets-1216650086159
-DTEND:20251112T000000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Eventbrite - Eventbrite Find my tickets Log In Sign Up Find Events Create Events Solutions Solutions Event Ticketing Event Marketing Platform Eventbrite Ads Payments Industry Industry Music Food & Beverage Performing Arts Charity & Causes Retail Event Types Event Types Concerts Classes & Workshops Festivals & Fairs Conferences Corporate Events Online Events Blog Blog Tips & Guides News & Trends Community Tools & Features Organizer Resource Hub Create Events Contact Sales Get Started Help Center Help Center Find your tickets Contact your event organizer Search events Choose a location autocomplete Contact Sales Create Events Help Center Find my tickets Log In Sign Up Find Events Create Events Solutions Solutions Event Ticketing Event Marketing Platform Eventbrite Ads Payments Industry Industry Music Food & Beverage Performing Arts Charity & Causes Retail Event Types Event Types Concerts Classes & Workshops Festivals & Fairs Conferences Corporate Events Online Events Blog Blog Tips & Guides News & Trends Community Tools & Features Organizer Resource Hub Create Events Contact Sales Get Started Help Center Help Center Find your tickets Contact your event organizer Multiple dates STOP THE BLEED (Free) Emergency Training Class By Sentara Health Follow All classes are free & open to the public. Location Sentara Northern Virginia Medical Center Hylton Education Center (Visitor’s Entrance) 2300 Opitz Boulevard Woodbridge\, VA 22191 Get directions Good to know Highlights In person Highlights In person About this event Health • Medical STOP THE BLEED is a FREE program to help you help others in the event of an emergency. All classes are free and open to the public.It is a national awareness campaign and call-to-action. It is intended to cultivate grassroots efforts that encourage bystanders to become trained\, equipped\, and empowered to help in a bleeding emergency before professional help arrives. Classes meet 6 - 7 p.m. in the Hylton Education Center on the Sentara Northern Virginia Medical Center campus. Pre-registration is required via https://www.sentara.com/classes-and-events/Event-Search/Stop-The-Bleed-Class-1035 *You do not need a medical background\, but if you do\, that's fine too! Tags United States Events Virginia Events Things to do in Marumsco\, VA Marumsco Classes Marumsco Health Classes #free #training #class #emergency #stopthebleed #emergency_first_aid #emergency_preparedness #emergencyfirstaidatwork Organized by Sentara Health Followers -- Events -- Hosting -- Contact Follow Report this event Free Multiple dates Check availability Use Eventbrite Create Events Pricing Event Marketing Platform Eventbrite Mobile Ticket App Eventbrite Check-In App Eventbrite App Marketplace Event Registration Software Community Guidelines FAQs Sitemap Plan events Sell Tickets Online Performing Arts Ticketing Software Sell Concert Tickets Online Event Payment System Solutions for Professional Services Event Management Software Halloween Party Planning Virtual Events Platform QR Codes for Event Check-In Post your event online Find events Browse Woodbridge Events Get the Eventbrite App Connect with us Report This Event Help Center Terms Privacy CA Privacy Notice Accessibility Community Guidelines Manage Cookie Preferences Do Not Sell or Share My Personal Information Privacy Eventbrite + Ticketfly © 2025 Eventbrite
-DTSTART:20250210T230000Z
-SUMMARY:STOP THE BLEED (Free) Emergency Training Class
-UID:3364fe74baccb76c797e78e4a71035cbfc9b6ec1
+DTSTAMP:20250930T030818Z
+DESCRIPTION:https://www.spotsylvania.va.us/calendar.aspx?EID=3276\nhttps://www.spotsylvania.va.us/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+DTEND:20251029T203000Z
+LAST-MODIFIED:20250930T030818Z
+LOCATION:Registration for the Spotsylvania Parks and Recreation Department Youth Basketball program will begin on Monday\, October 6.  Our program is for boys ages 6 – 17 and girls ages 6 – 14 who are Spotsylvania County Residents. The registration deadline is 4:30 p.m. on Wednesday\, October 29\, 2025. The age determination date for basketball is July 31\, 2025.   For more detailed information or questions\, call our office at (540)507-7529 or visit our web site at https://www.spotsylvania.va.us/469/Basketball - 10910 Leavells Road Spotsylvania VA 22553
+DTSTART:20251006T120000Z
+SUMMARY:Basketball Registration
+UID:8cad952ac47ba789774345faaa182dc92737a8be
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
+DTSTAMP:20250930T030818Z
+DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4332\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
+DTEND:20251005T150000Z
+LAST-MODIFIED:20250930T030818Z
+LOCATION:Caledon State Park - 11617 Caledon Road King George VA 22485
+DTSTART:20251005T130000Z
+SUMMARY:Bark Ranger Hike
+UID:cc0107007c9d172c97cac4f3de12f60ae4210691
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250930T030818Z
+DESCRIPTION:https://www.fredericksburgva.gov/calendar.aspx?EID=3640\nhttps://www.fredericksburgva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=22
+DTEND:20251025T000000Z
+LAST-MODIFIED:20250930T030818Z
+LOCATION:Memorial Park - 1401 Kenmore ave Fredericksburg VA 22401
+DTSTART:20251024T223000Z
+SUMMARY:Park After Dark
+UID:2c032c6083cef1846e5bc5329d41a3b719f4743c
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20250930T030818Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4315\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20251123T045900Z
-LAST-MODIFIED:20250930T001900Z
+LAST-MODIFIED:20250930T030818Z
 LOCATION:Caledon State Park - 11617 Caledon Road King George VA 22485
 DTSTART:20251122T130000Z
 SUMMARY:Turkey Chase Trail Race
 UID:22898b19e92e78a8ff63ab733d4eeaa8ff8d7d00
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/born-2-game-fabled-set-championship-tickets-1744383460889
-DTEND:20251005T000000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251004T150000Z
-SUMMARY:Born 2 Game Fabled Set Championship
-UID:6aed0eb0a0570bf62b8d671f12b613341717344b
+DTSTAMP:20250930T030818Z
+DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4334\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
+DTEND:20251019T003000Z
+LAST-MODIFIED:20250930T030818Z
+LOCATION:King George Family YMCA - 10545 Kings Highway King George VA 22485
+DTSTART:20251018T223000Z
+SUMMARY:Creepy Crawly Carnival
+UID:2bf7fdff8bfca27aa5f9fdae0896336a96b4066f
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/12th-annual-golf-tournament-protecting-the-potomac-tickets-1489666415349
-DTEND:20251003T193000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251003T120000Z
-SUMMARY:12th Annual Golf Tournament • Protecting the Potomac
-UID:1b2089bb2f7a93048b0d70750ce468e1944520ed
+DTSTAMP:20250930T030818Z
+DESCRIPTION:https://www.fredericksburgva.gov/calendar.aspx?EID=3506\nhttps://www.fredericksburgva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=35
+DTEND:20251225T050000Z
+LAST-MODIFIED:20250930T030818Z
+LOCATION:City Hall - 715 Princess Anne Street Fredericksburg VA 22401
+DTSTART:20251224T050000Z
+SUMMARY:Christmas - City Offices Closed
+UID:b60ecf74ae81d4d5ef529172cc4fbfac91e80098
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/beginners-compound-bow-archery-tickets-1657272339179
-DTEND:20251123T203000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20250918T180000Z
-SUMMARY:Beginner's Compound Bow Archery
-UID:edb224e0e6d8d3440d8e3af39b00635eba3e7f5f
+DTSTAMP:20250930T030818Z
+DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4331\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
+DTEND:20251004T140000Z
+LAST-MODIFIED:20250930T030818Z
+LOCATION:Caledon State Park - 11617 Caledon Road King George VA 22485
+DTSTART:20251004T120000Z
+SUMMARY:Howlin' Coyote Trail Race
+UID:236e3f5e5a1d28a6b61a998a75c00146fb4586a2
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/home-buyer-seminar-virtual-tickets-1746589970619
-DTEND:20251002T173000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251002T163000Z
-SUMMARY:Home Buyer Seminar- Virtual
-UID:4a20f4b82fac1581db51b4cacce62c04fd8b1e4e
+DTSTAMP:20250930T030818Z
+DESCRIPTION:https://www.fredericksburgva.gov/calendar.aspx?EID=3639\nhttps://www.fredericksburgva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=22
+DTEND:20251011T140000Z
+LAST-MODIFIED:20250930T030818Z
+LOCATION:Motts Run Reservoir  - 6600 River rd Fredericksburg VA 22401
+DTSTART:20251010T210000Z
+SUMMARY:Campout in the Park
+UID:71d1fec31be4e6392b92ad436064a3eaab147898
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/ball-101-workshop-tickets-1553055543939
-DTEND:20251022T233000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251022T220000Z
-SUMMARY:Ball 101 Workshop
-UID:92bae01eda050586dca0d3e1b148b2851511a10e
+DTSTAMP:20250930T030818Z
+DESCRIPTION:To honor the contributions of our United States Veterans. Procession Route: Along Washington Ave. From Mary Ball St. to George St. Public is invited to come cheer on our Veterans! https://www.fredericksburgva.gov/calendar.aspx?EID=3641\nhttps://www.fredericksburgva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=22
+DTEND:20251111T154500Z
+LAST-MODIFIED:20250930T030818Z
+LOCATION:Memorial Park  - 1401 Kenmore ave Fredericksburg VA 22401
+DTSTART:20251111T140000Z
+SUMMARY:Veteran's Day Procession
+UID:6c08b337f4d2b6eaa2f0f0d4f051c7c4d51abb5e
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/jake-paul-vs-tank-davis-tickets-1739493835889
-DTEND:20251115T043000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251115T020000Z
-SUMMARY:Jake Paul vs. Tank Davis
-UID:417361a9bfe945d9e34b6055c9ac04ceb8058b88
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/fall-mixer-for-real-estate-professionals-tickets-1684524440949
-DTEND:20251030T000000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251029T220000Z
-SUMMARY:Fall Mixer for Real Estate Professionals
-UID:4d3cd8f902d6e061ceab83420a1f30fe966352fb
-END:VEVENT
-BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
+DTSTAMP:20250930T030818Z
 DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=3600\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
 DTEND:20260615T200000Z
-LAST-MODIFIED:20250930T001900Z
+LAST-MODIFIED:20250930T030818Z
 LOCATION:Treasurer's Office - 10459 Courthouse Drive Suite 100 King George VA 22485
 DTSTART:20260615T120000Z
 SUMMARY:Estimated Quarterly State Income Tax Payment Due
 UID:ed0afc1895ed0e3aeed07d63877ccb4d8d5efce0
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/star-wars-unlimited-monthly-draft-tickets-1744360381859
-DTEND:20260331T020000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20250929T220000Z
-SUMMARY:Star Wars Unlimited Monthly Draft
-UID:3f59648e192acf963e55c315b0579136747973e0
+DTSTAMP:20250930T030818Z
+DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4311\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
+DTEND:20251005T200000Z
+LAST-MODIFIED:20250930T030818Z
+LOCATION:King George Citizens Center - 8076 Kings Highway King George VA 22485
+DTSTART:20251004T160000Z
+SUMMARY:1st Annual King George VCE 4-H County Fair
+UID:ed6b7680d6ff20dcff7fc2dfbf8e0f9cb22eb811
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/invest-in-real-estate-learn-now-dont-wait-tickets-1489234072199
-DTEND:20260101T033000Z
-LAST-MODIFIED:20250930T001900Z
-LOCATION:Eventbrite - Eventbrite Find my tickets Log In Sign Up Find Events Create Events Solutions Solutions Event Ticketing Event Marketing Platform Eventbrite Ads Payments Industry Industry Music Food & Beverage Performing Arts Charity & Causes Retail Event Types Event Types Concerts Classes & Workshops Festivals & Fairs Conferences Corporate Events Online Events Blog Blog Tips & Guides News & Trends Community Tools & Features Organizer Resource Hub Create Events Contact Sales Get Started Help Center Help Center Find your tickets Contact your event organizer Search events Choose a location autocomplete Contact Sales Create Events Help Center Find my tickets Log In Sign Up Find Events Create Events Solutions Solutions Event Ticketing Event Marketing Platform Eventbrite Ads Payments Industry Industry Music Food & Beverage Performing Arts Charity & Causes Retail Event Types Event Types Concerts Classes & Workshops Festivals & Fairs Conferences Corporate Events Online Events Blog Blog Tips & Guides News & Trends Community Tools & Features Organizer Resource Hub Create Events Contact Sales Get Started Help Center Help Center Find your tickets Contact your event organizer Multiple dates Invest in Real Estate - Learn Now! Don't Wait! By Impactrei Follow Checkout your new community Location Woodbridge Online Woodbridge\, VA 22193 Get directions Good to know Highlights In person Highlights In person About this event Business • Real Estate 🚀 Join us online for our Real Estate Introduction Zoom. 🏡 Gain access to the latest strategies from industry experts\, meet our thriving community of investors\, and discover actionable steps to start or enhance your investing journey. 🌟 After attending\, you'll have an exclusive access opportunity to attend even more real estate insight: 💡 Finding Deals Workshop 💰 Finding Money Workshop 🤔 Deal or No Deal Workshop 💸 Debt Elimination Workshop / Cashflow is King Workshop Get ready to take your Real Estate Investing game to the next level! *** ACCURATE INFORMATION IS REQUIRED TO RECEIVED THE ZOOM LINK *** Tags United States Events Virginia Events Things to do in Dale City\, VA Dale City Classes Dale City Business Classes #wealth #investing #online #thingstodo #virginia #dmv #realestateinvesting #real_estate #financial_freedom #investing_in_real_estate Organized by Impactrei Followers -- Events -- Hosting -- Contact Follow Report this event Free Multiple dates Check availability Use Eventbrite Create Events Pricing Event Marketing Platform Eventbrite Mobile Ticket App Eventbrite Check-In App Eventbrite App Marketplace Event Registration Software Community Guidelines FAQs Sitemap Plan events Sell Tickets Online Performing Arts Ticketing Software Sell Concert Tickets Online Event Payment System Solutions for Professional Services Event Management Software Halloween Party Planning Virtual Events Platform QR Codes for Event Check-In Post your event online Find events Browse Woodbridge Events Get the Eventbrite App Connect with us Report This Event Help Center Terms Privacy CA Privacy Notice Accessibility Community Guidelines Manage Cookie Preferences Do Not Sell or Share My Personal Information Privacy Eventbrite + Ticketfly © 2025 Eventbrite
-DTSTART:20250715T000000Z
-SUMMARY:Invest in Real Estate - Learn Now! Don't Wait!
-UID:2127bf0bc0fa6bf22c2732fd73ada3021eb969dc
+DTSTAMP:20250930T030818Z
+DESCRIPTION:https://www.kinggeorgecountyva.gov/calendar.aspx?EID=4268\nhttps://www.kinggeorgecountyva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=29
+DTEND:20251018T180000Z
+LAST-MODIFIED:20250930T030818Z
+LOCATION:Revercomb Administration Building Parking Lot - 10459 Courthouse Drive King George VA 22485
+DTSTART:20251018T140000Z
+SUMMARY:Household Shred Event
+UID:e5b152eaeae0fd3154caa5dbc2af5fb23a21e3e5
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20250930T001900Z
-DESCRIPTION:https://www.eventbrite.com/e/mvm-veterans-day-clinic-free-tickets-1079814998729
-DTEND:20251111T170000Z
-LAST-MODIFIED:20250930T001900Z
-DTSTART:20251111T140000Z
-SUMMARY:MVM - Veterans Day Clinic - FREE
-UID:5ba20214bffff6cd3e784926116bc2114a84ee13
+DTSTAMP:20250930T030818Z
+DESCRIPTION:https://www.fredericksburgva.gov/calendar.aspx?EID=3503\nhttps://www.fredericksburgva.gov/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=35
+DTEND:20251112T050000Z
+LAST-MODIFIED:20250930T030818Z
+LOCATION:City Hall - 715 Princess Anne Street Fredericksburg VA 22401
+DTSTART:20251111T050000Z
+SUMMARY:Veterans Day - City Offices Closed
+UID:f7525ea503817993f58e392e72fed3451ef32baf
 END:VEVENT
 END:VCALENDAR
