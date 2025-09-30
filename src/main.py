@@ -69,6 +69,7 @@ from sources import (
     fetch_thrillshare_ical,
     fetch_macaronikid_fxbg,                 # requests/cloudscraper/sitemap
     fetch_macaronikid_fxbg_playwright,      # may be None if playwright missing
+    resolve_eventbrite_location,
 )
 
 # ---- Utils -------------------------------------------------------------------
@@ -101,6 +102,43 @@ BOILERPLATE_LINE_PATTERNS += [
     re.compile(r"^\s*Privacy\b.*$", re.I),
     re.compile(r"^\s*Do Not Sell or Share My Personal Information\b.*$", re.I),
 ]
+
+BOILERPLATE_LINE_PATTERNS += [
+    re.compile(r"\bFind my tickets\b", re.I),
+    re.compile(r"\bCreate Events\b", re.I),
+    re.compile(r"\bHelp Center\b", re.I),
+    re.compile(r"\bCommunity Guidelines\b", re.I),
+    re.compile(r"\bDo Not Sell or Share My Personal Information\b", re.I),
+]
+
+
+
+EVENTBRITE_CHROME_HINTS = (
+    "Eventbrite", "Find my tickets", "Create Events", "Help Center",
+    "Contact Sales", "Community Guidelines", "Do Not Sell or Share"
+)
+
+US_ADDR_RE = re.compile(
+    r"""
+    (?P<num>\d{2,6})                           # 3019
+    [\s,]+
+    (?P<street>[A-Za-z0-9\.\-\' ]{3,})         # Embry Loop
+    [\s,]+
+    (?P<city>[A-Za-z\.\-\' ]{2,})              # Quantico
+    [,\s]+
+    (?P<state>AL|AK|AS|AZ|AR|CA|CO|CT|DE|DC|FL|GA|GU|HI|IA|ID|IL|IN|KS|KY|
+                LA|MA|MD|ME|MI|MN|MO|MS|MT|NC|ND|NE|NH|NJ|NM|NV|NY|OH|OK|
+                OR|PA|PR|RI|SC|SD|TN|TX|UT|VA|VI|VT|WA|WI|WV|WY)
+    [\s,]+
+    (?P<zip>\d{5}(?:-\d{4})?)
+    """,
+    re.VERBOSE | re.IGNORECASE
+)
+
+VENUE_TOKEN_RE = re.compile(r"[A-Za-z0-9&\.\-\' ]{3,}")
+STOP_TOKENS = {"get directions", "good to know", "highlights", "about this event",
+               "tags", "organized by", "report this event", "free", "multiple dates"}
+
 
 DATA_EVENTS = "data/events.json"
 DOCS_DIR = "docs"
@@ -145,6 +183,63 @@ def tidy_desc_text(text: str) -> str:
         seen.add(key)
         dedup.append(s)
     return "\n".join(dedup)
+
+def _looks_like_eventbrite_blob(s: str) -> bool:
+    if not s:
+        return False
+    # Heuristic: very long + has telltale chrome words
+    return (len(s) > 300) and any(h in s for h in EVENTBRITE_CHROME_HINTS)
+
+def _extract_venue_and_address_from_text(txt: str) -> str:
+    """
+    Find a US postal address and prepend a venue-like line immediately before it
+    when available. Returns '' if nothing reliable is found.
+    """
+    if not txt:
+        return ""
+    plain = strip_html_to_text(txt)
+    plain = WS_RE.sub(" ", plain).strip()
+
+    m = US_ADDR_RE.search(plain)
+    if not m:
+        return ""
+
+    # Build address "NNNN Street, City, ST ZIP"
+    addr = f"{m.group('num')} {m.group('street').strip()}, " \
+           f"{m.group('city').strip()}, {m.group('state').upper()} {m.group('zip')}"
+    # Look left for a venue name (up to ~120 chars back)
+    left = plain[max(0, m.start()-160):m.start()].strip(" -•|,")
+    # Split on common separators and take last clean token that isn’t a stop word
+    cand = ""
+    for token in re.split(r"[|•\-–—,:]{1,}", left):
+        t = token.strip()
+        low = t.lower()
+        if not t or low in STOP_TOKENS:
+            continue
+        if VENUE_TOKEN_RE.fullmatch(t) and not US_ADDR_RE.search(t):
+            cand = t
+    venue = cand.strip()
+    if venue and len(venue) > 2 and len(venue) < 120:
+        return f"{venue} - {addr}"
+    return addr
+
+def _extract_eventbrite_location_any(raw_loc: str, desc: str) -> str:
+    """
+    Robust EB location pull:
+      - If raw_loc is an EB blob or gigantic, mine venue+address.
+      - Else, if desc contains it, mine from desc.
+      - Else, ''.
+    """
+    for candidate in (raw_loc or "", desc or ""):
+        candidate = strip_html_to_text(candidate)
+        if not candidate:
+            continue
+        if _looks_like_eventbrite_blob(candidate) or "Location" in candidate or "Get directions" in candidate:
+            got = _extract_venue_and_address_from_text(candidate)
+            if got:
+                return got
+    return ""
+
 
 def add_html_description(event_obj, html: str):
     if not html or not ContentLine:
@@ -214,11 +309,12 @@ def _extract_eventbrite_location(big: str) -> str:
     loc = re.sub(r"(?:,?\s*(Get directions|Good to know|Highlights).*)$", "", loc, flags=re.I).strip(", ")
     return loc
 
+
 # ---- modify existing clean_location_field ----
 def clean_location_field(raw_loc: str) -> str:
     if not raw_loc:
         return ""
-    s = raw_loc.strip()
+    s = raw_loc
     if "<" in s and ">" in s:
         try:
             from bs4 import BeautifulSoup as _BS
@@ -226,14 +322,11 @@ def clean_location_field(raw_loc: str) -> str:
         except Exception:
             s = HTML_TAG_RE.sub("", s)
     s = WS_RE.sub(" ", s).strip(" -–—|")
-
-    # NEW: If it looks like the giant Eventbrite page dump, extract the true location.
-    if ("Eventbrite" in s and "Find my tickets" in s) or len(s) > 400:
-        eb_loc = _extract_eventbrite_location(s)
-        if eb_loc:
-            return eb_loc
-
+    # If it's an Eventbrite blob, don't trust it here; let normalize_event handle extraction with desc fallback.
+    if _looks_like_eventbrite_blob(s):
+        return ""
     return s
+
 
 
 def _clean_title_and_location(raw_title: str, existing_loc: str | None) -> tuple[str, str | None]:
@@ -262,6 +355,41 @@ def normalize_event(raw, timezone='America/New_York'):
     if loc2 is not None:
         loc = loc2
     loc = clean_location_field(loc)
+
+
+    # Host for source-specific fixes
+    host = _host_from({'source': raw.get('source'), 'link': link})
+
+    # If the 'location' is clearly Eventbrite chrome or just huge, try to repair.
+    def _looks_like_eventbrite_blob(txt: str) -> bool:
+        if not txt:
+            return False
+        t = txt
+        return (
+            ("Eventbrite" in t and "Find my tickets" in t) or
+            ("Create Events" in t and "Help Center" in t) or
+            (len(t) > 300)  # overly long chrome-y blob
+        )
+
+    if _looks_like_eventbrite_blob(loc):
+        # 1) Try to extract from the junk text itself (using "Location ... Get directions" window)
+        fixed = _extract_eventbrite_location(loc)
+        if fixed:
+            loc = fixed
+        else:
+            # 2) Sometimes the description has the real 'Location' block
+            fixed = _extract_eventbrite_location(desc or "")
+            if fixed:
+                loc = fixed
+
+    # 3) As a last resort, if this is an Eventbrite event and still junk/empty, fetch the page and parse JSON-LD
+    if (not loc or _looks_like_eventbrite_blob(loc)) and host.endswith("eventbrite.com") and link:
+        try:
+            resolved = resolve_eventbrite_location(link)
+            if resolved:
+                loc = resolved
+        except Exception:
+            pass
 
     # If location is still empty or still looks like EB chrome, try to extract from description
     if (not loc) or ("Eventbrite" in loc and "Find my tickets" in loc):

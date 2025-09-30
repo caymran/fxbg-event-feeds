@@ -1172,6 +1172,17 @@ def fetch_bandsintown(url, app_id_env=None):
         )
     return out
 
+# ---- Public helper to resolve clean Eventbrite location from a detail URL ----
+def resolve_eventbrite_location(detail_url: str) -> str:
+    """
+    Best-effort fetch of a single Eventbrite event page and return a clean
+    location string (venue + address) using the same JSON-LD logic we use
+    elsewhere. Returns '' if not found.
+    """
+    ev = _parse_eventbrite_detail(detail_url)
+    loc = (ev or {}).get("location") if isinstance(ev, dict) else None
+    return (loc or "").strip()
+
 def fetch_macaronikid_fxbg_playwright(days=60, user_agent=None, headless=True, save_artifacts=True):
     """
     Playwright crawler for Macaroni KID Fredericksburg.
