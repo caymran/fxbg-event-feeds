@@ -1369,24 +1369,41 @@ def fetch_macaronikid_fxbg_playwright(days=60, user_agent=None, headless=True, s
 
                 logging.getLogger("sources").debug("MacKID(PW) detail %s -> status=200 title=%r", ev_url, title)
 
-                # Prefer per-event ICS link (can be HTTPS or data:)
+                # Prefer per-event ICS link (can be HTTPS OR data:text/calendar)
                 ics_href = None
                 try:
-                    # href endswith .ics
-                    ics_href = page.eval_on_selector(
-                        "a[href$='.ics']",
-                        "el => el && el.getAttribute('href')"
-                    )
+                    # Gather ALL anchors with href + their text
+                    anchors = page.eval_on_selector_all(
+                        "a[href]",
+                        "els => els.map(e => ({ href: e.getAttribute('href') || '', text: (e.textContent || '').toLowerCase().trim() }))"
+                    ) or []
+
+                    # First, exact .ics hrefs
+                    for a in anchors:
+                        h = (a['href'] or '').strip()
+                        if h.lower().endswith('.ics'):
+                            ics_href = h
+                            break
+
+                    # Then, Apple Calendar by text
                     if not ics_href:
-                        # text mentions Apple Calendar
-                        ics_href = page.eval_on_selector(
-                            "a[href]",
-                            "el => (el.textContent||'').toLowerCase().includes('apple calendar') ? el.getAttribute('href') : null"
-                        )
+                        for a in anchors:
+                            if 'apple calendar' in a['text']:
+                                ics_href = (a['href'] or '').strip()
+                                break
+
+                    # Finally, explicit data:text/calendar
+                    if not ics_href:
+                        for a in anchors:
+                            h = (a['href'] or '').strip()
+                            if h.lower().startswith('data:text/calendar'):
+                                ics_href = h
+                                break
                 except Exception:
                     ics_href = None
 
                 if ics_href:
+                    # NOTE: urljoin will leave data: URLs untouched; ok for fetch_ics()
                     ics_abs = urljoin(ev_url, ics_href)
                     try:
                         evs = fetch_ics(ics_abs, user_agent="fxbg-event-bot/1.0") or []
@@ -1398,6 +1415,7 @@ def fetch_macaronikid_fxbg_playwright(days=60, user_agent=None, headless=True, s
                         continue  # done with this detail page
                     except Exception as ex:
                         logging.getLogger("sources").warning("MacKID(PW) ICS parse failed %s: %s", ics_abs, str(ex)[:160])
+
 
                 # ---- HTML fallback (mirrors fetch_macaronikid_fxbg) ----
                 soup = BeautifulSoup(html, "html.parser")
@@ -1653,9 +1671,14 @@ def fetch_macaronikid_fxbg(days=60, user_agent=None):
         for a in soup.select("a[href]"):
             href = (a.get("href") or "").strip()
             txt = (a.get_text(" ", strip=True) or "").lower()
-            if href.lower().endswith(".ics") or "apple calendar" in txt:
+            if (
+                href.lower().endswith(".ics")
+                or "apple calendar" in txt
+                or href.lower().startswith("data:text/calendar")
+            ):
                 ics_href = urllib.parse.urljoin(ev_url, href)
                 break
+
         if ics_href:
             try:
                 for e in fetch_ics(ics_href, user_agent=user_agent) or []:
