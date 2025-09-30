@@ -151,6 +151,25 @@ def _host_from(ev: dict) -> str:
     except Exception:
         return ""
 
+from collections import defaultdict
+
+def _source_key(ev: dict) -> str:
+    """
+    Prefer short labels when your fetchers set them (e.g., 'eventbrite', 'macaronikid',
+    'thrillshare', 'bandsintown'). Otherwise fall back to the hostname of link/source.
+    """
+    s = (ev.get("source") or "").strip().lower()
+    if s in {"eventbrite", "macaronikid", "thrillshare", "bandsintown", "freepress"}:
+        return s
+    host = _host_from(ev)  # already defined in your file
+    if host:
+        # collapse subdomains to eTLD+1 for readability
+        parts = host.split(".")
+        if len(parts) > 2:
+            host = ".".join(parts[-2:])
+        return host
+    return "unknown"
+
 def strip_html_to_text(html: str) -> str:
     if not html:
         return ""
@@ -701,6 +720,24 @@ def main():
 
     build_cals(filtered, DOCS_DIR)
     log.info("Built %s/family.ics, adult.ics, recurring.ics, sports.ics with %d events total.", DOCS_DIR, len(filtered))
+
+    # ---- Per-source counts for this run ----
+    counts_by_source = defaultdict(int)
+    for ev in filtered:
+        counts_by_source[_source_key(ev)] += 1
+        
+            # --- Per-source report ---
+    def _fmt_map(d):
+        # stable, readable ordering (largest first)
+        return ", ".join(f"{k}={d[k]}" for k in sorted(d, key=d.get, reverse=True))
+
+    log.info("Per-source totals (this run): %s", _fmt_map(counts_by_source))
+
+    # If you kept the delta code:
+    if 'added_by_source' in locals():
+        log.info("Per-source added this run: %s", _fmt_map(added_by_source))
+
+
 
 if __name__ == '__main__':
     main()
