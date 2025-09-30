@@ -1183,6 +1183,75 @@ def resolve_eventbrite_location(detail_url: str) -> str:
     loc = (ev or {}).get("location") if isinstance(ev, dict) else None
     return (loc or "").strip()
 
+def _extract_dates_from_html(soup, default_tz="America/New_York"):
+    """
+    Return (iso_start, iso_end, date_text_fallback) where iso_* are ISO strings
+    if available, else None. date_text_fallback is a human text block if found.
+    """
+    import json as _json
+    iso_start = iso_end = None
+    date_text = None
+
+    # 1) JSON-LD @type=Event (also scans @graph)
+    for tag in soup.select('script[type="application/ld+json"]'):
+        try:
+            data = _json.loads(tag.string or "")
+        except Exception:
+            continue
+
+        def _events_in(obj):
+            if isinstance(obj, dict):
+                if obj.get("@type") in ("Event", "Festival"):
+                    yield obj
+                for node in (obj.get("@graph") or []):
+                    if isinstance(node, dict) and node.get("@type") in ("Event", "Festival"):
+                        yield node
+            elif isinstance(obj, list):
+                for node in obj:
+                    if isinstance(node, dict) and node.get("@type") in ("Event", "Festival"):
+                        yield node
+
+        for evnode in _events_in(data):
+            s = (evnode.get("startDate") or evnode.get("start_date") or "").strip()
+            e = (evnode.get("endDate") or evnode.get("end_date") or "").strip()
+            if s and not iso_start:
+                iso_start = s
+            if e and not iso_end:
+                iso_end = e
+            if iso_start and iso_end:
+                break
+        if iso_start or iso_end:
+            break
+
+    # 2) <time datetime="...">
+    if not (iso_start or iso_end):
+        ts = [t.get("datetime") for t in soup.select("time[datetime]") if t.get("datetime")]
+        if ts:
+            iso_start = ts[0]
+            if len(ts) > 1:
+                iso_end = ts[1]
+
+    # 3) meta itemprop
+    if not (iso_start or iso_end):
+        m_start = soup.select_one("meta[itemprop='startDate'], meta[itemprop='startdate']")
+        m_end   = soup.select_one("meta[itemprop='endDate'], meta[itemprop='enddate']")
+        if m_start and m_start.get("content"):
+            iso_start = (m_start["content"] or "").strip() or iso_start
+        if m_end and m_end.get("content"):
+            iso_end = (m_end["content"] or "").strip() or iso_end
+
+    # 4) Visible block with date/time words
+    if not (iso_start or iso_end):
+        dt_blk = soup.find(
+            lambda t: t and t.name in ("section", "div")
+            and any(k in t.get_text(" ", strip=True) for k in ("Date", "Time", "When"))
+        )
+        if dt_blk:
+            date_text = dt_blk.get_text(" ", strip=True)
+
+    return iso_start, iso_end, date_text
+
+
 def fetch_macaronikid_fxbg_playwright(days=60, user_agent=None, headless=True, save_artifacts=True):
     """
     Playwright crawler for Macaroni KID Fredericksburg.
@@ -1342,56 +1411,43 @@ def fetch_macaronikid_fxbg_playwright(days=60, user_agent=None, headless=True, s
                 l = soup.select_one("[data-element='event-location'], .event-location, .location, [itemprop='location']")
                 loc = l.get_text(" ", strip=True) if l else None
 
-                # date/time extraction
-                nodes = soup.select("[data-element='event-date'], .event-date, .event-time")
-                date_text = " ".join(n.get_text(" ", strip=True) for n in nodes if n.get_text(strip=True)) if nodes else None
+                # ---- robust date extraction
+                iso_start, iso_end, date_text = _extract_dates_from_html(soup)
+                combined_dt = None
+                if iso_start or iso_end:
+                    combined_dt = f"{iso_start or ''} {iso_end or ''}".strip()
+                elif date_text:
+                    combined_dt = date_text
 
-                if not date_text:
-                    # <time datetime>
-                    ts = [t.get("datetime") for t in soup.select("time[datetime]") if t.get("datetime")]
-                    if ts:
-                        date_text = f"{ts[0]} {ts[1]}" if len(ts) > 1 else ts[0]
+                # DEBUG log instead of print
+                if os.getenv("FEEDS_DEBUG"):
+                    logging.getLogger("sources").debug(
+                        "MacKID parsed: %s | date_text: %s",
+                        (title_txt or "")[:80],
+                        (combined_dt or "")[:120],
+                    )
 
-                if not date_text:
-                    sm_tag = soup.select_one("meta[itemprop='startDate'], meta[itemprop='startdate']")
-                    em_tag = soup.select_one("meta[itemprop='endDate'], meta[itemprop='enddate']")
-                    sm = sm_tag.get("content").strip() if sm_tag and sm_tag.get("content") else ""
-                    em = em_tag.get("content").strip() if em_tag and em_tag.get("content") else ""
-                    if sm or em:
-                        date_text = f"{sm} {em}".strip()
+                sdt = edt = None
+                if combined_dt:
+                    sdt, edt = parse_when(combined_dt, default_tz="America/New_York")
 
-                if not date_text:
-                    # JSON-LD @type Event
-                    for s in soup.find_all("script", type="application/ld+json"):
-                        try:
-                            dct = json.loads(s.string or "")
-                        except Exception:
-                            continue
-                        seq = [dct] if isinstance(dct, dict) else (dct if isinstance(dct, list) else [])
-                        used = False
-                        for obj in seq:
-                            if isinstance(obj, dict) and obj.get("@type") in ("Event", "Festival"):
-                                sm = obj.get("startDate") or obj.get("start_date") or ""
-                                em = obj.get("endDate") or obj.get("end_date") or ""
-                                if sm or em:
-                                    date_text = f"{sm} {em}".strip()
-                                    used = True
-                                    break
-                        if used:
-                            break
+                # If we STILL don't have a start, skip this event (don't emit broken VEVENTs)
+                if not sdt:
+                    if os.getenv("FEEDS_DEBUG"):
+                        logging.getLogger("sources").debug("MacKID skip (no date): %s", ev_url)
+                    continue
 
-                print("     · parsed:", (title_txt or "")[:60], "| date_text:", (date_text or "")[:80])
-
-                sdt, edt = parse_when(date_text or "", default_tz="America/New_York")
                 out.append({
                     "title": title_txt or "(untitled)",
                     "description": desc or "",
                     "link": ev_url,
-                    "start": sdt.isoformat() if sdt else None,
-                    "end": (edt.isoformat() if edt else None) if edt else None,
+                    "start": sdt.isoformat(),
+                    "end": (edt.isoformat() if edt else None),
                     "location": loc,
                     "source": "macaronikid",
                 })
+
+
 
             except Exception as ex:
                 logging.getLogger("sources").warning("MacKID(PW) detail error %s: %s", ev_url, str(ex)[:160])
