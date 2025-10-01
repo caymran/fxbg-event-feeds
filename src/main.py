@@ -447,6 +447,7 @@ def normalize_event(raw, timezone='America/New_York'):
         'end': edt,
         'link': link,
         'source': raw.get('source'),
+        'image': (raw.get('image') or '').strip(),  # ← ADDED
     }
     log.trace("normalize_event -> %s @ %s", out['title'], out['start'])
     return out
@@ -476,6 +477,21 @@ def to_ics_event(ev):
 
     if desc_html and (('<' in desc_html and '>' in desc_html) or desc_html.strip().startswith('&lt;')):
         add_html_description(e, desc_html)
+
+    # --- attach primary image, if present ---
+    img = (ev.get('image') or '').strip()
+    if img and ContentLine:
+        # If you can guess the mime, you can set FMTTYPE; otherwise omit params
+        try:
+            import mimetypes
+            mime, _ = mimetypes.guess_type(img)
+        except Exception:
+            mime = None
+
+        if mime:
+            e.extra.append(ContentLine(name="ATTACH", params={"FMTTYPE": mime}, value=img))
+        else:
+            e.extra.append(ContentLine(name="ATTACH", value=img))
 
     if 'id' in ev:
         try:

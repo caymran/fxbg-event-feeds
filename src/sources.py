@@ -260,9 +260,11 @@ def _parse_eventbrite_detail(detail_url, user_agent=None, default_tz="America/Ne
     """
     Parse a single Eventbrite event page; prefer JSON-LD @type=Event, with
     solid fallbacks for title/date/location/description from visible HTML/meta.
+    Also captures a primary image URL when available.
     """
     from dateutil import parser as dtp, tz as dttz
 
+    # --- HTTP fetch ---
     user_agent = user_agent or os.getenv("EB_UA") or (
         "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
         "AppleWebKit/537.36 (KHTML, like Gecko) "
@@ -278,23 +280,29 @@ def _parse_eventbrite_detail(detail_url, user_agent=None, default_tz="America/Ne
 
     soup = BeautifulSoup(body, "html.parser")
 
-    # --- put these near the top of _parse_eventbrite_detail, after soup = BeautifulSoup(...)
-
+    # ---------- noise filters & helpers ----------
     _NAV_NOISE = re.compile(
         r"(?:^|\b)(Log In|Sign Up|Find my tickets|Find Events|Eventbrite)\b",
         re.I,
     )
-
+    _CHROME_STRINGS = [
+        "Event Ticketing", "Event Marketing Platform", "Payments", "Industry",
+        "Music", "Food & Beverage", "Performing Arts", "Charity & Causes", "Retail",
+        "Event Types", "Concerts", "Classes & Workshops", "Festivals & Fairs",
+        "Conferences", "Corporate Events", "Online Events", "Blog", "Tips & Guides",
+        "News & Trends", "Community", "Tools & Features", "Organizer Resource Hub",
+        "Contact Sales", "Get Started", "Find your tickets", "Contact your event organizer",
+        "Search events", "Choose a location", "autocomplete",
+    ]
 
     def _sanitize_text(txt: str) -> str:
         if not txt:
             return ""
-        # collapse whitespace
         txt = re.sub(r"\s+", " ", txt).strip()
-        # nuke obvious chrome
         txt = _NAV_NOISE.sub("", txt).strip(" -|•")
-        # collapse again after removals
-        txt = re.sub(r"\s{2,}", " ", txt)
+        for crumb in _CHROME_STRINGS:
+            txt = txt.replace(crumb, " ")
+        txt = re.sub(r"\s{2,}", " ", txt).strip()
         return txt
 
     def _extract_description(soup: BeautifulSoup, jsonld_desc: str | None) -> str:
@@ -303,7 +311,7 @@ def _parse_eventbrite_detail(detail_url, user_agent=None, default_tz="America/Ne
           1) Visible 'About this event' block (or new EB description containers)
           2) JSON-LD description (sanitized)
           3) <meta property="og:description">
-        Return <= 800 chars, no nav boilerplate.
+        Return <= 800 chars, sanitized.
         """
         # 1) Visible long form
         about = soup.find(
@@ -312,7 +320,6 @@ def _parse_eventbrite_detail(detail_url, user_agent=None, default_tz="America/Ne
         ) or soup.select_one("[data-testid='event-description'], [data-spec='event-description']")
         if about:
             lines = [ln.strip() for ln in about.get_text("\n", strip=True).splitlines() if ln.strip()]
-            # drop UI crumbs / share bars
             lines = [
                 ln for ln in lines
                 if not re.search(r"^(Share|Follow|Tags|Report this event)\b", ln, re.I)
@@ -320,7 +327,9 @@ def _parse_eventbrite_detail(detail_url, user_agent=None, default_tz="America/Ne
             ]
             desc = "\n".join(lines).strip()
             desc = re.sub(r"\n{3,}", "\n\n", desc)
-            return desc[:800].rstrip()
+            desc = _sanitize_text(desc)
+            if desc:
+                return desc[:800].rstrip()
 
         # 2) JSON-LD description
         if jsonld_desc:
@@ -329,7 +338,7 @@ def _parse_eventbrite_detail(detail_url, user_agent=None, default_tz="America/Ne
             if desc:
                 return desc[:800].rstrip()
 
-        # 3) og:description
+        # 3) og:description / meta description
         og = soup.select_one("meta[property='og:description'], meta[name='description']")
         if og and og.get("content"):
             desc = _sanitize_text(og["content"])
@@ -373,14 +382,7 @@ def _parse_eventbrite_detail(detail_url, user_agent=None, default_tz="America/Ne
             loc = _sanitize_text(f"{name} - {addr_txt}".strip(" -"))
             if loc and len(loc) < 200:
                 return loc
-
-    # ---------- local helpers ----------
-    def _clean_loc_txt(txt: str) -> str:
-        txt = (txt or "").strip()
-        txt = re.sub(r"\s+", " ", txt)
-        if "Eventbrite" in txt and len(txt) > 200:
-            return ""
-        return txt
+        return ""
 
     def _find_microdata_location(soup) -> str:
         loc_el = soup.select_one('[itemprop="location"]')
@@ -396,8 +398,7 @@ def _parse_eventbrite_detail(detail_url, user_agent=None, default_tz="America/Ne
                 if node:
                     parts.append(node.get_text(" ", strip=True))
         addr_txt = " ".join([p for p in parts if p])
-        out = f"{name} - {addr_txt}".strip(" -")
-        return _clean_loc_txt(out)
+        return _sanitize_text(f"{name} - {addr_txt}".strip(" -"))
 
     def _find_visible_location(soup) -> str:
         blk = soup.select_one("[data-testid='event-details-location']") \
@@ -405,20 +406,32 @@ def _parse_eventbrite_detail(detail_url, user_agent=None, default_tz="America/Ne
         if blk:
             addr_tag = blk.find("address")
             if addr_tag:
-                return _clean_loc_txt(addr_tag.get_text(" ", strip=True))
+                return _sanitize_text(addr_tag.get_text(" ", strip=True))
             lines = [ln.strip() for ln in blk.get_text("\n", strip=True).splitlines() if ln.strip()]
             lines = [ln for ln in lines if "Eventbrite" not in ln][:3]
-            return _clean_loc_txt(" - ".join(lines).strip(" -"))
+            return _sanitize_text(" - ".join(lines).strip(" -"))
 
         cand = soup.find(lambda t: t.name in ("section", "div") and re.search(r"\bLocation\b", t.get_text(" ", strip=True), re.I))
         if cand:
             addr_tag = cand.find("address")
             if addr_tag:
-                return _clean_loc_txt(addr_tag.get_text(" ", strip=True))
+                return _sanitize_text(addr_tag.get_text(" ", strip=True))
             lines = [ln.strip() for ln in cand.get_text("\n", strip=True).splitlines() if ln.strip()]
             lines = [ln for ln in lines if "Eventbrite" not in ln][:3]
-            return _clean_loc_txt(" - ".join(lines).strip(" -"))
+            return _sanitize_text(" - ".join(lines).strip(" -"))
         return ""
+
+    def _dedupe_location(s: str) -> str:
+        if not s:
+            return s
+        s = re.sub(r"\s+", " ", s).strip()
+        # collapse "City ST ZIP City ST ZIP"
+        m = re.search(r"(,?\s*[A-Za-z .'-]+,\s*[A-Z]{2}\s*\d{5})(?:\s+\1)+", s)
+        if m:
+            s = s.replace(m.group(0), m.group(1)).strip()
+        # collapse trailing repeated ZIP
+        s = re.sub(r"(\b\d{5})(?:\s+\1\b)+", r"\1", s)
+        return s
 
     def _to_iso(val):
         if not val:
@@ -431,10 +444,12 @@ def _parse_eventbrite_detail(detail_url, user_agent=None, default_tz="America/Ne
         except Exception:
             return None
 
+    # ---------- parse ----------
     ev_name = desc = start = end = None
     location_str = ""
+    evt_image = None  # capture a primary image if present
 
-    # ---- 1) JSON-LD @type=Event ----
+    # 1) JSON-LD @type=Event
     for tag in soup.select('script[type="application/ld+json"]'):
         try:
             data = json.loads(tag.string or "")
@@ -442,12 +457,26 @@ def _parse_eventbrite_detail(detail_url, user_agent=None, default_tz="America/Ne
             continue
 
         def handle_evt(evt):
-            nonlocal ev_name, desc, start, end, location_str
-            nm = _eb_clean_text(evt.get("name") or "")
+            nonlocal ev_name, desc, start, end, location_str, evt_image
+            if not isinstance(evt, dict):
+                return
+            typ = (evt.get("@type") or "").lower()
+            if typ not in ("event", "festival", "socialevent"):
+                return
+
+            nm  = _sanitize_text(evt.get("name") or "")
             sdt = evt.get("startDate") or evt.get("start_date")
-            edt = evt.get("endDate") or evt.get("end_date")
-            dsc = _eb_clean_text(evt.get("description") or "")
+            edt = evt.get("endDate")   or evt.get("end_date")
+            dsc = evt.get("description")
             loc = _eb_location_str(evt.get("location"))
+
+            # image may be str or list
+            img = evt.get("image")
+            if isinstance(img, list):
+                img = img[0] if img else None
+            if img and not evt_image:
+                evt_image = str(img).strip()
+
             if nm and not ev_name:
                 ev_name = nm
             if sdt and not start:
@@ -455,26 +484,24 @@ def _parse_eventbrite_detail(detail_url, user_agent=None, default_tz="America/Ne
             if edt and not end:
                 end = _to_iso(edt) or edt
             if dsc and not desc:
+                # don’t sanitize until _extract_description (to keep full HTML if needed)
                 desc = dsc
             if loc and not location_str:
                 location_str = loc
 
         if isinstance(data, dict):
-            if data.get("@type") in ("Event", "Festival"):
-                handle_evt(data)
+            handle_evt(data)
             for node in (data.get("@graph") or []):
-                if isinstance(node, dict) and node.get("@type") in ("Event", "Festival"):
-                    handle_evt(node)
+                handle_evt(node)
         elif isinstance(data, list):
             for node in data:
-                if isinstance(node, dict) and node.get("@type") in ("Event", "Festival"):
-                    handle_evt(node)
+                handle_evt(node)
 
-    # ---- 2) Visible HTML fallbacks ----
+    # 2) Visible HTML fallbacks
     if not ev_name:
         h = soup.select_one("h1, [data-testid='event-title'], [data-automation='listing-title']")
         if h:
-            ev_name = _eb_clean_text(h.get_text(" ", strip=True))
+            ev_name = _sanitize_text(h.get_text(" ", strip=True))
 
     if not (start or end):
         m_start = soup.select_one("meta[itemprop='startDate'], meta[itemprop='startdate'], meta[property='event:start_time']")
@@ -494,30 +521,37 @@ def _parse_eventbrite_detail(detail_url, user_agent=None, default_tz="America/Ne
     if not (start or end):
         dt_blk = soup.find(lambda t: t.name in ("section", "div") and "Date and time" in t.get_text(" ", strip=True))
         if dt_blk:
-            sdt, edt = parse_when(_eb_clean_text(dt_blk.get_text(" ", strip=True)), default_tz=default_tz)
+            sdt, edt = parse_when(_sanitize_text(dt_blk.get_text(" ", strip=True)), default_tz=default_tz)
             if sdt:
                 start = sdt.isoformat()
             if edt:
                 end = edt.isoformat()
 
-    # ---- Location fallbacks ----
+    # 3) Location fallbacks (JSON-LD already tried)
     if not location_str:
         location_str = _find_microdata_location(soup)
     if not location_str:
         location_str = _find_visible_location(soup)
-    if location_str and ("Eventbrite" in location_str or len(location_str) > 300):
-        location_str = ""
-
-    # Location: prefer JSON-LD, else visible HTML; drop boilerplate
     if not location_str:
         location_str = _extract_location_from_html(soup)
     if location_str and (_NAV_NOISE.search(location_str) or len(location_str) > 300):
         location_str = ""
+    location_str = _dedupe_location(location_str)
 
-    # Description: favor visible "About this event"; sanitize JSON-LD; fallback to og:description
+    # 4) Description: prefer visible, then sanitized JSON-LD, then og:desc
     desc = _extract_description(soup, desc)
 
-    
+    if os.getenv("FEEDS_DEBUG"):
+        LOG.debug(
+            "     · EB parsed title=%r start=%r end=%r loc=%r img=%r desc_snip=%r",
+            (ev_name or "")[:80],
+            start, end,
+            (location_str or "")[:120],
+            evt_image,
+            (desc or "")[:100],
+        )
+
+    # minimal valid object
     if not (ev_name and start):
         return None
 
@@ -528,12 +562,9 @@ def _parse_eventbrite_detail(detail_url, user_agent=None, default_tz="America/Ne
         "start": start,
         "end": end,
         "location": location_str or None,
+        "image": evt_image,             # <<—— captured image
         "source": "eventbrite",
     }
-    if os.getenv("FEEDS_DEBUG"):
-        t = (ev_name or "")[:60]
-        loc_snip = (location_str or "")[:60]
-        LOG.debug("     · EB parsed: %s | start:%s end:%s loc:%s", t, start, end, loc_snip)
     return evt
 
 
