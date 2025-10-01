@@ -19,11 +19,9 @@ concurrency:
 env:
   PYTHONUNBUFFERED: "1"
   TZ: "America/New_York"
-  # Toggle verbose logs without changing code
-  FEEDS_DEBUG: "1"
-  # If you want to disable Playwright crawling in CI, leave it out (default falls back to requests)
-  # FEEDS_PW_HEADLESS: "1"
-  # Pass optional API keys via repo/environment secrets if you use them:
+  FEEDS_DEBUG: "1"            # verbose logs
+  FEEDS_PW_HEADLESS: "1"      # run Playwright headless on CI
+  # If you have tokens, uncomment and set as repo secrets:
   # EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
   # BANDSINTOWN_APP_ID: ${{ secrets.BANDSINTOWN_APP_ID }}
 
@@ -43,27 +41,19 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install playwright
 
-      - name: Restore Playwright browser cache
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ hashFiles('requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-playwright-
-
-      - name: Install Playwright browsers
-        run: python -m playwright install --with-deps chromium
+      # ✅ Properly install Playwright browsers & system deps on GH runners
+      - name: Install Playwright (browsers + deps)
+        uses: microsoft/playwright-github-action@v1
 
       - name: Build calendars
         run: |
           # Ensure output folders exist and Jekyll is disabled
-          mkdir -p docs data
+          mkdir -p docs data data/debug
           : > docs/.nojekyll
 
           # Run your builder
-          python src/main.py
+          python src/main.py || true
 
           # Safety: ensure .ics exist so Pages isn’t empty even if a run yields no events
           ls -l docs || true
@@ -72,7 +62,7 @@ jobs:
             for f in family adult recurring sports; do echo "" > "docs/$f.ics"; done
           fi
 
-          # Simple index (no heredoc to dodge indentation issues)
+          # Simple index (kept minimal)
           if [ ! -f docs/index.html ]; then
             {
               echo '<!doctype html><meta charset="utf-8">'
@@ -86,6 +76,18 @@ jobs:
               echo '</ul>'
             } > docs/index.html
           fi
+
+      # 📦 Always upload debug artifacts so you can inspect bot walls/screens
+      - name: Upload debug artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug
+          path: |
+            data/debug
+            data/cache.json
+          if-no-files-found: ignore
+          retention-days: 7
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
@@ -105,19 +107,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-        
-        
-#      - name: Build calendars
-#        env:
-#          #EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
-#          #BANDSINTOWN_APP_ID: ${{ secrets.BANDSINTOWN_APP_ID }}
-#          FEEDS_DEBUG: "1"
-#        run: python src/main.py
-#
-#      - name: Commit and push changes
-#        run: |
-#          git config user.name "fxbg-feeds-bot"
-#          git config user.email "fxbg-feeds-bot@users.noreply.github.com"
-#          git add docs/ data/
-#          git commit -m "chore: auto-build calendars [skip ci]" || echo "No changes"
-#          git push

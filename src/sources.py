@@ -570,25 +570,24 @@ def _parse_eventbrite_detail(detail_url, user_agent=None, default_tz="America/Ne
 
 def fetch_eventbrite_discovery_playwright(list_url, pages=3, user_agent=None):
     from playwright.sync_api import sync_playwright
-    import urllib.parse as _up
-    import re
+    import urllib.parse as _up, pathlib, time
 
-    # Updated selectors
     sel_event_link = (
-        "a[data-testid='event-card-link'], "      # new primary
-        "a[href^='/e/'], a[href*='/e/']"          # fallbacks
+        "a[data-testid='event-card-link'], "
+        "[data-testid='search-event-card'] a[href^='/e/'], "
+        "a[href^='/e/'], a[href*='/e/']"
     )
     sel_results_root = (
-        "[data-testid='search-content'], "        # new
-        "[data-spec='search-content'], "          # old
-        "[data-testid='search-event-card'], "     # card itself
+        "[data-testid='search-content'], "
+        "[data-spec='search-content'], "
+        "[data-testid='search-event-card'], "
         "main"
     )
 
     user_agent = user_agent or (
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-        "AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/125.0.0.0 Safari/537.36"
+        # Windows UA tends to get fewer challenges on CI
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+        "(KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
     )
 
     def _with_page(u, n):
@@ -599,16 +598,44 @@ def fetch_eventbrite_discovery_playwright(list_url, pages=3, user_agent=None):
         return _up.urlunsplit(parts)
 
     out, detail_urls = [], set()
+    debug_dir = pathlib.Path("data/debug"); debug_dir.mkdir(parents=True, exist_ok=True)
 
     with sync_playwright() as pw:
-        browser = pw.chromium.launch(headless=True)
+        browser = pw.chromium.launch(
+            headless=(os.getenv("FEEDS_PW_HEADLESS", "1") != "0"),
+            args=[
+                "--disable-blink-features=AutomationControlled",
+                "--no-sandbox",
+                "--disable-gpu",
+            ],
+        )
         ctx = browser.new_context(
             user_agent=user_agent,
             locale="en-US",
             timezone_id="America/New_York",
             viewport={"width": 1366, "height": 900},
             extra_http_headers={"Accept-Language": "en-US,en;q=0.9"},
+            java_script_enabled=True,
+            device_scale_factor=1.25,
+            is_mobile=False,
+            has_touch=False,
+            geolocation={"latitude": 38.3032, "longitude": -77.4605},
+            permissions=["geolocation"],
+            # Pretend we're on Windows – seems to help on EB infra
+            **({"platform": "Win32"} if hasattr(browser, "new_context") else {}),
         )
+
+        # Simple stealth: hide webdriver, fill plugins, languages, etc.
+        ctx.add_init_script("""
+            Object.defineProperty(navigator, 'webdriver', {get: () => undefined});
+            Object.defineProperty(navigator, 'languages', {get: () => ['en-US','en']});
+            Object.defineProperty(navigator, 'platform', {get: () => 'Win32'});
+            Object.defineProperty(navigator, 'hardwareConcurrency', {get: () => 8});
+            Object.defineProperty(navigator, 'deviceMemory', {get: () => 8});
+            const fakePlugins = [{name:'Chrome PDF Plugin'},{name:'Chrome PDF Viewer'},{name:'Native Client'}];
+            Object.defineProperty(navigator, 'plugins', {get: () => fakePlugins});
+        """)
+
         page = ctx.new_page()
 
         def accept_cookies_if_present():
@@ -619,20 +646,19 @@ def fetch_eventbrite_discovery_playwright(list_url, pages=3, user_agent=None):
                 "button:has-text('I agree')",
             ]:
                 try:
-                    btn = page.locator(sel).first
-                    btn.wait_for(state="visible", timeout=1200)
-                    btn.click()
+                    b = page.locator(sel).first
+                    b.wait_for(state="visible", timeout=1200)
+                    b.click()
                     page.wait_for_timeout(300)
                     return
                 except Exception:
                     continue
 
         def clear_bot_wall_if_present():
-            # Eventbrite sometimes serves an interstitial (“Just a moment…”, “Attention Required”)
             try:
-                title = (page.title() or "").lower()
-                if any(k in title for k in ("just a moment", "attention required", "please wait")):
-                    page.wait_for_timeout(5000)
+                ttl = (page.title() or "").lower()
+                if any(k in ttl for k in ("just a moment", "attention required", "please wait")):
+                    page.wait_for_timeout(6000)
                     page.wait_for_load_state("networkidle", timeout=20000)
             except Exception:
                 pass
@@ -651,27 +677,18 @@ def fetch_eventbrite_discovery_playwright(list_url, pages=3, user_agent=None):
                     continue
 
         def collect_links_from_current():
-            # First try the new data-testid link
             hrefs = set()
-            try:
-                hrefs |= set(
-                    page.eval_on_selector_all(
-                        "a[data-testid='event-card-link']",
-                        "els => els.map(e => e.getAttribute('href') || '')"
-                    ) or []
-                )
-            except Exception:
-                pass
-            # Then the legacy /e/ anchors
-            try:
-                hrefs |= set(
-                    page.eval_on_selector_all(
-                        "a[href^='/e/'], a[href*='/e/']",
-                        "els => els.map(e => e.getAttribute('href') || '')"
-                    ) or []
-                )
-            except Exception:
-                pass
+            for css in [
+                "a[data-testid='event-card-link']",
+                "[data-testid='search-event-card'] a[href^='/e/']",
+                "a[href^='/e/'], a[href*='/e/']",
+            ]:
+                try:
+                    hrefs |= set(page.eval_on_selector_all(
+                        css, "els => els.map(e => e.getAttribute('href') || '')"
+                    ) or [])
+                except Exception:
+                    pass
 
             links = set()
             for h in hrefs:
@@ -680,32 +697,37 @@ def fetch_eventbrite_discovery_playwright(list_url, pages=3, user_agent=None):
                     continue
                 absu = _up.urljoin(page.url, h)
                 path = _up.urlsplit(absu).path
-                # Strictly allow only real event detail routes
                 if path.startswith("/e/") and not any(seg in path for seg in ("/organizer/", "/o/", "/collections/")):
                     links.add(absu)
             return links
 
-        def load_and_scrape(url):
+        def load_and_scrape(url, page_num):
             try:
                 page.goto(url, wait_until="domcontentloaded", timeout=45000)
                 accept_cookies_if_present()
                 clear_bot_wall_if_present()
 
-                # Wait for any result root/card to appear
+                # Wait for something that looks like results/cards
                 try:
-                    page.wait_for_selector(sel_results_root, timeout=7000)
+                    page.wait_for_selector(sel_results_root, timeout=9000)
                 except Exception:
                     pass
 
-                # Lazy-load via scrolling
-                for _ in range(14):
+                # Scroll to force lazy load + click any "show more"
+                for _ in range(18):
                     page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
                     page.wait_for_timeout(450)
                     click_show_more_if_present()
 
-                # One extra settle
-                page.wait_for_timeout(900)
+                page.wait_for_timeout(1200)
                 links = collect_links_from_current()
+
+                if not links:
+                    # dump artifacts so you can inspect what the runner saw
+                    stem = f"eb_list_p{page_num}"
+                    page.screenshot(path=str(debug_dir / f"{stem}.png"), full_page=True)
+                    (debug_dir / f"{stem}.html").write_text(page.content(), encoding="utf-8")
+
                 if os.getenv("FEEDS_DEBUG"):
                     LOG.debug("   EB(PW) %s -> found %d links", url, len(links))
                 return links
@@ -717,9 +739,9 @@ def fetch_eventbrite_discovery_playwright(list_url, pages=3, user_agent=None):
         # 1) collect detail links across pages
         for i in range(1, int(pages) + 1):
             u = _with_page(list_url, i)
-            detail_urls |= load_and_scrape(u)
+            detail_urls |= load_and_scrape(u, i)
 
-        # 2) visit each detail; parse via your detail parser
+        # 2) visit each detail
         for ev_url in sorted(detail_urls):
             ev = _parse_eventbrite_detail(ev_url, user_agent=user_agent)
             if ev:
@@ -727,8 +749,7 @@ def fetch_eventbrite_discovery_playwright(list_url, pages=3, user_agent=None):
             elif os.getenv("FEEDS_DEBUG"):
                 LOG.debug("   · EB(PW) skipped (parse failed): %s", ev_url)
 
-        ctx.close()
-        browser.close()
+        ctx.close(); browser.close()
 
     return out
 
