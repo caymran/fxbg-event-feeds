@@ -570,18 +570,25 @@ def _parse_eventbrite_detail(detail_url, user_agent=None, default_tz="America/Ne
 
 def fetch_eventbrite_discovery_playwright(list_url, pages=3, user_agent=None):
     from playwright.sync_api import sync_playwright
-    import re, urllib.parse as _up
+    import urllib.parse as _up
+    import re
+
+    # Updated selectors
     sel_event_link = (
-        "a[href^='/e/'], a[href*='/e/'], "
-        "[data-testid='search-event-card'] a[href*='/e/'], "
-        "[data-spec='search-event-card'] a[href*='/e/']"
+        "a[data-testid='event-card-link'], "      # new primary
+        "a[href^='/e/'], a[href*='/e/']"          # fallbacks
+    )
+    sel_results_root = (
+        "[data-testid='search-content'], "        # new
+        "[data-spec='search-content'], "          # old
+        "[data-testid='search-event-card'], "     # card itself
+        "main"
     )
 
-    sel_results_root = "[data-testid='search-content'], [data-spec='search-content'], main, body"
-
     user_agent = user_agent or (
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-        "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/125.0.0.0 Safari/537.36"
     )
 
     def _with_page(u, n):
@@ -605,7 +612,6 @@ def fetch_eventbrite_discovery_playwright(list_url, pages=3, user_agent=None):
         page = ctx.new_page()
 
         def accept_cookies_if_present():
-            # Try a couple of common buttons the banner uses
             for sel in [
                 "button:has-text('Accept All')",
                 "[data-testid='cookies-banner-accept']",
@@ -613,24 +619,60 @@ def fetch_eventbrite_discovery_playwright(list_url, pages=3, user_agent=None):
                 "button:has-text('I agree')",
             ]:
                 try:
-                    b = page.locator(sel).first
-                    # if it shows up within 1s, click it
-                    b.wait_for(state="visible", timeout=1000)
-                    b.click()
+                    btn = page.locator(sel).first
+                    btn.wait_for(state="visible", timeout=1200)
+                    btn.click()
                     page.wait_for_timeout(300)
                     return
                 except Exception:
                     continue
-                    
+
+        def clear_bot_wall_if_present():
+            # Eventbrite sometimes serves an interstitial (“Just a moment…”, “Attention Required”)
+            try:
+                title = (page.title() or "").lower()
+                if any(k in title for k in ("just a moment", "attention required", "please wait")):
+                    page.wait_for_timeout(5000)
+                    page.wait_for_load_state("networkidle", timeout=20000)
+            except Exception:
+                pass
+
+        def click_show_more_if_present():
+            for sel in [
+                "button:has-text('Show more')",
+                "button:has-text('Load more')",
+                "[data-testid='search-results-show-more']",
+            ]:
+                try:
+                    if page.locator(sel).first.is_visible():
+                        page.locator(sel).first.click()
+                        page.wait_for_timeout(800)
+                except Exception:
+                    continue
 
         def collect_links_from_current():
+            # First try the new data-testid link
+            hrefs = set()
             try:
-                hrefs = page.eval_on_selector_all(
-                    sel_event_link,
-                    "els => els.map(e => e.getAttribute('href') || '')"
-                ) or []
+                hrefs |= set(
+                    page.eval_on_selector_all(
+                        "a[data-testid='event-card-link']",
+                        "els => els.map(e => e.getAttribute('href') || '')"
+                    ) or []
+                )
             except Exception:
-                hrefs = []
+                pass
+            # Then the legacy /e/ anchors
+            try:
+                hrefs |= set(
+                    page.eval_on_selector_all(
+                        "a[href^='/e/'], a[href*='/e/']",
+                        "els => els.map(e => e.getAttribute('href') || '')"
+                    ) or []
+                )
+            except Exception:
+                pass
+
             links = set()
             for h in hrefs:
                 h = (h or "").split("?", 1)[0]
@@ -638,36 +680,31 @@ def fetch_eventbrite_discovery_playwright(list_url, pages=3, user_agent=None):
                     continue
                 absu = _up.urljoin(page.url, h)
                 path = _up.urlsplit(absu).path
-                if not path.startswith("/e/"):
-                    continue
-                if any(seg in path for seg in ("/organizer/", "/o/", "/collections/")):
-                    continue
-                links.add(absu)
+                # Strictly allow only real event detail routes
+                if path.startswith("/e/") and not any(seg in path for seg in ("/organizer/", "/o/", "/collections/")):
+                    links.add(absu)
             return links
 
         def load_and_scrape(url):
             try:
                 page.goto(url, wait_until="domcontentloaded", timeout=45000)
-                # right after page.goto(...)
                 accept_cookies_if_present()
-                page.wait_for_timeout(300)
+                clear_bot_wall_if_present()
 
+                # Wait for any result root/card to appear
                 try:
-                    page.wait_for_selector(
-                        "a[href^='/e/'], a[href*='/e/'], [data-testid='search-event-card']",
-                        timeout=6000
-                    )
+                    page.wait_for_selector(sel_results_root, timeout=7000)
                 except Exception:
-                    pass  # keep going; we still do scroll + scrape
+                    pass
 
-
-                # Lazy-load: scroll a few times
-                for _ in range(12):
+                # Lazy-load via scrolling
+                for _ in range(14):
                     page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
                     page.wait_for_timeout(450)
-                # One extra settle
-                page.wait_for_timeout(600)
+                    click_show_more_if_present()
 
+                # One extra settle
+                page.wait_for_timeout(900)
                 links = collect_links_from_current()
                 if os.getenv("FEEDS_DEBUG"):
                     LOG.debug("   EB(PW) %s -> found %d links", url, len(links))
@@ -682,7 +719,7 @@ def fetch_eventbrite_discovery_playwright(list_url, pages=3, user_agent=None):
             u = _with_page(list_url, i)
             detail_urls |= load_and_scrape(u)
 
-        # 2) visit each detail; parse via the same detail parser you already have
+        # 2) visit each detail; parse via your detail parser
         for ev_url in sorted(detail_urls):
             ev = _parse_eventbrite_detail(ev_url, user_agent=user_agent)
             if ev:
@@ -694,7 +731,6 @@ def fetch_eventbrite_discovery_playwright(list_url, pages=3, user_agent=None):
         browser.close()
 
     return out
-
 
 def fetch_eventbrite_discovery(list_url, pages=3, user_agent="fxbg-event-bot/1.0"):
     if not robots_allowed(list_url, user_agent):
