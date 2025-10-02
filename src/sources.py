@@ -50,6 +50,15 @@ def robots_allowed(url, user_agent="*"):
         "/events/?ical=1",
         "/events/feed",
     ]
+        # --- Free Press calendar embeds Google Calendar; we only extract public ICS IDs ---
+    try:
+        parts = urllib.parse.urlsplit(url)
+        if parts.netloc.endswith("fredericksburgfreepress.com") and parts.path.rstrip("/") == "/calendar":
+            LOG.debug("robots_allowed: allow FreePress /calendar (iframe contains public Google Calendar)")
+            return True
+    except Exception:
+        pass
+
     try:
         host = urllib.parse.urlsplit(url).netloc.lower()
         # Macaroni KID per-event ICS
