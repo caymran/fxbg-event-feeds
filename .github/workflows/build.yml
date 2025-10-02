@@ -19,15 +19,14 @@ concurrency:
 env:
   PYTHONUNBUFFERED: "1"
   TZ: "America/New_York"
-  FEEDS_DEBUG: "1"            # verbose logs
-  FEEDS_PW_HEADLESS: "1"      # run Playwright headless on CI
-  # If you have tokens, uncomment and set as repo secrets:
+  FEEDS_DEBUG: "1"
+  FEEDS_PW_HEADLESS: "1"
   # EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
   # BANDSINTOWN_APP_ID: ${{ secrets.BANDSINTOWN_APP_ID }}
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04   # ← pin to 22.04 to avoid the deps detection issue
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -42,27 +41,30 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # ✅ Properly install Playwright browsers & system deps on GH runners
-      - name: Install Playwright (browsers + deps)
-        uses: microsoft/playwright-github-action@v1
+      # Install Node (only for Playwright's installer)
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # Install Playwright browsers + OS deps via Node (works for Python too)
+      - name: Install Playwright browsers and deps
+        run: |
+          npx -y playwright@latest install --with-deps chromium
 
       - name: Build calendars
         run: |
-          # Ensure output folders exist and Jekyll is disabled
           mkdir -p docs data data/debug
           : > docs/.nojekyll
 
-          # Run your builder
-          python src/main.py || true
+          python src/main.py
 
-          # Safety: ensure .ics exist so Pages isn’t empty even if a run yields no events
           ls -l docs || true
           if ! ls docs/*.ics >/dev/null 2>&1; then
             echo "No .ics generated; creating placeholder files"
             for f in family adult recurring sports; do echo "" > "docs/$f.ics"; done
           fi
 
-          # Simple index (kept minimal)
           if [ ! -f docs/index.html ]; then
             {
               echo '<!doctype html><meta charset="utf-8">'
@@ -77,7 +79,6 @@ jobs:
             } > docs/index.html
           fi
 
-      # 📦 Always upload debug artifacts so you can inspect bot walls/screens
       - name: Upload debug artifacts
         if: always()
         uses: actions/upload-artifact@v4
@@ -99,7 +100,7 @@ jobs:
 
   deploy:
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
