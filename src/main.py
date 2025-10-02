@@ -113,6 +113,21 @@ BOILERPLATE_LINE_PATTERNS += [
     re.compile(r"\bDo Not Sell or Share My Personal Information\b", re.I),
 ]
 
+BOILERPLATE_LINE_PATTERNS += [
+    re.compile(r"^\s*Find your tickets\b.*$", re.I),           # new wording
+    re.compile(r"^\s*Contact your event organizer\b.*$", re.I),
+    re.compile(r"^\s*Search events\b.*$", re.I),
+    re.compile(r"^\s*Choose a location\b.*$", re.I),
+    re.compile(r"^\s*Event Ticketing\b.*$", re.I),
+    re.compile(r"^\s*Event Marketing Platform\b.*$", re.I),
+    re.compile(r"^\s*Tips & Guides\b.*$", re.I),
+    re.compile(r"^\s*News & Trends\b.*$", re.I),
+    re.compile(r"^\s*Tools & Features\b.*$", re.I),
+    re.compile(r"^\s*Organizer Resource Hub\b.*$", re.I),
+    re.compile(r"^\s*Contact Sales\b.*$", re.I),
+    re.compile(r"^\s*Get Started\b.*$", re.I),
+]
+
 
 
 EVENTBRITE_CHROME_HINTS = (
@@ -547,26 +562,71 @@ def _looks_like_time_or_range(txt: str) -> bool:
     return bool(re.search(pat_range, t)) or bool(re.search(pat_single, t))
 
 def route_to_sports(ev: dict, cfg: dict) -> bool:
-    rt = cfg.get("route_to_sports", {})
-    title = (ev.get("title") or "").strip()
-    location = (ev.get("location") or "").strip()
-    host = _host_from(ev)
+    """
+    Decide if an event should be forced into the 'sports' category.
 
+    Order:
+      1) Hard guards: if it clearly looks NON-sports (open mic, trivia, karaoke, poetry, comedy, art),
+         bail out early.
+      2) Domain-based routing from YAML.
+      3) Title/location regex/glob from YAML.
+
+    Returns True if it should be routed to 'sports', else False.
+    """
+    rt = cfg.get("route_to_sports", {}) or {}
+    title = (ev.get("title") or "").strip()
+    desc  = (ev.get("description") or "").strip()
+    location = (ev.get("location") or "").strip()
+    host = _host_from(ev).lower()
+
+    t = f"{title}\n{desc}".lower()
+
+    # ---- HARD GUARDS: obvious non-sports patterns ----
+    # (Keep these broad so they stop accidental matches like "Open Mic Wednesdays")
+    NON_SPORTS_PHRASES = [
+        "open mic",
+        "open-mic",
+        "poetry",
+        "spoken word",
+        "karaoke",
+        "trivia",
+        "quiz night",
+        "comedy",
+        "standup",
+        "stand-up",
+        "paint & sip",
+        "paint and sip",
+        "art show",
+        "craft fair",
+        "book club",
+        "board game",      # board games are not sports in this context
+        "tabletop",
+        "dnd", "d&d",
+        "film screening",
+        "movie night",
+        "wine tasting",
+        "beer tasting",
+        "live music",
+        "concert",
+        "dj set",
+    ]
+    for phrase in NON_SPORTS_PHRASES:
+        if phrase in t:
+            return False
+
+    # ---- DOMAIN-BASED ROUTING (from YAML) ----
     for dom in rt.get("domains", []):
-        dom = dom.lower().strip()
+        dom = (dom or "").lower().strip()
         if dom and host.endswith(dom):
             return True
 
+    # ---- REGEX-BASED ROUTING (from YAML) ----
     for pat in rt.get("title_regex", []):
         try:
             if re.search(pat, title, re.IGNORECASE):
                 return True
         except re.error:
             pass
-
-    for pat in rt.get("title_glob", []):
-        if fnmatch.fnmatch(title.lower(), pat.lower()):
-            return True
 
     for pat in rt.get("location_regex", []):
         try:
@@ -575,7 +635,13 @@ def route_to_sports(ev: dict, cfg: dict) -> bool:
         except re.error:
             pass
 
+    # ---- GLOB-BASED ROUTING (from YAML) ----
+    for pat in rt.get("title_glob", []):
+        if fnmatch.fnmatch(title.lower(), pat.lower()):
+            return True
+
     return False
+
 
 def is_dropped(ev: dict, cfg: dict) -> bool:
     drops = cfg.get("drop", {})
